@@ -133,7 +133,7 @@ GameObject:
   m_Component:
   - component: {fileID: 358228041}
   - component: {fileID: 358228040}
-  - component: {fileID: 358228043}
+  - component: {fileID: 358228042}
   m_Layer: 0
   m_Name: GameEnding
   m_TagString: Untagged
@@ -201,7 +201,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &358228043
+--- !u!114 &358228042
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -226,7 +226,7 @@ GameObject:
   - component: {fileID: 606738828}
   - component: {fileID: 606738827}
   - component: {fileID: 606738826}
-  - component: {fileID: 606738831}
+  - component: {fileID: 606738830}
   m_Layer: 0
   m_Name: Personaje
   m_TagString: Untagged
@@ -348,7 +348,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 75f5f34dc1b5347e0b8351032682f224, type: 3}
-  m_Color: {r: 0.14509805, g: 0.3998211, b: 0.83137256, a: 1}
+  m_Color: {r: 0, g: 0.3807745, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -373,7 +373,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &606738831
+--- !u!114 &606738830
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -810,6 +810,8 @@ MonoBehaviour:
   - Minijuego 1
   - Minijuego 2
   - Minijuego 3
+  - Minijuego 4
+  escenariosCargados: []
 --- !u!4 &1417619191
 Transform:
   m_ObjectHideFlags: 0
@@ -831,7 +833,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 963194228}
   - {fileID: 705507995}
-  - {fileID: 1417619191}
   - {fileID: 935780530}
   - {fileID: 606738829}
   - {fileID: 358228041}
+  - {fileID: 1417619191}

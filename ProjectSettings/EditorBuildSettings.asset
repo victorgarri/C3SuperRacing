@@ -20,4 +20,13 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/M3/Minijuego 3.unity
     guid: 394a9f8d81ba1b243aead00d22a9e93d
+  - enabled: 1
+    path: Assets/Scenes/M4/Minijuego 4.unity
+    guid: eede4db1fd102934593481ed84100ea6
+  - enabled: 1
+    path: Assets/Scenes/C2/Circuito 2.unity
+    guid: d57f97c1b38b6354e8ecab7a0edce9ce
+  - enabled: 1
+    path: Assets/Scenes/C3/Circuito 3.unity
+    guid: 8ba041becb47bbd4d8c1ab3ef8a41e72
   m_configObjects: {}

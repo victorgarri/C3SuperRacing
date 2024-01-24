@@ -1,7 +1,9 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Random = UnityEngine.Random;
 
 public class GameManager : MonoBehaviour
 {
@@ -13,28 +15,44 @@ public class GameManager : MonoBehaviour
     [Header("ESCENARIOS MINIJUEGOS")]
     public List<string> escenariosMinijuegos = new List<string>();
     
-    void Start()
+    //Lista de escenarios que van a salir durante el juego
+    public List<string> escenariosCargados;
+    private int indice = 0;
+
+    private static GameManager _instance;
+
+    //Hago que me guarde los escenarios y empiece por el escenario deseado antes de que cargue todo el código.
+    //Además de que cuando cambie de escena no se me destruya el Game Manager, o sino se pierde los datos establecidos
+    private void Awake()
     {
-        GuardarListaEscenarios();
+        if (_instance == null)
+        {
+            _instance = this;
+            DontDestroyOnLoad(gameObject);
+            SceneManager.LoadScene("Minijuego 0");
+            GuardarListaEscenarios();
+
+            // Realiza la inicialización aquí
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
-    
-    // Método para guardar la lista de nombres de escenarios en PlayerPrefs
+
+    // Método para guardar la lista de nombres de los escenarios
     private void GuardarListaEscenarios()
     {
-        DatosJuego datosJuego = DatosJuego.Instancia;
-
-        // Guardar datos en la lista de escenarios cargados
-        datosJuego.escenariosCargados = new List<string>();
-
         List<string> minijuegosAleatorios = escogerMinijuegosAleatorios();
 
-        datosJuego.escenariosCargados.Add(escenariosCircuitos[0]);  //Primer circuito
-        datosJuego.escenariosCargados.Add(minijuegosAleatorios[0]); //Primer minijuego
-        datosJuego.escenariosCargados.Add(escenariosCircuitos[1]);  //Segundo circuito
-        datosJuego.escenariosCargados.Add(minijuegosAleatorios[1]); //Segundo minijuego
-        datosJuego.escenariosCargados.Add(escenariosCircuitos[2]);  //Tercer circuito
+        escenariosCargados.Add(escenariosCircuitos[0]);  //Primer circuito
+        escenariosCargados.Add(minijuegosAleatorios[0]); //Primer minijuego
+        escenariosCargados.Add(escenariosCircuitos[1]);  //Segundo circuito
+        escenariosCargados.Add(minijuegosAleatorios[1]); //Segundo minijuego
+        escenariosCargados.Add(escenariosCircuitos[2]);  //Tercer circuito
     }
 
+    //Función para que me escoja minijuegos aleatorios
     private List<string> escogerMinijuegosAleatorios()
     {
         //Creo una lista nueva
@@ -52,9 +70,10 @@ public class GameManager : MonoBehaviour
             // Evitamos que salga el mismo minijuego
             while (segundoMinijuego == primerMinijuego)
             {
-                segundoMinijuego = Random.Range(1, nMinijuegos);
+                segundoMinijuego = Random.Range(0, nMinijuegos);
             }
 
+            //Se lo añadimos a la lista nueva
             escenariosMinijuegosAleatorios.Add(escenariosMinijuegos[primerMinijuego]);
             escenariosMinijuegosAleatorios.Add(escenariosMinijuegos[segundoMinijuego]);
         }
@@ -63,17 +82,17 @@ public class GameManager : MonoBehaviour
             Debug.LogError("No hay suficientes escenarios de minijuegos para seleccionar.");
         }
 
+        //Devolvemos la lista
         return escenariosMinijuegosAleatorios;
     }
     
+    //Método para realizar un cambio de escenario
     public void siguienteEscenario()
     {
-        DatosJuego datosJuego = DatosJuego.Instancia;
-        datosJuego.indice = datosJuego.indice + 1;
         
-        if (datosJuego.indice - 1 < datosJuego.escenariosCargados.Count)
+        if (indice < escenariosCargados.Count)
         {
-            string nombreEscenario = datosJuego.escenariosCargados[datosJuego.indice - 1];
+            string nombreEscenario = escenariosCargados[indice];
         
             if (SceneManager.GetSceneByName(nombreEscenario) != null)
             {
@@ -84,10 +103,11 @@ public class GameManager : MonoBehaviour
             {
                 Debug.LogError("El escenario '" + nombreEscenario + "' no existe");
             }
+            indice = indice + 1;
         }
         else
         {
-            Debug.Log("Minijuego terminado");
+            Debug.Log("Juego terminado");
         }
     }
 }

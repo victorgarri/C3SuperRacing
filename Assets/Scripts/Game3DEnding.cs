@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GameEnding3D : MonoBehaviour
+public class Game3DEnding : MonoBehaviour
 {
     public GameObject personaje;
 
