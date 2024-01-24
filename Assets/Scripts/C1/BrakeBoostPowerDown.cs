@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBoostPowerup : MonoBehaviour
+public class BrakeBoostPowerDown : MonoBehaviour
 {
     private void OnTriggerEnter(Collider other)
     {
@@ -12,9 +12,8 @@ public class SpeedBoostPowerup : MonoBehaviour
 
             if (carController != null)
             {
-                carController.ActivateBoost();
+                carController.ActivateBrake();
             }
         }
     }
 }
-

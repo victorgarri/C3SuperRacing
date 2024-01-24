@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class CarController : MonoBehaviour
 {
-    public float moveSpeed = 2.0f;
+    public static float moveSpeed = 2.0f;
+    public float currentMoveSpeed = moveSpeed;
     private bool isBoostActive = false;
+    private bool isBrakeActive = false;
 
     private void Update()
     {
@@ -14,19 +16,31 @@ public class CarController : MonoBehaviour
 
         Vector3 moveDirection = new Vector3(horizontalInput, 0.0f, verticalInput).normalized;
 
+        UpdateMoveSpeed();
         MoveCar(moveDirection);
+        
+        Debug.Log(currentMoveSpeed);
+    }
+    
+    private void UpdateMoveSpeed()
+    {
+        if (isBoostActive)
+        {
+            currentMoveSpeed = moveSpeed * 2.0f;
+        }
+        else if (isBrakeActive)
+        {
+            currentMoveSpeed = moveSpeed / 2.0f;
+        }
+        else
+        {
+            currentMoveSpeed = moveSpeed;
+        }
     }
 
     private void MoveCar(Vector3 moveDirection)
     {
-        if (isBoostActive)
-        {
-            transform.Translate(moveDirection * (moveSpeed * 2.0f) * Time.deltaTime);
-        }
-        else
-        {
-            transform.Translate(moveDirection * moveSpeed * Time.deltaTime);
-        }
+        transform.Translate(moveDirection * currentMoveSpeed * Time.deltaTime);
     }
 
     public void ActivateBoost()
@@ -34,8 +48,35 @@ public class CarController : MonoBehaviour
         isBoostActive = true;
         StartCoroutine(DeactivateBoostAfterDelay(3.0f));
     }
+    
+    public void ActivateBrake()
+    {
+        isBrakeActive = true;
+        StartCoroutine(DeactivateBoostAfterDelay(0.0f));
+    }
+    
+    private void DeactivateBrake()
+    {
+        isBrakeActive = false;
+    }
 
-    private System.Collections.IEnumerator DeactivateBoostAfterDelay(float delay)
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.CompareTag("BrakePlane"))
+        {
+            ActivateBrake();
+        }
+    }
+    
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("BrakePlane"))
+        {
+            DeactivateBrake();
+        }
+    }
+    
+    private IEnumerator DeactivateBoostAfterDelay(float delay)
     {
         yield return new WaitForSeconds(delay);
         isBoostActive = false;
