@@ -5,9 +5,6 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
-    // Lista de escenarios que serán seleccionados
-    private List<string> escenariosCargados;
-    
     // Lista de escenarios que serán los circuitos
     [Header("ESCENARIOS CIRCUITOS")]
     public List<string> escenariosCircuitos = new List<string>();
@@ -15,51 +12,82 @@ public class GameManager : MonoBehaviour
     //Lista de escenarios que serán los minijuegos
     [Header("ESCENARIOS MINIJUEGOS")]
     public List<string> escenariosMinijuegos = new List<string>();
-
+    
+    void Start()
+    {
+        GuardarListaEscenarios();
+    }
+    
     // Método para guardar la lista de nombres de escenarios en PlayerPrefs
-    public void GuardarListaEscenarios()
+    private void GuardarListaEscenarios()
     {
-        escenariosCargados = [esce]
-        
-        
-        string listaCircuitos = JsonUtility.ToJson(escenariosCircuitos);
-        string listaMinijuegos = JsonUtility.ToJson(escenariosMinijuegos);
+        DatosJuego datosJuego = DatosJuego.Instancia;
 
-        // Guardar la cadena JSON en PlayerPrefs
-        PlayerPrefs.SetString("ListaEscenarios", );
-        PlayerPrefs.Save();
+        // Guardar datos en la lista de escenarios cargados
+        datosJuego.escenariosCargados = new List<string>();
 
-        Debug.Log("Lista de escenarios guardada");
+        List<string> minijuegosAleatorios = escogerMinijuegosAleatorios();
+
+        datosJuego.escenariosCargados.Add(escenariosCircuitos[0]);  //Primer circuito
+        datosJuego.escenariosCargados.Add(minijuegosAleatorios[0]); //Primer minijuego
+        datosJuego.escenariosCargados.Add(escenariosCircuitos[1]);  //Segundo circuito
+        datosJuego.escenariosCargados.Add(minijuegosAleatorios[1]); //Segundo minijuego
+        datosJuego.escenariosCargados.Add(escenariosCircuitos[2]);  //Tercer circuito
     }
 
-    // Método para cargar la lista de nombres de escenarios desde PlayerPrefs
-    public void CargarListaEscenarios()
+    private List<string> escogerMinijuegosAleatorios()
     {
-        // Obtener la cadena JSON de PlayerPrefs
-        string listaJson = PlayerPrefs.GetString("ListaEscenarios", "");
+        //Creo una lista nueva
+        List<string> escenariosMinijuegosAleatorios = new List<string>();
+        
+        //Pillo el número de minijuegos que hay
+        int nMinijuegos = escenariosMinijuegos.Count;
 
-        // Si hay una cadena JSON válida, convertirla a la lista
-        if (!string.IsNullOrEmpty(listaJson))
+        if (nMinijuegos >= 2)
         {
-            Debug.Log("Lista de escenarios cargada");
+            //Escogemos los minijuegos aleatorios
+            int primerMinijuego = Random.Range(0, nMinijuegos);
+            int segundoMinijuego = Random.Range(0, nMinijuegos);
+
+            // Evitamos que salga el mismo minijuego
+            while (segundoMinijuego == primerMinijuego)
+            {
+                segundoMinijuego = Random.Range(1, nMinijuegos);
+            }
+
+            escenariosMinijuegosAleatorios.Add(escenariosMinijuegos[primerMinijuego]);
+            escenariosMinijuegosAleatorios.Add(escenariosMinijuegos[segundoMinijuego]);
         }
         else
         {
-            Debug.Log("No se encontró una lista de escenarios guardada");
+            Debug.LogError("No hay suficientes escenarios de minijuegos para seleccionar.");
         }
-    }
 
-    // Método para cargar un escenario por su nombre
-    public void CargarEscenarioPorNombre(string nombreEscenario)
+        return escenariosMinijuegosAleatorios;
+    }
+    
+    public void siguienteEscenario()
     {
-        if (SceneManager.GetSceneByName(nombreEscenario) != null)
+        DatosJuego datosJuego = DatosJuego.Instancia;
+        datosJuego.indice = datosJuego.indice + 1;
+        
+        if (datosJuego.indice - 1 < datosJuego.escenariosCargados.Count)
         {
-            SceneManager.LoadScene(nombreEscenario);
-            Debug.Log("Escenario cargado: " + nombreEscenario);
+            string nombreEscenario = datosJuego.escenariosCargados[datosJuego.indice - 1];
+        
+            if (SceneManager.GetSceneByName(nombreEscenario) != null)
+            {
+                SceneManager.LoadScene(nombreEscenario);
+                Debug.Log("Escenario cargado: " + nombreEscenario);
+            }
+            else
+            {
+                Debug.LogError("El escenario '" + nombreEscenario + "' no existe");
+            }
         }
         else
         {
-            Debug.LogError("El escenario '" + nombreEscenario + "' no existe");
+            Debug.Log("Minijuego terminado");
         }
     }
 }
