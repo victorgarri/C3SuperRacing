@@ -574,6 +574,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpeedBoostPowerUp
       objectReference: {fileID: 0}
+    - target: {fileID: 3040227177844250397, guid: 88a741973f8040d44a8218b75104ef5e, type: 3}
+      propertyPath: m_TagString
+      value: SpeedPlane
+      objectReference: {fileID: 0}
     - target: {fileID: 3314057641933711445, guid: 88a741973f8040d44a8218b75104ef5e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1
@@ -619,6 +623,71 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 88a741973f8040d44a8218b75104ef5e, type: 3}
+--- !u!1001 &3144556335264057344
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 23172987643864215, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_Name
+      value: OilSpillPowerDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 23172987643864215, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_TagString
+      value: OilPlane
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1646792397763186790, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8160990418925518968, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 04a4d2e009d947345a6c591f37bc5b0f, type: 3}
 --- !u!1001 &8940782545858653316
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -686,3 +755,4 @@ SceneRoots:
   - {fileID: 1723004368}
   - {fileID: 2347731403549159551}
   - {fileID: 8940782545858653316}
+  - {fileID: 3144556335264057344}

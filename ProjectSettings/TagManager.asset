@@ -5,6 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - BrakePlane
+  - SpeedPlane
+  - OilPlane
   layers:
   - Default
   - TransparentFX

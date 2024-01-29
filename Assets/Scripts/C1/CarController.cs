@@ -8,6 +8,8 @@ public class CarController : MonoBehaviour
     public float currentMoveSpeed = moveSpeed;
     private bool isBoostActive = false;
     private bool isBrakeActive = false;
+    private bool isOilActive = false;
+    private bool isTambaleando = false;
 
     private void Update()
     {
@@ -32,6 +34,10 @@ public class CarController : MonoBehaviour
         {
             currentMoveSpeed = moveSpeed / 2.0f;
         }
+        else if (isOilActive)
+        {
+            currentMoveSpeed = moveSpeed / 1.5f;
+        }
         else
         {
             currentMoveSpeed = moveSpeed;
@@ -55,9 +61,28 @@ public class CarController : MonoBehaviour
         StartCoroutine(DeactivateBoostAfterDelay(0.0f));
     }
     
+    public void ActivateOil()
+    {
+        isOilActive = true;
+        StartCoroutine(DeactivateBoostAfterDelay(0.0f));
+        TambaleoCoroutine();
+    }
+    
+    private IEnumerator DeactivateBoostAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isBoostActive = false;
+    }
+    
     private void DeactivateBrake()
     {
         isBrakeActive = false;
+    }
+    
+    private void DeactivateOil()
+    {
+        isOilActive = false;
+        StopTambaleo();
     }
 
     private void OnTriggerEnter(Collider other)
@@ -65,6 +90,10 @@ public class CarController : MonoBehaviour
         if (other.CompareTag("BrakePlane"))
         {
             ActivateBrake();
+        } 
+        else if (other.CompareTag("OilPlane"))
+        {
+            ActivateOil();
         }
     }
     
@@ -74,12 +103,45 @@ public class CarController : MonoBehaviour
         {
             DeactivateBrake();
         }
+        else if (other.CompareTag("OilPlane"))
+        {
+            DeactivateOil();
+        }
     }
     
-    private IEnumerator DeactivateBoostAfterDelay(float delay)
+    private void TambaleoCoroutine()
     {
-        yield return new WaitForSeconds(delay);
-        isBoostActive = false;
+        if (!isTambaleando)
+        {
+            StartCoroutine(Tambaleo());
+        }
+    }
+
+    private IEnumerator Tambaleo()
+    {
+        isTambaleando = true;
+        float elapsedTime = 0f;
+
+        while (elapsedTime < 1f && isOilActive)
+        {
+            float xRotation = Mathf.Sin(Time.time * 10f) * 5f; // Movimiento sinusoidal
+            float zRotation = Random.Range(-1f, 1f);
+
+            transform.rotation = Quaternion.Euler(new Vector3(xRotation, 0f, zRotation));
+
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+
+        transform.rotation = Quaternion.identity;
+        isTambaleando = false;
+    }
+    
+    private void StopTambaleo()
+    {
+        StopCoroutine("Tambaleo");
+        transform.rotation = Quaternion.identity;
+        isTambaleando = false;
     }
 }
 
