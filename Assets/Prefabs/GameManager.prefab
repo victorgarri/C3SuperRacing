@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &1927300235703944484
+--- !u!1 &6899355878734018381
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,55 +8,40 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2403076265418503416}
-  - component: {fileID: 4829899878247951672}
-  - component: {fileID: 401182749004561195}
+  - component: {fileID: 3516873126915896637}
+  - component: {fileID: 7860804461539342642}
   m_Layer: 0
-  m_Name: ControlEscenas
+  m_Name: GameManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2403076265418503416
+--- !u!4 &3516873126915896637
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927300235703944484}
+  m_GameObject: {fileID: 6899355878734018381}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 6.7118025, y: 8.645061, z: 1.2545528}
+  m_LocalPosition: {x: -2.7634044, y: 4.317815, z: -0.016528726}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4829899878247951672
+--- !u!114 &7860804461539342642
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927300235703944484}
+  m_GameObject: {fileID: 6899355878734018381}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e667dd5b79ff2643abe2a971215cccb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  escenariosCircuitos: []
-  escenariosMinijuegos: []
---- !u!114 &401182749004561195
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1927300235703944484}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3e667dd5b79ff2643abe2a971215cccb, type: 3}
+  m_Script: {fileID: 11500000, guid: c63e81e5152750e44aa2e651e236e6a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   escenariosCircuitos:
@@ -68,3 +53,4 @@ MonoBehaviour:
   - Minijuego 2
   - Minijuego 3
   - Minijuego 4
+  escenariosCargados: []
