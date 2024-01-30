@@ -16,10 +16,12 @@ public class GameManager : MonoBehaviour
     public List<string> escenariosMinijuegos = new List<string>();
     
     //Lista de escenarios que van a salir durante el juego
-    public List<string> escenariosCargados;
+    private List<string> escenariosCargados;
     private int indice = 0;
 
     private static GameManager _instance;
+    
+    //Variable que me guarde una determinada puntuación
 
     //Hago que me guarde los escenarios y empiece por el escenario deseado antes de que cargue todo el código.
     //Además de que cuando cambie de escena no se me destruya el Game Manager, o sino se pierde los datos establecidos
