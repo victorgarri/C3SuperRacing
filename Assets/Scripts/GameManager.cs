@@ -1,11 +1,12 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+public class GameManager : NetworkBehaviour
 {
     // Lista de escenarios que serán los circuitos
     [Header("ESCENARIOS CIRCUITOS")]
@@ -16,12 +17,14 @@ public class GameManager : MonoBehaviour
     public List<string> escenariosMinijuegos = new List<string>();
     
     //Lista de escenarios que van a salir durante el juego
-    private List<string> escenariosCargados;
+    public List<string> escenariosCargados;
     private int indice = 0;
-
-    private static GameManager _instance;
     
-    //Variable que me guarde una determinada puntuación
+    //Variable que me guarde la puntuación de cada jugador
+    [SyncVar]
+    public SyncDictionary<string, float> puntuacionJugadores = new SyncDictionary<string, float>();
+    
+    private static GameManager _instance;
 
     //Hago que me guarde los escenarios y empiece por el escenario deseado antes de que cargue todo el código.
     //Además de que cuando cambie de escena no se me destruya el Game Manager, o sino se pierde los datos establecidos
