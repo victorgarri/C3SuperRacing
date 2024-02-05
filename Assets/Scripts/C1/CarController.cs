@@ -48,43 +48,7 @@ public class CarController : MonoBehaviour
     {
         transform.Translate(moveDirection * currentMoveSpeed * Time.deltaTime);
     }
-
-    public void ActivateBoost()
-    {
-        isBoostActive = true;
-        StartCoroutine(DeactivateBoostAfterDelay(3.0f));
-    }
     
-    public void ActivateBrake()
-    {
-        isBrakeActive = true;
-        StartCoroutine(DeactivateBoostAfterDelay(0.0f));
-    }
-    
-    public void ActivateOil()
-    {
-        isOilActive = true;
-        StartCoroutine(DeactivateBoostAfterDelay(0.0f));
-        TambaleoCoroutine();
-    }
-    
-    private IEnumerator DeactivateBoostAfterDelay(float delay)
-    {
-        yield return new WaitForSeconds(delay);
-        isBoostActive = false;
-    }
-    
-    private void DeactivateBrake()
-    {
-        isBrakeActive = false;
-    }
-    
-    private void DeactivateOil()
-    {
-        isOilActive = false;
-        StopTambaleo();
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("BrakePlane"))
@@ -108,28 +72,70 @@ public class CarController : MonoBehaviour
             DeactivateOil();
         }
     }
+
+    #region BOOST
     
-    private void TambaleoCoroutine()
+    public void ActivateBoost()
+    {
+        isBoostActive = true;
+        StartCoroutine(DeactivateBoostAfterDelay(3.0f));
+    }
+    
+    private IEnumerator DeactivateBoostAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        isBoostActive = false;
+    }
+    
+    #endregion
+    
+    # region BRAKE
+    
+    public void ActivateBrake()
+    {
+        isBrakeActive = true;
+        StartCoroutine(DeactivateBoostAfterDelay(0.0f));
+    }
+    
+    private void DeactivateBrake()
+    {
+        isBrakeActive = false;
+    }
+    
+    #endregion
+    
+    #region OIL
+    public void ActivateOil()
+    {
+        isOilActive = true;
+        StartCoroutine(DeactivateBoostAfterDelay(0.0f));
+        ResbalarCoroutine();
+    }
+    
+    private void DeactivateOil()
+    {
+        isOilActive = false;
+        StopResbalar();
+    }
+    
+    private void ResbalarCoroutine()
     {
         if (!isTambaleando)
         {
-            StartCoroutine(Tambaleo());
+            StartCoroutine(Resbalar());
         }
     }
 
-    private IEnumerator Tambaleo()
+    private IEnumerator Resbalar()
     {
         isTambaleando = true;
-        float elapsedTime = 0f;
 
-        while (elapsedTime < 1f && isOilActive)
+        while (isOilActive)
         {
-            float xRotation = Mathf.Sin(Time.time * 10f) * 5f; // Movimiento sinusoidal
-            float zRotation = Random.Range(-1f, 1f);
+            float yRotation = Mathf.Sin(Time.time * 10f) * 5f;
 
-            transform.rotation = Quaternion.Euler(new Vector3(xRotation, 0f, zRotation));
+            transform.rotation = Quaternion.Euler(new Vector3(0f, yRotation, 0f));
 
-            elapsedTime += Time.deltaTime;
             yield return null;
         }
 
@@ -137,11 +143,14 @@ public class CarController : MonoBehaviour
         isTambaleando = false;
     }
     
-    private void StopTambaleo()
+    private void StopResbalar()
     {
-        StopCoroutine("Tambaleo");
+        StopCoroutine("Resbalar");
         transform.rotation = Quaternion.identity;
         isTambaleando = false;
     }
+    
+    #endregion
+    
 }
 
