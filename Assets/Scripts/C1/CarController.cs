@@ -1,16 +1,32 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CarController : MonoBehaviour
 {
-    public static float moveSpeed = 2.0f;
+    public static float moveSpeed = 4.0f;
     public float currentMoveSpeed = moveSpeed;
     private bool isBoostActive = false;
     private bool isBrakeActive = false;
     private bool isOilActive = false;
     private bool isTambaleando = false;
-
+    
+    private bool isPowerUpCollected = false;
+    public Image powerUpImage;
+    public Sprite powerUpSprite;
+    
+    public GameObject projectilePrefab;
+    public Transform spawnPoint;
+    
+    private void Start()
+    {
+        if (powerUpImage != null)
+        {
+            powerUpImage.gameObject.SetActive(false);
+        }
+    }
+    
     private void Update()
     {
         float horizontalInput = Input.GetAxis("Horizontal");
@@ -22,6 +38,12 @@ public class CarController : MonoBehaviour
         MoveCar(moveDirection);
         
         Debug.Log(currentMoveSpeed);
+        
+        if (Input.GetKeyDown(KeyCode.Space) && isPowerUpCollected)
+        {
+            UsePowerUp();
+            ThrowProjectile();
+        }
     }
     
     private void UpdateMoveSpeed()
@@ -59,6 +81,10 @@ public class CarController : MonoBehaviour
         {
             ActivateOil();
         }
+        else if (other.CompareTag("PowerUp"))
+        {
+            CollectPowerUp();
+        }
     }
     
     private void OnTriggerExit(Collider other)
@@ -73,6 +99,31 @@ public class CarController : MonoBehaviour
         }
     }
 
+    #region POWERUPS
+    
+    private void CollectPowerUp()
+    {
+        isPowerUpCollected = true;
+        
+        if (powerUpImage != null)
+        {
+            powerUpImage.sprite = powerUpSprite;
+            powerUpImage.gameObject.SetActive(true);
+        }
+    }
+
+    private void UsePowerUp()
+    {
+        if (powerUpImage != null)
+        {
+            powerUpImage.gameObject.SetActive(false);
+        }
+        
+        isPowerUpCollected = false;
+    }
+    
+    #endregion
+    
     #region BOOST
     
     public void ActivateBoost()
@@ -151,6 +202,17 @@ public class CarController : MonoBehaviour
     }
     
     #endregion
-    
+
+    #region PROJECTILE
+
+    private void ThrowProjectile()
+    {
+        if (projectilePrefab != null && spawnPoint != null)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
+        }
+    }
+
+    #endregion
 }
 
