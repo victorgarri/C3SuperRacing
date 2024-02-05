@@ -16,7 +16,7 @@ public class GameManager : MonoBehaviour
     public List<string> escenariosMinijuegos = new List<string>();
     
     //Lista de escenarios que van a salir durante el juego
-    private List<string> escenariosCargados;
+    public List<string> escenariosCargados;
     private int indice = 0;
 
     private static GameManager _instance;
