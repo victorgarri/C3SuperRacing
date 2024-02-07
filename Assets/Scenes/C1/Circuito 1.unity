@@ -1440,7 +1440,6 @@ GameObject:
   m_Component:
   - component: {fileID: 792988744}
   - component: {fileID: 792988746}
-  - component: {fileID: 792988745}
   m_Layer: 0
   m_Name: CamaraMinimapa
   m_TagString: Untagged
@@ -1463,14 +1462,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1761223670}
   m_LocalEulerAnglesHint: {x: 90, y: 90, z: 0}
---- !u!81 &792988745
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 792988743}
-  m_Enabled: 1
 --- !u!20 &792988746
 Camera:
   m_ObjectHideFlags: 0
