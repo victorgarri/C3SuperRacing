@@ -8,6 +8,7 @@ TagManager:
   - SpeedPlane
   - OilPlane
   - PowerUp
+  - Muro
   layers:
   - Default
   - TransparentFX

@@ -10,7 +10,7 @@ public class CarController : MonoBehaviour
     private bool isBoostActive = false;
     private bool isBrakeActive = false;
     private bool isOilActive = false;
-    private bool isTambaleando = false;
+    private bool isResbalando = false;
     
     private bool isPowerUpCollected = false;
     public Image powerUpImage;
@@ -18,6 +18,7 @@ public class CarController : MonoBehaviour
     
     public GameObject projectilePrefab;
     public Transform spawnPoint;
+    public float velocidadProjectile = 10f;
     
     private void Start()
     {
@@ -171,7 +172,7 @@ public class CarController : MonoBehaviour
     
     private void ResbalarCoroutine()
     {
-        if (!isTambaleando)
+        if (!isResbalando)
         {
             StartCoroutine(Resbalar());
         }
@@ -179,7 +180,7 @@ public class CarController : MonoBehaviour
 
     private IEnumerator Resbalar()
     {
-        isTambaleando = true;
+        isResbalando = true;
 
         while (isOilActive)
         {
@@ -191,14 +192,14 @@ public class CarController : MonoBehaviour
         }
 
         transform.rotation = Quaternion.identity;
-        isTambaleando = false;
+        isResbalando = false;
     }
     
     private void StopResbalar()
     {
         StopCoroutine("Resbalar");
         transform.rotation = Quaternion.identity;
-        isTambaleando = false;
+        isResbalando = false;
     }
     
     #endregion
@@ -210,6 +211,15 @@ public class CarController : MonoBehaviour
         if (projectilePrefab != null && spawnPoint != null)
         {
             GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
+            Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+            
+            Vector3 launchDirection = spawnPoint.forward;
+        
+            projectileRb.velocity = launchDirection * velocidadProjectile;
+
+            ThrowProjectile throwProjectileController = projectile.AddComponent<ThrowProjectile>();
+        
+            throwProjectileController.SetPlayer(gameObject);
         }
     }
 

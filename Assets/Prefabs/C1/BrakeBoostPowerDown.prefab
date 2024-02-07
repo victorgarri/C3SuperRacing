@@ -13,7 +13,6 @@ GameObject:
   - component: {fileID: 3415073449852511039}
   - component: {fileID: 5325250753570282273}
   - component: {fileID: 1991782038084462885}
-  - component: {fileID: 264513816137566125}
   m_Layer: 0
   m_Name: BrakeBoostPowerDown
   m_TagString: BrakePlane
@@ -129,15 +128,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 10, y: 2.220446e-16, z: 10}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &264513816137566125
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5986022866816045104}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6f82476dc6b539240b1607f95aaca983, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
