@@ -8,13 +8,13 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/OnlineTesting.unity
     guid: e0e36e3d1e4643445b149321b55aa999
-  - enabled: 0
+  - enabled: 1
     path: Assets/Scenes/C1/Circuito1.unity
     guid: 25c30bcab750a204dba9c524850d44ec
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/M0/Minijuego 0.unity
     guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/C1/Circuito 1.unity
     guid: 7ca38445c4af9ed40997426eca306798
   - enabled: 0
@@ -35,4 +35,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/C3/Circuito 3.unity
     guid: 8ba041becb47bbd4d8c1ab3ef8a41e72
+  - enabled: 1
+    path: Assets/Scenes/OfflineScene.unity
+    guid: 2b689bbbe8cdf6745948333bfaa2e6ea
+  - enabled: 1
+    path: Assets/Scenes/RoomScene.unity
+    guid: 05a3826c006bcc64eb989c26ca212f13
   m_configObjects: {}
