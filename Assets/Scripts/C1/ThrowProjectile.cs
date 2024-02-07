@@ -24,20 +24,22 @@ public class ThrowProjectile : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
+            bounceCount = 0;
+        }
+        else if (collision.gameObject.CompareTag("Muro") && bounceCount < maxBounces)
+        {
+            Rigidbody rb = GetComponent<Rigidbody>();
+            
+            Vector3 normal = collision.contacts[0].normal;
+            rb.AddForce(normal * 9, ForceMode.Impulse);
+
+            bounceCount++;
+            Debug.Log(bounceCount);
         }
         else
         {
-            if (bounceCount < maxBounces)
-            {
-                Rigidbody rb = GetComponent<Rigidbody>();
-                rb.velocity = new Vector3(rb.velocity.x, rb.velocity.y, -rb.velocity.z);
-
-                bounceCount++;
-            }
-            else
-            {
-                Destroy(gameObject);
-            }
+            Destroy(gameObject);
+            bounceCount = 0;
         }
     }
 }
