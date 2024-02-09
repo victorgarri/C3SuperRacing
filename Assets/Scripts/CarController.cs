@@ -42,6 +42,7 @@ public class CarController : MonoBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
+        _rigidbody.centerOfMass = new Vector3(0, -.4f, 0);
         currentSpeedText = GameObject.Find("SpeedText").GetComponent<TextMeshProUGUI>();
     }
 
