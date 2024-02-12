@@ -23,12 +23,6 @@ public class GameStartEndCir1 : MonoBehaviour
 
         textoPuntuacion = GameObject.Find("TextoPuntuacion").GetComponent<TextMeshProUGUI>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-
-        foreach (var puntuacionJugador in gameManager.puntuacionJugadores)
-        {
-            textoPuntuacion.text += "Jugador "+puntuacionJugador.Key+": "+puntuacionJugador.Value+"s";
-        }
-
     }
     
     // Update is called once per frame
