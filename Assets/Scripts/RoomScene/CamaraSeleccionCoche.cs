@@ -5,52 +5,42 @@ using UnityEngine.UI;
 
 public class CamaraSeleccionCoche : MonoBehaviour
 {
-    private GameObject camaraSeleccionCoche;
-    private Transform posicionSiguienteVista;
-    private float limiteIzquierdo = -15f, limiteDerecho = -5f;
-    private float velocidadCamara = 1f;
-
-    public Button botonIzquierda, botonDerecha;
+    //Límite del desplazamiento de la cámara
+    private float limiteIzquierdo = -15.0f, limiteDerecho = -5.0f;
+    
+    //Declaro los botones
+    public Button btnIzquierda, btnDerecha;
 
     // Start is called before the first frame update
     void Start()
     {
-        camaraSeleccionCoche = this.gameObject;
-        posicionSiguienteVista = camaraSeleccionCoche.transform;
-        
-        botonIzquierda.onClick.AddListener(movimientoIzquierda);
-        botonDerecha.onClick.AddListener(movimientoDerecha);
+        btnIzquierda.onClick.AddListener(movimientoIzquierda);
+        btnDerecha.onClick.AddListener(movimientoDerecha);
     }
 
     // Método para mover la cámara hacia la izquierda
     public void movimientoIzquierda()
     {
-        posicionSiguienteVista.position = new Vector3(posicionSiguienteVista.transform.position.x - 10f, 0, 0);
+        float nuevaPosicion = this.transform.position.x - 10f;
         
-        // Si la cámara se encuentra más allá del límite izquierdo, moverla al lado derecho
-        if (posicionSiguienteVista.transform.position.x < limiteIzquierdo)
+        if (nuevaPosicion < limiteIzquierdo)
         {
-            posicionSiguienteVista.position = new Vector3(limiteDerecho, 0, 0);
-            camaraSeleccionCoche.transform.position = new Vector3(limiteDerecho + 10f, 0, 0);
+            nuevaPosicion = limiteDerecho;
         }
-        
-        camaraSeleccionCoche.transform.position = Vector3.Lerp(camaraSeleccionCoche.transform.position, posicionSiguienteVista.position, Time.deltaTime * velocidadCamara);
+
+        this.transform.position = new Vector3(nuevaPosicion,this.transform.position.y, this.transform.position.z);
     }
 
     // Método para mover la cámara hacia la derecha
     public void movimientoDerecha()
     {
-        // Si la cámara se encuentra más allá del límite derecho, moverla al lado izquierdo
-        if (camaraSeleccionCoche.transform.position.x > limiteDerecho)
-        {
-            posicionSiguienteVista.position = new Vector3(limiteIzquierdo - 10f, 0, 0);
-        }
-        else // De lo contrario, moverla al límite derecho
-        {
-            posicionSiguienteVista.position = new Vector3(limiteDerecho, 0, 0);
-        }
+        float nuevaPosicion = this.transform.position.x + 10f;
         
-        // Interpola la posición actual de la cámara hacia la posición siguiente
-        camaraSeleccionCoche.transform.position = Vector3.Lerp(camaraSeleccionCoche.transform.position, posicionSiguienteVista.position, Time.deltaTime * velocidadCamara);
+        if (nuevaPosicion > limiteDerecho)
+        {
+            nuevaPosicion = limiteIzquierdo;
+        }
+
+        this.transform.position = new Vector3(nuevaPosicion,this.transform.position.y, this.transform.position.z);
     }
 }
