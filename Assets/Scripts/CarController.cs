@@ -1,10 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using TMPro;
 using UnityEngine;
 
-public class CarController : MonoBehaviour
+public class CarController : NetworkBehaviour
 {
     private bool isBreaking;
     private float giro;
@@ -43,11 +44,16 @@ public class CarController : MonoBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         currentSpeedText = GameObject.Find("SpeedText").GetComponent<TextMeshProUGUI>();
+        _rigidbody.centerOfMass = new Vector3(0, -.4f, 0);
+        Debug.Log("Start: "+isLocalPlayer);
+        if(isLocalPlayer)
+            transform.Find("Camera").gameObject.SetActive(true);
     }
 
     private void Update()
     {
-        WriteSpeedText();
+        if(isLocalPlayer)
+            WriteSpeedText();
     }
 
     private void WriteSpeedText()
@@ -58,9 +64,14 @@ public class CarController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        GetInput();
-        HandleMotor();
-        HandleSteering();
+        Debug.Log("Update: "+isLocalPlayer);
+        
+        if (isLocalPlayer)
+        {
+            GetInput();
+            HandleMotor();
+            HandleSteering();
+        }
         if(_updateWheels)UpdateWheels();
     }
     
