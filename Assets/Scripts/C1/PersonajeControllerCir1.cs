@@ -19,7 +19,12 @@ public class PersonajeControllerCir1 : MonoBehaviour
             if (Input.GetKey("right"))
             {
                 transform.Translate(7 * Time.deltaTime,0,0);
-            } 
+            }
+
+            if (Input.GetKey("left"))
+            {
+                transform.Translate(-7f * Time.deltaTime, 0, 0);
+            }
         }
     }
 }
