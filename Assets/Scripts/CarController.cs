@@ -44,7 +44,7 @@ public class CarController : NetworkBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.centerOfMass = new Vector3(0, -.4f, 0);
-        currentSpeedText = GameObject.Find("SpeedText").GetComponent<TextMeshProUGUI>();
+        // currentSpeedText = GameObject.Find("SpeedText").GetComponent<TextMeshProUGUI>();
         _rigidbody.centerOfMass = new Vector3(0, -.4f, 0);
         Debug.Log("Start: "+isLocalPlayer);
         if(isLocalPlayer)
@@ -60,7 +60,7 @@ public class CarController : NetworkBehaviour
     private void WriteSpeedText()
     {
         float speed = currentSpeed > 0 ? currentSpeed : 0f;
-        currentSpeedText.text = Mathf.Round(speed) + "Km/H";
+        // currentSpeedText.text = Mathf.Round(speed) + "Km/H";
     }
 
     private void FixedUpdate()

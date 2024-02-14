@@ -565,14 +565,10 @@ PrefabInstance:
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: playerPrefab
       value: 
-      objectReference: {fileID: 3555693419386718032, guid: 831a2741c573e1d43bb073a1391351d1, type: 3}
+      objectReference: {fileID: 3555693419386718032, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: GameplayScene
-      value: Assets/Scenes/OnlineTesting.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
-      propertyPath: playerSpawnMethod
-      value: 1
+      value: Assets/Scenes/C1/Circuito 1.unity
       objectReference: {fileID: 0}
     - target: {fileID: 3657793218156309747, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: m_Name
