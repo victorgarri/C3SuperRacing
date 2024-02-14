@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
@@ -12,6 +13,8 @@ public class ReadyStartController : MonoBehaviour
     private Image colorBtnReady;
     private string colorRojo = "#CC6666";
     private string colorVerde = "#B8DABA";
+
+    public TextMeshProUGUI txtReady;
     
     // Start is called before the first frame update
     void Start()
@@ -23,18 +26,25 @@ public class ReadyStartController : MonoBehaviour
     private void gestionReady()
     {
         Color cambioColor;
+        string cambioTexto;
+        
+        //Ajustes cuando el jugador este listo
         if (!isReady)
         {
             isReady = true;
             cambioColor = HexToColor(colorVerde);
+            cambioTexto = "READY";
         }
+        //Ajustes cuando el jugador no este listo
         else
         {
             isReady = false;
             cambioColor = HexToColor(colorRojo);
+            cambioTexto = "NOT READY";
         }
         
         colorBtnReady.color = cambioColor;
+        txtReady.text = cambioTexto;
     }
     
     private Color HexToColor(string hex)
