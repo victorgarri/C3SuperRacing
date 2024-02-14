@@ -1,12 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class GameManager : NetworkBehaviour
+public class GameManager : MonoBehaviour
 {
     // Lista de escenarios que serán los circuitos
     [Header("ESCENARIOS CIRCUITOS")]
@@ -20,10 +19,6 @@ public class GameManager : NetworkBehaviour
     public List<string> escenariosCargados;
     private int indice = 0;
     
-    //Variable que me guarde la puntuación de cada jugador
-    [SyncVar]
-    public SyncDictionary<string, float> puntuacionJugadores = new SyncDictionary<string, float>();
-    
     private static GameManager _instance;
 
     //Hago que me guarde los escenarios y empiece por el escenario deseado antes de que cargue todo el código.
@@ -34,7 +29,7 @@ public class GameManager : NetworkBehaviour
         {
             _instance = this;
             DontDestroyOnLoad(gameObject);
-            SceneManager.LoadScene("Minijuego 0");
+            // SceneManager.LoadScene("Minijuego 0");
             GuardarListaEscenarios();
 
             // Realiza la inicialización aquí

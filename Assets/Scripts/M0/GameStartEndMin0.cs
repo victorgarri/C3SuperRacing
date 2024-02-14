@@ -19,8 +19,6 @@ public class GameStartEndMin0 : NetworkBehaviour
     
 
     private bool acabado = false;
-    private bool datoGuardado = false;
-    
     
     // Start is called before the first frame update
     void Start()
@@ -40,11 +38,7 @@ public class GameStartEndMin0 : NetworkBehaviour
             //En vez de 1, sería la ID del jugador
             // _gameManager.puntuacionJugadores["1"] = tiempoPasado;
             _transicionManagerMin0.transicionFinal();
-            if (!datoGuardado)
-            {
-                CmdGuardaPuntuacion(tiempoPasado, personaje.GetComponent<NetworkIdentity>().connectionToClient);
-                datoGuardado = true;
-            }
+            
         }
     }
 
@@ -58,10 +52,5 @@ public class GameStartEndMin0 : NetworkBehaviour
         }
     }
 
-    [Command(requiresAuthority = false)]
-    private void CmdGuardaPuntuacion(float tiempo,NetworkConnectionToClient sender = null)
-    {
-        _gameManager.puntuacionJugadores.Add(""+sender.identity.netId,tiempo);
-        _gameManager.puntuacionJugadores.Add(""+sender.identity.netId+1,tiempo+1);
-    }
+    
 }

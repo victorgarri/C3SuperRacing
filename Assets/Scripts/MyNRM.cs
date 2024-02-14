@@ -5,5 +5,9 @@ using UnityEngine;
 
 public class MyNRM : NetworkRoomManager
 {
-    
+    public override void OnClientConnect()
+    {
+        base.OnClientConnect();
+        
+    }
 }
