@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
+using Mirror.Examples.BilliardsPredicted;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
@@ -41,14 +42,18 @@ public class CarController : NetworkBehaviour
     private Rigidbody _rigidbody;
     public TextMeshProUGUI currentSpeedText;
 
+    private PlayerInput _playerInput;
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
         currentSpeedText = GameObject.Find("TextoVelocimetro").GetComponent<TextMeshProUGUI>();
         _rigidbody.centerOfMass = new Vector3(0, -.2f, 0);
         Debug.Log("Start: "+isLocalPlayer);
+        _playerInput = GetComponent<PlayerInput>();
         if(isLocalPlayer)
             transform.Find("Camera").gameObject.SetActive(true);
+        
     }
     
 

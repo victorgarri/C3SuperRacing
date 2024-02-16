@@ -512,6 +512,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4209ecb2265278248bf62988c8deb997, type: 3}
       insertIndex: -1
       addedObject: {fileID: 4881997373373583329}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4209ecb2265278248bf62988c8deb997, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6375495303839921563}
   m_SourcePrefab: {fileID: 100100000, guid: 4209ecb2265278248bf62988c8deb997, type: 3}
 --- !u!4 &412975313186120653 stripped
 Transform:
@@ -657,6 +660,36 @@ MonoBehaviour:
   compressRotation: 0
   positionPrecision: 0.01
   scalePrecision: 0.01
+--- !u!114 &6375495303839921563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3555693419386718032}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: 464f5395827d4e747ac5ab6dfad5bb8a, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: Player
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 5143724611791512872}
 --- !u!4 &3641037258220003388 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1089490244918188605, guid: 4209ecb2265278248bf62988c8deb997, type: 3}
