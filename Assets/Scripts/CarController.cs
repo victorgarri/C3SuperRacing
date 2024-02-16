@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using TMPro;
+using UnityEditor;
 using UnityEngine;
 
 public class CarController : NetworkBehaviour
@@ -43,13 +44,13 @@ public class CarController : NetworkBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _rigidbody.centerOfMass = new Vector3(0, -.4f, 0);
-        currentSpeedText = GameObject.Find("SpeedText").GetComponent<TextMeshProUGUI>();
-        _rigidbody.centerOfMass = new Vector3(0, -.4f, 0);
+        currentSpeedText = GameObject.Find("TextoVelocimetro").GetComponent<TextMeshProUGUI>();
+        _rigidbody.centerOfMass = new Vector3(0, -.2f, 0);
         Debug.Log("Start: "+isLocalPlayer);
         if(isLocalPlayer)
             transform.Find("Camera").gameObject.SetActive(true);
     }
+    
 
     private void Update()
     {
@@ -60,7 +61,7 @@ public class CarController : NetworkBehaviour
     private void WriteSpeedText()
     {
         float speed = currentSpeed > 0 ? currentSpeed : 0f;
-        currentSpeedText.text = Mathf.Round(speed) + "Km/H";
+        currentSpeedText.text =Mathf.Round(speed).ToString();
     }
 
     private void FixedUpdate()
