@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
-using Mirror.Examples.BilliardsPredicted;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.InputSystem;
+
 
 public class CarController : NetworkBehaviour
 {
@@ -49,7 +50,7 @@ public class CarController : NetworkBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         currentSpeedText = GameObject.Find("TextoVelocimetro").GetComponent<TextMeshProUGUI>();
         _rigidbody.centerOfMass = new Vector3(0, -.2f, 0);
-        Debug.Log("Start: "+isLocalPlayer);
+        // Debug.Log("Start: "+isLocalPlayer);
         _playerInput = GetComponent<PlayerInput>();
         if(isLocalPlayer)
             transform.Find("Camera").gameObject.SetActive(true);
@@ -84,10 +85,13 @@ public class CarController : NetworkBehaviour
     
     private void GetInput()
     {
-        giro = Input.GetAxis("Horizontal");
-        pedal = Input.GetAxis("Vertical");
+        // giro = Input.GetAxis("Horizontal");
+        giro = _playerInput.actions["Steer"].ReadValue<float>();
 
-        isBreaking = Input.GetKey("space");
+        // pedal = Input.GetAxis("Vertical");
+        pedal = _playerInput.actions["Throtle"].ReadValue<float>();
+
+        isBreaking = _playerInput.actions["Brake"].IsPressed();
     }
 
     private void HandleMotor()
