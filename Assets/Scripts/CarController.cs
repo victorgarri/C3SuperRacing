@@ -98,7 +98,12 @@ public class CarController : NetworkBehaviour
 
     private void HandleCamera()
     {
-        cameraOffset = (cameraOffset+cameraInput*cameraSpeed+360)%360;
+        cameraOffset = cameraOffset + cameraInput * cameraSpeed;
+        if (cameraOffset > 180) cameraOffset -= 360;
+        else if (cameraOffset < -180) cameraOffset += 360;
+
+        if (cameraInput == 0) cameraOffset *= 1 - Math.Abs(pedal) * 0.1f;
+        
         Debug.Log("Camera offset"+cameraOffset);
     }
 
