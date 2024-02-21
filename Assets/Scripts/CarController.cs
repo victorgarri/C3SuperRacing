@@ -45,6 +45,8 @@ public class CarController : NetworkBehaviour
 
     private PlayerInput _playerInput;
 
+    private PosicionCarrera _posicionCarrera;
+
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
@@ -54,7 +56,9 @@ public class CarController : NetworkBehaviour
         _playerInput = GetComponent<PlayerInput>();
         if(isLocalPlayer)
             transform.Find("Camera").gameObject.SetActive(true);
-        
+
+        _posicionCarrera = GetComponent<PosicionCarrera>();
+
     }
     
 
@@ -141,5 +145,15 @@ public class CarController : NetworkBehaviour
 
         wheelTransform.rotation = rotation;
         wheelTransform.position = position;
+    }
+    
+    private void OnTriggerEnter(Collider other)
+    {
+        // Verifica si la colisión ocurrió con un waypoint
+        if (other.CompareTag("Waypoint"))
+        {
+            // Notifica al RacePositionTracker para actualizar el waypoint
+            _posicionCarrera.actualizoWaypoint(this);
+        }
     }
 }

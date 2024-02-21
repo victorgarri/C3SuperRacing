@@ -245,7 +245,7 @@ GameObject:
   - component: {fileID: 802767899881532252}
   - component: {fileID: 1452843745838529558}
   - component: {fileID: 3158201663300268235}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: CirculoMinimapa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -331,7 +331,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65d6df3e1dd7174791261c8f3989a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alturaCirculo: 100
 --- !u!1 &5153025285869438940
 GameObject:
   m_ObjectHideFlags: 0
