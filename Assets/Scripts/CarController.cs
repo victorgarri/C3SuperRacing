@@ -13,6 +13,10 @@ public class CarController : NetworkBehaviour
     private bool isBreaking;
     private float giro;
     private float pedal;
+    private float cameraInput;
+    private float cameraSpeed=4.5f;
+    private float cameraOffset=0;
+    
 
     private const float MAXBREAKFORCE = 3000F;
 
@@ -44,6 +48,7 @@ public class CarController : NetworkBehaviour
     public TextMeshProUGUI currentSpeedText;
 
     private PlayerInput _playerInput;
+    private GameObject _cameraPivot;
 
     private void Start()
     {
@@ -52,16 +57,23 @@ public class CarController : NetworkBehaviour
         _rigidbody.centerOfMass = new Vector3(0, -.2f, 0);
         // Debug.Log("Start: "+isLocalPlayer);
         _playerInput = GetComponent<PlayerInput>();
+        _cameraPivot = GameObject.Find("CameraPivot");
         if(isLocalPlayer)
-            transform.Find("Camera").gameObject.SetActive(true);
+            transform.Find("CameraPivot/Camera").gameObject.SetActive(true);
         
     }
     
 
     private void Update()
     {
-        if(isLocalPlayer)
+        if (isLocalPlayer)
+        {
             WriteSpeedText();
+        }
+
+        _cameraPivot.transform.position = transform.position;
+        _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
+        
     }
 
     private void WriteSpeedText()
@@ -79,10 +91,22 @@ public class CarController : NetworkBehaviour
             GetInput();
             HandleMotor();
             HandleSteering();
+            HandleCamera();
         }
         if(_updateWheels)UpdateWheels();
     }
-    
+
+    private void HandleCamera()
+    {
+        cameraOffset = cameraOffset + cameraInput * cameraSpeed;
+        if (cameraOffset > 180) cameraOffset -= 360;
+        else if (cameraOffset < -180) cameraOffset += 360;
+
+        if (cameraInput == 0) cameraOffset *= 1 - Math.Abs(pedal) * 0.1f;
+        
+        Debug.Log("Camera offset"+cameraOffset);
+    }
+
     private void GetInput()
     {
         // giro = Input.GetAxis("Horizontal");
@@ -90,6 +114,9 @@ public class CarController : NetworkBehaviour
 
         // pedal = Input.GetAxis("Vertical");
         pedal = _playerInput.actions["Throtle"].ReadValue<float>();
+
+        cameraInput = _playerInput.actions["Camera"].ReadValue<float>();
+        Debug.Log("Camera input: "+cameraInput);
 
         isBreaking = _playerInput.actions["Brake"].IsPressed();
     }
