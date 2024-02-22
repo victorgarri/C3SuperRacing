@@ -19,7 +19,6 @@ public class PosicionCirculo : MonoBehaviour
     {
         float alturaActualizada = playerTransform.position.y + alturaCirculo;
         
-        this.transform.position = new Vector3(playerTransform.position.x,
-            alturaActualizada, playerTransform.position.z);
+        this.transform.position = new Vector3(playerTransform.position.x, alturaActualizada, playerTransform.position.z);
     }
 }
