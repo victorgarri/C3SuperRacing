@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class InformacionJugador : MonoBehaviour
 {
-    public string nombreJugador;
+    public string nombre;
 
     public int posicionJugador;
     public int circuitosCompletados;
@@ -27,6 +27,9 @@ public class InformacionJugador : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        throw new NotImplementedException();
+        if (collision.gameObject.CompareTag("Waypoint"))
+        {
+            _posicionCarreraController.gestionCambioWaypoints(this);
+        }
     }
 }

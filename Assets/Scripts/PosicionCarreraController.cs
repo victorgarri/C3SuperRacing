@@ -2,26 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PosicionCarreraController  : MonoBehaviour
 {
+    public List<Transform> listaWaypoints = new List<Transform>();
+    private int vueltasTotales = 2;
+    
     public int totalPlayers;
-    InformacionJugador[] _informacionJugadores;
+    InformacionJugador[] _informacionJugadores; //Esta variable se puede cambiar más adelante
     public TextMeshProUGUI tablaPosicion;
+
+    private Dictionary<InformacionJugador, string> nombreJugador = new Dictionary<InformacionJugador, string>();
+    private Dictionary<InformacionJugador, int> vueltaActualJugador;     //Diccionario para almacenar la vuelta actual de cada jugador
+    private Dictionary<InformacionJugador, int> waypointTotalesJugador;  //Diccionario para almacenar los waypoints totales de cada jugador
+    private Dictionary<InformacionJugador, float> distanciaWaypoint;     //Diccionario para almacenar la distancia del próximo waypoint
+    
+    private Dictionary<InformacionJugador, int> indiceWaypoint;          //Diccionario para almacenar el indice del proximo waypoint del jugador
     void Start()
     {
-       //Start the coroutine we define below
-        StartCoroutine(WaitSetupPositions());
+        vueltaActualJugador = new Dictionary<InformacionJugador, int>();
+        waypointTotalesJugador = new Dictionary<InformacionJugador, int>();
+        indiceWaypoint = new Dictionary<InformacionJugador, int>();
+        
+        distanciaWaypoint = new Dictionary<InformacionJugador, float>();
+        
+        StartCoroutine(EsperaColocacionPosiciones());
     }
 
     void Update(){
-        ColocacionPosiciones();
-        DeterminePositions();
+        GestionCambioPosicion();
     }
 
-    IEnumerator WaitSetupPositions()
+    IEnumerator EsperaColocacionPosiciones()
     {
         //yield on a new YieldInstruction that waits for 1 second.
         yield return new WaitForSeconds(1);
@@ -31,26 +46,50 @@ public class PosicionCarreraController  : MonoBehaviour
         _informacionJugadores = FindObjectsOfType(typeof(InformacionJugador)) as InformacionJugador[];
         foreach (var jugador in _informacionJugadores)
         {
-            jugador.vueltaActualJugador = 1;
-            jugador.puntoControlJugador = 0;
+            nombreJugador.Add(jugador, jugador.nombre);
+            vueltaActualJugador.Add(jugador, 1);
+            waypointTotalesJugador.Add(jugador, 0);
+            indiceWaypoint.Add(jugador, 0);
         }
         
         totalPlayers=_informacionJugadores.Length;
 	}
 
-    void DeterminePositions(){
+    void GestionCambioPosicion(){
         if(_informacionJugadores!=null){
             if(_informacionJugadores.Length>0){
-                InformacionJugador[] listaJugadoresOrdenados = _informacionJugadores.OrderBy(i => i.circuitosCompletados).
-                                                                             ThenBy(i => i.vueltaActualJugador).
-                                                                             ThenBy(i => i.puntoControlJugador).ToArray();
+                
+                //Ordena mi lista
+                InformacionJugador[] listaJugadoresOrdenados = _informacionJugadores.OrderByDescending(i => i.circuitosCompletados).
+                                                                             ThenByDescending(i => i.vueltaActualJugador).
+                                                                             ThenByDescending(i => i.puntoControlJugador).ToArray();
+                //Lo visualizo en el panel
                 int contador=1;
                 tablaPosicion.text="";
                 foreach(InformacionJugador orden in listaJugadoresOrdenados){
-                    tablaPosicion.text+=contador + "º " +orden.nombreJugador+"\n";
+                    tablaPosicion.text+=contador + "º " +orden.nombre+"\n";
                     orden.posicionJugador=contador;
                     contador++;                    
                 }
+            }
+        }
+    }
+
+    public void gestionCambioWaypoints(InformacionJugador jugador)
+    {
+        jugador.puntoControlJugador++;
+        indiceWaypoint[jugador]++;
+        
+        if (indiceWaypoint[jugador] >= listaWaypoints.Count)
+        {
+            jugador.vueltaActualJugador++;
+            if (jugador.vueltaActualJugador > vueltasTotales)
+            {
+                Debug.Log("Carrera hecha");
+            }
+            else
+            {
+                indiceWaypoint[jugador] = 0;
             }
         }
     }

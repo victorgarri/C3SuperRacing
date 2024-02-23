@@ -41,14 +41,12 @@ public class CarController : NetworkBehaviour
     [SerializeField] private float currentSpeed;
     private const float MAXSPEED = 250f;
     private Rigidbody _rigidbody;
-    public TextMeshProUGUI currentSpeedText;
 
     private PlayerInput _playerInput;
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        currentSpeedText = GameObject.Find("TextoVelocimetro").GetComponent<TextMeshProUGUI>();
         _rigidbody.centerOfMass = new Vector3(0, -.2f, 0);
         // Debug.Log("Start: "+isLocalPlayer);
         _playerInput = GetComponent<PlayerInput>();
@@ -60,14 +58,16 @@ public class CarController : NetworkBehaviour
 
     private void Update()
     {
+        /*
         if(isLocalPlayer)
             WriteSpeedText();
+        */
     }
 
     private void WriteSpeedText()
     {
         float speed = currentSpeed > 0 ? currentSpeed : 0f;
-        currentSpeedText.text =Mathf.Round(speed).ToString();
+        Debug.Log(speed);
     }
 
     private void FixedUpdate()
