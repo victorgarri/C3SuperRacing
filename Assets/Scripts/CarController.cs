@@ -32,7 +32,7 @@ public class CarController : NetworkBehaviour
 
     private float currentSteerAngle;
     [Header("Configuración del giro")]
-    [SerializeField] private float maxSteerAngle=30;
+    [SerializeField] private float maxSteerAngle=20;
 
     [Header("Configuración de ruedas físicas")]
     [SerializeField] private Transform WFL;
@@ -54,7 +54,7 @@ public class CarController : NetworkBehaviour
     {
         _rigidbody = GetComponent<Rigidbody>();
         currentSpeedText = GameObject.Find("TextoVelocimetro").GetComponent<TextMeshProUGUI>();
-        _rigidbody.centerOfMass = new Vector3(0, -.2f, 0);
+        _rigidbody.centerOfMass = new Vector3(0, -.23f, .2f);
         // Debug.Log("Start: "+isLocalPlayer);
         _playerInput = GetComponent<PlayerInput>();
         _cameraPivot = GameObject.Find("CameraPivot");
@@ -84,8 +84,6 @@ public class CarController : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("Update: "+isLocalPlayer);
-        
         if (isLocalPlayer)
         {
             GetInput();
@@ -101,10 +99,7 @@ public class CarController : NetworkBehaviour
         cameraOffset = cameraOffset + cameraInput * cameraSpeed;
         if (cameraOffset > 180) cameraOffset -= 360;
         else if (cameraOffset < -180) cameraOffset += 360;
-
         if (cameraInput == 0) cameraOffset *= 1 - Math.Abs(pedal) * 0.1f;
-        
-        Debug.Log("Camera offset"+cameraOffset);
     }
 
     private void GetInput()
@@ -116,7 +111,6 @@ public class CarController : NetworkBehaviour
         pedal = _playerInput.actions["Throtle"].ReadValue<float>();
 
         cameraInput = _playerInput.actions["Camera"].ReadValue<float>();
-        Debug.Log("Camera input: "+cameraInput);
 
         isBreaking = _playerInput.actions["Brake"].IsPressed();
     }
