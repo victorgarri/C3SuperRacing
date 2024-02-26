@@ -135,7 +135,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.235
   m_SuspensionSpring:
-    spring: 35000
+    spring: 70000
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.1
@@ -206,7 +206,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.235
   m_SuspensionSpring:
-    spring: 35000
+    spring: 70000
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.1
@@ -260,7 +260,7 @@ Transform:
   m_GameObject: {fileID: 2098567021173114747}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -0.25, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -328,7 +328,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.235
   m_SuspensionSpring:
-    spring: 35000
+    spring: 70000
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.1
@@ -497,7 +497,7 @@ WheelCollider:
   m_Center: {x: 0, y: 0, z: 0}
   m_Radius: 0.235
   m_SuspensionSpring:
-    spring: 35000
+    spring: 70000
     damper: 4500
     targetPosition: 0.5
   m_SuspensionDistance: 0.1
@@ -806,7 +806,7 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
-  motorForce: 1000
+  motorForce: 500
   breakForce: 0
   FL: {fileID: 2303645404340872884}
   FR: {fileID: 3395938406494273250}
