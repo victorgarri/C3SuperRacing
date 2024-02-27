@@ -568,7 +568,7 @@ PrefabInstance:
       objectReference: {fileID: 4492824780523140061, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: GameplayScene
-      value: Assets/Scenes/C1/Circuito 1.unity
+      value: Assets/Scenes/Circuito 1.unity
       objectReference: {fileID: 0}
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: playerSpawnMethod

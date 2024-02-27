@@ -6,7 +6,7 @@ public class PosicionCirculo : MonoBehaviour
 {
     private Transform playerTransform;
     
-    public float alturaCirculo = 200;
+    private float alturaCirculo = 100;
     
     // Start is called before the first frame update
     void Start()
@@ -19,7 +19,6 @@ public class PosicionCirculo : MonoBehaviour
     {
         float alturaActualizada = playerTransform.position.y + alturaCirculo;
         
-        this.transform.position = new Vector3(playerTransform.position.x,
-            alturaActualizada, playerTransform.position.z);
+        this.transform.position = new Vector3(playerTransform.position.x, alturaActualizada, playerTransform.position.z);
     }
 }
