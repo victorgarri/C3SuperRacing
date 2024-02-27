@@ -6,6 +6,7 @@ using TMPro;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 
 public class CarController : NetworkBehaviour
@@ -38,10 +39,14 @@ public class CarController : NetworkBehaviour
     [SerializeField] private bool _updateWheels;
 
     [Header("Velocímetro")]
-    [SerializeField] private float currentSpeed;
-    private const float MAXSPEED = 250f;
+    private const float LIMITEANGULOIZQUIERDO = 190f;
+    private const float LIMITEANGULODERECHO = -100f;
+    public Transform agujaVelocimetro;
+    private const float VELOCIDADMAXIMA = 80f;
+    private float velocidad = 0f;
+    
+    
     private Rigidbody _rigidbody;
-
     private PlayerInput _playerInput;
 
     private void Start()
@@ -53,21 +58,36 @@ public class CarController : NetworkBehaviour
         if(isLocalPlayer)
             transform.Find("Camera").gameObject.SetActive(true);
 
+        //Pillo la aguja al inicio del juego
+        agujaVelocimetro = GameObject.Find("ImagenAguja").transform;
+        if (agujaVelocimetro != null)
+        {
+            Debug.Log("Objeto registrado");
+        }
+        else
+        {
+            Debug.Log("No he encontrado nada");
+        }
+
     }
     
 
     private void Update()
     {
-        /*
-        if(isLocalPlayer)
-            WriteSpeedText();
-        */
+        ActualizacionAgujaVelocimetro();
     }
 
-    private void WriteSpeedText()
+    private void ActualizacionAgujaVelocimetro()
     {
-        float speed = currentSpeed > 0 ? currentSpeed : 0f;
-        Debug.Log(speed);
+        Debug.Log(velocidad);
+        if (velocidad > 0)
+        {
+            float velocidadNormal = velocidad / VELOCIDADMAXIMA;
+
+            agujaVelocimetro.localEulerAngles = new Vector3(0, 0, 
+                Mathf.Lerp(LIMITEANGULOIZQUIERDO, LIMITEANGULODERECHO, velocidadNormal));   
+        }
+
     }
 
     private void FixedUpdate()
@@ -96,8 +116,8 @@ public class CarController : NetworkBehaviour
 
     private void HandleMotor()
     {
-        currentSpeed = _rigidbody.velocity.magnitude * 3600 / 1000;
-        if (Math.Abs(currentSpeed) <MAXSPEED) 
+        velocidad = _rigidbody.velocity.magnitude * 3600 / 1000;
+        if (Math.Abs(velocidad) < VELOCIDADMAXIMA) 
         {
             FL.motorTorque = pedal * motorForce;
             FR.motorTorque = pedal * motorForce;
