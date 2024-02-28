@@ -183,7 +183,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 29b49c27a74f145918356859bd7af511, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -626,137 +626,11 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!1001 &3158520992531807767
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1567563717408589514, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2200793786301176944, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_Name
-      value: carlitos coche final
-      objectReference: {fileID: 0}
-    - target: {fileID: 2651012534399836026, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_Radius
-      value: 0.236
-      objectReference: {fileID: 0}
-    - target: {fileID: 2651012534399836026, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2651012534399836026, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionSpring.damper
-      value: 45000
-      objectReference: {fileID: 0}
-    - target: {fileID: 2651012534399836026, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionSpring.spring
-      value: 350000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324167851866156591, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_Radius
-      value: 0.236
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324167851866156591, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324167851866156591, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionSpring.damper
-      value: 45000
-      objectReference: {fileID: 0}
-    - target: {fileID: 4324167851866156591, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionSpring.spring
-      value: 350000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7675108029946342506, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: currentSpeedText
-      value: 
-      objectReference: {fileID: 244183558}
-    - target: {fileID: 7968179121251345158, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_Radius
-      value: 0.236
-      objectReference: {fileID: 0}
-    - target: {fileID: 7968179121251345158, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7968179121251345158, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionSpring.damper
-      value: 45000
-      objectReference: {fileID: 0}
-    - target: {fileID: 7968179121251345158, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionSpring.spring
-      value: 350000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8293512764172100189, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_Radius
-      value: 0.236
-      objectReference: {fileID: 0}
-    - target: {fileID: 8293512764172100189, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionDistance
-      value: 0.1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8293512764172100189, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionSpring.damper
-      value: 45000
-      objectReference: {fileID: 0}
-    - target: {fileID: 8293512764172100189, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
-      propertyPath: m_SuspensionSpring.spring
-      value: 350000
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: c7ab7f8b85e89fc45871d6f7d47db157, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 337224910}
-  - {fileID: 3158520992531807767}
   - {fileID: 33624425}
   - {fileID: 1389375399}
   - {fileID: 658086155}
