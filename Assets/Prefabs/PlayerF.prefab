@@ -453,7 +453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65d6df3e1dd7174791261c8f3989a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alturaCirculo: 100
 --- !u!1 &8635088141863676031
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,7 +614,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       propertyPath: m_Name
-      value: carlita coche final 2
+      value: PlayerF
       objectReference: {fileID: 0}
     - target: {fileID: 1089490244918188605, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       propertyPath: m_LocalRotation.w
@@ -681,6 +680,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2540175122176285903}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1710510845495717310}
   m_SourcePrefab: {fileID: 100100000, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
 --- !u!4 &773153340793870144 stripped
 Transform:
@@ -782,8 +784,7 @@ MonoBehaviour:
   WRL: {fileID: 4433358557130282161}
   WRR: {fileID: 773153340793870144}
   _updateWheels: 1
-  currentSpeed: 0
-  currentSpeedText: {fileID: 0}
+  agujaVelocimetro: {fileID: 0}
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -866,6 +867,23 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &1710510845495717310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4492824780523140061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5db683b99584f42a7c7f4ccbc61fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  nombre: Prueba 1
+  posicionJugador: 0
+  vueltaActualJugador: 0
+  puntoControlJugador: 0
+  checkpointValido: 1
 --- !u!4 &8113562030721395362 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -4467016498567404498, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
