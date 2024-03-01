@@ -62,7 +62,6 @@ public class CarController : NetworkBehaviour
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        currentSpeedText = GameObject.Find("TextoVelocimetro").GetComponent<TextMeshProUGUI>();
         _rigidbody.centerOfMass = new Vector3(0, -.23f, 0.1f);
         _playerInput = GetComponent<PlayerInput>();
         _cameraPivot = GameObject.Find("CameraPivot");
