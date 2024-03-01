@@ -17,6 +17,7 @@ public class CarController : NetworkBehaviour
     private float cameraInput;
     private float cameraSpeed=4.5f;
     private float cameraOffset=0;
+    private float cameraTimestamp=0;
     
 
     private const float MAXBREAKFORCE = 3000F;
@@ -33,8 +34,12 @@ public class CarController : NetworkBehaviour
 
     private float currentSteerAngle;
     [Header("Configuración del giro")]
-    [SerializeField] private float maxSteerAngle=30;
+    [SerializeField] private float maxSteerAngle=20;
 
+    [SerializeField] private float radius = 1;
+    [SerializeField] private float wheelBase;
+    [SerializeField] private float trackWidth;
+    [SerializeField] private bool antiAckerman = false;
     [Header("Configuración de ruedas físicas")]
     [SerializeField] private Transform WFL;
     [SerializeField] private Transform WFR;
@@ -49,22 +54,22 @@ public class CarController : NetworkBehaviour
     private const float VELOCIDADMAXIMA = 80f;
     private float velocidad = 0f;
     
-    
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
     private GameObject _cameraPivot;
+    
 
     private void Start()
     {
         _rigidbody = GetComponent<Rigidbody>();
-        _rigidbody.centerOfMass = new Vector3(0, -.2f, 0);
-        // Debug.Log("Start: "+isLocalPlayer);
+        currentSpeedText = GameObject.Find("TextoVelocimetro").GetComponent<TextMeshProUGUI>();
+        _rigidbody.centerOfMass = new Vector3(0, -.23f, 0.1f);
         _playerInput = GetComponent<PlayerInput>();
         _cameraPivot = GameObject.Find("CameraPivot");
+        
         if(isLocalPlayer)
             transform.Find("CameraPivot/Camera").gameObject.SetActive(true);
         
-
         //Pillo la aguja al inicio del juego
         agujaVelocimetro = GameObject.Find("ImagenAguja").transform;
         if (agujaVelocimetro != null)
@@ -75,7 +80,9 @@ public class CarController : NetworkBehaviour
         {
             Debug.Log("No he encontrado nada");
         }
-
+        
+        wheelBase = (FL.transform.position.z - RL.transform.position.z);
+        trackWidth = (FR.transform.position.x - FL.transform.position.x);
     }
     
 
@@ -106,8 +113,6 @@ public class CarController : NetworkBehaviour
 
     private void FixedUpdate()
     {
-        Debug.Log("Update: "+isLocalPlayer);
-        
         if (isLocalPlayer)
         {
             GetInput();
@@ -120,13 +125,20 @@ public class CarController : NetworkBehaviour
 
     private void HandleCamera()
     {
+        if (cameraInput == 0)
+        {
+            if (cameraTimestamp == 0) cameraTimestamp = Time.time;
+            else if(Time.time-cameraTimestamp>=2)cameraOffset *= .99f;
+        }
+        else
+        {
+            cameraTimestamp = 0;
+        }
         cameraOffset = cameraOffset + cameraInput * cameraSpeed;
         if (cameraOffset > 180) cameraOffset -= 360;
         else if (cameraOffset < -180) cameraOffset += 360;
 
-        if (cameraInput == 0) cameraOffset *= 1 - Math.Abs(pedal) * 0.1f;
         
-        Debug.Log("Camera offset"+cameraOffset);
     }
 
     private void GetInput()
@@ -138,18 +150,18 @@ public class CarController : NetworkBehaviour
         pedal = _playerInput.actions["Throtle"].ReadValue<float>();
 
         cameraInput = _playerInput.actions["Camera"].ReadValue<float>();
-        Debug.Log("Camera input: "+cameraInput);
 
         isBreaking = _playerInput.actions["Brake"].IsPressed();
     }
 
+    
     private void HandleMotor()
     {
         velocidad = _rigidbody.velocity.magnitude * 3600 / 1000;
         if (Math.Abs(velocidad) < VELOCIDADMAXIMA) 
         {
-            FL.motorTorque = pedal * motorForce;
-            FR.motorTorque = pedal * motorForce;
+            FL.motorTorque = motorForce/2*pedal;
+            FR.motorTorque = motorForce/2*pedal;
         }
         else
         {
@@ -168,9 +180,37 @@ public class CarController : NetworkBehaviour
 
     private void HandleSteering()
     {
-        currentSteerAngle = maxSteerAngle * giro;
-        FL.steerAngle = currentSteerAngle;
-        FR.steerAngle = currentSteerAngle;
+        // currentSteerAngle = maxSteerAngle * giro;
+        // FL.steerAngle = currentSteerAngle;
+        // FR.steerAngle = currentSteerAngle;
+        if (giro > 0)
+        {
+            if (!antiAckerman)
+            {
+                FL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
+                FR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;   
+            }
+            else
+            {
+                FL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;
+                FR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
+            }
+        } else if (giro < 0)
+        {
+            if (!antiAckerman)
+            {
+                FL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;
+                FR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
+            }
+            else
+            {
+                FL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
+                FR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;
+            }
+        } else {
+            FL.steerAngle = 0;
+            FR.steerAngle = 0;
+        }
     }
 
     private void UpdateWheels()
