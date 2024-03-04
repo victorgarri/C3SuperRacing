@@ -65,9 +65,11 @@ public class CarController : NetworkBehaviour
         _rigidbody.centerOfMass = new Vector3(0, -.23f, 0.1f);
         _playerInput = GetComponent<PlayerInput>();
         _cameraPivot = GameObject.Find("CameraPivot");
-        
-        if(isLocalPlayer)
+        if (isLocalPlayer)
+        {
+            
             transform.Find("CameraPivot/Camera").gameObject.SetActive(true);
+        }
         
         //Pillo la aguja al inicio del juego
         agujaVelocimetro = GameObject.Find("ImagenAguja").transform;
@@ -99,14 +101,11 @@ public class CarController : NetworkBehaviour
 
     private void ActualizacionAgujaVelocimetro()
     {
-        Debug.Log(velocidad);
-        if (velocidad > 0)
-        {
-            float velocidadNormal = velocidad / VELOCIDADMAXIMA;
+        //Debug.Log(velocidad);
+        float velocidadNormal = velocidad / VELOCIDADMAXIMA;
 
-            agujaVelocimetro.localEulerAngles = new Vector3(0, 0, 
-                Mathf.Lerp(LIMITEANGULOIZQUIERDO, LIMITEANGULODERECHO, velocidadNormal));   
-        }
+        agujaVelocimetro.localEulerAngles = new Vector3(0, 0, 
+            Mathf.Lerp(LIMITEANGULOIZQUIERDO, LIMITEANGULODERECHO, velocidadNormal));   
 
     }
 
