@@ -61,8 +61,11 @@ public class CarController : NetworkBehaviour
         // Debug.Log("Start: "+isLocalPlayer);
         _playerInput = GetComponent<PlayerInput>();
         _cameraPivot = GameObject.Find("CameraPivot");
-        if(isLocalPlayer)
+        if (isLocalPlayer)
+        {
+            
             transform.Find("CameraPivot/Camera").gameObject.SetActive(true);
+        }
         
         //Pillo la aguja al inicio del juego
         agujaVelocimetro = GameObject.Find("ImagenAguja").transform;

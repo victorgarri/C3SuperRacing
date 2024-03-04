@@ -14,9 +14,7 @@ public class PosicionCarreraController  : MonoBehaviour
     
     public int totalPlayers;
     InformacionJugador[] _informacionJugadores; //Esta variable se puede cambiar más adelante
-    public TextMeshProUGUI tablaPosicion;
-
-    private Dictionary<InformacionJugador, string> nombreJugador = new Dictionary<InformacionJugador, string>();
+    
     private Dictionary<InformacionJugador, int> vueltaActualJugador;     //Diccionario para almacenar la vuelta actual de cada jugador
     private Dictionary<InformacionJugador, int> waypointTotalesJugador;  //Diccionario para almacenar los waypoints totales de cada jugado
     private Dictionary<InformacionJugador, float> distanciaWaypointCercano;     //Diccionario para almacenar la distancia del próximo waypoint
@@ -46,7 +44,6 @@ public class PosicionCarreraController  : MonoBehaviour
         _informacionJugadores = FindObjectsOfType(typeof(InformacionJugador)) as InformacionJugador[];
         foreach (var jugador in _informacionJugadores)
         {
-            nombreJugador.Add(jugador, jugador.nombre);
             vueltaActualJugador.Add(jugador, 1);
             waypointTotalesJugador.Add(jugador, 0);
             indiceWaypoint.Add(jugador, 0);
@@ -69,9 +66,8 @@ public class PosicionCarreraController  : MonoBehaviour
                                                                                 ThenBy(jugador => distanciaWaypointCercano[jugador]).ToArray(); //Me ordena por distancia cercana al siguiente waypoiny
             //Lo visualizo en el panel
             int contador = 1;
-            tablaPosicion.text="";
-            foreach(InformacionJugador orden in jugadoresOrdenados){ 
-                tablaPosicion.text+=contador + "º " +orden.nombre+"\n";
+            foreach(InformacionJugador orden in jugadoresOrdenados){
+                orden.ActualizaPosicion(contador);
                 orden.posicionJugador = contador;
                 contador++;                    
                 }
