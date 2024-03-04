@@ -41,4 +41,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/TerrainTest.unity
     guid: c7d4e561825012a4eb17955dd40c8ca2
+  - enabled: 1
+    path: Assets/Scenes/old_Circuito 1.unity
+    guid: a1c173e5a4c30d644aee38888f2080ca
   m_configObjects: {}
