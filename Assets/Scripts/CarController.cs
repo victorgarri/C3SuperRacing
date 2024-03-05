@@ -63,7 +63,6 @@ public class CarController : NetworkBehaviour
         _cameraPivot = GameObject.Find("CameraPivot");
         if (isLocalPlayer)
         {
-            
             transform.Find("CameraPivot/Camera").gameObject.SetActive(true);
         }
         
