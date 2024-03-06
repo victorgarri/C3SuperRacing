@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Mirror;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -102,7 +103,7 @@ public class PosicionCarreraController : MonoBehaviour
         return Mathf.RoundToInt(distancia);
     }
 
-    public void gestionCambioWaypoints(InformacionJugador jugador)
+    public void GestionCambioWaypoints(InformacionJugador jugador)
     {
         indiceSiguienteWaypoint[jugador]++;
         jugador.puntoControlJugador = indiceSiguienteWaypoint[jugador];
@@ -126,7 +127,11 @@ public class PosicionCarreraController : MonoBehaviour
                 indiceSiguienteWaypoint[jugador] = 0;
             }
         }
+
+        if (jugador == localPlayer)
+        {
+            jugador.GestionActivacionYDesactivacionWaypoints(indiceSiguienteWaypoint[jugador]);   
+        }
         
-        jugador.GestionActivacionYDesactivacionWaypoints(indiceSiguienteWaypoint[jugador]);
     }
 }

@@ -21,6 +21,10 @@ public class InformacionJugador : NetworkBehaviour
     [Header("Gestión actualizar vuelta")]
     public int vueltaActualJugador;
     private TextMeshProUGUI textoVueltas;
+
+    [Header("Gestión cuando el usuario vaya en sentido contrario")]
+    private bool prohibidoActivo = false;
+    private GameObject imagenProhibido;
     
     // Start is called before the first frame update
     void Start()
@@ -29,6 +33,9 @@ public class InformacionJugador : NetworkBehaviour
         
         textoPosicion = GameObject.Find("TextoPosicion").GetComponent<TextMeshProUGUI>();
         textoVueltas = GameObject.Find("TextoVueltas").GetComponent<TextMeshProUGUI>();
+        
+        imagenProhibido = GameObject.Find("ImagenProhibido");
+        imagenProhibido.SetActive(prohibidoActivo);
         
         anteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 1;
     }
@@ -109,13 +116,25 @@ public class InformacionJugador : NetworkBehaviour
             //Así evitamos que los juagores hagan una vuelta atrás
             if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[anteriorWaypoint].gameObject.name)
             {
-                transform.rotation =
-                    Quaternion.Euler(transform.position.x, transform.position.y + 180, transform.position.z);
+                activoProhibicion();
             }
             else
             {
-                _posicionCarreraController.gestionCambioWaypoints(this);
+                _posicionCarreraController.GestionCambioWaypoints(this);
             }
         }
+    }
+
+    private void activoProhibicion()
+    {
+        if (!prohibidoActivo)
+        {
+            prohibidoActivo = true;
+        } else
+        {
+            prohibidoActivo = false;
+        }
+        
+        imagenProhibido.SetActive(prohibidoActivo);
     }
 }
