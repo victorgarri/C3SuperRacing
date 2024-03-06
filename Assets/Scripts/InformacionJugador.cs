@@ -94,7 +94,7 @@ public class InformacionJugador : NetworkBehaviour
                     break;
             }
 
-            textoPosicion.text = posicion + ".º";
+            textoPosicion.text = posicion + ".";
     }
     Color HexToColor(string hex)
     {
