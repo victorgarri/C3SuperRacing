@@ -66,13 +66,14 @@ public class CarController : NetworkBehaviour
         _playerInput = GetComponent<PlayerInput>();
         _cameraPivot = GameObject.Find("CameraPivot");
 
-        
         if(isLocalPlayer)
             transform.Find("CameraPivot/Camera").gameObject.SetActive(true);
 
         
         //Pillo la aguja al inicio del juego
         agujaVelocimetro = GameObject.Find("ImagenAguja").transform;
+        wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
+        trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
 
     }
     
