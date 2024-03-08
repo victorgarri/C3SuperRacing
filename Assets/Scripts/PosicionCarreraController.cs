@@ -1,195 +1,137 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Mirror;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class PosicionCarreraController  : MonoBehaviour
+public class PosicionCarreraController : MonoBehaviour
 {
+    [Header("Lista de Waypoints")]
     public List<Transform> listaWaypoints = new List<Transform>();
-    private int vueltasTotales = 2;
     
-    public int totalPlayers;
+    [Header("Número de vueltas totales")]
+    [SerializeField] public int vueltasTotales = 2;
+    
+    [Header("Recogemos el script de información del jugador para llevar a cabo unas gestiones. Actualizar posiciones y actualizar número de vueltas que lleva")]
     InformacionJugador[] _informacionJugadores; //Esta variable se puede cambiar más adelante
-    public TextMeshProUGUI tablaPosicion;
-
-    private Dictionary<InformacionJugador, string> nombreJugador = new Dictionary<InformacionJugador, string>();
-    private Dictionary<InformacionJugador, int> vueltaActualJugador;     //Diccionario para almacenar la vuelta actual de cada jugador
-    private Dictionary<InformacionJugador, int> waypointTotalesJugador;  //Diccionario para almacenar los waypoints totales de cada jugador
-    private Dictionary<InformacionJugador, float> distanciaWaypoint;     //Diccionario para almacenar la distancia del próximo waypoint
+    private InformacionJugador localPlayer;
     
-    private Dictionary<InformacionJugador, int> indiceWaypoint;          //Diccionario para almacenar el indice del proximo waypoint del jugador
+    [Header("Diccionarios para almacenar los valores que queremos ordenar para llevar a cabo el cambio de posiciones")]
+    private Dictionary<InformacionJugador, int> vueltaActualJugador;            //Diccionario para almacenar la vuelta actual de cada jugador
+    private Dictionary<InformacionJugador, int> waypointTotalesJugador;         //Diccionario para almacenar los waypoints totales de cada jugado
+    private Dictionary<InformacionJugador, float> distanciaWaypointCercano;     //Diccionario para almacenar la distancia del próximo waypoint
+    private Dictionary<InformacionJugador, int> indiceSiguienteWaypoint;        //Diccionario para almacenar el indice del proximo waypoint del jugador
     void Start()
     {
         vueltaActualJugador = new Dictionary<InformacionJugador, int>();
         waypointTotalesJugador = new Dictionary<InformacionJugador, int>();
-        indiceWaypoint = new Dictionary<InformacionJugador, int>();
-        
-        distanciaWaypoint = new Dictionary<InformacionJugador, float>();
+        indiceSiguienteWaypoint = new Dictionary<InformacionJugador, int>();
+        distanciaWaypointCercano = new Dictionary<InformacionJugador, float>();
         
         StartCoroutine(EsperaColocacionPosiciones());
     }
-
-    void Update(){
-        GestionCambioPosicion();
-    }
-
-    IEnumerator EsperaColocacionPosiciones()
+    
+    private IEnumerator EsperaColocacionPosiciones()
     {
-        //yield on a new YieldInstruction that waits for 1 second.
         yield return new WaitForSeconds(1);
-        ColocacionPosiciones();
+        PreparacionPosicionesJugadores();
     }
-    void ColocacionPosiciones(){
+    private void PreparacionPosicionesJugadores(){
+        
         _informacionJugadores = FindObjectsOfType(typeof(InformacionJugador)) as InformacionJugador[];
         foreach (var jugador in _informacionJugadores)
         {
-            nombreJugador.Add(jugador, jugador.nombre);
             vueltaActualJugador.Add(jugador, 1);
             waypointTotalesJugador.Add(jugador, 0);
-            indiceWaypoint.Add(jugador, 0);
-        }
-        
-        totalPlayers=_informacionJugadores.Length;
-	}
+            indiceSiguienteWaypoint.Add(jugador, 0);
+            distanciaWaypointCercano.Add(jugador, CalculoDistanciaWaypointCercano(jugador, indiceSiguienteWaypoint[jugador]));
 
-    void GestionCambioPosicion(){
-        if(_informacionJugadores!=null){
-            if(_informacionJugadores.Length>0){
-                
-                //Ordena mi lista
-                InformacionJugador[] listaJugadoresOrdenados = _informacionJugadores.OrderByDescending(i => i.circuitosCompletados).
-                                                                             ThenByDescending(i => i.vueltaActualJugador).
-                                                                             ThenByDescending(i => i.puntoControlJugador).ToArray();
-                //Lo visualizo en el panel
-                int contador=1;
-                tablaPosicion.text="";
-                foreach(InformacionJugador orden in listaJugadoresOrdenados){
-                    tablaPosicion.text+=contador + "º " +orden.nombre+"\n";
-                    orden.posicionJugador=contador;
-                    contador++;                    
-                }
+            if (jugador.isLocalPlayer)
+            {
+                localPlayer = jugador;
+                jugador.ActualizaNumVueltas(vueltaActualJugador[jugador], vueltasTotales);
             }
         }
     }
 
-    public void gestionCambioWaypoints(InformacionJugador jugador)
+    void Update(){
+        ActualizarPosiciones();
+    }
+
+    private void ActualizarPosiciones(){
+        if(_informacionJugadores!=null){
+            foreach (var jugador in _informacionJugadores)
+            {
+                distanciaWaypointCercano[jugador] = CalculoDistanciaWaypointCercano(jugador, indiceSiguienteWaypoint[jugador]);
+            }
+            
+            // Ordena a los jugadores según su posición
+            InformacionJugador[] jugadoresOrdenados = _informacionJugadores.OrderByDescending(jugador => vueltaActualJugador[jugador]).         //Me ordena por número de vueltas
+                                                                                ThenByDescending(jugador => waypointTotalesJugador[jugador]).   //Me ordena por número de waypoints totales
+                                                                                ThenBy(jugador => distanciaWaypointCercano[jugador]).ToArray(); //Me ordena por distancia cercana al siguiente waypoiny
+            
+            int contador = 1;
+            foreach(InformacionJugador orden in jugadoresOrdenados){
+                
+                //Si el jugador de la lista es el local, que me actualice la posicion solamente a ese jugador local
+                if (orden == localPlayer)
+                {
+                    orden.ActualizaPosicion(contador);                    
+                }
+                //orden.posicionJugador = contador; //Variable para probar
+                contador++;                    
+                }
+            
+        }
+    }
+    
+    private int CalculoDistanciaWaypointCercano(InformacionJugador jugador, int indice)
     {
-        jugador.puntoControlJugador++;
-        indiceWaypoint[jugador]++;
-        
-        if (indiceWaypoint[jugador] >= listaWaypoints.Count)
+
+        int waypointSiguiente = indice + 1;
+
+        if (waypointSiguiente >= listaWaypoints.Count)
         {
-            jugador.vueltaActualJugador++;
-            if (jugador.vueltaActualJugador > vueltasTotales)
+            waypointSiguiente = 0;
+        }
+        
+        float distancia = Vector3.Distance(jugador.transform.position, listaWaypoints[waypointSiguiente].position);
+
+        return Mathf.RoundToInt(distancia);
+    }
+
+    public void GestionCambioWaypoints(InformacionJugador jugador)
+    {
+        indiceSiguienteWaypoint[jugador]++;
+        jugador.puntoControlJugador = indiceSiguienteWaypoint[jugador];
+        
+        if (indiceSiguienteWaypoint[jugador] >= listaWaypoints.Count)
+        {
+            vueltaActualJugador[jugador]++;
+            //jugador.vueltaActualJugador = vueltaActualJugador[jugador];
+            
+            if (vueltaActualJugador[jugador] > vueltasTotales)
             {
                 Debug.Log("Carrera hecha");
             }
             else
             {
-                indiceWaypoint[jugador] = 0;
+                if (jugador == localPlayer)
+                {
+                    jugador.ActualizaNumVueltas(vueltaActualJugador[jugador], vueltasTotales);
+                }
+                
+                indiceSiguienteWaypoint[jugador] = 0;
             }
         }
+
+        if (jugador == localPlayer)
+        {
+            jugador.GestionActivacionYDesactivacionWaypoints(indiceSiguienteWaypoint[jugador]);   
+        }
+        
     }
-
-
 }
-    /*
-    public List<Transform> waypoints; // Lista de los puntos de control en la pista
-    public List<CarController> jugadores; // Lista de todos los jugadores en la carrera
-    private Dictionary<CarController, int> posicionJugador; // Diccionario para almacenar las posiciones de los jugadores
-
-    private Dictionary<CarController, int> vueltasJugador; // Diccionario para almacenar las vueltas actuales de cada jugador
-    private Dictionary<CarController, int> waypointJugador; // Diccionario para almacenar el waypoint actual de cada jugador
-
-
-    private int waypointIndex;
-    private int numVueltasTotal = 2;
-    // Start is called before the first frame update
-    void Start()
-    {
-
-
-        posicionJugador = new Dictionary<CarController, int>();
-
-        vueltasJugador = new Dictionary<CarController, int>();
-        waypointJugador = new Dictionary<CarController, int>();
-        InicioPosicionesJugadores();
-    }
-
-    public void InicioPosicionesJugadores()
-    {
-        CarController[] jugadoresEncontrados = FindObjectsByType<CarController>(0);
-        Debug.Log(jugadoresEncontrados.Length);
-
-        foreach (CarController jugadorAgregados in jugadoresEncontrados)
-        {
-            jugadores.Add(jugadorAgregados);
-        }
-
-        foreach (CarController jugador in jugadores)
-        {
-            posicionJugador.Add(jugador, 0); // Inicializa todas las posiciones de los jugadores como 0 al principio
-            vueltasJugador.Add(jugador, 1); // Inicializa el número de vueltas completadas como 1
-            waypointJugador.Add(jugador, 0); // Inicializa el número del waypoint
-        }
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        ActualizoPosicionJugador();
-    }
-
-    public void ActualizoPosicionJugador()
-    {
-        foreach (CarController jugador in jugadores)
-        {
-            // Calcula la posición basada en las vueltas y los waypoints
-            int position = vueltasJugador[jugador] * waypointJugador[jugador] + DistanciaWaypointCercano(jugador);
-
-            posicionJugador[jugador] = position; // Actualiza la posición del jugador en el diccionario
-        }
-
-        // Ordena a los jugadores según su posición
-        List<CarController> sortedPlayers = jugadores.OrderBy(jugador => posicionJugador[jugador]).ToList();
-    }
-
-    public int DistanciaWaypointCercano(CarController jugador)
-    {
-
-        waypointIndex = waypointJugador[jugador] + 1;
-
-        float distance = Vector3.Distance(jugador.transform.position, waypoints[waypointIndex].position);
-
-        return Mathf.RoundToInt(distance);
-    }
-
-    public void actualizoWaypoint(CarController jugador)
-    {
-        if (jugadores.Contains(jugador))
-        {
-            // Actualiza el waypoint del jugador en el diccionario
-            waypointJugador[jugador]++;
-
-            // Comprueba si el jugador ha pasado por el último waypoint
-            if (waypointJugador[jugador] == waypoints.Count - 1)
-            {
-                // Incrementa el contador de vueltas para ese jugador
-                vueltasJugador[jugador]++;
-
-                if (vueltasJugador[jugador] > numVueltasTotal)
-                {
-                    Debug.Log("Hecho");
-                }
-                else
-                {
-                    //Reinicio el contador de waypoints
-                    waypointJugador[jugador] = 0;
-                }
-            }
-        }
-    }
-    */
