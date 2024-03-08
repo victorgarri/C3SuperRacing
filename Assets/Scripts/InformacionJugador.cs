@@ -8,6 +8,10 @@ using UnityEngine;
 
 public class InformacionJugador : NetworkBehaviour
 {
+    [Header("Nombre del jugador")] 
+    [SerializeField] public string nombreJugador = "Carlitos";
+    public TextMesh etiquetaNombre;
+    
     public int puntoControlJugador;
     
     [Header("Gestión de waypoints")]
@@ -26,6 +30,12 @@ public class InformacionJugador : NetworkBehaviour
     private bool prohibidoActivo = false;
     private GameObject imagenProhibido;
     
+    private void Awake()
+    {
+    etiquetaNombre = GameObject.Find("NombreJugador").GetComponent<TextMesh>();
+    etiquetaNombre.text = nombreJugador;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
