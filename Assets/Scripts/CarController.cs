@@ -80,8 +80,8 @@ public class CarController : NetworkBehaviour
             Debug.Log("No he encontrado nada");
         }
         
-        wheelBase = (FL.transform.position.z - RL.transform.position.z);
-        trackWidth = (FR.transform.position.x - FL.transform.position.x);
+        wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
+        trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
     }
     
 
