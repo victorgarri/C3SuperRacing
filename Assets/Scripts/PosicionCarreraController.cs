@@ -105,6 +105,8 @@ public class PosicionCarreraController : MonoBehaviour
 
     public void GestionCambioWaypoints(InformacionJugador jugador)
     {
+        waypointTotalesJugador[jugador]++;
+        
         indiceSiguienteWaypoint[jugador]++;
         jugador.puntoControlJugador = indiceSiguienteWaypoint[jugador];
         
