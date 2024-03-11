@@ -373,7 +373,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &241188187257958149
 Transform:
   m_ObjectHideFlags: 0
@@ -453,7 +453,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65d6df3e1dd7174791261c8f3989a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alturaCirculo: 100
 --- !u!1 &8635088141863676031
 GameObject:
   m_ObjectHideFlags: 0
@@ -679,6 +678,9 @@ PrefabInstance:
       addedObject: {fileID: 8331292704539598742}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       insertIndex: -1
+      addedObject: {fileID: 3399784010991489679}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
+      insertIndex: -1
       addedObject: {fileID: 8690892288489749157}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       insertIndex: -1
@@ -830,9 +832,27 @@ MonoBehaviour:
   WRL: {fileID: 4433358557130282161}
   WRR: {fileID: 773153340793870144}
   _updateWheels: 1
-  currentSpeed: 0
-  MAXSPEED: 60
-  currentSpeedText: {fileID: 0}
+  agujaVelocimetro: {fileID: 0}
+--- !u!114 &3399784010991489679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4492824780523140061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5db683b99584f42a7c7f4ccbc61fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  nombreJugador: Carlitos
+  etiquetaNombre: {fileID: 0}
+  puntoControlJugador: 0
+  vueltaActualJugador: 0
+  imagenProhibido: {fileID: 0}
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0
