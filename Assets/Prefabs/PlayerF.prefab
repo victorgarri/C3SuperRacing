@@ -10,14 +10,13 @@ GameObject:
   m_Component:
   - component: {fileID: 8804402323340673994}
   - component: {fileID: 922135403173739743}
-  - component: {fileID: 8284629480460431640}
   m_Layer: 0
   m_Name: Camera
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &8804402323340673994
 Transform:
   m_ObjectHideFlags: 0
@@ -84,14 +83,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &8284629480460431640
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 891085453929101090}
-  m_Enabled: 1
 --- !u!1 &1262022333212547919
 GameObject:
   m_ObjectHideFlags: 0
@@ -250,7 +241,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1284986697595274571
 Transform:
   m_ObjectHideFlags: 0
@@ -453,7 +444,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a65d6df3e1dd7174791261c8f3989a51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  alturaCirculo: 100
 --- !u!1 &8635088141863676031
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,9 +820,7 @@ MonoBehaviour:
   WRL: {fileID: 4433358557130282161}
   WRR: {fileID: 773153340793870144}
   _updateWheels: 1
-  currentSpeed: 0
-  MAXSPEED: 60
-  currentSpeedText: {fileID: 0}
+  agujaVelocimetro: {fileID: 0}
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0

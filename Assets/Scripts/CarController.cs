@@ -64,11 +64,13 @@ public class CarController : NetworkBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.centerOfMass = new Vector3(0, -.23f, 0.1f);
         _playerInput = GetComponent<PlayerInput>();
-        _cameraPivot = GameObject.Find("CameraPivot");
-
-        if(isLocalPlayer)
-            transform.Find("CameraPivot/Camera").gameObject.SetActive(true);
-
+        _cameraPivot = transform.Find("CameraPivot").gameObject;
+        
+        if (isLocalPlayer)
+        {
+            Debug.Log("isLocalPLayer: "+isLocalPlayer);
+            transform.Find("CameraPivot").gameObject.SetActive(true);
+        }
         
         //Pillo la aguja al inicio del juego
         agujaVelocimetro = GameObject.Find("ImagenAguja").transform;
@@ -76,7 +78,14 @@ public class CarController : NetworkBehaviour
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
 
     }
-    
+
+    public override void OnStartLocalPlayer()
+    {
+        base.OnStartLocalPlayer();
+        
+        
+    }
+
 
     private void Update()
     {
@@ -85,7 +94,7 @@ public class CarController : NetworkBehaviour
             ActualizacionAgujaVelocimetro();
         }
 
-        _cameraPivot.transform.position = transform.position;
+        _cameraPivot.transform.position = this.transform.position;
         _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
         
     }

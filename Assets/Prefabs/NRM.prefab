@@ -90,7 +90,7 @@ MonoBehaviour:
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 3555693419386718032, guid: 831a2741c573e1d43bb073a1391351d1, type: 3}
+  playerPrefab: {fileID: 4492824780523140061, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
   spawnPrefabs: []
@@ -113,7 +113,7 @@ MonoBehaviour:
   minPlayers: 1
   roomPlayerPrefab: {fileID: 8982251709278577415, guid: 6b1eace3a3ce4474a83f23ad8af53f1d, type: 3}
   RoomScene: Assets/Scenes/RoomScene.unity
-  GameplayScene: Assets/Scenes/OnlineTesting.unity
+  GameplayScene: Assets/Scenes/Circuito 1.unity
   _allPlayersReady: 0
   roomSlots: []
   clientIndex: 0
