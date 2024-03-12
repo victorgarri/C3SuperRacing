@@ -364,7 +364,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &241188187257958149
 Transform:
   m_ObjectHideFlags: 0
@@ -623,6 +623,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2420067691883901700, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3415140384741295634, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -667,6 +671,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8331292704539598742}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3399784010991489679}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8690892288489749157}
@@ -821,6 +828,26 @@ MonoBehaviour:
   WRR: {fileID: 773153340793870144}
   _updateWheels: 1
   agujaVelocimetro: {fileID: 0}
+--- !u!114 &3399784010991489679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4492824780523140061}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8c5db683b99584f42a7c7f4ccbc61fff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  nombreJugador: Carlitos
+  etiquetaNombre: {fileID: 0}
+  puntoControlJugador: 0
+  anteriorWaypoint: 0
+  vueltaActualJugador: 0
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0

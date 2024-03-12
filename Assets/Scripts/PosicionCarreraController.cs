@@ -47,11 +47,11 @@ public class PosicionCarreraController : MonoBehaviour
             vueltaActualJugador.Add(jugador, 1);
             waypointTotalesJugador.Add(jugador, 0);
             indiceSiguienteWaypoint.Add(jugador, 0);
-            distanciaWaypointCercano.Add(jugador, CalculoDistanciaWaypointCercano(jugador, indiceSiguienteWaypoint[jugador]));
 
             if (jugador.isLocalPlayer)
             {
                 localPlayer = jugador;
+                distanciaWaypointCercano.Add(jugador, jugador.DistanciaCercanaSiguienteWaypoint());
                 jugador.ActualizaNumVueltas(vueltaActualJugador[jugador], vueltasTotales);
             }
         }
@@ -65,7 +65,10 @@ public class PosicionCarreraController : MonoBehaviour
         if(_informacionJugadores!=null){
             foreach (var jugador in _informacionJugadores)
             {
-                distanciaWaypointCercano[jugador] = CalculoDistanciaWaypointCercano(jugador, indiceSiguienteWaypoint[jugador]);
+                if (jugador == localPlayer)
+                {
+                    distanciaWaypointCercano[jugador] = jugador.DistanciaCercanaSiguienteWaypoint();
+                }
             }
             
             // Ordena a los jugadores según su posición
@@ -87,10 +90,9 @@ public class PosicionCarreraController : MonoBehaviour
             
         }
     }
-    
+    /*
     private int CalculoDistanciaWaypointCercano(InformacionJugador jugador, int indice)
     {
-
         int waypointSiguiente = indice + 1;
 
         if (waypointSiguiente >= listaWaypoints.Count)
@@ -99,12 +101,14 @@ public class PosicionCarreraController : MonoBehaviour
         }
         
         float distancia = Vector3.Distance(jugador.transform.position, listaWaypoints[waypointSiguiente].position);
-
         return Mathf.RoundToInt(distancia);
     }
+    */
 
     public void GestionCambioWaypoints(InformacionJugador jugador)
     {
+        waypointTotalesJugador[jugador]++;
+        
         indiceSiguienteWaypoint[jugador]++;
         jugador.puntoControlJugador = indiceSiguienteWaypoint[jugador];
         
