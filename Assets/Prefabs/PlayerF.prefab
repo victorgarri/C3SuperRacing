@@ -632,6 +632,10 @@ PrefabInstance:
       propertyPath: m_LocalRotation.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2420067691883901700, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3415140384741295634, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -851,8 +855,8 @@ MonoBehaviour:
   nombreJugador: Carlitos
   etiquetaNombre: {fileID: 0}
   puntoControlJugador: 0
+  anteriorWaypoint: 0
   vueltaActualJugador: 0
-  imagenProhibido: {fileID: 0}
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0

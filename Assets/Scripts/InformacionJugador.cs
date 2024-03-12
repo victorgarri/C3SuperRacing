@@ -4,7 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
+using ColorUtility = UnityEngine.ColorUtility;
 
 public class InformacionJugador : NetworkBehaviour
 {
@@ -16,7 +18,6 @@ public class InformacionJugador : NetworkBehaviour
     
     [Header("Gestión de waypoints")]
     private PosicionCarreraController _posicionCarreraController;
-    public int siguienteWaypoint;
     public int anteriorWaypoint;
     
     [Header("Gestión actualizar posición")]
@@ -48,27 +49,27 @@ public class InformacionJugador : NetworkBehaviour
         textoVueltas = GameObject.Find("TextoVueltas").GetComponent<TextMeshProUGUI>();
         
         imagenProhibido = GameObject.Find("ImagenProhibido");
-        imagenProhibido.SetActive(prohibidoActivo);
-
-        siguienteWaypoint = 0;
+        if (isLocalPlayer)
+        {
+            imagenProhibido.SetActive(prohibidoActivo);   
+        }
         anteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 1;
     }
     
-    public void GestionActivacionYDesactivacionWaypoints(int waypoint)
+    public void GestionActivacionYDesactivacionWaypoints(int siguienteWaypoint)
     {
-        //Activo siguiente waypoint
-        _posicionCarreraController.listaWaypoints[waypoint].gameObject.SetActive(true);
-        siguienteWaypoint = waypoint;
+        //Activo siguiente siguienteWaypoint
+        _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.SetActive(true);
         
-        //Guardo el waypoint que acabo de pillar
-        anteriorWaypoint = waypoint - 1;
+        //Guardo el siguienteWaypoint que acabo de pillar
+        anteriorWaypoint = siguienteWaypoint - 1;
         if (anteriorWaypoint < 0)
         {
             anteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 1;
         }
         
-        //Desactivo el anterior waypoint
-        int postAnteriorWaypoint = waypoint - 2;
+        //Desactivo el anterior siguienteWaypoint
+        int postAnteriorWaypoint = siguienteWaypoint - 2;
         if (postAnteriorWaypoint < 0)
         {
             postAnteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 2;
@@ -126,17 +127,15 @@ public class InformacionJugador : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Waypoint"))
         {
-            //Si el nombre del waypoint coincide con el del anterior waypoint que pillo, se dará la vuelta
+            //Si el nombre del siguienteWaypoint coincide con el del anterior siguienteWaypoint que pillo, se dará la vuelta
             //Así evitamos que los juagores hagan una vuelta atrás
-            if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
+            if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[anteriorWaypoint].gameObject.name)
+            {
+                    activoProhibicion();   
+            }
+            else
             {
                 _posicionCarreraController.GestionCambioWaypoints(this);
-                return;
-            }
-            else if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[anteriorWaypoint].gameObject.name)
-            {
-                activoProhibicion();
-                return;
             }
         }
     }

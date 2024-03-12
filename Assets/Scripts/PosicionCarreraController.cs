@@ -90,7 +90,7 @@ public class PosicionCarreraController : MonoBehaviour
     
     private int CalculoDistanciaWaypointCercano(InformacionJugador jugador, int indice)
     {
-
+        Debug.Log(indice);
         int waypointSiguiente = indice + 1;
 
         if (waypointSiguiente >= listaWaypoints.Count)
@@ -99,7 +99,7 @@ public class PosicionCarreraController : MonoBehaviour
         }
         
         float distancia = Vector3.Distance(jugador.transform.position, listaWaypoints[waypointSiguiente].position);
-
+        Debug.Log(distancia);
         return Mathf.RoundToInt(distancia);
     }
 

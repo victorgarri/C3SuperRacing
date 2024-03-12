@@ -231,7 +231,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4162160}
   - component: {fileID: 4162161}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 12
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -3475,7 +3475,7 @@ GameObject:
   m_Component:
   - component: {fileID: 91008190}
   - component: {fileID: 91008191}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 7
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -5953,7 +5953,7 @@ GameObject:
   m_Component:
   - component: {fileID: 178972921}
   - component: {fileID: 178972922}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 1
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -10027,7 +10027,7 @@ GameObject:
   m_Component:
   - component: {fileID: 268992084}
   - component: {fileID: 268992085}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 8
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -10441,7 +10441,7 @@ GameObject:
   m_Component:
   - component: {fileID: 272446800}
   - component: {fileID: 272446801}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 20
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -16077,7 +16077,7 @@ GameObject:
   m_Component:
   - component: {fileID: 433777602}
   - component: {fileID: 433777603}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 16
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -17411,7 +17411,7 @@ GameObject:
   m_Component:
   - component: {fileID: 480260229}
   - component: {fileID: 480260230}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 11
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -19344,7 +19344,7 @@ GameObject:
   m_Component:
   - component: {fileID: 520384671}
   - component: {fileID: 520384672}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 3
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -19875,7 +19875,7 @@ GameObject:
   m_Component:
   - component: {fileID: 529915319}
   - component: {fileID: 529915320}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 9
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -25145,7 +25145,7 @@ GameObject:
   m_Component:
   - component: {fileID: 710860908}
   - component: {fileID: 710860909}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 19
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -37872,7 +37872,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1061690828}
   - component: {fileID: 1061690829}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 14
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -37925,7 +37925,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1066368924}
   - component: {fileID: 1066368925}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 13
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -45290,7 +45290,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1296482243}
   - component: {fileID: 1296482244}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 15
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -46848,7 +46848,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1349057127}
   - component: {fileID: 1349057128}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 21
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -48878,7 +48878,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1411572346}
   - component: {fileID: 1411572347}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 4
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -50114,7 +50114,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1426348256}
   - component: {fileID: 1426348257}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 10
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -54888,7 +54888,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1570192163}
   - component: {fileID: 1570192164}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 17
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -64975,7 +64975,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1723245629}
   - component: {fileID: 1723245630}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 22
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -69081,7 +69081,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1835453223}
   - component: {fileID: 1835453224}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 5
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -70938,7 +70938,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1868447870}
   - component: {fileID: 1868447871}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 6
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -75740,7 +75740,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1982510632}
   - component: {fileID: 1982510633}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 18
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
@@ -80044,7 +80044,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2124642196}
   - component: {fileID: 2124642197}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: PDC 2
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
