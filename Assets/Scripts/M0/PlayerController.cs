@@ -13,8 +13,9 @@ public class PlayerController : MonoBehaviour
     public GameObject wrench;
     private Collider2D wrenchCollider;
     private Transform wrenchTransform;
-    
     private M0GameManager moGameManager;
+
+    public bool disableControls = false;
 
     void Start()
     {
@@ -28,7 +29,7 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        if (!moGameManager.puzzleCompleted)
+        if (!disableControls)
         {
             if (_playerInput != null && _playerInput.actions != null && _playerInput.actions["Movimiento"] != null)
             {
@@ -90,7 +91,7 @@ public class PlayerController : MonoBehaviour
         }
         
         float clampedX = Mathf.Clamp(transform.position.x, -10.5f, 11.5f);
-        float clampedY = Mathf.Clamp(transform.position.y, -8.25f, 7.25f);
+        float clampedY = Mathf.Clamp(transform.position.y, -8.25f, 8.5f);
         transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }
 

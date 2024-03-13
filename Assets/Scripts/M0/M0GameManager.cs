@@ -17,7 +17,7 @@ public class M0GameManager : MonoBehaviour
     public int totalPieces = 4;
     public bool puzzleCompleted = false;
 
-    private float maxTime = 60f;
+    public float maxTime = 60f;
     private float tiempoRegistrado;
     
     public int probabilidadCajaReforzada;
@@ -26,11 +26,14 @@ public class M0GameManager : MonoBehaviour
     public GameObject cajaPrefab;
     public GameObject cajaReforzadaPrefab;
     public GameObject tntPrefab;
+    
+    private PlayerController playerController;
 
     // Start is called before the first frame update
     void Start()
     {
         startTime = Time.time;
+        playerController = FindObjectOfType<PlayerController>();
         
         GenerateRandomBoxes();
     }
@@ -110,13 +113,13 @@ public class M0GameManager : MonoBehaviour
         if (puzzleCompleted)
         {
             messagePanel.SetActive(true);
-            gameObject.SetActive(false);
+            playerController.disableControls = true;
             finalMessage.text = "Minijuego completado en " + FormatTime(tiempoRegistrado) + " segundos\n¡Bien hecho!";
         }
         else
         {
             messagePanel.SetActive(true);
-            gameObject.SetActive(false);
+            playerController.disableControls = true;
             finalMessage.text = $"Tiempo límite alcanzado\nÚltima pieza recogida en {FormatTime(lastCollectedTime)} segundos\nTotal de piezas: {lastPiecesCollected}";
         }
     }
