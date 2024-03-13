@@ -24,6 +24,8 @@ public class PosicionCarreraController : MonoBehaviour
     private Dictionary<InformacionJugador, int> waypointTotalesJugador;         //Diccionario para almacenar los waypoints totales de cada jugado
     private Dictionary<InformacionJugador, float> distanciaWaypointCercano;     //Diccionario para almacenar la distancia del próximo waypoint
     private Dictionary<InformacionJugador, int> indiceSiguienteWaypoint;        //Diccionario para almacenar el indice del proximo waypoint del jugador
+
+    private int sumaOrden = 1;
     void Start()
     {
         vueltaActualJugador = new Dictionary<InformacionJugador, int>();
@@ -47,70 +49,67 @@ public class PosicionCarreraController : MonoBehaviour
             vueltaActualJugador.Add(jugador, 1);
             waypointTotalesJugador.Add(jugador, 0);
             indiceSiguienteWaypoint.Add(jugador, 0);
+            distanciaWaypointCercano.Add(jugador, indiceSiguienteWaypoint[jugador]);
 
             if (jugador.isLocalPlayer)
             {
                 localPlayer = jugador;
-                distanciaWaypointCercano.Add(jugador, jugador.DistanciaCercanaSiguienteWaypoint());
                 jugador.ActualizaNumVueltas(vueltaActualJugador[jugador], vueltasTotales);
             }
         }
     }
 
+    
     void Update(){
         ActualizarPosiciones();
     }
-
     private void ActualizarPosiciones(){
-        if(_informacionJugadores!=null){
+        if(_informacionJugadores != null){
             foreach (var jugador in _informacionJugadores)
             {
-                if (jugador == localPlayer)
-                {
-                    distanciaWaypointCercano[jugador] = jugador.DistanciaCercanaSiguienteWaypoint();
-                }
+                distanciaWaypointCercano[jugador] = CalculoDistanciaWaypointCercano(jugador, indiceSiguienteWaypoint[jugador]);
             }
             
             // Ordena a los jugadores según su posición
-            InformacionJugador[] jugadoresOrdenados = _informacionJugadores.OrderByDescending(jugador => vueltaActualJugador[jugador]).         //Me ordena por número de vueltas
-                                                                                ThenByDescending(jugador => waypointTotalesJugador[jugador]).   //Me ordena por número de waypoints totales
-                                                                                ThenBy(jugador => distanciaWaypointCercano[jugador]).ToArray(); //Me ordena por distancia cercana al siguiente waypoiny
-            
-            int contador = 1;
-            foreach(InformacionJugador orden in jugadoresOrdenados){
-                
-                //Si el jugador de la lista es el local, que me actualice la posicion solamente a ese jugador local
-                if (orden == localPlayer)
-                {
-                    orden.ActualizaPosicion(contador);                    
-                }
-                //orden.posicionJugador = contador; //Variable para probar
-                contador++;                    
-                }
-            
-        }
-    }
-    /*
-    private int CalculoDistanciaWaypointCercano(InformacionJugador jugador, int indice)
-    {
-        int waypointSiguiente = indice + 1;
+            InformacionJugador[] jugadoresOrdenados = _informacionJugadores.OrderByDescending(jugador => vueltaActualJugador[jugador]).         //Me ordena por número de vueltas (orden ascendente)
+                                                                                ThenByDescending(jugador => waypointTotalesJugador[jugador]).   //Me ordena por número de waypoints totales (orden ascendente)
+                                                                                ThenBy(jugador => distanciaWaypointCercano[jugador]).ToArray(); //Me ordena por distancia cercana al siguiente waypoint (orden descendente)
 
-        if (waypointSiguiente >= listaWaypoints.Count)
-        {
-            waypointSiguiente = 0;
+            OrdenarJugadores(jugadoresOrdenados, sumaOrden);
         }
-        
-        float distancia = Vector3.Distance(jugador.transform.position, listaWaypoints[waypointSiguiente].position);
-        return Mathf.RoundToInt(distancia);
     }
-    */
+    
+    private float CalculoDistanciaWaypointCercano(InformacionJugador jugador, int indice)
+    {
+        float distancia = Vector3.Distance(jugador.transform.position, listaWaypoints[indice].position);
+        jugador.distancia = distancia;
+        
+        return distancia;
+    }
+
+    private void OrdenarJugadores(InformacionJugador[] jugadores, int orden)
+    {
+        int numero = orden;
+        foreach(InformacionJugador jugador in jugadores){
+                
+            //Si el jugador de la lista es el local, que me actualice la posicion solamente a ese jugador local
+            if (jugador == localPlayer)
+            {
+                jugador.ActualizaPosicion(numero);    
+                jugador.posicion = numero;
+            } 
+            //Variable para probar
+            numero++;
+        }
+    }
+    
 
     public void GestionCambioWaypoints(InformacionJugador jugador)
     {
         waypointTotalesJugador[jugador]++;
+        jugador.puntosControlJugador = waypointTotalesJugador[jugador];
         
         indiceSiguienteWaypoint[jugador]++;
-        jugador.puntoControlJugador = indiceSiguienteWaypoint[jugador];
         
         if (indiceSiguienteWaypoint[jugador] >= listaWaypoints.Count)
         {
@@ -119,6 +118,7 @@ public class PosicionCarreraController : MonoBehaviour
             
             if (vueltaActualJugador[jugador] > vueltasTotales)
             {
+                sumaOrden++;
                 Debug.Log("Carrera hecha");
             }
             else

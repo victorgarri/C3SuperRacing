@@ -13,12 +13,13 @@ public class InformacionJugador : NetworkBehaviour
     [SerializeField] public string nombreJugador = "Carlitos";
     public TextMesh etiquetaNombre;
     
-    public int puntoControlJugador;
-    
     [Header("Gestión de waypoints")]
     private PosicionCarreraController _posicionCarreraController;
     public int siguienteWaypoint;
     public int anteriorWaypoint;
+    public float distancia;
+    public int puntosControlJugador;
+    public int posicion;
     
     [Header("Gestión actualizar posición")]
     //public int posicionJugador;
@@ -52,15 +53,10 @@ public class InformacionJugador : NetworkBehaviour
         if (isLocalPlayer)
         {
             imagenProhibido.SetActive(prohibidoActivo);
-            siguienteWaypoint = 0;
-            anteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 1;
         }
-    }
-
-    public float DistanciaCercanaSiguienteWaypoint()
-    {
-        float distancia = Vector3.Distance(transform.position, _posicionCarreraController.listaWaypoints[siguienteWaypoint].position);
-        return Mathf.RoundToInt(distancia);
+        
+        siguienteWaypoint = 0;
+        anteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 1;
     }
     
     public void GestionActivacionYDesactivacionWaypoints(int waypoint)
@@ -139,7 +135,10 @@ public class InformacionJugador : NetworkBehaviour
             //Así evitamos que los juagores hagan una vuelta atrás
             if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[anteriorWaypoint].gameObject.name)
             {
+                if (isLocalPlayer)
+                {
                     activoProhibicion();   
+                }
             }
             else
             {
