@@ -30,7 +30,7 @@ public class InformacionJugador : NetworkBehaviour
     private TextMeshProUGUI textoVueltas;
 
     [Header("Gestión cuando el usuario vaya en sentido contrario")]
-    private bool prohibidoActivo = false;
+    private bool prohibidoActivo;
     private GameObject imagenProhibido;
     
     /*
@@ -52,33 +52,17 @@ public class InformacionJugador : NetworkBehaviour
         imagenProhibido = GameObject.Find("ImagenProhibido");
         if (isLocalPlayer)
         {
-            imagenProhibido.SetActive(prohibidoActivo);
+            desactivoProhibicion();
         }
-        
-        siguienteWaypoint = 0;
-        anteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 1;
     }
     
-    public void GestionActivacionYDesactivacionWaypoints(int waypoint)
+    public void GestionControlWaypoints(int waypoint)
     {
-        //Activo siguiente waypoint
+        //Me guardo la variable del siguiente waypoint
         siguienteWaypoint = waypoint;
-        _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.SetActive(true);
         
-        //Guardo el waypoint que acabo de pillar
+        //Me guardo la variable del waypoint que acabo de pillar
         anteriorWaypoint = waypoint - 1;
-        if (anteriorWaypoint < 0)
-        {
-            anteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 1;
-        }
-        
-        //Desactivo el anterior waypoint
-        int postAnteriorWaypoint = waypoint - 2;
-        if (postAnteriorWaypoint < 0)
-        {
-            postAnteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 2;
-        }
-        _posicionCarreraController.listaWaypoints[postAnteriorWaypoint].gameObject.SetActive(false);
 
     }
     
@@ -137,26 +121,37 @@ public class InformacionJugador : NetworkBehaviour
             {
                 if (isLocalPlayer)
                 {
-                    activoProhibicion();   
+                    if (!prohibidoActivo)
+                    {
+                        activoProhibicion();
+                    }
+                    else
+                    {
+                        desactivoProhibicion();
+                    }
                 }
             }
-            else
+            else if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
             {
                 _posicionCarreraController.GestionCambioWaypoints(this);
+
+                if (isLocalPlayer && prohibidoActivo)
+                {
+                    activoProhibicion();
+                }
             }
         }
     }
 
     private void activoProhibicion()
     {
-        if (!prohibidoActivo)
-        {
-            prohibidoActivo = true;
-        } else
-        {
-            prohibidoActivo = false;
-        }
-        
+        prohibidoActivo = true;
+        imagenProhibido.SetActive(prohibidoActivo);
+    }
+
+    private void desactivoProhibicion()
+    {
+        prohibidoActivo = false;
         imagenProhibido.SetActive(prohibidoActivo);
     }
 }

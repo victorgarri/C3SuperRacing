@@ -21,7 +21,6 @@ public class PosicionCarreraController : MonoBehaviour
     
     [Header("Diccionarios para almacenar los valores que queremos ordenar para llevar a cabo el cambio de posiciones")]
     private Dictionary<InformacionJugador, int> vueltaActualJugador;            //Diccionario para almacenar la vuelta actual de cada jugador
-    private Dictionary<InformacionJugador, int> waypointTotalesJugador;         //Diccionario para almacenar los waypoints totales de cada jugado
     private Dictionary<InformacionJugador, float> distanciaWaypointCercano;     //Diccionario para almacenar la distancia del próximo waypoint
     private Dictionary<InformacionJugador, int> indiceSiguienteWaypoint;        //Diccionario para almacenar el indice del proximo waypoint del jugador
 
@@ -29,7 +28,6 @@ public class PosicionCarreraController : MonoBehaviour
     void Start()
     {
         vueltaActualJugador = new Dictionary<InformacionJugador, int>();
-        waypointTotalesJugador = new Dictionary<InformacionJugador, int>();
         indiceSiguienteWaypoint = new Dictionary<InformacionJugador, int>();
         distanciaWaypointCercano = new Dictionary<InformacionJugador, float>();
         
@@ -40,6 +38,7 @@ public class PosicionCarreraController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         PreparacionPosicionesJugadores();
+        ActualizarPosiciones();
     }
     private void PreparacionPosicionesJugadores(){
         
@@ -47,7 +46,6 @@ public class PosicionCarreraController : MonoBehaviour
         foreach (var jugador in _informacionJugadores)
         {
             vueltaActualJugador.Add(jugador, 1);
-            waypointTotalesJugador.Add(jugador, 0);
             indiceSiguienteWaypoint.Add(jugador, 0);
             distanciaWaypointCercano.Add(jugador, indiceSiguienteWaypoint[jugador]);
 
@@ -55,6 +53,9 @@ public class PosicionCarreraController : MonoBehaviour
             {
                 localPlayer = jugador;
                 jugador.ActualizaNumVueltas(vueltaActualJugador[jugador], vueltasTotales);
+                jugador.vueltaActualJugador = vueltaActualJugador[jugador];
+                jugador.siguienteWaypoint = indiceSiguienteWaypoint[jugador];
+                jugador.anteriorWaypoint = listaWaypoints.Count - 2;
             }
         }
     }
@@ -72,7 +73,7 @@ public class PosicionCarreraController : MonoBehaviour
             
             // Ordena a los jugadores según su posición
             InformacionJugador[] jugadoresOrdenados = _informacionJugadores.OrderByDescending(jugador => vueltaActualJugador[jugador]).         //Me ordena por número de vueltas (orden ascendente)
-                                                                                ThenByDescending(jugador => waypointTotalesJugador[jugador]).   //Me ordena por número de waypoints totales (orden ascendente)
+                                                                                ThenByDescending(jugador => indiceSiguienteWaypoint[jugador]).   //Me ordena por número de waypoints totales (orden ascendente)
                                                                                 ThenBy(jugador => distanciaWaypointCercano[jugador]).ToArray(); //Me ordena por distancia cercana al siguiente waypoint (orden descendente)
 
             OrdenarJugadores(jugadoresOrdenados, sumaOrden);
@@ -93,11 +94,7 @@ public class PosicionCarreraController : MonoBehaviour
         foreach(InformacionJugador jugador in jugadores){
                 
             //Si el jugador de la lista es el local, que me actualice la posicion solamente a ese jugador local
-            if (jugador == localPlayer)
-            {
-                jugador.ActualizaPosicion(numero);    
-                jugador.posicion = numero;
-            } 
+            jugador.ActualizaPosicion(numero);  
             //Variable para probar
             numero++;
         }
@@ -106,9 +103,6 @@ public class PosicionCarreraController : MonoBehaviour
 
     public void GestionCambioWaypoints(InformacionJugador jugador)
     {
-        waypointTotalesJugador[jugador]++;
-        jugador.puntosControlJugador = waypointTotalesJugador[jugador];
-        
         indiceSiguienteWaypoint[jugador]++;
         
         if (indiceSiguienteWaypoint[jugador] >= listaWaypoints.Count)
@@ -119,6 +113,7 @@ public class PosicionCarreraController : MonoBehaviour
             if (vueltaActualJugador[jugador] > vueltasTotales)
             {
                 sumaOrden++;
+                jugador.gameObject.SetActive(false);
                 Debug.Log("Carrera hecha");
             }
             else
@@ -134,7 +129,7 @@ public class PosicionCarreraController : MonoBehaviour
 
         if (jugador == localPlayer)
         {
-            jugador.GestionActivacionYDesactivacionWaypoints(indiceSiguienteWaypoint[jugador]);   
+            jugador.GestionControlWaypoints(indiceSiguienteWaypoint[jugador]);   
         }
         
     }
