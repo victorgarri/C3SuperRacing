@@ -1,9 +1,10 @@
 using System.Collections;
+using Mirror;
 using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour
+public class PlayerController : NetworkBehaviour
 {
     public float speed = 5f;
     public TextMeshProUGUI countdownText;
@@ -25,16 +26,10 @@ public class PlayerController : MonoBehaviour
     private Collider2D wrenchCollider;
     private Transform wrenchTransform;
     
-    public GameObject cajaPrefab;
-    public GameObject cajaReforzadaPrefab;
-    public GameObject tntPrefab;
-    
     public bool controlMovimiento = true;
-
-    public int probabilidadCajaReforzada;
-    public int probabilidadTnt;
     
     public PlayerInput _playerInput;
+
 
     void Start()
     {
@@ -43,9 +38,8 @@ public class PlayerController : MonoBehaviour
         wrenchCollider = wrench.GetComponent<Collider2D>();
         wrenchTransform = wrench.transform;
         
-        GenerateRandomBoxes();
-        
         _playerInput = GetComponent<PlayerInput>();
+        
     }
 
     void Update()
@@ -185,6 +179,7 @@ public class PlayerController : MonoBehaviour
             gameObject.SetActive(false);
             finalMessage.text = $"Tiempo límite alcanzado\nÚltima pieza recogida en {FormatTime(lastCollectedTime)} segundos\nTotal de piezas: {lastPiecesCollected}";
         }
+
     }
 
     private string FormatTime(float time)
@@ -200,57 +195,8 @@ public class PlayerController : MonoBehaviour
         wrenchTransform.localPosition = position;
     }
     
-    private void GenerateRandomBoxes()
-    {
-        GameObject[] spawnpoints = GameObject.FindGameObjectsWithTag("SP");
 
-        foreach (GameObject spawnpoint in spawnpoints)
-        {
-            float randomValue = Random.Range(1, 21);
-            string boxType;
-
-            if (randomValue <= probabilidadTnt)
-            {
-                boxType = "Tnt";
-            } 
-            else if (randomValue <= probabilidadCajaReforzada)
-            {
-                boxType = "CajaReforzada";
-            }
-            else
-            {
-                boxType = "Caja";
-            }
-
-            InstantiateBox(boxType, spawnpoint.transform.position);
-        }
-    }
-
-    private void InstantiateBox(string boxType, Vector3 position)
-    {
-        GameObject boxPrefab = GetBoxPrefab(boxType);
-        BoxController boxController = Instantiate(boxPrefab, position, Quaternion.identity).GetComponent<BoxController>();
-
-        if (boxController != null)
-        {
-            boxController.SetBoxType(boxType);
-        }
-    } 
     
-    private GameObject GetBoxPrefab(string boxType)
-    {
-        switch (boxType)
-        {
-            case "Caja":
-                return cajaPrefab;
-            case "CajaReforzada":
-                return cajaReforzadaPrefab;
-            case "Tnt":
-                return tntPrefab;
-            default:
-                return null;
-        }
-    }
 
     public IEnumerator Empujar( Vector2 normal)
     {
