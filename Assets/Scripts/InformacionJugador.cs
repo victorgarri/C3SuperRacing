@@ -58,12 +58,24 @@ public class InformacionJugador : NetworkBehaviour
     
     public void GestionControlWaypoints(int waypoint)
     {
-        //Me guardo la variable del siguiente waypoint
+        //Activo siguiente waypoint
         siguienteWaypoint = waypoint;
+        _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.SetActive(true);
         
-        //Me guardo la variable del waypoint que acabo de pillar
+        //Guardo el waypoint que acabo de pillar
         anteriorWaypoint = waypoint - 1;
-
+        if (anteriorWaypoint < 0) 
+        {
+            anteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 1;
+        }
+        
+        //Desactivo el anterior waypoint
+        int postAnteriorWaypoint = waypoint - 2;
+        if (postAnteriorWaypoint < 0)
+        {
+            postAnteriorWaypoint = _posicionCarreraController.listaWaypoints.Count - 2;
+        }
+        _posicionCarreraController.listaWaypoints[postAnteriorWaypoint].gameObject.SetActive(false);
     }
     
     //Método para mostra las posicion por pantalla a cada jugador 
@@ -131,16 +143,13 @@ public class InformacionJugador : NetworkBehaviour
                     }
                 }
             }
-            else if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
+            else
             {
-                if (isLocalPlayer)
-                {
-                    _posicionCarreraController.GestionCambioWaypoints(this);   
-                }
+                _posicionCarreraController.GestionCambioWaypoints(this);   
 
                 if (isLocalPlayer && prohibidoActivo)
                 {
-                    activoProhibicion();
+                    desactivoProhibicion();
                 }
             }
         }

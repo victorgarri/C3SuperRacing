@@ -73,11 +73,11 @@ public class PosicionCarreraController : MonoBehaviour
             
             
             // Ordena a los jugadores según su posición
-            InformacionJugador[] jugadoresOrdenados = _informacionJugadores.OrderByDescending(jugador => vueltaActualJugador[jugador]).
-                                                                            ThenByDescending(jugador => indiceSiguienteWaypoint[jugador]).
-                                                                            ThenBy(jugador => distanciaWaypointCercano[jugador]).ToArray(); //Me ordena por distancia cercana al siguiente waypoint (orden descendente)
+            _informacionJugadores = _informacionJugadores.OrderBy(jugador => vueltaActualJugador[jugador]).
+                                                          ThenByDescending(jugador => indiceSiguienteWaypoint[jugador]).
+                                                          ThenBy(jugador => distanciaWaypointCercano[jugador]).ToArray(); 
 
-            OrdenarJugadores(jugadoresOrdenados, sumaOrden);
+            OrdenarJugadores(_informacionJugadores, sumaOrden);
         }
     }
     
