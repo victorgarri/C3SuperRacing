@@ -11597,6 +11597,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2585d1083660d4499537945005fca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  countdownText: {fileID: 1549347948}
+  finalMessage: {fileID: 1593019122}
+  messagePanel: {fileID: 2082005961}
+  totalPieces: 4
+  puzzleCompleted: 0
   probabilidadCajaReforzada: 30
   probabilidadTnt: 10
   cajaPrefab: {fileID: 3846966106448461380, guid: 117d9b084b931a44ca214bd26f82321a, type: 3}
@@ -11746,10 +11751,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1910331130523607165, guid: 745035abd40c1cc428cdb4a48bde3bbc, type: 3}
-      propertyPath: sceneId
-      value: 1436289614
-      objectReference: {fileID: 0}
     - target: {fileID: 2770517217332538160, guid: 745035abd40c1cc428cdb4a48bde3bbc, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.5
@@ -11790,22 +11791,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6741712566908201050, guid: 745035abd40c1cc428cdb4a48bde3bbc, type: 3}
-      propertyPath: _playerInput
-      value: 
-      objectReference: {fileID: 1712750354942909352}
-    - target: {fileID: 6741712566908201050, guid: 745035abd40c1cc428cdb4a48bde3bbc, type: 3}
-      propertyPath: finalMessage
-      value: 
-      objectReference: {fileID: 1593019122}
-    - target: {fileID: 6741712566908201050, guid: 745035abd40c1cc428cdb4a48bde3bbc, type: 3}
-      propertyPath: messagePanel
-      value: 
-      objectReference: {fileID: 2082005961}
-    - target: {fileID: 6741712566908201050, guid: 745035abd40c1cc428cdb4a48bde3bbc, type: 3}
-      propertyPath: countdownText
-      value: 
-      objectReference: {fileID: 1549347948}
     - target: {fileID: 7769506018195425069, guid: 745035abd40c1cc428cdb4a48bde3bbc, type: 3}
       propertyPath: m_Name
       value: CarlitosDetras_0
@@ -11815,17 +11800,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 745035abd40c1cc428cdb4a48bde3bbc, type: 3}
---- !u!114 &1712750354942909352 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 2973267612773028229, guid: 745035abd40c1cc428cdb4a48bde3bbc, type: 3}
-  m_PrefabInstance: {fileID: 1712750354942909351}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1001 &2303239779116015144
 PrefabInstance:
   m_ObjectHideFlags: 0
