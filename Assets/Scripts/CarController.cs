@@ -47,12 +47,9 @@ public class CarController : NetworkBehaviour
     [SerializeField] private Transform WRR;
     [SerializeField] private bool _updateWheels;
 
-    [Header("Velocímetro")]
-    private const float LIMITEANGULOIZQUIERDO = 190f;
-    private const float LIMITEANGULODERECHO = -100f;
-    public Transform agujaVelocimetro;
-    private const float VELOCIDADMAXIMA = 80f;
+    [Header("Velocímetro")] private InterfazController _interfazController;
     private float velocidad = 0f;
+    private const float VELOCIDADMAXIMA = 80f;
     
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
@@ -69,9 +66,8 @@ public class CarController : NetworkBehaviour
         if(isLocalPlayer)
             transform.Find("CameraPivot/Camera").gameObject.SetActive(true);
 
+        _interfazController = GameObject.Find("--INTERFAZ DEL USUARIO--").GetComponent<InterfazController>();
         
-        //Pillo la aguja al inicio del juego
-        agujaVelocimetro = GameObject.Find("ImagenAguja").transform;
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
 
@@ -82,22 +78,12 @@ public class CarController : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
-            ActualizacionAgujaVelocimetro();
+            _interfazController.AgujaVelocimetro(velocidad, VELOCIDADMAXIMA);
         }
 
         _cameraPivot.transform.position = transform.position;
         _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
         
-    }
-
-    private void ActualizacionAgujaVelocimetro()
-    {
-        //Debug.Log(velocidad);
-        float velocidadNormal = velocidad / VELOCIDADMAXIMA;
-
-        agujaVelocimetro.localEulerAngles = new Vector3(0, 0, 
-            Mathf.Lerp(LIMITEANGULOIZQUIERDO, LIMITEANGULODERECHO, velocidadNormal));   
-
     }
 
     private void FixedUpdate()

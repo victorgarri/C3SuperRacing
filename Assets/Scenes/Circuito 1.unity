@@ -42578,6 +42578,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 1528ca0768f6fd24f8cfa19de2bfcd3a, type: 3}
   - {fileID: 21300000, guid: 1528ca0768f6fd24f8cfa19de2bfcd3a, type: 3}
   - {fileID: 21300000, guid: 1528ca0768f6fd24f8cfa19de2bfcd3a, type: 3}
+  agujaVelocimetro: {fileID: 1473135419}
 --- !u!64 &1525380305
 MeshCollider:
   m_ObjectHideFlags: 0

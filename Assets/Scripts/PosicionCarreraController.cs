@@ -38,7 +38,6 @@ public class PosicionCarreraController : MonoBehaviour
     {
         yield return new WaitForSeconds(1);
         PreparacionPosicionesJugadores();
-        ActualizarPosiciones();
     }
     private void PreparacionPosicionesJugadores(){
         
@@ -64,6 +63,7 @@ public class PosicionCarreraController : MonoBehaviour
     void Update(){
         ActualizarPosiciones();
     }
+    
     private void ActualizarPosiciones(){
         if(_informacionJugadores != null){
             foreach (var jugador in _informacionJugadores)
@@ -71,10 +71,11 @@ public class PosicionCarreraController : MonoBehaviour
                 distanciaWaypointCercano[jugador] = CalculoDistanciaWaypointCercano(jugador, indiceSiguienteWaypoint[jugador]);
             }
             
+            
             // Ordena a los jugadores según su posición
-            InformacionJugador[] jugadoresOrdenados = _informacionJugadores.OrderByDescending(jugador => vueltaActualJugador[jugador]).         //Me ordena por número de vueltas (orden ascendente)
-                                                                                ThenByDescending(jugador => indiceSiguienteWaypoint[jugador]).   //Me ordena por número de waypoints totales (orden ascendente)
-                                                                                ThenBy(jugador => distanciaWaypointCercano[jugador]).ToArray(); //Me ordena por distancia cercana al siguiente waypoint (orden descendente)
+            InformacionJugador[] jugadoresOrdenados = _informacionJugadores.OrderByDescending(jugador => vueltaActualJugador[jugador]).
+                                                                            ThenByDescending(jugador => indiceSiguienteWaypoint[jugador]).
+                                                                            ThenBy(jugador => distanciaWaypointCercano[jugador]).ToArray(); //Me ordena por distancia cercana al siguiente waypoint (orden descendente)
 
             OrdenarJugadores(jugadoresOrdenados, sumaOrden);
         }
@@ -94,7 +95,11 @@ public class PosicionCarreraController : MonoBehaviour
         foreach(InformacionJugador jugador in jugadores){
                 
             //Si el jugador de la lista es el local, que me actualice la posicion solamente a ese jugador local
-            jugador.ActualizaPosicion(numero);  
+            if (jugador == localPlayer)
+            {
+                jugador.ActualizaPosicion(numero);
+                jugador.posicion = numero;
+            }  
             //Variable para probar
             numero++;
         }

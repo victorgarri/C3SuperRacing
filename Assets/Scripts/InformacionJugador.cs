@@ -133,7 +133,10 @@ public class InformacionJugador : NetworkBehaviour
             }
             else if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
             {
-                _posicionCarreraController.GestionCambioWaypoints(this);
+                if (isLocalPlayer)
+                {
+                    _posicionCarreraController.GestionCambioWaypoints(this);   
+                }
 
                 if (isLocalPlayer && prohibidoActivo)
                 {

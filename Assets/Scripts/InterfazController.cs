@@ -4,7 +4,7 @@ using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ColorInterfaz : NetworkBehaviour
+public class InterfazController : NetworkBehaviour
 {
     [Header("InteriorCoche")]
     public GameObject interiorCoche;
@@ -14,6 +14,10 @@ public class ColorInterfaz : NetworkBehaviour
     public GameObject velocimetro;
     public List<Sprite> coloresVelocimetro = new List<Sprite>();
     
+    [Header("Agujas del velocímetro")]
+    private const float LIMITEANGULOIZQUIERDO = 190f;
+    private const float LIMITEANGULODERECHO = -100f;
+    public Transform agujaVelocimetro;
     
     // Start is called before the first frame update
     void Start()
@@ -24,5 +28,13 @@ public class ColorInterfaz : NetworkBehaviour
                 interiorCoche.GetComponent<Image>().sprite = coloresInteriorCoche[numeroRandom];
                 velocimetro.GetComponent<Image>().sprite = coloresVelocimetro[numeroRandom];
             }   
+    }
+
+    public void AgujaVelocimetro(float velocidad, float VELOCIDADMAXIMA)
+    {
+        float velocidadNormal = velocidad / VELOCIDADMAXIMA;
+
+        agujaVelocimetro.localEulerAngles = new Vector3(0, 0, 
+            Mathf.Lerp(LIMITEANGULOIZQUIERDO, LIMITEANGULODERECHO, velocidadNormal));   
     }
 }
