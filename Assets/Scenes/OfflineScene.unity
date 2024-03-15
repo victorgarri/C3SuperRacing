@@ -563,16 +563,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
-      propertyPath: playerPrefab
-      value: 
-      objectReference: {fileID: 4492824780523140061, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
-    - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
-      propertyPath: GameplayScene
-      value: Assets/Scenes/Circuito 1.unity
-      objectReference: {fileID: 0}
-    - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
-      propertyPath: playerSpawnMethod
-      value: 1
+      propertyPath: onlineScene
+      value: Assets/Scenes/RoomScene.unity
       objectReference: {fileID: 0}
     - target: {fileID: 3657793218156309747, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: m_Name

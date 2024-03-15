@@ -1,56 +1,35 @@
 using System.Collections;
-using TMPro;
+using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
     public float speed = 5f;
-    public TextMeshProUGUI countdownText;
-    public TextMeshProUGUI finalMessage;
-    public GameObject messagePanel;
-    public GameObject wrench;
-
-    private int piecesCollected = 0;
-    private int lastPiecesCollected = 0;
-    private float lastCollectedTime; 
-    public int totalPieces = 4;
-
-    private bool puzzleCompleted = false;
-    private float startTime;
-    private float maxTime = 60f;
-    private float tiempoRegistrado;
-    
     public Rigidbody2D rb;
+    public bool controlMovimiento = true;
+    public PlayerInput _playerInput;
+    
+    public GameObject wrench;
     private Collider2D wrenchCollider;
     private Transform wrenchTransform;
-    
-    public GameObject cajaPrefab;
-    public GameObject cajaReforzadaPrefab;
-    public GameObject tntPrefab;
-    
-    public bool controlMovimiento = true;
+    private M0GameManager moGameManager;
 
-    public int probabilidadCajaReforzada;
-    public int probabilidadTnt;
-    
-    public PlayerInput _playerInput;
+    public bool disableControls = false;
 
     void Start()
     {
-        startTime = Time.time;
         rb = GetComponent<Rigidbody2D>();
         wrenchCollider = wrench.GetComponent<Collider2D>();
         wrenchTransform = wrench.transform;
-        
-        GenerateRandomBoxes();
+        moGameManager = FindObjectOfType<M0GameManager>();
         
         _playerInput = GetComponent<PlayerInput>();
     }
 
     void Update()
     {
-        if (!puzzleCompleted)
+        if (!disableControls)
         {
             if (_playerInput != null && _playerInput.actions != null && _playerInput.actions["Movimiento"] != null)
             {
@@ -110,24 +89,9 @@ public class PlayerController : MonoBehaviour
                 }
             }
         }
-
-        // Verificar si ha pasado el tiempo límite de tiempo
-        float elapsedTime = Time.time - startTime;
-        float remainingTime = Mathf.Max(maxTime - elapsedTime, 0f);
-
-        // Actualizar el texto de la cuenta atrás
-        if (countdownText != null)
-        {
-            countdownText.text = "Tiempo: " + Mathf.Ceil(remainingTime);
-        }
-
-        if (elapsedTime >= maxTime)
-        {
-            EndGame();
-        }
         
         float clampedX = Mathf.Clamp(transform.position.x, -10.5f, 11.5f);
-        float clampedY = Mathf.Clamp(transform.position.y, -8.25f, 7.25f);
+        float clampedY = Mathf.Clamp(transform.position.y, -8.25f, 8.5f);
         transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }
 
@@ -135,7 +99,7 @@ public class PlayerController : MonoBehaviour
     {
         if (collision.CompareTag("Checkpoint") && !collision.GetComponent<CheckpointController>().IsCollected())
         {
-            CollectPiece(collision.gameObject);
+            moGameManager.CollectPiece(collision.gameObject);
         }
     }
     
@@ -152,104 +116,11 @@ public class PlayerController : MonoBehaviour
             }
         }
     }
-
-    private void CollectPiece(GameObject piece)
-    {
-        piecesCollected++;
-        lastPiecesCollected = piecesCollected;
-        lastCollectedTime = Time.time; 
-        Debug.Log("Pieza " + piecesCollected + " recogida");
-
-        // Marcar la pieza como recolectada para evitar duplicados
-        piece.GetComponent<CheckpointController>().Collect();
-
-        if (piecesCollected == totalPieces)
-        {
-            puzzleCompleted = true;
-            tiempoRegistrado = Time.time - startTime;
-            EndGame();
-        }
-    }
-
-    private void EndGame()
-    {
-        if (puzzleCompleted)
-        {
-            messagePanel.SetActive(true);
-            gameObject.SetActive(false);
-            finalMessage.text = "Minijuego completado en " + FormatTime(tiempoRegistrado) + " segundos\n¡Bien hecho!";
-        }
-        else
-        {
-            messagePanel.SetActive(true);
-            gameObject.SetActive(false);
-            finalMessage.text = $"Tiempo límite alcanzado\nÚltima pieza recogida en {FormatTime(lastCollectedTime)} segundos\nTotal de piezas: {lastPiecesCollected}";
-        }
-    }
-
-    private string FormatTime(float time)
-    {
-        int seconds = Mathf.FloorToInt(time);
-        int milliseconds = Mathf.FloorToInt((time - seconds) * 1000f);
-        return $"{seconds}.{milliseconds:D7}";
-    }
     
     private void SetWrenchRotationAndPosition(float angle, Vector2 position)
     {
         wrenchTransform.rotation = Quaternion.Euler(0f, 0f, angle);
         wrenchTransform.localPosition = position;
-    }
-    
-    private void GenerateRandomBoxes()
-    {
-        GameObject[] spawnpoints = GameObject.FindGameObjectsWithTag("SP");
-
-        foreach (GameObject spawnpoint in spawnpoints)
-        {
-            float randomValue = Random.Range(1, 21);
-            string boxType;
-
-            if (randomValue <= probabilidadTnt)
-            {
-                boxType = "Tnt";
-            } 
-            else if (randomValue <= probabilidadCajaReforzada)
-            {
-                boxType = "CajaReforzada";
-            }
-            else
-            {
-                boxType = "Caja";
-            }
-
-            InstantiateBox(boxType, spawnpoint.transform.position);
-        }
-    }
-
-    private void InstantiateBox(string boxType, Vector3 position)
-    {
-        GameObject boxPrefab = GetBoxPrefab(boxType);
-        BoxController boxController = Instantiate(boxPrefab, position, Quaternion.identity).GetComponent<BoxController>();
-
-        if (boxController != null)
-        {
-            boxController.SetBoxType(boxType);
-        }
-    } 
-    
-    private GameObject GetBoxPrefab(string boxType)
-    {
-        switch (boxType)
-        {
-            case "Caja":
-                return cajaPrefab;
-            case "CajaReforzada":
-                return cajaReforzadaPrefab;
-            case "Tnt":
-                return tntPrefab;
-            default:
-                return null;
-        }
     }
 
     public IEnumerator Empujar( Vector2 normal)

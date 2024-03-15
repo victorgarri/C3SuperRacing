@@ -17,31 +17,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Circuito 1.unity
     guid: 3f32f5c9e5fd1fc479c2eb0e9615f233
-  - enabled: 0
-    path: Assets/Scenes/M0/Minijuego 0.unity
-    guid: 9fc0d4010bbf28b4594072e72b8655ab
-  - enabled: 0
-    path: Assets/Scenes/M1/Minijuego 1.unity
-    guid: 668c7bdfd0abd54488f5ac0397d50a29
-  - enabled: 0
-    path: Assets/Scenes/M2/Minijuego 2.unity
-    guid: cfa29d07c795fef47875166c27ba9753
-  - enabled: 0
-    path: Assets/Scenes/M3/Minijuego 3.unity
-    guid: 4615072ca30382045a74eef8b649a9c1
-  - enabled: 0
-    path: Assets/Scenes/M4/Minijuego 4.unity
-    guid: eede4db1fd102934593481ed84100ea6
-  - enabled: 0
-    path: Assets/Scenes/C2/Circuito 2.unity
-    guid: d57f97c1b38b6354e8ecab7a0edce9ce
-  - enabled: 0
-    path: Assets/Scenes/C3/Circuito 3.unity
-    guid: 8ba041becb47bbd4d8c1ab3ef8a41e72
   - enabled: 1
     path: Assets/Scenes/TerrainTest.unity
     guid: c7d4e561825012a4eb17955dd40c8ca2
   - enabled: 1
-    path: Assets/Scenes/old_Circuito 1.unity
-    guid: a1c173e5a4c30d644aee38888f2080ca
+    path: Assets/Scenes/M0/Minijuego0.unity
+    guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

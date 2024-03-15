@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 7901245280949858200}
   - component: {fileID: 6930989414455120042}
   - component: {fileID: 6741712566908201050}
+  - component: {fileID: 2973267612773028229}
   m_Layer: 0
   m_Name: CarlitosDetras_0
   m_TagString: Player
@@ -310,7 +311,7 @@ Rigidbody2D:
     m_Bits: 0
   m_Interpolate: 0
   m_SleepingMode: 1
-  m_CollisionDetection: 0
+  m_CollisionDetection: 1
   m_Constraints: 4
 --- !u!114 &6741712566908201050
 MonoBehaviour:
@@ -324,12 +325,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc78356368de14840a45287fa37e3c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   speed: 5
-  countdownText: {fileID: 0}
-  finalMessage: {fileID: 0}
-  messagePanel: {fileID: 0}
+  rb: {fileID: 6930989414455120042}
+  controlMovimiento: 1
+  _playerInput: {fileID: 2973267612773028229}
   wrench: {fileID: 6267319174613542304}
-  totalPieces: 4
-  cajaPrefab: {fileID: 3846966106448461380, guid: 117d9b084b931a44ca214bd26f82321a, type: 3}
-  cajaReforzadaPrefab: {fileID: 3324336266328170989, guid: 1925afdfbbe1aac47a4d12cd0cead7bd, type: 3}
-  tntPrefab: {fileID: 4173136958932996395, guid: d8f50bddaf56ef842a2b8d5833f0dd2b, type: 3}
+--- !u!114 &2973267612773028229
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7769506018195425069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: e1e3e7f793173ca4fb5095cfc54db0c4, type: 3}
+  m_NotificationBehavior: 0
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents: []
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: 
+  m_DefaultActionMap: PlayerControl
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}

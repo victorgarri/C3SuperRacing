@@ -61,18 +61,19 @@ public class CarController : NetworkBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.centerOfMass = new Vector3(0, -.23f, 0.1f);
         _playerInput = GetComponent<PlayerInput>();
-        _cameraPivot = GameObject.Find("CameraPivot");
+
+        _cameraPivot = transform.Find("CameraPivot").gameObject;
 
         if(isLocalPlayer)
-            transform.Find("CameraPivot/Camera").gameObject.SetActive(true);
+            _cameraPivot.SetActive(true);
 
         _interfazController = GameObject.Find("--INTERFAZ DEL USUARIO--").GetComponent<InterfazController>();
+
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
 
     }
-    
 
     private void Update()
     {
@@ -81,7 +82,7 @@ public class CarController : NetworkBehaviour
             _interfazController.AgujaVelocimetro(velocidad, VELOCIDADMAXIMA);
         }
 
-        _cameraPivot.transform.position = transform.position;
+        _cameraPivot.transform.position = this.transform.position;
         _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
         
     }
