@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using TMPro;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -34,6 +35,7 @@ public class ReadyStartController : MonoBehaviour
             isReady = true;
             cambioColor = HexToColor(colorVerde);
             cambioTexto = "READY";
+            
         }
         //Ajustes cuando el jugador no este listo
         else

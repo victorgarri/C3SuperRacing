@@ -611,6 +611,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: PlayerF
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     - target: {fileID: 1089490244918188605, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       propertyPath: m_LocalRotation.w
       value: 1
@@ -827,7 +831,6 @@ MonoBehaviour:
   WRL: {fileID: 4433358557130282161}
   WRR: {fileID: 773153340793870144}
   _updateWheels: 1
-  agujaVelocimetro: {fileID: 0}
 --- !u!114 &3399784010991489679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -845,8 +848,11 @@ MonoBehaviour:
   syncInterval: 0
   nombreJugador: Carlitos
   etiquetaNombre: {fileID: 0}
-  puntoControlJugador: 0
+  siguienteWaypoint: 0
   anteriorWaypoint: 0
+  distancia: 0
+  puntosControlJugador: 0
+  posicion: 0
   vueltaActualJugador: 0
 --- !u!114 &8690892288489749157
 MonoBehaviour:

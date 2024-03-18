@@ -9,6 +9,8 @@ using ColorUtility = UnityEngine.ColorUtility;
 
 public class InformacionJugador : NetworkBehaviour
 {
+    public int vueltas;
+    
     [Header("Nombre del jugador")] 
     [SerializeField] public string nombreJugador = "Carlitos";
     public TextMesh etiquetaNombre;
@@ -44,6 +46,7 @@ public class InformacionJugador : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        vueltas = 0;
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
         
         textoPosicion = GameObject.Find("TextoPosicion").GetComponent<TextMeshProUGUI>();
