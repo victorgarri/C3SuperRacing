@@ -90,8 +90,8 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        float clampedX = Mathf.Clamp(transform.position.x, -10.5f, 11.5f);
-        float clampedY = Mathf.Clamp(transform.position.y, -8.25f, 8.5f);
+        float clampedX = Mathf.Clamp(transform.position.x, 489f, 511f);
+        float clampedY = Mathf.Clamp(transform.position.y, 39.5f, 56.9f);
         transform.position = new Vector3(clampedX, clampedY, transform.position.z);
     }
 

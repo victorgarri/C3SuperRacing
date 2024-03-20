@@ -171,4 +171,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a419e024b4b841044a91187c44c5e49c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  brokenBoxPrefab: {fileID: 948565148083399417, guid: b14213b6052c1764997e47d909603ce0, type: 3}
+  lives: 0
+  explosionPrefab: {fileID: 0}
