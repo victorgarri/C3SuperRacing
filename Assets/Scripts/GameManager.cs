@@ -1,113 +1,65 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
-public class GameManager : MonoBehaviour
+
+public class PuntosM0
 {
-    // Lista de escenarios que serán los circuitos
-    [Header("ESCENARIOS CIRCUITOS")]
-    public List<string> escenariosCircuitos = new List<string>();
-    
-    //Lista de escenarios que serán los minijuegos
-    [Header("ESCENARIOS MINIJUEGOS")]
-    public List<string> escenariosMinijuegos = new List<string>();
-    
-    //Lista de escenarios que van a salir durante el juego
-    public List<string> escenariosCargados;
-    private int indice = 0;
-    
-    private static GameManager _instance;
+    public int piecesCollected;
+    public float tiempoRegistrado;
+    public float lastCollectedTime;
 
-    //Hago que me guarde los escenarios y empiece por el escenario deseado antes de que cargue todo el código.
-    //Además de que cuando cambie de escena no se me destruya el Game Manager, o sino se pierde los datos establecidos
-    private void Awake()
+    public PuntosM0(int i, float f, float lastCollectedTime1)
     {
-        if (_instance == null)
-        {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-            // SceneManager.LoadScene("Minijuego 0");
-            GuardarListaEscenarios();
-
-            // Realiza la inicialización aquí
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        piecesCollected = i;
+        tiempoRegistrado = f;
+        lastCollectedTime = lastCollectedTime1;
     }
+}
 
-    // Método para guardar la lista de nombres de los escenarios
-    private void GuardarListaEscenarios()
+public class GameManager : NetworkBehaviour
+{
+    
+    public List<string> ordenCircuitos;
+    public List<GameObject> ordenMinijuegos;
+    
+    public List<GameObject> playersOrder;
+
+    [SerializeField]
+    private Dictionary<int, PuntosM0> puntosJugadoresM0;
+    
+    [Command (requiresAuthority = false)]
+    public void CheckAllPlayersWaiting()
     {
-        List<string> minijuegosAleatorios = escogerMinijuegosAleatorios();
-
-        escenariosCargados.Add(escenariosCircuitos[0]);  //Primer circuito
-        escenariosCargados.Add(minijuegosAleatorios[0]); //Primer minijuego
-        escenariosCargados.Add(escenariosCircuitos[1]);  //Segundo circuito
-        escenariosCargados.Add(minijuegosAleatorios[1]); //Segundo minijuego
-        escenariosCargados.Add(escenariosCircuitos[2]);  //Tercer circuito
-    }
-
-    //Función para que me escoja minijuegos aleatorios
-    private List<string> escogerMinijuegosAleatorios()
-    {
-        //Creo una lista nueva
-        List<string> escenariosMinijuegosAleatorios = new List<string>();
+        Debug.Log("HOLAA??");
+        foreach (var playerConnection in NetworkServer.connections)
+        {
+            if (!playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().waiting)
+                return;
+        }
         
-        //Pillo el número de minijuegos que hay
-        int nMinijuegos = escenariosMinijuegos.Count;
+        Debug.Log("Vamos a camiar de escena");
 
-        if (nMinijuegos >= 2)
-        {
-            //Escogemos los minijuegos aleatorios
-            int primerMinijuego = Random.Range(0, nMinijuegos);
-            int segundoMinijuego = Random.Range(0, nMinijuegos);
+        CambiaAlSiguienteJuego();
+    }
 
-            // Evitamos que salga el mismo minijuego
-            while (segundoMinijuego == primerMinijuego)
-            {
-                segundoMinijuego = Random.Range(0, nMinijuegos);
-            }
+    private void CambiaAlSiguienteJuego()
+    {
+        GetPuntuacionesM0();
+        
+    }
 
-            //Se lo añadimos a la lista nueva
-            escenariosMinijuegosAleatorios.Add(escenariosMinijuegos[primerMinijuego]);
-            escenariosMinijuegosAleatorios.Add(escenariosMinijuegos[segundoMinijuego]);
-        }
-        else
-        {
-            Debug.LogError("No hay suficientes escenarios de minijuegos para seleccionar.");
-        }
-
-        //Devolvemos la lista
-        return escenariosMinijuegosAleatorios;
+    [ClientRpc]
+    private void GetPuntuacionesM0()
+    {
+        M0GameManager m0GameManager = FindObjectOfType<M0GameManager>().GetComponent<M0GameManager>();
+        puntosJugadoresM0.Add(connectionToServer.identity.gameObject.GetInstanceID(),m0GameManager.PuntosTotales());
     }
     
-    //Método para realizar un cambio de escenario
-    public void siguienteEscenario()
-    {
-        
-        if (indice < escenariosCargados.Count)
-        {
-            string nombreEscenario = escenariosCargados[indice];
-        
-            if (SceneManager.GetSceneByName(nombreEscenario) != null)
-            {
-                SceneManager.LoadScene(nombreEscenario);
-                Debug.Log("Escenario cargado: " + nombreEscenario);
-            }
-            else
-            {
-                Debug.LogError("El escenario '" + nombreEscenario + "' no existe");
-            }
-            indice = indice + 1;
-        }
-        else
-        {
-            Debug.Log("Juego terminado");
-        }
-    }
+    
+    
 }

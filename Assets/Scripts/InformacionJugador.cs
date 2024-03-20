@@ -28,27 +28,34 @@ public class InformacionJugador : NetworkBehaviour
     [Header("Gestión de la interfaz")] 
     private InterfazController _interfazController;
     public bool activacionProhibicion = false;
+
+    private CarController _carController;
     
-    private void Awake()
+    [SyncVar(hook = nameof(SetWaiting))]
+    public bool waiting;
+    
+    
+
+
+    
+    private void SetWaiting(bool oldVal, bool newVal)
     {
-        _interfazController = GameObject.Find("--INTERFAZ DEL USUARIO--").GetComponent<InterfazController>();
-        
-        /*
-        etiquetaNombre = GameObject.Find("NombreJugador").GetComponent<TextMesh>();
-        etiquetaNombre.text = nombreJugador;
-        */
+        waiting = newVal;
     }
     
 
     // Start is called before the first frame update
     void Start()
     {
+            // _interfazController = GameObject.Find("--INTERFAZ DEL USUARIO--").GetComponent<InterfazController>();
+        
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
+        _carController = GetComponent<CarController>();
     }
 
     void Update()
     {
-        if (isLocalPlayer)
+        if (isLocalPlayer&&_carController.enableControls)
         {
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
@@ -71,21 +78,5 @@ public class InformacionJugador : NetworkBehaviour
         }
     }
 
-    /*
-    private void OnTriggerExit(Collider collision)
-    {
-        if (collision.gameObject.CompareTag("Waypoint"))
-        {
-            if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
-            {
-                _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint);
-            }
-            else
-            {
-                _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint - 1);   
-            }
-        }
-    }
-    */
     
 }

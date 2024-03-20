@@ -43,8 +43,11 @@ public class InterfazController : NetworkBehaviour
         {
             imagenProhibido.SetActive(false);
         }
+        
+        this.gameObject.SetActive(false);
     }
 
+    
     public void AgujaVelocimetro(float velocidad, float VELOCIDADMAXIMA)
     {
         float velocidadNormal = velocidad / VELOCIDADMAXIMA;

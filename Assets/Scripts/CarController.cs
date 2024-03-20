@@ -54,7 +54,7 @@ public class CarController : NetworkBehaviour
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
     private GameObject _cameraPivot;
-    
+    public bool enableControls;
 
     private void Start()
     {
@@ -62,34 +62,52 @@ public class CarController : NetworkBehaviour
         _rigidbody.centerOfMass = new Vector3(0, -.23f, 0.1f);
         _playerInput = GetComponent<PlayerInput>();
 
-        _cameraPivot = transform.Find("CameraPivot").gameObject;
+        if (isLocalPlayer&&enableControls)
+        {
+            _cameraPivot = transform.Find("CameraPivot").gameObject;            
+            _interfazController = GameObject.Find("--INTERFAZ DEL USUARIO--").GetComponent<InterfazController>();
+        }
 
-        if(isLocalPlayer)
-            _cameraPivot.SetActive(true);
-
-        _interfazController = GameObject.Find("--INTERFAZ DEL USUARIO--").GetComponent<InterfazController>();
 
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
 
     }
+    
+    public void ActivateCar()
+    {
+        enableControls = true;
+        if(isLocalPlayer)
+            _cameraPivot.SetActive(true);
+        GameObject.Find("--INTERFAZ DEL USUARIO--").SetActive(true);
+        
+    }
+
+    public void DesactivateCar()
+    {
+        enableControls = false;        
+        _cameraPivot.SetActive(false);
+        GameObject.Find("--INTERFAZ DEL USUARIO--").SetActive(false);
+    }
 
     private void Update()
     {
-        if (isLocalPlayer)
+        if (enableControls)
         {
-            _interfazController.AgujaVelocimetro(velocidad, VELOCIDADMAXIMA);
-        }
+            if (isLocalPlayer)
+            {
+                _interfazController.AgujaVelocimetro(velocidad, VELOCIDADMAXIMA);
+            }
 
-        _cameraPivot.transform.position = this.transform.position;
-        _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
-        
+            _cameraPivot.transform.position = this.transform.position;
+            _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
+        }
     }
 
     private void FixedUpdate()
     {
-        if (isLocalPlayer)
+        if (isLocalPlayer&&enableControls)
         {
             GetInput();
             HandleMotor();

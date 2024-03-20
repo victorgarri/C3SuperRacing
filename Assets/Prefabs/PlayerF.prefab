@@ -831,6 +831,7 @@ MonoBehaviour:
   WRL: {fileID: 4433358557130282161}
   WRR: {fileID: 773153340793870144}
   _updateWheels: 1
+  enableControls: 0
 --- !u!114 &3399784010991489679
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -846,14 +847,17 @@ MonoBehaviour:
   syncDirection: 0
   syncMode: 0
   syncInterval: 0
+  vueltas: 0
   nombreJugador: Carlitos
   etiquetaNombre: {fileID: 0}
+  posicionActual: 0
+  vueltaActual: 0
+  nVueltasCircuito: 0
+  nWaypoints: 0
   siguienteWaypoint: 0
-  anteriorWaypoint: 0
-  distancia: 0
-  puntosControlJugador: 0
-  posicion: 0
-  vueltaActualJugador: 0
+  distanciaSiguienteWaypoint: 0
+  activacionProhibicion: 0
+  waiting: 0
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0

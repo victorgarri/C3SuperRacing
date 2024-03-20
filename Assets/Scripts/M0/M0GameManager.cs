@@ -1,24 +1,26 @@
 using System.Collections;
 using System.Collections.Generic;
+using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 
-public class M0GameManager : MonoBehaviour
+public class M0GameManager : NetworkBehaviour
 {
+    
     private float startTime;
     public TextMeshProUGUI countdownText;
     public TextMeshProUGUI finalMessage;
     public GameObject messagePanel;
 
-    private int piecesCollected = 0;
     private int lastPiecesCollected = 0;
-    private float lastCollectedTime; 
     public int totalPieces = 4;
     public bool puzzleCompleted = false;
 
-    public float maxTime = 60f;
+    private int piecesCollected = 0;
     private float tiempoRegistrado;
+    private float lastCollectedTime; 
+    public float maxTime = 60f;
     
     public int probabilidadCajaReforzada;
     public int probabilidadTnt;
@@ -29,14 +31,20 @@ public class M0GameManager : MonoBehaviour
     
     private PlayerController playerController;
 
+    private GameManager _globalGameManager;
+
+    private bool end=false;
+
     // Start is called before the first frame update
     void Start()
     {
         startTime = Time.time;
         playerController = FindObjectOfType<PlayerController>();
-        
+        _globalGameManager = GameObject.FindObjectOfType<GameManager>().GetComponent<GameManager>();
         GenerateRandomBoxes();
     }
+    
+    
 
     private void GenerateRandomBoxes()
     {
@@ -110,6 +118,7 @@ public class M0GameManager : MonoBehaviour
 
     private void EndGame()
     {
+        end = true;
         if (puzzleCompleted)
         {
             messagePanel.SetActive(true);
@@ -122,6 +131,10 @@ public class M0GameManager : MonoBehaviour
             playerController.disableControls = true;
             finalMessage.text = $"Tiempo límite alcanzado\nÚltima pieza recogida en {FormatTime(lastCollectedTime)} segundos\nTotal de piezas: {lastPiecesCollected}";
         }
+
+        NetworkClient.localPlayer.gameObject.GetComponent<InformacionJugador>().waiting = true;
+        
+        _globalGameManager.CheckAllPlayersWaiting();
     }
     
     private string FormatTime(float time)
@@ -146,7 +159,13 @@ public class M0GameManager : MonoBehaviour
 
         if (elapsedTime >= maxTime)
         {
-            EndGame();
+            if(!end)
+                EndGame();
         }
+    }
+
+    public PuntosM0 PuntosTotales()
+    {
+        return new PuntosM0(piecesCollected, tiempoRegistrado, lastCollectedTime);
     }
 }
