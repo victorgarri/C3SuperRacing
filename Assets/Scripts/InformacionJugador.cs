@@ -43,7 +43,6 @@ public class InformacionJugador : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        vueltas = 0;
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
     }
 
