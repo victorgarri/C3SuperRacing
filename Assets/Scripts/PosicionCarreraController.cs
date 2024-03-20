@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,7 +43,14 @@ public class PosicionCarreraController : MonoBehaviour
 
     private float CalculoDistanciaSiguienteWaypoint(InformacionJugador jugador, int indiceSiguienteWaypoint)
     {
-        float distancia = Vector3.Distance(jugador.transform.position, listaWaypoints[indiceSiguienteWaypoint].position);
+        Vector3 coordenadasJugador = jugador.transform.position;
+        BoxCollider waypointCollider = listaWaypoints[indiceSiguienteWaypoint].gameObject.GetComponent<BoxCollider>();
+
+        //Para calcular la coordenada al punto más cercano del waypoint
+        Vector3 waypointClosestPoint = waypointCollider.ClosestPoint(coordenadasJugador);
+        
+        //Para calcular la distancia al punto más cercano del waypoint
+        float distancia = Vector3.Distance(coordenadasJugador, waypointClosestPoint);
 
         return distancia;
     }
@@ -83,10 +91,8 @@ public class PosicionCarreraController : MonoBehaviour
         //Si coincide el waypoint pillado, que me sume
         if (indiceWaypoint == jugador.siguienteWaypoint)
         {
-            jugador.activacionProhibicion = false;
-            
             jugador.nWaypoints++;
-            jugador.siguienteWaypoint++;
+            jugador.siguienteWaypoint= (jugador.siguienteWaypoint + 1)%listaWaypoints.Count;
 
             //Si pilla todos los waypoints, que me sume una vuelta
             if (jugador.nWaypoints >= listaWaypoints.Count)
@@ -97,7 +103,6 @@ public class PosicionCarreraController : MonoBehaviour
                 {
                     //Cambiar cuando acabe la carrera
                     sumaOrden++;
-                    jugador.gameObject.SetActive(false);
                     Debug.Log("Carrera hecha");
                 }
 
@@ -107,17 +112,14 @@ public class PosicionCarreraController : MonoBehaviour
         }
         else
         {
-            jugador.activacionProhibicion = true;
-            
             jugador.nWaypoints--;
             jugador.siguienteWaypoint--;
 
+            if (Math.Abs(jugador.nWaypoints) >= listaWaypoints.Count)
+                jugador.nWaypoints = 0;
+            
             if (jugador.nWaypoints < 0)
             {
-                if (jugador.nWaypoints == -1)
-                {
-                    jugador.vueltaActual--;
-                }
                 jugador.siguienteWaypoint = listaWaypoints.Count + jugador.nWaypoints;
             }
         }

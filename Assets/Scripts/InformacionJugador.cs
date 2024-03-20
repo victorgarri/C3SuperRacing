@@ -24,6 +24,7 @@ public class InformacionJugador : NetworkBehaviour
     public int nWaypoints = 0;
     public int siguienteWaypoint = 0;
     public float distanciaSiguienteWaypoint = 0;
+    public float posicionAnterior;
 
     [Header("Gestión de la interfaz")] 
     private InterfazController _interfazController;
@@ -50,9 +51,18 @@ public class InformacionJugador : NetworkBehaviour
     {
         if (isLocalPlayer)
         {
+            if (distanciaSiguienteWaypoint < posicionAnterior)
+            {
+                _interfazController.desactivarProhibicion();
+            }
+            else
+            {
+                _interfazController.activarProhibicion();
+            }
+            posicionAnterior = distanciaSiguienteWaypoint;
+            
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
-            _interfazController.senalProhibicion(activacionProhibicion);
         }
     }
 
@@ -73,19 +83,6 @@ public class InformacionJugador : NetworkBehaviour
 
     /*
     private void OnTriggerExit(Collider collision)
-    {
-        if (collision.gameObject.CompareTag("Waypoint"))
-        {
-            if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
-            {
-                _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint);
-            }
-            else
-            {
-                _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint - 1);   
-            }
-        }
-    }
     */
     
 }

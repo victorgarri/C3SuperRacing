@@ -2,8 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using ColorUtility = UnityEngine.ColorUtility;
 
 public class InterfazController : NetworkBehaviour
 {
@@ -19,6 +21,7 @@ public class InterfazController : NetworkBehaviour
     private const float LIMITEANGULOIZQUIERDO = 190f;
     private const float LIMITEANGULODERECHO = -100f;
     public Transform agujaVelocimetro;
+    public float velocidadNormal;
     
     [Header("Texto para indicar la posición en la que vas")]
     public TextMeshProUGUI textoPosicion;
@@ -28,6 +31,10 @@ public class InterfazController : NetworkBehaviour
     
     [Header("Gestión cuando el usuario vaya en sentido contrario")]
     public GameObject imagenProhibido;
+
+    [Header("Minimapa")] 
+    public Camera camaraMinimapa;
+    public List<GameObject> listaCircuitosMinimapa;
     
     // Start is called before the first frame update
     void Start()
@@ -42,12 +49,16 @@ public class InterfazController : NetworkBehaviour
         if (isLocalPlayer)
         {
             imagenProhibido.SetActive(false);
+            
+            listaCircuitosMinimapa[0].SetActive(true);  //Circuito 1
+            listaCircuitosMinimapa[1].SetActive(false); //Circuito 2
+            listaCircuitosMinimapa[2].SetActive(false); //Circuito 3
         }
     }
 
     public void AgujaVelocimetro(float velocidad, float VELOCIDADMAXIMA)
     {
-        float velocidadNormal = velocidad / VELOCIDADMAXIMA;
+        velocidadNormal = velocidad / VELOCIDADMAXIMA;
 
         agujaVelocimetro.localEulerAngles = new Vector3(0, 0, 
             Mathf.Lerp(LIMITEANGULOIZQUIERDO, LIMITEANGULODERECHO, velocidadNormal));   
@@ -98,8 +109,29 @@ public class InterfazController : NetworkBehaviour
         textoVueltas.text = vueltaActual + "/" + vueltaTotales;
     }
     
-    public void senalProhibicion(bool activo)
+    public void activarProhibicion()
     {
-        imagenProhibido.SetActive(activo);
+        imagenProhibido.SetActive(true);
+    }
+
+    public void desactivarProhibicion()
+    {
+        imagenProhibido.SetActive(false);
+    }
+
+    public void cambiosMinimapa(int indice)
+    {
+        if (indice == 1)
+        {
+            listaCircuitosMinimapa[0].SetActive(false);  //Circuito 1
+            listaCircuitosMinimapa[1].SetActive(true);   //Circuito 2
+        }
+
+        if (indice == 2)
+        {
+            camaraMinimapa.transform.position = new Vector3(-87f, 100, 40f);
+            listaCircuitosMinimapa[1].SetActive(false);  //Circuito 2
+            listaCircuitosMinimapa[2].SetActive(true);   //Circuito 3
+        }
     }
 }
