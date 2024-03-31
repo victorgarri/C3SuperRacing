@@ -31,17 +31,8 @@ public class InformacionJugador : NetworkBehaviour
 
     private CarController _carController;
     
-    [SyncVar(hook = nameof(SetWaiting))]
-    public bool waiting;
-    
-    
-
-
-    
-    private void SetWaiting(bool oldVal, bool newVal)
-    {
-        waiting = newVal;
-    }
+    [SyncVar]
+    public float lastMinigameScore;
     
 
     // Start is called before the first frame update
@@ -78,5 +69,10 @@ public class InformacionJugador : NetworkBehaviour
         }
     }
 
-    
+
+    [Command]
+    public void SetMinigameScore(float score)
+    {
+        this.lastMinigameScore = score;
+    }
 }

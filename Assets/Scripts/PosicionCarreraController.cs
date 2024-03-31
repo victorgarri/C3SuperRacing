@@ -49,7 +49,7 @@ public class PosicionCarreraController : MonoBehaviour
     
     void Update()
     {
-        ActualizarPosiciones();
+        // ActualizarPosiciones();
     }
 
     private void ActualizarPosiciones()

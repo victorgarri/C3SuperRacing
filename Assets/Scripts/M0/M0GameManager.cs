@@ -20,6 +20,8 @@ public class M0GameManager : NetworkBehaviour
     private int piecesCollected = 0;
     private float tiempoRegistrado;
     private float lastCollectedTime; 
+    private bool end=false;
+    
     public float maxTime = 60f;
     
     public int probabilidadCajaReforzada;
@@ -33,7 +35,6 @@ public class M0GameManager : NetworkBehaviour
 
     private GameManager _globalGameManager;
 
-    private bool end=false;
 
     // Start is called before the first frame update
     void Start()
@@ -119,11 +120,13 @@ public class M0GameManager : NetworkBehaviour
     private void EndGame()
     {
         end = true;
+        NetworkClient.localPlayer.gameObject.GetComponent<InformacionJugador>().SetMinigameScore(tiempoRegistrado);
         if (puzzleCompleted)
         {
             messagePanel.SetActive(true);
             playerController.disableControls = true;
             finalMessage.text = "Minijuego completado en " + FormatTime(tiempoRegistrado) + " segundos\n¡Bien hecho!";
+            
         }
         else
         {
@@ -132,9 +135,8 @@ public class M0GameManager : NetworkBehaviour
             finalMessage.text = $"Tiempo límite alcanzado\nÚltima pieza recogida en {FormatTime(lastCollectedTime)} segundos\nTotal de piezas: {lastPiecesCollected}";
         }
 
-        NetworkClient.localPlayer.gameObject.GetComponent<InformacionJugador>().waiting = true;
         
-        _globalGameManager.CheckAllPlayersWaiting();
+        // _globalGameManager.CheckAllPlayersWaiting();
     }
     
     private string FormatTime(float time)
@@ -156,16 +158,10 @@ public class M0GameManager : NetworkBehaviour
         {
             countdownText.text = "Tiempo: " + Mathf.Ceil(remainingTime);
         }
-
         if (elapsedTime >= maxTime)
         {
             if(!end)
                 EndGame();
         }
-    }
-
-    public PuntosM0 PuntosTotales()
-    {
-        return new PuntosM0(piecesCollected, tiempoRegistrado, lastCollectedTime);
     }
 }
