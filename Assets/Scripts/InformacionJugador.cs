@@ -28,7 +28,7 @@ public class InformacionJugador : NetworkBehaviour
 
     [Header("Gestión de la interfaz")] 
     private InterfazController _interfazController;
-    public bool activacionProhibicion = false;
+    public int indiceMinimapa = 0;
     
     private void Awake()
     {
@@ -63,6 +63,7 @@ public class InformacionJugador : NetworkBehaviour
             
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
+            _interfazController.cambiosMinimapa(indiceMinimapa);
         }
     }
 
@@ -82,7 +83,10 @@ public class InformacionJugador : NetworkBehaviour
     }
 
     /*
-    private void OnTriggerExit(Collider collision)
+    public void activoSiguienteLista(GameObject listaControl)
+    {
+        listaControl.SetActive(true);
+    }
     */
     
 }

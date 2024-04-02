@@ -7,7 +7,7 @@ using UnityEngine;
 public class PosicionCarreraController : MonoBehaviour
 {
     [Header("Lista de Waypoints")]
-    public List<Transform> listaWaypoints = new List<Transform>();
+    public List<Transform> listaWaypoints;
     
     [Header("Número de vueltas totales")]
     [SerializeField] public int vueltasTotales = 2;
@@ -21,6 +21,12 @@ public class PosicionCarreraController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        listaWaypoints = new List<Transform>();
+        for (int i = 0; i < transform.childCount; i++)
+        {
+            listaWaypoints.Add(transform.GetChild(i));
+        }
+        
         //Reseteo los valores antes de empezar la carrera
         StartCoroutine(ReseteoVariablesJugadores());
 
@@ -103,7 +109,16 @@ public class PosicionCarreraController : MonoBehaviour
                 {
                     //Cambiar cuando acabe la carrera
                     sumaOrden++;
-                    Debug.Log("Carrera hecha");
+                    /*
+                    if (gameObjectPosicionControllerPosterior != null)
+                    {
+                        //Cambiar esto a futuro
+                        jugador.indiceMinimapa++;
+                        jugador.transform.position = nextSpawns[0].transform.position;
+                        jugador.transform.rotation = nextSpawns[0].transform.rotation;
+                        jugador.activoSiguienteLista(gameObjectPosicionControllerPosterior);
+                    }
+                    */
                 }
 
                 jugador.nWaypoints = 0;
