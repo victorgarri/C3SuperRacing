@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class PosicionCarreraController : MonoBehaviour
@@ -16,6 +17,8 @@ public class PosicionCarreraController : MonoBehaviour
     InformacionJugador[] _informacionJugadores;
     private InformacionJugador localPlayer;
     
+    [Header("Colocación coches final de cada carrera")]
+    [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
     private int sumaOrden = 1;
     
     // Start is called before the first frame update
@@ -108,6 +111,9 @@ public class PosicionCarreraController : MonoBehaviour
                 if (jugador.vueltaActual > vueltasTotales)
                 {
                     //Cambiar cuando acabe la carrera
+                    jugador.transform.position = spawnsFinales[sumaOrden - 1].transform.position;
+                    jugador.transform.rotation = spawnsFinales[sumaOrden - 1].transform.rotation;
+                    
                     sumaOrden++;
                     /*
                     if (gameObjectPosicionControllerPosterior != null)
