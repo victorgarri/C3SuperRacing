@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
+using Random = UnityEngine.Random;
 
 public class M0GameManager : NetworkBehaviour
 {
@@ -21,6 +23,8 @@ public class M0GameManager : NetworkBehaviour
     private float tiempoRegistrado;
     private float lastCollectedTime; 
     private bool end=false;
+
+    public int gamePoints=0;
     
     public float maxTime = 60f;
     
@@ -102,7 +106,6 @@ public class M0GameManager : NetworkBehaviour
     public void CollectPiece(GameObject piece)
     {
         piecesCollected++;
-        lastPiecesCollected = piecesCollected;
         lastCollectedTime = Time.time; 
         Debug.Log("Pieza " + piecesCollected + " recogida");
 
@@ -120,23 +123,32 @@ public class M0GameManager : NetworkBehaviour
     private void EndGame()
     {
         end = true;
-        NetworkClient.localPlayer.gameObject.GetComponent<InformacionJugador>().SetMinigameScore(tiempoRegistrado);
+        CalculatePoints();
+        
         if (puzzleCompleted)
         {
             messagePanel.SetActive(true);
             playerController.disableControls = true;
-            finalMessage.text = "Minijuego completado en " + FormatTime(tiempoRegistrado) + " segundos\n¡Bien hecho!";
+            finalMessage.text = "Minijuego completado en " + FormatTime(tiempoRegistrado) + " segundos\nHas conseguido "+gamePoints+" puntos!\n¡Bien hecho!";
             
         }
         else
         {
             messagePanel.SetActive(true);
             playerController.disableControls = true;
-            finalMessage.text = $"Tiempo límite alcanzado\nÚltima pieza recogida en {FormatTime(lastCollectedTime)} segundos\nTotal de piezas: {lastPiecesCollected}";
+            finalMessage.text = $"Tiempo límite alcanzado\nÚltima pieza recogida en {FormatTime(lastCollectedTime)} segundos\nTotal de piezas: {piecesCollected}\nHas conseguido "+gamePoints+" puntos!";
         }
-
         
-        // _globalGameManager.CheckAllPlayersWaiting();
+        NetworkClient.localPlayer.gameObject.GetComponent<InformacionJugador>().SetMinigameScore(gamePoints);
+        _globalGameManager.CheckAllPlayersWaiting();
+    }
+
+    private void CalculatePoints()
+    {
+        float auxPoints= 60 - lastCollectedTime;        
+        auxPoints += piecesCollected * 60;
+        auxPoints *= 1000;
+        gamePoints = (int)auxPoints;
     }
     
     private string FormatTime(float time)

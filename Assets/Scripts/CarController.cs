@@ -131,8 +131,6 @@ public class CarController : NetworkBehaviour
         cameraOffset = cameraOffset + cameraInput * cameraSpeed;
         if (cameraOffset > 180) cameraOffset -= 360;
         else if (cameraOffset < -180) cameraOffset += 360;
-
-        
     }
 
     private void GetInput()

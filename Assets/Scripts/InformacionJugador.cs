@@ -30,9 +30,8 @@ public class InformacionJugador : NetworkBehaviour
     public bool activacionProhibicion = false;
 
     private CarController _carController;
-    
-    [SyncVar]
-    public float lastMinigameScore;
+
+    [SyncVar] public Nullable<int> lastMinigameScore =null;
     
 
     // Start is called before the first frame update
@@ -71,7 +70,7 @@ public class InformacionJugador : NetworkBehaviour
 
 
     [Command]
-    public void SetMinigameScore(float score)
+    public void SetMinigameScore(Nullable<int> score)
     {
         this.lastMinigameScore = score;
     }

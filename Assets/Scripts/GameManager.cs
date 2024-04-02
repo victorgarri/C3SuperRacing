@@ -1,30 +1,52 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.Specialized;
+using System.Linq;
 using Mirror;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using Random = UnityEngine.Random;
 
 
+public struct PlayerPoints
+{
+    public NetworkConnectionToClient networkConnectionToClient;
+    public int points;
+}
 
 public class GameManager : NetworkBehaviour
 {
     
     public List<string> ordenCircuitos;
     public List<GameObject> ordenMinijuegos;
-    public List<GameObject> playersOrder;
 
+    [SerializeField]
+    public List<PlayerPoints> lastMinigamePlayerPoints = new List<PlayerPoints>();
+
+    public GameObject[] playerOrder;
 
     [Command (requiresAuthority = false)]
     public void CheckAllPlayersWaiting()
     {
-        Debug.Log("HOLAA??");
         foreach (var playerConnection in NetworkServer.connections)
         {
-            if (playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().lastMinigameScore==null)
+            if (playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().lastMinigameScore == null)
                 return;
         }
+
+        foreach (var playerConnection in NetworkServer.connections)
+        {
+            var lastMinigameScore = playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().lastMinigameScore;
+            if (lastMinigameScore != null)
+                lastMinigamePlayerPoints.Add(new PlayerPoints()
+                {
+                    networkConnectionToClient = playerConnection.Value,
+                    points = (int)lastMinigameScore
+                });
+        }
+        
         
         Debug.Log("Vamos a camiar de escena");
 
@@ -33,18 +55,15 @@ public class GameManager : NetworkBehaviour
 
     private void CambiaAlSiguienteJuego()
     {
-        GetPuntuacionesM0();
-    }
+        //Reordenar lista de jugadores
+        lastMinigamePlayerPoints.Sort( (p1,p2) => p2.points.CompareTo(p1.points));
 
-    [ClientRpc] 
-    private void GetPuntuacionesM0()
-    {
-        M0GameManager m0GameManager = FindObjectOfType<M0GameManager>().GetComponent<M0GameManager>();
-        Debug.Log("connectionToServer");
-        // Debug.Log(connectionToServer.identity);
-        // puntosJugadoresM0.Add(connectionToServer.identity.gameObject.GetInstanceID(),m0GameManager.PuntosTotales());
-        Debug.Log("Puntuaciones jugadoes");
-        // Debug.Log(puntosJugadoresM0);
+        foreach (var playerPoints in lastMinigamePlayerPoints)
+        {
+            Debug.Log("Player: "+playerPoints.networkConnectionToClient);
+            Debug.Log("Points: "+playerPoints.points);
+        }
+        
     }
     
     
