@@ -113,18 +113,8 @@ public class PosicionCarreraController : MonoBehaviour
                     //Cambiar cuando acabe la carrera
                     jugador.transform.position = spawnsFinales[sumaOrden - 1].transform.position;
                     jugador.transform.rotation = spawnsFinales[sumaOrden - 1].transform.rotation;
-                    
+
                     sumaOrden++;
-                    /*
-                    if (gameObjectPosicionControllerPosterior != null)
-                    {
-                        //Cambiar esto a futuro
-                        jugador.indiceMinimapa++;
-                        jugador.transform.position = nextSpawns[0].transform.position;
-                        jugador.transform.rotation = nextSpawns[0].transform.rotation;
-                        jugador.activoSiguienteLista(gameObjectPosicionControllerPosterior);
-                    }
-                    */
                 }
 
                 jugador.nWaypoints = 0;
