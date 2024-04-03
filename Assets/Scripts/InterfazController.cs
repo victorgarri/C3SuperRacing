@@ -47,16 +47,10 @@ public class InterfazController : MonoBehaviour
         }
         
         imagenProhibido.SetActive(false);
-        
-
-
-        if (isLocalPlayer)
-        {
            
-            listaCircuitosMinimapa[0].SetActive(true);  //Circuito 1
-            listaCircuitosMinimapa[1].SetActive(false); //Circuito 2
-            listaCircuitosMinimapa[2].SetActive(false); //Circuito 3
-        }
+        listaCircuitosMinimapa[0].SetActive(true);  //Circuito 1
+        listaCircuitosMinimapa[1].SetActive(false); //Circuito 2
+        listaCircuitosMinimapa[2].SetActive(false); //Circuito 3
     }
 
     

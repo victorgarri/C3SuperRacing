@@ -68,7 +68,6 @@ public class InformacionJugador : NetworkBehaviour
             
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
-            _interfazController.cambiosMinimapa(indiceMinimapa);
         }
     }
 
