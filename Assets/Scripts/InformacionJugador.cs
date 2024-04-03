@@ -54,7 +54,7 @@ public class InformacionJugador : NetworkBehaviour
 
     void Update()
     {
-        if (isLocalPlayer&&_carController.enableControls)
+        if (isLocalPlayer && _carController.enableControls)
         {
             if (distanciaSiguienteWaypoint < posicionAnterior)
             {

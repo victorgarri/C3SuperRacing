@@ -12511,11 +12511,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2585d1083660d4499537945005fca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   countdownText: {fileID: 1549347948}
   finalMessage: {fileID: 1593019122}
   messagePanel: {fileID: 2082005961}
   totalPieces: 4
   puzzleCompleted: 0
+  gamePoints: 0
   maxTime: 60
   probabilidadCajaReforzada: 30
   probabilidadTnt: 10
@@ -12735,6 +12739,10 @@ PrefabInstance:
     - target: {fileID: 1694902517088324584, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1697582225315794682, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
+      propertyPath: sceneId
+      value: 711096087
       objectReference: {fileID: 0}
     - target: {fileID: 6093880896388416780, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: m_LocalPosition.x

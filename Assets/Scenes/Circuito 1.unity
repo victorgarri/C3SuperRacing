@@ -2520,6 +2520,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 7109439149341548728, guid: e9044f3736641a94da85629c1de73a02, type: 3}
   m_PrefabInstance: {fileID: 256911941}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &256911943 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5800069532499446395, guid: e9044f3736641a94da85629c1de73a02, type: 3}
+  m_PrefabInstance: {fileID: 256911941}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &257285786
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -7401,6 +7406,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3070852661298367765, guid: 8f0ee4febd29edd4b94764a76da354d9, type: 3}
   m_PrefabInstance: {fileID: 887758708}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &887758710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5970635522872809968, guid: 8f0ee4febd29edd4b94764a76da354d9, type: 3}
+  m_PrefabInstance: {fileID: 887758708}
+  m_PrefabAsset: {fileID: 0}
 --- !u!64 &889637486
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -8864,6 +8874,11 @@ PrefabInstance:
 --- !u!4 &1073049994 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6363109425541721685, guid: caed1920554d2a1408bc373ea901c0d8, type: 3}
+  m_PrefabInstance: {fileID: 1073049993}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &1073049995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2202999666877610912, guid: caed1920554d2a1408bc373ea901c0d8, type: 3}
   m_PrefabInstance: {fileID: 1073049993}
   m_PrefabAsset: {fileID: 0}
 --- !u!64 &1076486995
@@ -15754,8 +15769,11 @@ MonoBehaviour:
   textoPosicion: {fileID: 858993885}
   textoVueltas: {fileID: 1861130198}
   imagenProhibido: {fileID: 2017106884}
-  camaraMinimapa: {fileID: 0}
-  listaCircuitosMinimapa: []
+  camaraMinimapa: {fileID: 2040458859}
+  listaCircuitosMinimapa:
+  - {fileID: 887758710}
+  - {fileID: 1073049995}
+  - {fileID: 256911943}
 --- !u!64 &1525380305
 MeshCollider:
   m_ObjectHideFlags: 0

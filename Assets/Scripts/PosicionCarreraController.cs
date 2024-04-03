@@ -66,7 +66,10 @@ public class PosicionCarreraController : MonoBehaviour
     
     void Update()
     {
-        // ActualizarPosiciones();
+        if (_informacionJugadores != null)
+        {
+            ActualizarPosiciones();   
+        }
     }
 
     private void ActualizarPosiciones()
