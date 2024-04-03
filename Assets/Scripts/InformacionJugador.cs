@@ -24,14 +24,23 @@ public class InformacionJugador : NetworkBehaviour
     public int nWaypoints = 0;
     public int siguienteWaypoint = 0;
     public float distanciaSiguienteWaypoint = 0;
+    public float posicionAnterior;
 
     [Header("Gestión de la interfaz")] 
     private InterfazController _interfazController;
-    public bool activacionProhibicion = false;
 
     private CarController _carController;
 
     [SyncVar] public Nullable<int> lastMinigameScore =null;
+    
+    private void Awake()
+    {
+        
+        /*
+        etiquetaNombre = GameObject.Find("NombreJugador").GetComponent<TextMesh>();
+        etiquetaNombre.text = nombreJugador;
+        */
+    }
     
 
     // Start is called before the first frame update
@@ -47,9 +56,19 @@ public class InformacionJugador : NetworkBehaviour
     {
         if (isLocalPlayer&&_carController.enableControls)
         {
+            if (distanciaSiguienteWaypoint < posicionAnterior)
+            {
+                _interfazController.desactivarProhibicion();
+            }
+            else
+            {
+                _interfazController.activarProhibicion();
+            }
+            posicionAnterior = distanciaSiguienteWaypoint;
+            
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
-            _interfazController.senalProhibicion(activacionProhibicion);
+            _interfazController.cambiosMinimapa(indiceMinimapa);
         }
     }
 
@@ -67,6 +86,7 @@ public class InformacionJugador : NetworkBehaviour
             }
         }
     }
+
 
 
     [Command]
