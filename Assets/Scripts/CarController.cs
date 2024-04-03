@@ -1,12 +1,7 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
-using TMPro;
-using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using UnityEngine.UI;
 
 
 public class CarController : NetworkBehaviour
@@ -62,33 +57,34 @@ public class CarController : NetworkBehaviour
         _rigidbody.centerOfMass = new Vector3(0, -.23f, 0.1f);
         _playerInput = GetComponent<PlayerInput>();
 
-        if (isLocalPlayer&&enableControls)
+        _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
+        
+        if (isLocalPlayer)
         {
-            _cameraPivot = transform.Find("CameraPivot").gameObject;            
-            _interfazController = GameObject.Find("--INTERFAZ DEL USUARIO--").GetComponent<InterfazController>();
+            _cameraPivot = transform.Find("CameraPivot").gameObject;
         }
 
 
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
-
+        
+        DesactivateCar();
     }
     
     public void ActivateCar()
     {
         enableControls = true;
-        if(isLocalPlayer)
+        if (isLocalPlayer)
             _cameraPivot.SetActive(true);
-        GameObject.Find("--INTERFAZ DEL USUARIO--").SetActive(true);
-        
+        _interfazController.gameObject.SetActive(true);
     }
 
     public void DesactivateCar()
     {
         enableControls = false;        
         _cameraPivot.SetActive(false);
-        GameObject.Find("--INTERFAZ DEL USUARIO--").SetActive(false);
+        _interfazController.gameObject.SetActive(false);
     }
 
     private void Update()

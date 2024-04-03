@@ -37,7 +37,7 @@ public class InformacionJugador : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-            // _interfazController = GameObject.Find("--INTERFAZ DEL USUARIO--").GetComponent<InterfazController>();
+        _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
         
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
         _carController = GetComponent<CarController>();

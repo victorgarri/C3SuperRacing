@@ -1,13 +1,6 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Linq;
 using Mirror;
-using Unity.VisualScripting;
 using UnityEngine;
-using UnityEngine.SceneManagement;
-using Random = UnityEngine.Random;
 
 
 public struct PlayerPoints
@@ -18,14 +11,54 @@ public struct PlayerPoints
 
 public class GameManager : NetworkBehaviour
 {
+    public GameObject interfazUsuario;
+    
+    public enum GameType
+    {
+        Minigame,
+        Race
+    }
+    public GameType currentGameType;
     
     public List<string> ordenCircuitos;
     public List<GameObject> ordenMinijuegos;
-
-    [SerializeField]
+    
     public List<PlayerPoints> lastMinigamePlayerPoints = new List<PlayerPoints>();
 
-    public GameObject[] playerOrder;
+    [SerializeField] private int raceIndex;
+    [SerializeField] private int minigameIndex;
+
+
+    
+   
+    
+    [SerializeField]
+    private GameObject[] SPs0;
+    [SerializeField]
+    private GameObject[] SPs1;
+    [SerializeField]
+    private GameObject[] SPs2;
+    [SerializeField]
+    private GameObject[] SPs3;
+    
+    private List<GameObject[]> spawnPoints;
+
+    
+
+    private void Start()
+    {
+        minigameIndex = 0;
+        
+        ordenMinijuegos[0].SetActive(true);
+        
+        currentGameType = GameType.Minigame;
+        spawnPoints = new List<GameObject[]>();
+        spawnPoints.Add(SPs0);
+        spawnPoints.Add(SPs1);
+        spawnPoints.Add(SPs2);
+        spawnPoints.Add(SPs3);
+        
+    }
 
     [Command (requiresAuthority = false)]
     public void CheckAllPlayersWaiting()
@@ -47,23 +80,53 @@ public class GameManager : NetworkBehaviour
                 });
         }
         
-        
-        Debug.Log("Vamos a camiar de escena");
-
-        CambiaAlSiguienteJuego();
-    }
-
-    private void CambiaAlSiguienteJuego()
-    {
-        //Reordenar lista de jugadores
         lastMinigamePlayerPoints.Sort( (p1,p2) => p2.points.CompareTo(p1.points));
-
         foreach (var playerPoints in lastMinigamePlayerPoints)
         {
             Debug.Log("Player: "+playerPoints.networkConnectionToClient);
             Debug.Log("Points: "+playerPoints.points);
         }
         
+        Debug.Log("Todo el mundo está ready, vamos a camiar de escena");
+
+        CambiaAlSiguienteJuego();
+    }
+
+    private void CambiaAlSiguienteJuego()
+    {
+
+        
+
+        if (currentGameType==GameType.Minigame)
+        {
+            raceIndex++;
+            ordenMinijuegos[0].SetActive(false);
+            EnableCarClientRPC();
+            
+        }
+        else
+        {
+            
+        }
+
+        for (int i = 0; i < lastMinigamePlayerPoints.Count; i++)
+        {
+            lastMinigamePlayerPoints[i].networkConnectionToClient.identity.gameObject.transform.position = spawnPoints[raceIndex][i].transform.position;
+            lastMinigamePlayerPoints[i].networkConnectionToClient.identity.gameObject.transform.rotation = spawnPoints[raceIndex][i].transform.rotation;
+        }
+        
+    }
+    
+    [ClientRpc]
+    private void EnableCarClientRPC()
+    {
+        NetworkClient.localPlayer.gameObject.GetComponent<CarController>().ActivateCar();
+    }
+    
+    [ClientRpc]
+    private void DisableCarClientRPC()
+    {
+        NetworkClient.localPlayer.gameObject.GetComponent<CarController>().DesactivateCar();
     }
     
     

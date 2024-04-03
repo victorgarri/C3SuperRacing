@@ -7,6 +7,13 @@ TagManager:
   - Suelo
   - FinMinijuego
   - Waypoint
+  - SP
+  - Checkpoint
+  - LlaveInglesa
+  - Caja
+  - CajaReforzada
+  - Tnt
+  - Explosion
   layers:
   - Default
   - TransparentFX

@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InterfazController : NetworkBehaviour
+public class InterfazController : MonoBehaviour
 {
     [Header("InteriorCoche")]
     public GameObject interiorCoche;
@@ -38,13 +38,9 @@ public class InterfazController : NetworkBehaviour
             interiorCoche.GetComponent<Image>().sprite = coloresInteriorCoche[numeroRandom];
             velocimetro.GetComponent<Image>().sprite = coloresVelocimetro[numeroRandom];
         }
-
-        if (isLocalPlayer)
-        {
-            imagenProhibido.SetActive(false);
-        }
         
-        this.gameObject.SetActive(false);
+        imagenProhibido.SetActive(false);
+        
     }
 
     
