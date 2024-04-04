@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
@@ -43,6 +44,9 @@ public class GameManager : NetworkBehaviour
     
     private List<GameObject[]> spawnPoints;
 
+    [SerializeField]
+    private CountDownText _countDownText;
+
     
 
     private void Start()
@@ -57,7 +61,6 @@ public class GameManager : NetworkBehaviour
         spawnPoints.Add(SPs1);
         spawnPoints.Add(SPs2);
         spawnPoints.Add(SPs3);
-        
     }
 
     [Command (requiresAuthority = false)]
@@ -120,7 +123,8 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void EnableCarClientRPC()
     {
-        NetworkClient.localPlayer.gameObject.GetComponent<CarController>().ActivateCar();
+        _countDownText.StartCountDown(3);
+        NetworkClient.localPlayer.gameObject.GetComponent<CarController>().ActivateCar(3);
     }
     
     [ClientRpc]
