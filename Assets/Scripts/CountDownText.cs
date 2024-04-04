@@ -16,7 +16,7 @@ public class CountDownText : MonoBehaviour
     {
         _countDownText = GetComponent<TextMeshProUGUI>();
         _countDownAnimator = GetComponent<Animator>();
-        StartCountDown(3);
+        
     }
 
     public void StartCountDown(int timeCount)
