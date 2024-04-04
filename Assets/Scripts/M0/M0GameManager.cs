@@ -50,7 +50,6 @@ public class M0GameManager : NetworkBehaviour
     }
     
     
-
     private void GenerateRandomBoxes()
     {
         GameObject[] spawnpoints = GameObject.FindGameObjectsWithTag("SP");

@@ -20,6 +20,7 @@ public class PosicionCarreraController : MonoBehaviour
     [Header("Colocación coches final de cada carrera")]
     [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
     private int sumaOrden = 1;
+    public int puntuacionMaxima = 0;
     
     // Start is called before the first frame update
     void Start()
@@ -37,17 +38,21 @@ public class PosicionCarreraController : MonoBehaviour
 
     private IEnumerator ReseteoVariablesJugadores()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
         
         _informacionJugadores = FindObjectsOfType(typeof(InformacionJugador)) as InformacionJugador[];
         foreach (var jugador in _informacionJugadores)
         {
+            jugador.indiceCarrera++;
             jugador.vueltaActual = 1;
             jugador.nVueltasCircuito = vueltasTotales;
             jugador.nWaypoints = 0;
             jugador.siguienteWaypoint = 0;
             jugador.distanciaSiguienteWaypoint = CalculoDistanciaSiguienteWaypoint(jugador, jugador.siguienteWaypoint);
         }
+
+        puntuacionMaxima = 2 * _informacionJugadores.Length;
+
     }
 
     private float CalculoDistanciaSiguienteWaypoint(InformacionJugador jugador, int indiceSiguienteWaypoint)
@@ -109,19 +114,21 @@ public class PosicionCarreraController : MonoBehaviour
             //Si pilla todos los waypoints, que me sume una vuelta
             if (jugador.nWaypoints >= listaWaypoints.Count)
             {
-                jugador.vueltaActual++;
 
-                if (jugador.vueltaActual > vueltasTotales)
+                if (jugador.vueltaActual == vueltasTotales)
                 {
                     //Cambiar cuando acabe la carrera
+                    jugador.ActualizarPuntuacionJugadorCarrera(puntuacionMaxima - 2*(sumaOrden-1));
                     jugador.transform.position = spawnsFinales[sumaOrden - 1].transform.position;
                     jugador.transform.rotation = spawnsFinales[sumaOrden - 1].transform.rotation;
-
                     sumaOrden++;
                 }
-
-                jugador.nWaypoints = 0;
-                jugador.siguienteWaypoint = 0;
+                else
+                {
+                    jugador.vueltaActual++;
+                    jugador.nWaypoints = 0;
+                    jugador.siguienteWaypoint = 0;
+                }
             }
         }
         else

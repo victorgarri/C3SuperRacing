@@ -59,12 +59,7 @@ public class CarController : NetworkBehaviour
 
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
         
-        if (isLocalPlayer)
-        {
-            _cameraPivot = transform.Find("CameraPivot").gameObject;
-        }
-
-
+        _cameraPivot = transform.Find("CameraPivot").gameObject;
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);

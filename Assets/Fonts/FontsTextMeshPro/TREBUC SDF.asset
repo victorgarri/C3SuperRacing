@@ -120,9 +120,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
   m_Name: TREBUC SDF
   m_EditorClassIdentifier: 
-  hashCode: 0
+  hashCode: -1015009370
   material: {fileID: -9084808117481830035}
-  materialHashCode: 0
+  materialHashCode: -716388154
   m_Version: 1.1.0
   m_SourceFontFileGUID: 76c7a073aeb1b1d408c27418d9a708fe
   m_SourceFontFile_EditorRef: {fileID: 12800000, guid: 76c7a073aeb1b1d408c27418d9a708fe, type: 3}

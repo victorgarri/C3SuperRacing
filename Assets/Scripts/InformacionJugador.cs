@@ -31,7 +31,10 @@ public class InformacionJugador : NetworkBehaviour
 
     private CarController _carController;
 
-    [SyncVar] public Nullable<int> lastMinigameScore =null;
+    [SyncVar] public Nullable<int> lastMinigameScore = null;
+    public List<int> listaPuntuacionCarrera;
+    public int puntuacionTotalCarrera = 0;
+    public int indiceCarrera = 0;
     
     private void Awake()
     {
@@ -46,6 +49,7 @@ public class InformacionJugador : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        listaPuntuacionCarrera = new List<int>();
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
         
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
@@ -84,6 +88,13 @@ public class InformacionJugador : NetworkBehaviour
                 _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint - 1);   
             }
         }
+    }
+
+    public void ActualizarPuntuacionJugadorCarrera(int puntosConseguidos)
+    {
+        listaPuntuacionCarrera.Add(puntosConseguidos);
+        puntuacionTotalCarrera += listaPuntuacionCarrera[indiceCarrera - 1];
+
     }
 
 
