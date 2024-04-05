@@ -4187,17 +4187,13 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minijuego0
       objectReference: {fileID: 0}
-    - target: {fileID: 1694902517088324584, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1697582225315794682, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: sceneId
-      value: 2145622293
-      objectReference: {fileID: 0}
     - target: {fileID: 3148921735882495149, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: maxTime
       value: 60
+      objectReference: {fileID: 0}
+    - target: {fileID: 4102575626847793719, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
+      propertyPath: sceneId
+      value: 1603966952
       objectReference: {fileID: 0}
     - target: {fileID: 6093880896388416780, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: m_LocalPosition.x

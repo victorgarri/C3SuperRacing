@@ -21,6 +21,7 @@ public class CountDownText : MonoBehaviour
 
     public void StartCountDown(int timeCount)
     {
+        
         countDown = timeCount;
         StartCoroutine(CountDownCoroutine());
     }
@@ -43,6 +44,5 @@ public class CountDownText : MonoBehaviour
         _countDownAnimator.SetTrigger(GO);
         _countDownAnimator.enabled = true;
         yield return new WaitForSeconds(1);
-        _countDownAnimator.enabled = false;
     }
 }
