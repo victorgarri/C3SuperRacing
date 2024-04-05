@@ -1,5 +1,4 @@
 using System;
-using System.Collections;
 using Mirror;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -14,6 +13,7 @@ public class CarController : NetworkBehaviour
     private float cameraSpeed=4.5f;
     private float cameraOffset=0;
     private float cameraTimestamp=0;
+    
 
     private const float MAXBREAKFORCE = 3000F;
 
@@ -59,10 +59,7 @@ public class CarController : NetworkBehaviour
 
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
         
-        if (isLocalPlayer)
-        {
-            _cameraPivot = transform.Find("CameraPivot").gameObject;
-        }
+        _cameraPivot = transform.Find("CameraPivot").gameObject;
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
@@ -70,19 +67,12 @@ public class CarController : NetworkBehaviour
         DesactivateCar();
     }
     
-    public void ActivateCar(int seconds)
+    public void ActivateCar()
     {
+        enableControls = true;
         if (isLocalPlayer)
             _cameraPivot.SetActive(true);
         _interfazController.gameObject.SetActive(true);
-
-        StartCoroutine(EnableControlsCoroutine(seconds));
-    }
-
-    private IEnumerator EnableControlsCoroutine(int seconds)
-    {
-        yield return new WaitForSeconds(seconds);
-        enableControls = true;
     }
 
     public void DesactivateCar()
@@ -223,5 +213,13 @@ public class CarController : NetworkBehaviour
 
         wheelTransform.rotation = rotation;
         wheelTransform.position = position;
+    }
+    
+    [TargetRpc]
+    public void TargetMoveCar(int raceIndex,int spawnIndex)
+    {
+        var spawnTrasnform = FindObjectOfType<GameManager>().spawnPoints[raceIndex][spawnIndex].transform;
+        this.transform.position = spawnTrasnform.position;
+        this.transform.rotation = spawnTrasnform.rotation;
     }
 }

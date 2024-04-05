@@ -15,15 +15,23 @@ public class PosicionCarreraController : MonoBehaviour
     
     [Header("Recogemos el script de información del jugador")]
     InformacionJugador[] _informacionJugadores;
-    private InformacionJugador localPlayer;
     
     [Header("Colocación coches final de cada carrera")]
     [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
     private int sumaOrden = 1;
+    public int puntuacionMaxima = 0;
+
+    [Header("Script de resultados de carrera")]
+    private GameObject interfazResultadoCarrera;
+    private ResultadosCarrerasController _resultadosCarrerasController;
     
     // Start is called before the first frame update
     void Start()
     {
+        interfazResultadoCarrera = GameObject.Find("--INTERFAZ RESULTADO CARRERA--");
+        _resultadosCarrerasController = interfazResultadoCarrera.GetComponent<ResultadosCarrerasController>();
+        interfazResultadoCarrera.SetActive(false);
+        
         listaWaypoints = new List<Transform>();
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -37,17 +45,21 @@ public class PosicionCarreraController : MonoBehaviour
 
     private IEnumerator ReseteoVariablesJugadores()
     {
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(5);
         
         _informacionJugadores = FindObjectsOfType(typeof(InformacionJugador)) as InformacionJugador[];
         foreach (var jugador in _informacionJugadores)
         {
+            jugador.indiceCarrera++;
             jugador.vueltaActual = 1;
             jugador.nVueltasCircuito = vueltasTotales;
             jugador.nWaypoints = 0;
             jugador.siguienteWaypoint = 0;
             jugador.distanciaSiguienteWaypoint = CalculoDistanciaSiguienteWaypoint(jugador, jugador.siguienteWaypoint);
         }
+
+        puntuacionMaxima = 2 * _informacionJugadores.Length;
+
     }
 
     private float CalculoDistanciaSiguienteWaypoint(InformacionJugador jugador, int indiceSiguienteWaypoint)
@@ -109,19 +121,24 @@ public class PosicionCarreraController : MonoBehaviour
             //Si pilla todos los waypoints, que me sume una vuelta
             if (jugador.nWaypoints >= listaWaypoints.Count)
             {
-                jugador.vueltaActual++;
 
-                if (jugador.vueltaActual > vueltasTotales)
+                if (jugador.vueltaActual == vueltasTotales)
                 {
                     //Cambiar cuando acabe la carrera
+                    jugador.ActualizarPuntuacionJugadorCarrera(puntuacionMaxima - 2*(sumaOrden-1));
+                    interfazResultadoCarrera.SetActive(true);
+                    _resultadosCarrerasController.agregaTablaJugador(jugador, sumaOrden);
                     jugador.transform.position = spawnsFinales[sumaOrden - 1].transform.position;
                     jugador.transform.rotation = spawnsFinales[sumaOrden - 1].transform.rotation;
-
+                    jugador._carController.DesactivateCar();
                     sumaOrden++;
                 }
-
-                jugador.nWaypoints = 0;
-                jugador.siguienteWaypoint = 0;
+                else
+                {
+                    jugador.vueltaActual++;
+                    jugador.nWaypoints = 0;
+                    jugador.siguienteWaypoint = 0;
+                }
             }
         }
         else

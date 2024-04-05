@@ -14,6 +14,7 @@ TagManager:
   - CajaReforzada
   - Tnt
   - Explosion
+  - CuadroInfo
   layers:
   - Default
   - TransparentFX
