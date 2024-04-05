@@ -214,4 +214,12 @@ public class CarController : NetworkBehaviour
         wheelTransform.rotation = rotation;
         wheelTransform.position = position;
     }
+    
+    [TargetRpc]
+    public void TargetMoveCar(int raceIndex,int spawnIndex)
+    {
+        var spawnTrasnform = FindObjectOfType<GameManager>().spawnPoints[raceIndex][spawnIndex].transform;
+        this.transform.position = spawnTrasnform.position;
+        this.transform.rotation = spawnTrasnform.rotation;
+    }
 }

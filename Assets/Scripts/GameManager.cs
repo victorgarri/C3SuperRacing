@@ -41,7 +41,7 @@ public class GameManager : NetworkBehaviour
     [SerializeField]
     private GameObject[] SPs3;
     
-    private List<GameObject[]> spawnPoints;
+    public List<GameObject[]> spawnPoints;
 
     
 
@@ -100,7 +100,7 @@ public class GameManager : NetworkBehaviour
         if (currentGameType==GameType.Minigame)
         {
             raceIndex++;
-            ordenMinijuegos[0].SetActive(false);
+            DisableMinigameClientRPC(0);
             EnableCarClientRPC();
             
         }
@@ -108,11 +108,12 @@ public class GameManager : NetworkBehaviour
         {
             
         }
-
+        
+        
+        
         for (int i = 0; i < lastMinigamePlayerPoints.Count; i++)
         {
-            lastMinigamePlayerPoints[i].networkConnectionToClient.identity.gameObject.transform.position = spawnPoints[raceIndex][i].transform.position;
-            lastMinigamePlayerPoints[i].networkConnectionToClient.identity.gameObject.transform.rotation = spawnPoints[raceIndex][i].transform.rotation;
+            lastMinigamePlayerPoints[i].networkConnectionToClient.identity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex,i);
         }
         
     }
@@ -128,6 +129,15 @@ public class GameManager : NetworkBehaviour
     {
         NetworkClient.localPlayer.gameObject.GetComponent<CarController>().DesactivateCar();
     }
+
+    [ClientRpc]
+    private void DisableMinigameClientRPC(int index)
+    {
+        ordenMinijuegos[index].SetActive(false);
+
+    }
+
+    
     
     
     

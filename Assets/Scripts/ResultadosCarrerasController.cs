@@ -95,6 +95,12 @@ public class ResultadosCarrerasController : MonoBehaviour
 
     public void actualizarTablaPuntuacion()
     {
+        GameObject[] listaCuadro = GameObject.FindGameObjectsWithTag("CuadroInfo");
+        foreach (var cuadroEliminar in listaCuadro)
+        {
+            Destroy(cuadroEliminar);
+        }
+        
         puntuacionJugadores.Sort((a, b) => b.puntuacionTotal.CompareTo(a.puntuacionTotal));
         
         int orden = 1;
