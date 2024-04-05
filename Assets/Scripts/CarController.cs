@@ -58,11 +58,8 @@ public class CarController : NetworkBehaviour
         _playerInput = GetComponent<PlayerInput>();
 
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
-        
-        if (isLocalPlayer)
-        {
-            _cameraPivot = transform.Find("CameraPivot").gameObject;
-        }
+     
+        _cameraPivot = transform.Find("CameraPivot").gameObject;
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
@@ -223,5 +220,13 @@ public class CarController : NetworkBehaviour
 
         wheelTransform.rotation = rotation;
         wheelTransform.position = position;
+    }
+    
+    [TargetRpc]
+    public void TargetMoveCar(int raceIndex,int spawnIndex)
+    {
+        var spawnTrasnform = FindObjectOfType<GameManager>().spawnPoints[raceIndex][spawnIndex].transform;
+        this.transform.position = spawnTrasnform.position;
+        this.transform.rotation = spawnTrasnform.rotation;
     }
 }

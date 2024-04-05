@@ -781,7 +781,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6093880896388416780}
-  - component: {fileID: 4102575626847793719}
+  - component: {fileID: 3384128988052426874}
   m_Layer: 0
   m_Name: Minijuego0
   m_TagString: Untagged
@@ -813,7 +813,7 @@ Transform:
   - {fileID: 2463807055462964804}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4102575626847793719
+--- !u!114 &3384128988052426874
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
