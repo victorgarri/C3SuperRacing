@@ -15,16 +15,23 @@ public class PosicionCarreraController : MonoBehaviour
     
     [Header("Recogemos el script de información del jugador")]
     InformacionJugador[] _informacionJugadores;
-    private InformacionJugador localPlayer;
     
     [Header("Colocación coches final de cada carrera")]
     [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
     private int sumaOrden = 1;
     public int puntuacionMaxima = 0;
+
+    [Header("Script de resultados de carrera")]
+    private GameObject interfazResultadoCarrera;
+    private ResultadosCarrerasController _resultadosCarrerasController;
     
     // Start is called before the first frame update
     void Start()
     {
+        interfazResultadoCarrera = GameObject.Find("--INTERFAZ RESULTADO CARRERA--");
+        _resultadosCarrerasController = interfazResultadoCarrera.GetComponent<ResultadosCarrerasController>();
+        interfazResultadoCarrera.SetActive(false);
+        
         listaWaypoints = new List<Transform>();
         for (int i = 0; i < transform.childCount; i++)
         {
@@ -119,8 +126,11 @@ public class PosicionCarreraController : MonoBehaviour
                 {
                     //Cambiar cuando acabe la carrera
                     jugador.ActualizarPuntuacionJugadorCarrera(puntuacionMaxima - 2*(sumaOrden-1));
+                    interfazResultadoCarrera.SetActive(true);
+                    _resultadosCarrerasController.agregaTablaJugador(jugador, sumaOrden);
                     jugador.transform.position = spawnsFinales[sumaOrden - 1].transform.position;
                     jugador.transform.rotation = spawnsFinales[sumaOrden - 1].transform.rotation;
+                    jugador._carController.DesactivateCar();
                     sumaOrden++;
                 }
                 else

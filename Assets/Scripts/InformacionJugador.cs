@@ -29,7 +29,7 @@ public class InformacionJugador : NetworkBehaviour
     [Header("Gestión de la interfaz")] 
     private InterfazController _interfazController;
 
-    private CarController _carController;
+    public CarController _carController;
 
     [SyncVar] public Nullable<int> lastMinigameScore = null;
     public List<int> listaPuntuacionCarrera;
@@ -50,6 +50,10 @@ public class InformacionJugador : NetworkBehaviour
     void Start()
     {
         listaPuntuacionCarrera = new List<int>();
+        listaPuntuacionCarrera.Add(0);
+        listaPuntuacionCarrera.Add(0);
+        listaPuntuacionCarrera.Add(0);
+        
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
         
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
@@ -92,7 +96,7 @@ public class InformacionJugador : NetworkBehaviour
 
     public void ActualizarPuntuacionJugadorCarrera(int puntosConseguidos)
     {
-        listaPuntuacionCarrera.Add(puntosConseguidos);
+        listaPuntuacionCarrera[indiceCarrera - 1] = puntosConseguidos;
         puntuacionTotalCarrera += listaPuntuacionCarrera[indiceCarrera - 1];
 
     }
