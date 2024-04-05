@@ -28,7 +28,7 @@ public class InterfazController : MonoBehaviour
     
     [Header("Texto para indicar las vueltas")]
     public TextMeshProUGUI textoVueltas;
-    
+
     [Header("Gestión cuando el usuario vaya en sentido contrario")]
     public GameObject imagenProhibido;
 
@@ -107,13 +107,15 @@ public class InterfazController : MonoBehaviour
         textoVueltas.text = vueltaActual + "/" + vueltaTotales;
     }
     
-    public void activarProhibicion()
+    public IEnumerator activarProhibicion()
     {
+        yield return new WaitForSeconds(1.5f);
         imagenProhibido.SetActive(true);
     }
 
     public void desactivarProhibicion()
     {
+        StopCoroutine(activarProhibicion());
         imagenProhibido.SetActive(false);
     }
 

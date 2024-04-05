@@ -64,13 +64,16 @@ public class InformacionJugador : NetworkBehaviour
     {
         if (isLocalPlayer && _carController.enableControls)
         {
-            if (distanciaSiguienteWaypoint < posicionAnterior)
+            float distanciaSiguienteWaypointAproximado =  Mathf.Round(distanciaSiguienteWaypoint * 100f) / 100f;
+            float posicionAnteriorAproximado = Mathf.Round(posicionAnterior * 100f) / 100f;
+            
+            if (distanciaSiguienteWaypointAproximado <= posicionAnteriorAproximado)
             {
                 _interfazController.desactivarProhibicion();
             }
             else
             {
-                _interfazController.activarProhibicion();
+                StartCoroutine(_interfazController.activarProhibicion());
             }
             posicionAnterior = distanciaSiguienteWaypoint;
             
