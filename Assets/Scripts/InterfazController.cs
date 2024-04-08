@@ -28,13 +28,16 @@ public class InterfazController : MonoBehaviour
     
     [Header("Texto para indicar las vueltas")]
     public TextMeshProUGUI textoVueltas;
-    
+
     [Header("Gestión cuando el usuario vaya en sentido contrario")]
     public GameObject imagenProhibido;
 
     [Header("Minimapa")] 
     public Camera camaraMinimapa;
     public List<GameObject> listaCircuitosMinimapa;
+    
+    public Coroutine stopCor;
+    public bool corBool;
     
     // Start is called before the first frame update
     void Start()
@@ -107,14 +110,19 @@ public class InterfazController : MonoBehaviour
         textoVueltas.text = vueltaActual + "/" + vueltaTotales;
     }
     
-    public void activarProhibicion()
+    public IEnumerator activarProhibicion()
     {
+        corBool = true;
+        yield return new WaitForSeconds(1.5f);
         imagenProhibido.SetActive(true);
     }
 
     public void desactivarProhibicion()
     {
         imagenProhibido.SetActive(false);
+        corBool = false;
+        if (stopCor!=null)
+            StopCoroutine(stopCor);        
     }
 
     public void cambiosMinimapa(int indice)

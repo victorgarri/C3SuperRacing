@@ -14,6 +14,7 @@ public class CarController : NetworkBehaviour
     private float cameraSpeed=4.5f;
     private float cameraOffset=0;
     private float cameraTimestamp=0;
+    
 
     private const float MAXBREAKFORCE = 3000F;
 
@@ -58,7 +59,7 @@ public class CarController : NetworkBehaviour
         _playerInput = GetComponent<PlayerInput>();
 
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
-     
+            
         _cameraPivot = transform.Find("CameraPivot").gameObject;
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
@@ -72,10 +73,9 @@ public class CarController : NetworkBehaviour
         if (isLocalPlayer)
             _cameraPivot.SetActive(true);
         _interfazController.gameObject.SetActive(true);
-
         StartCoroutine(EnableControlsCoroutine(seconds));
     }
-
+    
     private IEnumerator EnableControlsCoroutine(int seconds)
     {
         yield return new WaitForSeconds(seconds);

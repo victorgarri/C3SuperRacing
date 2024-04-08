@@ -22,7 +22,7 @@ public class InformacionJugador : NetworkBehaviour
     public int vueltaActual = 0;
     public int nVueltasCircuito = 0;
     public int nWaypoints = 0;
-    public int siguienteWaypoint = 0;
+    public int siguienteWaypoint = 0;   
     public float distanciaSiguienteWaypoint = 0;
     public float posicionAnterior;
 
@@ -35,6 +35,7 @@ public class InformacionJugador : NetworkBehaviour
     public List<int> listaPuntuacionCarrera;
     public int puntuacionTotalCarrera = 0;
     public int indiceCarrera = 0;
+
     
     private void Awake()
     {
@@ -64,19 +65,24 @@ public class InformacionJugador : NetworkBehaviour
     {
         if (isLocalPlayer && _carController.enableControls)
         {
-            if (distanciaSiguienteWaypoint < posicionAnterior)
+            float distanciaSiguienteWaypointAproximado =  Mathf.Round(distanciaSiguienteWaypoint * 100f) / 100f;
+            float posicionAnteriorAproximado = Mathf.Round(posicionAnterior * 100f) / 100f;
+            
+            if (distanciaSiguienteWaypointAproximado < posicionAnteriorAproximado)
             {
-                _interfazController.desactivarProhibicion();
+                _interfazController.desactivarProhibicion();                
             }
-            else
+            else if(distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
             {
-                _interfazController.activarProhibicion();
+                if(!_interfazController.corBool)
+                    _interfazController.stopCor=StartCoroutine(_interfazController.activarProhibicion());
             }
             posicionAnterior = distanciaSiguienteWaypoint;
             
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
         }
+        Debug.Log(_interfazController.corBool);
     }
 
     private void OnTriggerEnter(Collider collision)
@@ -92,6 +98,15 @@ public class InformacionJugador : NetworkBehaviour
                 _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint - 1);   
             }
         }
+        collision.gameObject.SetActive(false);
+        
+        int prevWaypoint = siguienteWaypoint-2;
+        if (prevWaypoint < 0)
+            prevWaypoint = _posicionCarreraController.listaWaypoints.Count+prevWaypoint;
+        
+        _posicionCarreraController.listaWaypoints[prevWaypoint].gameObject.SetActive(true);
+        
+        _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.SetActive(true);
     }
 
     public void ActualizarPuntuacionJugadorCarrera(int puntosConseguidos)
