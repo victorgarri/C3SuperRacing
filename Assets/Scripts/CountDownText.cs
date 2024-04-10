@@ -43,6 +43,5 @@ public class CountDownText : MonoBehaviour
         _countDownText.text = "GO!";
         _countDownAnimator.SetTrigger(GO);
         _countDownAnimator.enabled = true;
-        yield return new WaitForSeconds(1);
     }
 }

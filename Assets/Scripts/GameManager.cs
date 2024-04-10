@@ -125,20 +125,34 @@ public class GameManager : NetworkBehaviour
         Debug.Log("Cambiando juego AHORA");
         if (currentGameType == GameType.Race && minigameIndex + 1 < ordenMinijuegos.Count)
         {
-            
+            // Activar minijuego
         }
         else if(raceIndex+1 < tracksWaypoints.Count)
         {
+            
             raceIndex++;
             DisableMinigameClientRPC(0);
             EnableCarClientRPC(raceIndex);
-            
-            for (int i = 0; i < lastMinigamePlayerPoints.Count; i++)
+            if (currentGameType == GameType.Minigame)
             {
-                Debug.Log("Moviendo coche al circuito: "+raceIndex);
-                Debug.Log("Moviendo el coche: "+ lastMinigamePlayerPoints[i].networkIdentity.gameObject.name);
-                lastMinigamePlayerPoints[i].networkIdentity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex,i);
+                for (int i = 0; i < lastMinigamePlayerPoints.Count; i++)
+                {
+                   
+                    lastMinigamePlayerPoints[i].networkIdentity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex,i);
+                }
             }
+            else
+            {
+                foreach (var playerConnection in NetworkServer.connections)
+                { 
+                    Debug.Log("Moviendo coche al circuito: "+raceIndex);
+                    Debug.Log("Moviendo el coche: "+  playerConnection.Value.identity.gameObject.name);
+                    Debug.Log("Posicion: "+  (playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1));
+                    playerConnection.Value.identity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex, playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1);
+                }
+            }
+            currentGameType = GameType.Race;
+           
         }
         _resultadoCarreraController.gameObject.SetActive(false);
     }
