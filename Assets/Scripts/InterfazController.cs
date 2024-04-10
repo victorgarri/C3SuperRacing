@@ -134,7 +134,7 @@ public class InterfazController : MonoBehaviour
             else
                 listaCircuitosMinimapa[i].SetActive(false);
             if(indice==2)
-                camaraMinimapa.transform.position = new Vector3(-87f, 100, 40f);
+                camaraMinimapa.transform.position = new Vector3(camaraMinimapa.transform.position.x - 87.3f, camaraMinimapa.transform.position.y, camaraMinimapa.transform.position.z + 48.4f);
         }
     }
 }
