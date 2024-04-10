@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
+using UnityEngine.Audio;
 
 
 public class CarController : NetworkBehaviour
@@ -62,6 +63,8 @@ public class CarController : NetworkBehaviour
     [SerializeField] private AudioClip claxonCoche;
     [SerializeField] private AudioClip musicaCircuito1;
     private bool musicaActivada = false;
+
+    private AudioSource _audioSource;
     
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
@@ -77,6 +80,8 @@ public class CarController : NetworkBehaviour
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
             
         _cameraPivot = transform.Find("CameraPivot").gameObject;
+
+        _audioSource = this.GetComponent<AudioSource>();
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
@@ -95,8 +100,7 @@ public class CarController : NetworkBehaviour
     
     private IEnumerator EnableControlsCoroutine(int seconds)
     {
-        AudioListener.volume = volumen; //Le subo el volumen al audio
-        AudioSource.PlayClipAtPoint(sonidoCocheArranque, this.transform.position);
+        _audioSource.PlayOneShot(sonidoCocheArranque, 5);
         InvokeRepeating("SonidoCocheArrancadoBucle", 0f, sonidoCocheArrancadoYa.length);
         
         yield return new WaitForSeconds(seconds);
@@ -161,16 +165,20 @@ public class CarController : NetworkBehaviour
         }
         else
         {
-            CancelInvoke("ReproduccionMusicaBucle");
-            musicaActivada = false;
+            if (musicaActivada)
+            {
+                CancelInvoke("ReproduccionMusicaBucle");
+                _audioSource.Stop();
+                musicaActivada = false;
+
+            }
         }
         
     }
 
     private void ReproduccionMusicaBucle()
     {
-        AudioListener.volume = volumen / 2;
-        AudioSource.PlayClipAtPoint(musicaCircuito1, transform.position);
+        _audioSource.PlayOneShot(musicaCircuito1, 2);
     }
     
     private void SonidoCocheCorriendo()
