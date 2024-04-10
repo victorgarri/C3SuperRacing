@@ -80,7 +80,7 @@ public class M0GameManager : NetworkBehaviour
     {
         GameObject boxPrefab = GetBoxPrefab(boxType);
         BoxController boxController = Instantiate(boxPrefab, position, Quaternion.identity).GetComponent<BoxController>();
-
+        boxController.transform.parent = this.transform.parent;
         if (boxController != null)
         {
             boxController.SetBoxType(boxType);

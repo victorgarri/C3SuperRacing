@@ -2,10 +2,11 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Mirror;
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class PosicionCarreraController : MonoBehaviour
+public class PosicionCarreraController : NetworkBehaviour
 {
     [Header("Lista de Waypoints")]
     public List<Transform> listaWaypoints;
@@ -14,55 +15,35 @@ public class PosicionCarreraController : MonoBehaviour
     [SerializeField] public int vueltasTotales = 2;
     
     [Header("Recogemos el script de información del jugador")]
-    InformacionJugador[] _informacionJugadores;
+    public InformacionJugador[] _informacionJugadores;
     
     [Header("Colocación coches final de cada carrera")]
     [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
-    private int sumaOrden = 1;
+    private int sumaOrden = 0;
     public int puntuacionMaxima = 0;
 
     [Header("Script de resultados de carrera")]
+    [SerializeField]
     private GameObject interfazResultadoCarrera;
+    [SerializeField]
     private ResultadosCarrerasController _resultadosCarrerasController;
+    
+    [SerializeField]
+    private GameManager _gameManager;
     
     // Start is called before the first frame update
     void Start()
     {
-        interfazResultadoCarrera = GameObject.Find("--INTERFAZ RESULTADO CARRERA--");
-        _resultadosCarrerasController = interfazResultadoCarrera.GetComponent<ResultadosCarrerasController>();
-        interfazResultadoCarrera.SetActive(false);
-        
         listaWaypoints = new List<Transform>();
         for (int i = 0; i < transform.childCount; i++)
         {
             listaWaypoints.Add(transform.GetChild(i));
-        }
-        
-        //Reseteo los valores antes de empezar la carrera
-        StartCoroutine(ReseteoVariablesJugadores());
-
+        }        
     }
 
-    private IEnumerator ReseteoVariablesJugadores()
-    {
-        yield return new WaitForSeconds(5);
-        
-        _informacionJugadores = FindObjectsOfType(typeof(InformacionJugador)) as InformacionJugador[];
-        foreach (var jugador in _informacionJugadores)
-        {
-            jugador.indiceCarrera++;
-            jugador.vueltaActual = 1;
-            jugador.nVueltasCircuito = vueltasTotales;
-            jugador.nWaypoints = 0;
-            jugador.siguienteWaypoint = 0;
-            jugador.distanciaSiguienteWaypoint = CalculoDistanciaSiguienteWaypoint(jugador, jugador.siguienteWaypoint);
-        }
+    
 
-        puntuacionMaxima = 2 * _informacionJugadores.Length;
-
-    }
-
-    private float CalculoDistanciaSiguienteWaypoint(InformacionJugador jugador, int indiceSiguienteWaypoint)
+    public float CalculoDistanciaSiguienteWaypoint(InformacionJugador jugador, int indiceSiguienteWaypoint)
     {
         Vector3 coordenadasJugador = jugador.transform.position;
         BoxCollider waypointCollider = listaWaypoints[indiceSiguienteWaypoint].gameObject.GetComponent<BoxCollider>();
@@ -84,6 +65,7 @@ public class PosicionCarreraController : MonoBehaviour
         }
     }
 
+    [Server]
     private void ActualizarPosiciones()
     {
         //Me voy actualizando en cada frame la distancia
@@ -97,12 +79,12 @@ public class PosicionCarreraController : MonoBehaviour
                                                       ThenByDescending(jugador => jugador.nWaypoints).
                                                       ThenBy(jugador => jugador.distanciaSiguienteWaypoint).ToArray();
 
-        PosicionarJugadores(_informacionJugadores, sumaOrden);
+        PosicionarJugadores(_informacionJugadores);
     }
 
-    private void PosicionarJugadores(InformacionJugador[] jugadores, int sumaOrden)
+    private void PosicionarJugadores(InformacionJugador[] jugadores)
     {
-        int orden = sumaOrden;
+        int orden = 1;
         foreach(InformacionJugador jugador in jugadores)
         {
             jugador.posicionActual = orden;
@@ -119,25 +101,28 @@ public class PosicionCarreraController : MonoBehaviour
             jugador.siguienteWaypoint= (jugador.siguienteWaypoint + 1)%listaWaypoints.Count;
 
             //Si pilla todos los waypoints, que me sume una vuelta
-            if (jugador.nWaypoints >= listaWaypoints.Count)
+            if (jugador.nWaypoints > listaWaypoints.Count)
             {
 
                 if (jugador.vueltaActual == vueltasTotales)
                 {
                     //Cambiar cuando acabe la carrera
-                    jugador.ActualizarPuntuacionJugadorCarrera(puntuacionMaxima - 2*(sumaOrden-1));
-                    interfazResultadoCarrera.SetActive(true);
-                    _resultadosCarrerasController.agregaTablaJugador(jugador, sumaOrden);
-                    jugador.transform.position = spawnsFinales[sumaOrden - 1].transform.position;
-                    jugador.transform.rotation = spawnsFinales[sumaOrden - 1].transform.rotation;
-                    jugador._carController.DesactivateCar();
-                    sumaOrden++;
+                    // 
+                    jugador.finCarrera = true;
+                    _gameManager.ActualizarPuntuacionJugadorCarrera(jugador,puntuacionMaxima - 2 * (jugador.posicionActual-1));
+                    
+                    // jugador.
+                    // interfazResultadoCarrera.SetActive(true);
+                    // _resultadosCarrerasController.agregaTablaJugador(jugador, jugador.posicionActual);
+                    
+                    TargetFinishRace(jugador,jugador.posicionActual-1);
+
                 }
                 else
-                {
+                {                    
                     jugador.vueltaActual++;
-                    jugador.nWaypoints = 0;
-                    jugador.siguienteWaypoint = 0;
+                    jugador.nWaypoints = 1;
+                    jugador.siguienteWaypoint = 1;
                 }
             }
         }
@@ -155,4 +140,14 @@ public class PosicionCarreraController : MonoBehaviour
             }
         }
     }
+
+    
+  
+    public void TargetFinishRace(InformacionJugador target, int sumOrd)
+    {
+        target.transform.position = spawnsFinales[sumOrd].transform.position;
+        target.transform.rotation = spawnsFinales[sumOrd].transform.rotation;
+        target.gameObject.GetComponent<InformacionJugador>()._carController.DesactivateCar();
+    }
+    
 }

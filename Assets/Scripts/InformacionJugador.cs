@@ -17,12 +17,18 @@ public class InformacionJugador : NetworkBehaviour
     public TextMesh etiquetaNombre;
     
     [Header("Gestión de las posiciones")]
-    private PosicionCarreraController _posicionCarreraController;
+    public PosicionCarreraController _posicionCarreraController;
+    
+    [SyncVar]
     public int posicionActual = 0;
+    [SyncVar]
     public int vueltaActual = 0;
     public int nVueltasCircuito = 0;
+    [SyncVar]
     public int nWaypoints = 0;
-    public int siguienteWaypoint = 0;   
+    [SyncVar]
+    public int siguienteWaypoint = 0;
+    [SyncVar]
     public float distanciaSiguienteWaypoint = 0;
     public float posicionAnterior;
 
@@ -32,9 +38,13 @@ public class InformacionJugador : NetworkBehaviour
     public CarController _carController;
 
     [SyncVar] public Nullable<int> lastMinigameScore = null;
+    
+    
     public List<int> listaPuntuacionCarrera;
     public int puntuacionTotalCarrera = 0;
     public int indiceCarrera = 0;
+
+    public bool finCarrera=true;
 
     
     private void Awake()
@@ -44,6 +54,23 @@ public class InformacionJugador : NetworkBehaviour
         etiquetaNombre = GameObject.Find("NombreJugador").GetComponent<TextMesh>();
         etiquetaNombre.text = nombreJugador;
         */
+    }
+
+    [Command]
+    public void SetNWaypoints(int n)
+    {
+        nWaypoints = n;
+    }
+    [Command]
+    public void SetSiguienteWaypoint(int i)
+    {
+        siguienteWaypoint = i;
+    }
+
+    [Command]
+    public void SetVueltaActual(int n)
+    {
+        vueltaActual = n;
     }
     
 
@@ -74,21 +101,23 @@ public class InformacionJugador : NetworkBehaviour
             }
             else if(distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
             {
-                if(!_interfazController.corBool)
+                if (!_interfazController.corBool)
+                {
                     _interfazController.stopCor=StartCoroutine(_interfazController.activarProhibicion());
+                }
             }
             posicionAnterior = distanciaSiguienteWaypoint;
             
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
         }
-        Debug.Log(_interfazController.corBool);
     }
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Waypoint"))
+        if (collision.gameObject.CompareTag("Waypoint") && isLocalPlayer)
         {
+            // Debug.Log("SiguienteWaypoint: "+siguienteWaypoint);
             if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
             {
                 _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint);
@@ -97,23 +126,27 @@ public class InformacionJugador : NetworkBehaviour
             {
                 _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint - 1);   
             }
+            
+            collision.gameObject.SetActive(false);
+            
+            int prevWaypoint = siguienteWaypoint-2;
+            if (prevWaypoint < 0)
+                prevWaypoint = _posicionCarreraController.listaWaypoints.Count+prevWaypoint;
+            
+            _posicionCarreraController.listaWaypoints[prevWaypoint].gameObject.SetActive(true);
+            
+            _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.SetActive(true);
+            
+            SetNWaypoints(nWaypoints);
+            SetSiguienteWaypoint(siguienteWaypoint);
+            SetVueltaActual(vueltaActual);
         }
-        collision.gameObject.SetActive(false);
-        
-        int prevWaypoint = siguienteWaypoint-2;
-        if (prevWaypoint < 0)
-            prevWaypoint = _posicionCarreraController.listaWaypoints.Count+prevWaypoint;
-        
-        _posicionCarreraController.listaWaypoints[prevWaypoint].gameObject.SetActive(true);
-        
-        _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.SetActive(true);
     }
 
     public void ActualizarPuntuacionJugadorCarrera(int puntosConseguidos)
     {
         listaPuntuacionCarrera[indiceCarrera - 1] = puntosConseguidos;
         puntuacionTotalCarrera += listaPuntuacionCarrera[indiceCarrera - 1];
-
     }
 
 
@@ -123,4 +156,6 @@ public class InformacionJugador : NetworkBehaviour
     {
         this.lastMinigameScore = score;
     }
+
+    
 }

@@ -74,6 +74,7 @@ public class CarController : NetworkBehaviour
             _cameraPivot.SetActive(true);
         _interfazController.gameObject.SetActive(true);
         StartCoroutine(EnableControlsCoroutine(seconds));
+        
     }
     
     private IEnumerator EnableControlsCoroutine(int seconds)
@@ -140,8 +141,8 @@ public class CarController : NetworkBehaviour
         pedal = _playerInput.actions["Throtle"].ReadValue<float>();
 
         cameraInput = _playerInput.actions["Camera"].ReadValue<float>();
-
-        isBreaking = _playerInput.actions["Brake"].IsPressed();
+        
+        isBreaking = _playerInput.actions["Brake"].IsPressed(); 
     }
 
     
