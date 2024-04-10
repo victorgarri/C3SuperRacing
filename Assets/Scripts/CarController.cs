@@ -100,7 +100,7 @@ public class CarController : NetworkBehaviour
     
     private IEnumerator EnableControlsCoroutine(int seconds)
     {
-        _audioSource.PlayOneShot(sonidoCocheArranque, 5);
+        _audioSource.PlayOneShot(sonidoCocheArranque, 3);
         InvokeRepeating("SonidoCocheArrancadoBucle", 0f, sonidoCocheArrancadoYa.length);
         
         yield return new WaitForSeconds(seconds);
