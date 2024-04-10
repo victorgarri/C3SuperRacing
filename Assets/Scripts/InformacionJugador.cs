@@ -44,6 +44,7 @@ public class InformacionJugador : NetworkBehaviour
     public int puntuacionTotalCarrera = 0;
     public int indiceCarrera = 0;
 
+    [SyncVar]
     public bool finCarrera=true;
 
     
@@ -155,6 +156,12 @@ public class InformacionJugador : NetworkBehaviour
     public void SetMinigameScore(Nullable<int> score)
     {
         this.lastMinigameScore = score;
+    }
+
+    [Command]
+    public void CmdSetFinCarrera(bool finish)
+    {
+        this.finCarrera = finish;
     }
 
     

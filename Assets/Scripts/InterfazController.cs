@@ -127,17 +127,14 @@ public class InterfazController : MonoBehaviour
 
     public void cambiosMinimapa(int indice)
     {
-        if (indice == 1)
+        for (int i = 0; i < listaCircuitosMinimapa.Count; i++)
         {
-            listaCircuitosMinimapa[0].SetActive(false);  //Circuito 1
-            listaCircuitosMinimapa[1].SetActive(true);   //Circuito 2
-        }
-
-        if (indice == 2)
-        {
-            camaraMinimapa.transform.position = new Vector3(-87f, 100, 40f);
-            listaCircuitosMinimapa[1].SetActive(false);  //Circuito 2
-            listaCircuitosMinimapa[2].SetActive(true);   //Circuito 3
+            if(i==indice)
+                listaCircuitosMinimapa[i].SetActive(true);
+            else
+                listaCircuitosMinimapa[i].SetActive(false);
+            if(indice==2)
+                camaraMinimapa.transform.position = new Vector3(-87f, 100, 40f);
         }
     }
 }

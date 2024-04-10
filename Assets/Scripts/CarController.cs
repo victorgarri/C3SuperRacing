@@ -7,6 +7,7 @@ using UnityEngine.InputSystem;
 
 public class CarController : NetworkBehaviour
 {
+    [SerializeField]
     private bool isBreaking;
     private float giro;
     private float pedal;
@@ -85,7 +86,19 @@ public class CarController : NetworkBehaviour
 
     public void DesactivateCar()
     {
-        enableControls = false;        
+        enableControls = false;
+        
+        FL.brakeTorque = MAXBREAKFORCE;
+        FR.brakeTorque = MAXBREAKFORCE;
+        RL.brakeTorque = MAXBREAKFORCE;
+        RR.brakeTorque = MAXBREAKFORCE;
+        
+        FL.steerAngle = 0;
+        FR.steerAngle = 0;
+
+        FL.motorTorque = 0;
+        FR.motorTorque = 0;
+        
         _cameraPivot.SetActive(false);
         _interfazController.gameObject.SetActive(false);
     }
@@ -108,10 +121,11 @@ public class CarController : NetworkBehaviour
     {
         if (isLocalPlayer&&enableControls)
         {
-            GetInput();
+        
+            GetInput();                
+            HandleCamera();
             HandleMotor();
             HandleSteering();
-            HandleCamera();
         }
         if(_updateWheels)UpdateWheels();
     }
@@ -136,7 +150,7 @@ public class CarController : NetworkBehaviour
     {
         // giro = Input.GetAxis("Horizontal");
         giro = _playerInput.actions["Steer"].ReadValue<float>();
-
+    
         // pedal = Input.GetAxis("Vertical");
         pedal = _playerInput.actions["Throtle"].ReadValue<float>();
 
@@ -227,7 +241,7 @@ public class CarController : NetworkBehaviour
     public void TargetMoveCar(int raceIndex,int spawnIndex)
     {
         var spawnTrasnform = FindObjectOfType<GameManager>().spawnPoints[raceIndex][spawnIndex].transform;
-        this.transform.position = spawnTrasnform.position;
-        this.transform.rotation = spawnTrasnform.rotation;
+        this.gameObject.transform.position = spawnTrasnform.position;
+        this.gameObject.transform.rotation = spawnTrasnform.rotation;
     }
 }

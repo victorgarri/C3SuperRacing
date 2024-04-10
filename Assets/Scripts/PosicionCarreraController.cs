@@ -109,6 +109,7 @@ public class PosicionCarreraController : NetworkBehaviour
                     //Cambiar cuando acabe la carrera
                     // 
                     jugador.finCarrera = true;
+                    jugador.CmdSetFinCarrera(true);
                     _gameManager.ActualizarPuntuacionJugadorCarrera(jugador,puntuacionMaxima - 2 * (jugador.posicionActual-1));
                     
                     // jugador.
