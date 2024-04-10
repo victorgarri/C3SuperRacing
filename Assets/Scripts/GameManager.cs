@@ -132,7 +132,7 @@ public class GameManager : NetworkBehaviour
             
             raceIndex++;
             DisableMinigameClientRPC(0);
-            EnableCarClientRPC(raceIndex);
+            
             if (currentGameType == GameType.Minigame)
             {
                 for (int i = 0; i < lastMinigamePlayerPoints.Count; i++)
@@ -146,20 +146,21 @@ public class GameManager : NetworkBehaviour
                 foreach (var playerConnection in NetworkServer.connections)
                 { 
                     Debug.Log("Moviendo coche al circuito: "+raceIndex);
-                    Debug.Log("Moviendo el coche: "+  playerConnection.Value.identity.gameObject.name);
+                    Debug.Log("Moviendo el coche: "+  playerConnection.Value.identity.gameObject.Serialize());
                     Debug.Log("Posicion: "+  (playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1));
                     playerConnection.Value.identity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex, playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1);
                 }
             }
+            EnableCarClientRPC(raceIndex);
             currentGameType = GameType.Race;
            
         }
-        _resultadoCarreraController.gameObject.SetActive(false);
     }
     
     [ClientRpc]
     private void EnableCarClientRPC(int index)
     {
+        _resultadoCarreraController.gameObject.SetActive(false);
         _countDownText.StartCountDown(3); 
         NetworkClient.localPlayer.gameObject.GetComponent<CarController>().ActivateCar(3);
         

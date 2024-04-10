@@ -59,7 +59,7 @@ public class PosicionCarreraController : NetworkBehaviour
     
     void Update()
     {
-        if (_informacionJugadores != null)
+        if (_informacionJugadores != null&&NetworkClient.localPlayer.gameObject.GetComponent<CarController>().enableControls)  
         {
             ActualizarPosiciones();   
         }
