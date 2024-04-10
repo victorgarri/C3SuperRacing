@@ -831,6 +831,13 @@ MonoBehaviour:
   WRL: {fileID: 4433358557130282161}
   WRR: {fileID: 773153340793870144}
   _updateWheels: 1
+  sonidoCocheArranque: {fileID: 8300000, guid: 99077207653a74846877ef5dc69cc8f0, type: 3}
+  sonidoCocheArrancadoYa: {fileID: 8300000, guid: f19203f0923d08f4287c644a1b55d205, type: 3}
+  sonidoCocheCorriendo: {fileID: 8300000, guid: ca9bb92cbb5f705499b316408b1c5987, type: 3}
+  sonidoCocheFrenando: {fileID: 0}
+  sonidoCocheChocandoConOtro: {fileID: 8300000, guid: 38433446a21766243aa2d913d53a9f45, type: 3}
+  claxonCoche: {fileID: 8300000, guid: 91cea1ef6b2a66e46b7e0c4083dbca4e, type: 3}
+  musicaCircuito1: {fileID: 8300000, guid: f7207569d9d4f364eb337181ccdd687d, type: 3}
   enableControls: 0
 --- !u!114 &3399784010991489679
 MonoBehaviour:
@@ -850,14 +857,19 @@ MonoBehaviour:
   vueltas: 0
   nombreJugador: Carlitos
   etiquetaNombre: {fileID: 0}
+  _posicionCarreraController: {fileID: 0}
   posicionActual: 0
   vueltaActual: 0
   nVueltasCircuito: 0
   nWaypoints: 0
   siguienteWaypoint: 0
   distanciaSiguienteWaypoint: 0
-  activacionProhibicion: 0
-  waiting: 0
+  posicionAnterior: 0
+  _carController: {fileID: 0}
+  listaPuntuacionCarrera: 
+  puntuacionTotalCarrera: 0
+  indiceCarrera: 0
+  finCarrera: 1
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0

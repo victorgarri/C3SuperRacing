@@ -1,8 +1,10 @@
 using System;
 using System.Collections;
 using Mirror;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.Serialization;
 
 
 public class CarController : NetworkBehaviour
@@ -32,11 +34,11 @@ public class CarController : NetworkBehaviour
     private float currentSteerAngle;
     [Header("Configuración del giro")]
     [SerializeField] private float maxSteerAngle=20;
-
     [SerializeField] private float radius = 1;
     [SerializeField] private float wheelBase;
     [SerializeField] private float trackWidth;
     [SerializeField] private bool antiAckerman = false;
+    
     [Header("Configuración de ruedas físicas")]
     [SerializeField] private Transform WFL;
     [SerializeField] private Transform WFR;
@@ -44,9 +46,22 @@ public class CarController : NetworkBehaviour
     [SerializeField] private Transform WRR;
     [SerializeField] private bool _updateWheels;
 
-    [Header("Velocímetro")] private InterfazController _interfazController;
+    [Header("Velocímetro")] 
+    private InterfazController _interfazController;
     private float velocidad = 0f;
     private const float VELOCIDADMAXIMA = 80f;
+
+    [Header("Sonido")] 
+    private float volumen = 5.0f;
+    [SerializeField] private AudioClip sonidoCocheArranque;
+    [SerializeField] private AudioClip sonidoCocheArrancadoYa;
+    [SerializeField] private AudioClip sonidoCocheCorriendo;
+    private bool acelerando = false;
+    [SerializeField] private AudioClip sonidoCocheFrenando;
+    [SerializeField] private AudioClip sonidoCocheChocandoConOtro;
+    [SerializeField] private AudioClip claxonCoche;
+    [SerializeField] private AudioClip musicaCircuito1;
+    private bool musicaActivada = false;
     
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
@@ -80,8 +95,18 @@ public class CarController : NetworkBehaviour
     
     private IEnumerator EnableControlsCoroutine(int seconds)
     {
+        AudioListener.volume = volumen; //Le subo el volumen al audio
+        AudioSource.PlayClipAtPoint(sonidoCocheArranque, this.transform.position);
+        InvokeRepeating("SonidoCocheArrancadoBucle", 0f, sonidoCocheArrancadoYa.length);
+        
         yield return new WaitForSeconds(seconds);
+        CancelInvoke("SonidoCocheArrancadoBucle");
         enableControls = true;
+    }
+
+    private void SonidoCocheArrancadoBucle()
+    {
+        AudioSource.PlayClipAtPoint(sonidoCocheArrancadoYa, transform.position);
     }
 
     public void DesactivateCar()
@@ -107,6 +132,25 @@ public class CarController : NetworkBehaviour
     {
         if (enableControls)
         {
+            if (!musicaActivada)
+            {
+                InvokeRepeating("ReproduccionMusicaBucle", 0f, musicaCircuito1.length);
+                musicaActivada = true;   
+            }
+
+            /*
+            if (pedal > 0 && !acelerando)
+            {
+                acelerando = true;
+                InvokeRepeating("SonidoCocheCorriendo", 0f, sonidoCocheCorriendo.length);
+            }
+            else
+            {
+                acelerando = false;
+                CancelInvoke("SonidoCocheCorriendo");
+            }
+            */
+            
             if (isLocalPlayer)
             {
                 _interfazController.AgujaVelocimetro(velocidad, VELOCIDADMAXIMA);
@@ -115,6 +159,24 @@ public class CarController : NetworkBehaviour
             _cameraPivot.transform.position = this.transform.position;
             _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
         }
+        else
+        {
+            CancelInvoke("ReproduccionMusicaBucle");
+            musicaActivada = false;
+        }
+        
+    }
+
+    private void ReproduccionMusicaBucle()
+    {
+        AudioListener.volume = volumen / 2;
+        AudioSource.PlayClipAtPoint(musicaCircuito1, transform.position);
+    }
+    
+    private void SonidoCocheCorriendo()
+    {
+        AudioListener.volume = volumen / 5;
+        AudioSource.PlayClipAtPoint(sonidoCocheCorriendo, transform.position);
     }
 
     private void FixedUpdate()
@@ -235,6 +297,15 @@ public class CarController : NetworkBehaviour
 
         wheelTransform.rotation = rotation;
         wheelTransform.position = position;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            AudioListener.volume = volumen / 2; //Le subo el volumen al audio
+            AudioSource.PlayClipAtPoint(sonidoCocheChocandoConOtro, this.transform.position);
+        }
     }
     
     [TargetRpc]
