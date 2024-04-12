@@ -6,7 +6,7 @@ AnimationClip:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: CarlitosLado
+  m_Name: CarlitosDelante
   serializedVersion: 7
   m_Legacy: 0
   m_Compressed: 0
@@ -51,9 +51,9 @@ AnimationClip:
   - serializedVersion: 2
     curve:
     - time: 0
-      value: {fileID: 1905683221, guid: 3477dbc3a4ab5c2419e80bc7cd2eec60, type: 3}
+      value: {fileID: -1256539229, guid: 1469ef0fbf6f5c346b2dc03307cb0b8d, type: 3}
     - time: 0.083333336
-      value: {fileID: 591556335, guid: 3477dbc3a4ab5c2419e80bc7cd2eec60, type: 3}
+      value: {fileID: 717329232, guid: 1469ef0fbf6f5c346b2dc03307cb0b8d, type: 3}
     attribute: m_Sprite
     path: 
     classID: 212
@@ -85,8 +85,8 @@ AnimationClip:
       isIntCurve: 0
       isSerializeReferenceCurve: 0
     pptrCurveMapping:
-    - {fileID: 1905683221, guid: 3477dbc3a4ab5c2419e80bc7cd2eec60, type: 3}
-    - {fileID: 591556335, guid: 3477dbc3a4ab5c2419e80bc7cd2eec60, type: 3}
+    - {fileID: -1256539229, guid: 1469ef0fbf6f5c346b2dc03307cb0b8d, type: 3}
+    - {fileID: 717329232, guid: 1469ef0fbf6f5c346b2dc03307cb0b8d, type: 3}
   m_AnimationClipSettings:
     serializedVersion: 2
     m_AdditiveReferencePoseClip: {fileID: 0}
