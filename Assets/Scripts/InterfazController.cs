@@ -50,10 +50,6 @@ public class InterfazController : MonoBehaviour
         }
         
         imagenProhibido.SetActive(false);
-           
-        listaCircuitosMinimapa[0].SetActive(true);  //Circuito 1
-        listaCircuitosMinimapa[1].SetActive(false); //Circuito 2
-        listaCircuitosMinimapa[2].SetActive(false); //Circuito 3
     }
 
     
@@ -133,8 +129,18 @@ public class InterfazController : MonoBehaviour
                 listaCircuitosMinimapa[i].SetActive(true);
             else
                 listaCircuitosMinimapa[i].SetActive(false);
-            if(indice==2)
-                camaraMinimapa.transform.position = new Vector3(camaraMinimapa.transform.position.x - 87.3f, camaraMinimapa.transform.position.y, camaraMinimapa.transform.position.z + 48.4f);
+            
+            if (indice == 1)
+            {
+                camaraMinimapa.orthographicSize = 75f;
+                camaraMinimapa.transform.localPosition = new Vector3(16, camaraMinimapa.transform.localPosition.y, 19);   
+            }
+
+            if (indice == 2)
+            {
+                camaraMinimapa.orthographicSize = 80f;
+                camaraMinimapa.transform.localPosition = new Vector3(-90f, camaraMinimapa.transform.localPosition.y, 30);
+            }
         }
     }
 }

@@ -56,12 +56,13 @@ public class CarController : NetworkBehaviour
     private float volumen = 5.0f;
     [SerializeField] private AudioClip sonidoCocheArranque;
     [SerializeField] private AudioClip sonidoCocheArrancadoYa;
-    [SerializeField] private AudioClip sonidoCocheCorriendo;
-    private bool acelerando = false;
-    [SerializeField] private AudioClip sonidoCocheFrenando;
     [SerializeField] private AudioClip sonidoCocheChocandoConOtro;
+    [SerializeField] private AudioClip SonidoCocheCorriendo;
     [SerializeField] private AudioClip claxonCoche;
     [SerializeField] private AudioClip musicaCircuito1;
+    [SerializeField] private AudioClip musicaCircuito2;
+    [SerializeField] private AudioClip musicaCircuito3;
+    [SerializeField] private AudioSource sonidoMeta;
     private bool musicaActivada = false;
 
     private AudioSource _audioSource;
@@ -100,17 +101,25 @@ public class CarController : NetworkBehaviour
     
     private IEnumerator EnableControlsCoroutine(int seconds)
     {
-        _audioSource.PlayOneShot(sonidoCocheArranque, 3);
-        InvokeRepeating("SonidoCocheArrancadoBucle", 0f, sonidoCocheArrancadoYa.length);
+        //Efecto de sonido de arrancar motor
+        EjecutarEfectoSonido(sonidoCocheArranque, 1);
+
+        //Efecto de sonido de motor arrancado
+        yield return new WaitForSeconds(seconds - 2);
+        EjecutarEfectoSonido(sonidoCocheArrancadoYa, 2);
         
-        yield return new WaitForSeconds(seconds);
-        CancelInvoke("SonidoCocheArrancadoBucle");
+        yield return new WaitForSeconds(seconds - 1);
         enableControls = true;
     }
 
-    private void SonidoCocheArrancadoBucle()
+    private void EjecutarEfectoSonido(AudioClip clip, float volumen)
     {
-        AudioSource.PlayClipAtPoint(sonidoCocheArrancadoYa, transform.position);
+        _audioSource.PlayOneShot(clip, volumen);
+    }
+
+    private void GearSound()
+    {
+        _audioSource.PlayOneShot(SonidoCocheCorriendo,  velocidad/VELOCIDADMAXIMA);
     }
 
     public void DesactivateCar()
@@ -138,7 +147,8 @@ public class CarController : NetworkBehaviour
         {
             if (!musicaActivada)
             {
-                InvokeRepeating("ReproduccionMusicaBucle", 0f, musicaCircuito1.length);
+                _audioSource.loop = true;
+                EjecutarEfectoSonido(musicaCircuito1, 3);
                 musicaActivada = true;   
             }
 
@@ -167,7 +177,6 @@ public class CarController : NetworkBehaviour
         {
             if (musicaActivada)
             {
-                CancelInvoke("ReproduccionMusicaBucle");
                 _audioSource.Stop();
                 musicaActivada = false;
 
@@ -175,18 +184,7 @@ public class CarController : NetworkBehaviour
         }
         
     }
-
-    private void ReproduccionMusicaBucle()
-    {
-        _audioSource.PlayOneShot(musicaCircuito1, 2);
-    }
     
-    private void SonidoCocheCorriendo()
-    {
-        AudioListener.volume = volumen / 5;
-        AudioSource.PlayClipAtPoint(sonidoCocheCorriendo, transform.position);
-    }
-
     private void FixedUpdate()
     {
         if (isLocalPlayer&&enableControls)
@@ -250,6 +248,8 @@ public class CarController : NetworkBehaviour
         FR.brakeTorque = breakForce;
         RL.brakeTorque = breakForce;
         RR.brakeTorque = breakForce;
+        
+        //GearSound();
 
     }
 
@@ -311,8 +311,7 @@ public class CarController : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            AudioListener.volume = volumen / 2; //Le subo el volumen al audio
-            AudioSource.PlayClipAtPoint(sonidoCocheChocandoConOtro, this.transform.position);
+            EjecutarEfectoSonido(sonidoCocheChocandoConOtro, 2);
         }
     }
     

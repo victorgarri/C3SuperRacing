@@ -2246,7 +2246,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3148921735882495149, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: maxTime
-      value: 60
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 3384128988052426874, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: sceneId
@@ -6301,7 +6301,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   listaWaypoints: []
-  vueltasTotales: 3
+  vueltasTotales: 1
   _informacionJugadores: []
   spawnsFinales:
   - {fileID: 86652620}
@@ -8888,7 +8888,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   listaWaypoints: []
-  vueltasTotales: 3
+  vueltasTotales: 1
   _informacionJugadores: []
   spawnsFinales:
   - {fileID: 86652620}
@@ -11471,7 +11471,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   listaWaypoints: []
-  vueltasTotales: 3
+  vueltasTotales: 1
   _informacionJugadores: []
   spawnsFinales:
   - {fileID: 86652620}
