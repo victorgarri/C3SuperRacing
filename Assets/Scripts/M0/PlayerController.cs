@@ -124,7 +124,7 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        gameObject.GetComponent<Animator>().SetTrigger("Attack");
+        //gameObject.GetComponent<Animator>().SetTrigger("Attack");
     }
     
     private void SetWrenchRotationAndPosition(float angle, Vector2 position)

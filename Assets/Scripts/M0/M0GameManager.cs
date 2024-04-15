@@ -154,7 +154,7 @@ public class M0GameManager : NetworkBehaviour
     {
         int seconds = Mathf.FloorToInt(time);
         int milliseconds = Mathf.FloorToInt((time - seconds) * 1000f);
-        return $"{seconds}.{milliseconds:D7}";
+        return $"{seconds}.{milliseconds}";
     }
 
     // Update is called once per frame
@@ -165,7 +165,7 @@ public class M0GameManager : NetworkBehaviour
         float remainingTime = Mathf.Max(maxTime - elapsedTime, 0f);
 
         // Actualizar el texto de la cuenta atrás
-        if (countdownText != null)
+        if (countdownText != null && !end)
         {
             countdownText.text = "Tiempo: " + Mathf.Ceil(remainingTime);
         }
