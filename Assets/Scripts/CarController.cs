@@ -148,19 +148,6 @@ public class CarController : NetworkBehaviour
     {
         if (enableControls)
         {
-            /*
-            if (pedal > 0 && !acelerando)
-            {
-                acelerando = true;
-                InvokeRepeating("SonidoCocheCorriendo", 0f, sonidoCocheCorriendo.length);
-            }
-            else
-            {
-                acelerando = false;
-                CancelInvoke("SonidoCocheCorriendo");
-            }
-            */
-            
             if (isLocalPlayer)
             {
                 _interfazController.AgujaVelocimetro(velocidad, VELOCIDADMAXIMA);
@@ -306,7 +293,8 @@ public class CarController : NetworkBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            EjecutarEfectoSonido(sonidoCocheChocandoConOtro, 2);
+            if(isLocalPlayer) 
+                EjecutarEfectoSonido(sonidoCocheChocandoConOtro, 1);
         }
     }
     

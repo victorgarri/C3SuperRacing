@@ -16,7 +16,7 @@ public class SonidoFondo : MonoBehaviour
     public int indiceMusica;  //Esta variable la llamará desde el GameManager
     private bool reproduccionVelocidadNormal = true;
 
-    [SerializeField] private float volumenMusica = 1f;
+    [SerializeField] private float volumenMusica = 0.5f;
 
     private CarController _carController;
     
