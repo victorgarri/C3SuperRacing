@@ -52,7 +52,7 @@ public class CarController : NetworkBehaviour
     private float velocidad = 0f;
     private const float VELOCIDADMAXIMA = 80f;
 
-    [Header("Sonido")] 
+    [Header("Sonido")]
     private float volumen = 5.0f;
     [SerializeField] private AudioClip sonidoCocheArranque;
     [SerializeField] private AudioClip sonidoCocheArrancadoYa;
@@ -64,6 +64,7 @@ public class CarController : NetworkBehaviour
     [SerializeField] private AudioClip musicaCircuito3;
     [SerializeField] private AudioSource sonidoMeta;
     private bool musicaActivada = false;
+    private SonidoFondo _sonidoFondo;
 
     private AudioSource _audioSource;
     
@@ -83,6 +84,7 @@ public class CarController : NetworkBehaviour
         _cameraPivot = transform.Find("CameraPivot").gameObject;
 
         _audioSource = this.GetComponent<AudioSource>();
+        _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
@@ -109,6 +111,7 @@ public class CarController : NetworkBehaviour
         EjecutarEfectoSonido(sonidoCocheArrancadoYa, 2);
         
         yield return new WaitForSeconds(seconds - 1);
+        _sonidoFondo.ReproducirMusicaVelocidadNormal();
         enableControls = true;
     }
 
@@ -119,7 +122,7 @@ public class CarController : NetworkBehaviour
 
     private void GearSound()
     {
-        _audioSource.PlayOneShot(SonidoCocheCorriendo,  velocidad/VELOCIDADMAXIMA);
+        _audioSource.PlayOneShot(SonidoCocheCorriendo,  velocidad/VELOCIDADMAXIMA*0.5f);
     }
 
     public void DesactivateCar()
@@ -145,13 +148,6 @@ public class CarController : NetworkBehaviour
     {
         if (enableControls)
         {
-            if (!musicaActivada)
-            {
-                _audioSource.loop = true;
-                EjecutarEfectoSonido(musicaCircuito1, 3);
-                musicaActivada = true;   
-            }
-
             /*
             if (pedal > 0 && !acelerando)
             {
@@ -175,11 +171,10 @@ public class CarController : NetworkBehaviour
         }
         else
         {
-            if (musicaActivada)
+            //Si acaba el circuito que me pare la música
+            if (isLocalPlayer)
             {
-                _audioSource.Stop();
-                musicaActivada = false;
-
+                _sonidoFondo.PararMusicaFondo();   
             }
         }
         
