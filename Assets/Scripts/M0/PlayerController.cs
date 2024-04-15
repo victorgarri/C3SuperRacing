@@ -17,6 +17,8 @@ public class PlayerController : MonoBehaviour
 
     public bool disableControls = false;
 
+    public SpriteRenderer spriteRenderer;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
@@ -25,6 +27,8 @@ public class PlayerController : MonoBehaviour
         moGameManager = FindObjectOfType<M0GameManager>();
         
         _playerInput = GetComponent<PlayerInput>();
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     void Update()
@@ -50,6 +54,8 @@ public class PlayerController : MonoBehaviour
                         gameObject.GetComponent<Animator>().SetBool("Delante", false);
                         gameObject.GetComponent<Animator>().SetBool("Lado", true);
 
+                        spriteRenderer.flipX = true;
+
                         SetWrenchRotationAndPosition(90f, new Vector2(-0.5f, -0.15f));
                     }
                     else if (movement.x > 0)
@@ -57,6 +63,8 @@ public class PlayerController : MonoBehaviour
                         gameObject.GetComponent<Animator>().SetBool("Detras", false);
                         gameObject.GetComponent<Animator>().SetBool("Delante", false);
                         gameObject.GetComponent<Animator>().SetBool("Lado", true);
+                        
+                        spriteRenderer.flipX = false;
 
                         SetWrenchRotationAndPosition(-90f, new Vector2(0.5f, -0.15f));
                     }
@@ -115,6 +123,8 @@ public class PlayerController : MonoBehaviour
                 boxController.HitBox();
             }
         }
+        
+        //gameObject.GetComponent<Animator>().SetTrigger("Attack");
     }
     
     private void SetWrenchRotationAndPosition(float angle, Vector2 position)
