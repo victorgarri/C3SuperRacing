@@ -47,6 +47,7 @@ public class InformacionJugador : NetworkBehaviour
     [SyncVar]
     public bool finCarrera=true;
 
+    private SonidoFondo _sonidoFondo;
     
     private void Awake()
     {
@@ -87,6 +88,7 @@ public class InformacionJugador : NetworkBehaviour
         
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
         _carController = GetComponent<CarController>();
+        _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
     }
 
     void Update()
@@ -108,6 +110,11 @@ public class InformacionJugador : NetworkBehaviour
                 }
             }
             posicionAnterior = distanciaSiguienteWaypoint;
+
+            if (vueltaActual == nVueltasCircuito)
+            {
+                _sonidoFondo.ReproducirMusicaVelocidadRapida();
+            }
             
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
