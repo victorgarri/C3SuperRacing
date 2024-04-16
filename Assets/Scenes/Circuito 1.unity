@@ -3248,6 +3248,8 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 73ac022f639e05c47829c37253b65f66, type: 3}
   listaMusicaCircuito2: []
   listaMusicaCircuito3: []
+  musicaVictoria: {fileID: 8300000, guid: 52bc787efbf800646b52858d49aba2ec, type: 3}
+  musicaDerrota: {fileID: 8300000, guid: 97d6818011131e04b8e364c0c0f476fa, type: 3}
   indiceMusica: 0
   volumenMusica: 1
 --- !u!1 &759398876

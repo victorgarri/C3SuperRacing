@@ -119,6 +119,11 @@ public class InformacionJugador : NetworkBehaviour
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
         }
+        
+        else if (isLocalPlayer && !_carController.enableControls && finCarrera)
+        {
+            _sonidoFondo.PararMusicaFondo(posicionActual);
+        }
     }
 
     private void OnTriggerEnter(Collider collision)

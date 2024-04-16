@@ -12,6 +12,9 @@ public class SonidoFondo : MonoBehaviour
     [SerializeField] private AudioClip[] listaMusicaCircuito3;
     
     public List<AudioClip[]> listaDeReproduccion;
+    
+    [SerializeField] private AudioClip musicaVictoria;
+    [SerializeField] private AudioClip musicaDerrota;
 
     public int indiceMusica;  //Esta variable la llamará desde el GameManager
     private bool reproduccionVelocidadNormal = true;
@@ -50,11 +53,16 @@ public class SonidoFondo : MonoBehaviour
         }
     }
 
-    public void PararMusicaFondo()
+    public void PararMusicaFondo(int indice)
     {
         if (_audioSource.isPlaying)
         {
             _audioSource.Stop();
+            _audioSource.loop = false;
+            if (indice <= 3) 
+                _audioSource.PlayOneShot(musicaVictoria, volumenMusica);
+            else
+                _audioSource.PlayOneShot(musicaDerrota, volumenMusica);
         }
     }
 }

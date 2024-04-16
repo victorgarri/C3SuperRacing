@@ -156,6 +156,7 @@ public class CarController : NetworkBehaviour
             _cameraPivot.transform.position = this.transform.position;
             _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
         }
+        /*
         else
         {
             //Si acaba el circuito que me pare la música
@@ -164,6 +165,7 @@ public class CarController : NetworkBehaviour
                 _sonidoFondo.PararMusicaFondo();   
             }
         }
+        */
         
     }
     
