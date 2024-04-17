@@ -170,6 +170,17 @@
                 },
                 {
                     "name": "",
+                    "id": "c73f4528-a75a-4273-9d4c-070bfb67c829",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Golpe",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "46deb77d-39ab-49d0-9475-99bbe4a59889",
                     "path": "<Keyboard>/space",
                     "interactions": "",
