@@ -1,5 +1,6 @@
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using Mirror;
 using Unity.VisualScripting;
 using UnityEngine;
@@ -72,6 +73,9 @@ public class CarController : NetworkBehaviour
     private PlayerInput _playerInput;
     private GameObject _cameraPivot;
     public bool enableControls;
+
+    [SerializeField]
+    private List<GameObject> carLights;
 
     private void Start()
     {
@@ -304,5 +308,14 @@ public class CarController : NetworkBehaviour
         var spawnTrasnform = FindObjectOfType<GameManager>().spawnPoints[raceIndex][spawnIndex].transform;
         this.gameObject.transform.position = spawnTrasnform.position;
         this.gameObject.transform.rotation = spawnTrasnform.rotation;
+    }
+
+    [ClientRpc]
+    public void SetCarLights(bool carLightBool)
+    {
+        foreach (var carLight in carLights)
+        {
+            carLight.SetActive(carLightBool);
+        }
     }
 }

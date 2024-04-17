@@ -105,7 +105,7 @@ public class M0GameManager : NetworkBehaviour
     public void CollectPiece(GameObject piece)
     {
         piecesCollected++;
-        lastCollectedTime = Time.time; 
+        lastCollectedTime = Time.time-startTime; 
         Debug.Log("Pieza " + piecesCollected + " recogida");
 
         // Marcar la pieza como recolectada para evitar duplicados
