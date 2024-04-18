@@ -132,8 +132,8 @@ public class InterfazController : MonoBehaviour
             
             if (indice == 1)
             {
-                camaraMinimapa.orthographicSize = 75f;
-                camaraMinimapa.transform.localPosition = new Vector3(16, camaraMinimapa.transform.localPosition.y, 19);   
+                camaraMinimapa.orthographicSize = 105f;
+                camaraMinimapa.transform.localPosition = new Vector3(-21f, camaraMinimapa.transform.localPosition.y, -21f);   
             }
 
             if (indice == 2)

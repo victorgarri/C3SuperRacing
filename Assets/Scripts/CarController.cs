@@ -146,6 +146,9 @@ public class CarController : NetworkBehaviour
         
         _cameraPivot.SetActive(false);
         _interfazController.gameObject.SetActive(false);
+        
+        //Para parar la música de fondo
+        _sonidoFondo.PararMusicaFondo();
     }
 
     private void Update()
@@ -160,16 +163,6 @@ public class CarController : NetworkBehaviour
             _cameraPivot.transform.position = this.transform.position;
             _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
         }
-        /*
-        else
-        {
-            //Si acaba el circuito que me pare la música
-            if (isLocalPlayer)
-            {
-                _sonidoFondo.PararMusicaFondo();   
-            }
-        }
-        */
         
     }
     
