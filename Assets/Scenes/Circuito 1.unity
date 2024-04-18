@@ -7182,7 +7182,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   listaWaypoints: []
-  vueltasTotales: 2
+  vueltasTotales: 3
   _informacionJugadores: []
   spawnsFinales:
   - {fileID: 86652620}
@@ -9751,7 +9751,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   listaWaypoints: []
-  vueltasTotales: 2
+  vueltasTotales: 3
   _informacionJugadores: []
   spawnsFinales:
   - {fileID: 86652620}
@@ -12417,7 +12417,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   listaWaypoints: []
-  vueltasTotales: 2
+  vueltasTotales: 3
   _informacionJugadores: []
   spawnsFinales:
   - {fileID: 86652620}
