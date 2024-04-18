@@ -59,6 +59,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField]
     private ResultadosCarrerasController _resultadoCarreraController;
 
+    [SerializeField] private List<GameObject> roomLights;
+
     // [SerializeField]
     // private GameObject _minijuego0;
 
@@ -149,7 +151,27 @@ public class GameManager : NetworkBehaviour
                     Debug.Log("Moviendo el coche: "+  playerConnection.Value.identity.gameObject.Serialize());
                     Debug.Log("Posicion: "+  (playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1));
                     playerConnection.Value.identity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex, playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1);
+                    //apagar luces habitacion si raceIndex==1
+                    // if (raceIndex==1)
+                    // {
+                    //     playerConnection.Value.identity.gameObject.GetComponent<CarController>().SetCarLights(true);
+                    // }
+                    // else
+                    // {
+                    //     playerConnection.Value.identity.gameObject.GetComponent<CarController>().SetCarLights(false);
+                    //     
+                    // }
+                    
                 }
+                // if (raceIndex==1)
+                // {
+                //     SetRoomLights(false);
+                //         
+                // }
+                // else
+                // {
+                //     SetRoomLights(true);
+                // }
             }
             EnableCarClientRPC(raceIndex);
             currentGameType = GameType.Race;
@@ -255,6 +277,15 @@ public class GameManager : NetworkBehaviour
         foreach (var trackWaypoint in tracksWaypoints)
         {
             trackWaypoint.SetActive(false);
+        }
+    }
+
+    [ClientRpc]
+    private void SetRoomLights(bool status)
+    {
+        foreach (var roomLight in roomLights)
+        {
+            roomLight.SetActive(status);
         }
     }
 }
