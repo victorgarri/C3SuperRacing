@@ -37,7 +37,6 @@ public class CountDownText : MonoBehaviour
             _countDownAnimator.SetTrigger(Countdown);
             yield return new WaitForSeconds(1);
             countDown--;
-            Debug.Log(countDown);
         }
         
         _countDownText.text = "GO!";

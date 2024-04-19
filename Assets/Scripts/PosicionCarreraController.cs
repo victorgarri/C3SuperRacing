@@ -5,6 +5,7 @@ using System.Linq;
 using Mirror;
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PosicionCarreraController : NetworkBehaviour
 {
@@ -14,6 +15,10 @@ public class PosicionCarreraController : NetworkBehaviour
     [Header("Número de vueltas totales")]
     [SerializeField] public int vueltasTotales = 2;
     
+    [Header("Cuenta atrás")] 
+    [SerializeField] [SyncVar] public bool cuentaAtrasActivado = false;
+    [SerializeField] [SyncVar] public int segundosRestantes = 60;
+    
     [Header("Recogemos el script de información del jugador")]
     public InformacionJugador[] _informacionJugadores;
     
@@ -21,15 +26,9 @@ public class PosicionCarreraController : NetworkBehaviour
     [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
     private int sumaOrden = 0;
     public int puntuacionMaxima = 0;
-
-    [Header("Script de resultados de carrera")]
-    [SerializeField]
-    private GameObject interfazResultadoCarrera;
-    [SerializeField]
-    private ResultadosCarrerasController _resultadosCarrerasController;
     
-    [SerializeField]
-    private GameManager _gameManager;
+    [Header("Script del GameManager")]
+    [SerializeField] private GameManager _gameManager;
     
     // Start is called before the first frame update
     void Start()
@@ -38,7 +37,8 @@ public class PosicionCarreraController : NetworkBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             listaWaypoints.Add(transform.GetChild(i));
-        }        
+        }
+        
     }
 
     
@@ -57,11 +57,11 @@ public class PosicionCarreraController : NetworkBehaviour
         return distancia;
     }
     
-    void Update()
+    void FixedUpdate()
     {
-        if (_informacionJugadores != null&&NetworkClient.localPlayer.gameObject.GetComponent<CarController>().enableControls)  
+        if (_informacionJugadores != null&&NetworkClient.localPlayer.gameObject.GetComponent<CarController>().enableControls && isServer)  
         {
-            ActualizarPosiciones();   
+            ActualizarPosiciones();
         }
     }
 
@@ -106,17 +106,13 @@ public class PosicionCarreraController : NetworkBehaviour
 
                 if (jugador.vueltaActual == vueltasTotales)
                 {
-                    //Cambiar cuando acabe la carrera
-                    // 
-                    jugador.finCarrera = true;
-                    jugador.CmdSetFinCarrera(true);
-                    _gameManager.ActualizarPuntuacionJugadorCarrera(jugador,puntuacionMaxima - 2 * (jugador.posicionActual-1));
+                    if (!cuentaAtrasActivado)
+                    {
+                        CmdInicioCuentaAtras();
+                    }
                     
-                    // jugador.
-                    // interfazResultadoCarrera.SetActive(true);
-                    // _resultadosCarrerasController.agregaTablaJugador(jugador, jugador.posicionActual);
-                    
-                    TargetFinishRace(jugador,jugador.posicionActual-1);
+                    //Cuando un jugador acaba la carrera
+                    GestionCarreraTerminada(jugador, puntuacionMaxima - 2 * (jugador.posicionActual-1));
 
                 }
                 else
@@ -142,7 +138,49 @@ public class PosicionCarreraController : NetworkBehaviour
         }
     }
 
+    [Command (requiresAuthority = false)]
+    private void CmdInicioCuentaAtras()
+    {
+        RpcInicioCuentaAtras();
+    }
     
+    [ClientRpc]
+    private void RpcInicioCuentaAtras()
+    {
+        StartCoroutine(CuentaAtrasCarrera());
+    }
+    
+    private IEnumerator CuentaAtrasCarrera()
+    {
+        cuentaAtrasActivado = true;
+        
+        while (segundosRestantes > 0)
+        {
+            foreach (var jugador in _informacionJugadores)
+            {
+                jugador._interfazController.CuentaAtras(cuentaAtrasActivado, segundosRestantes);
+            }
+            yield return new WaitForSeconds(1);
+            segundosRestantes--;
+        }
+        
+        foreach (var jugador in _informacionJugadores)
+        {
+            if(!jugador.finCarrera) 
+                GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2);
+        }
+                
+        cuentaAtrasActivado = false;
+        
+    }
+
+    public void GestionCarreraTerminada(InformacionJugador jugador, int puntos)
+    {
+        jugador.finCarrera = true;
+        jugador.CmdSetFinCarrera(true);
+        _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos);
+        TargetFinishRace(jugador,jugador.posicionActual-1);
+    }
   
     public void TargetFinishRace(InformacionJugador target, int sumOrd)
     {

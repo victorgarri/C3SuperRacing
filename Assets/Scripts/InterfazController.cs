@@ -24,20 +24,22 @@ public class InterfazController : MonoBehaviour
     public float velocidadNormal;
     
     [Header("Texto para indicar la posición en la que vas")]
-    public TextMeshProUGUI textoPosicion;
+    [SerializeField] private TextMeshProUGUI textoPosicion;
     
     [Header("Texto para indicar las vueltas")]
-    public TextMeshProUGUI textoVueltas;
+    [SerializeField] private TextMeshProUGUI textoVueltas;
 
     [Header("Gestión cuando el usuario vaya en sentido contrario")]
-    public GameObject imagenProhibido;
-
-    [Header("Minimapa")] 
-    public Camera camaraMinimapa;
-    public List<GameObject> listaCircuitosMinimapa;
-    
+    [SerializeField] private GameObject imagenProhibido;
     public Coroutine stopCor;
     public bool corBool;
+
+    [Header("Minimapa")] 
+    [SerializeField] private Camera camaraMinimapa;
+    [SerializeField] private List<GameObject> listaCircuitosMinimapa;
+
+    [Header("Cuenta atrás")] 
+    [SerializeField] private TextMeshProUGUI textoCuentaAtras;
     
     // Start is called before the first frame update
     void Start()
@@ -50,6 +52,8 @@ public class InterfazController : MonoBehaviour
         }
         
         imagenProhibido.SetActive(false);
+
+        textoCuentaAtras.gameObject.SetActive(false);
     }
 
     
@@ -141,6 +145,19 @@ public class InterfazController : MonoBehaviour
                 camaraMinimapa.orthographicSize = 80f;
                 camaraMinimapa.transform.localPosition = new Vector3(-90f, camaraMinimapa.transform.localPosition.y, 30);
             }
+        }
+    }
+
+    public void CuentaAtras(bool muestroCuentaAtras, int numero)
+    {
+        if (muestroCuentaAtras)
+        {
+            textoCuentaAtras.gameObject.SetActive(true);
+            textoCuentaAtras.text = "Tiempo restante: "+numero.ToString();
+        }
+        else
+        {
+            textoCuentaAtras.gameObject.SetActive(false);
         }
     }
 }

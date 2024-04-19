@@ -20,9 +20,22 @@ public class ResultadosCarrerasController : MonoBehaviour
     
         textoPosicion.text = orden+"º";
         textoNombre.text = informacionJugador.networkIdentity.gameObject.GetComponent<InformacionJugador>().nombreJugador+" "+ informacionJugador.networkIdentity.netId;
-        textoPuntoC1.text = informacionJugador.listaPuntuacionCarrera[0].ToString();
-        textoPuntoC2.text = informacionJugador.listaPuntuacionCarrera[1].ToString();
-        textoPuntoC3.text = informacionJugador.listaPuntuacionCarrera[2].ToString();
+
+        if (informacionJugador.listaPuntuacionCarrera[0] == 0) 
+            textoPuntoC1.text = "-";
+        else 
+            textoPuntoC1.text = informacionJugador.listaPuntuacionCarrera[0].ToString();
+        
+        if (informacionJugador.listaPuntuacionCarrera[1] == 0) 
+            textoPuntoC2.text = "-";
+        else 
+            textoPuntoC2.text = informacionJugador.listaPuntuacionCarrera[1].ToString();
+
+        if (informacionJugador.listaPuntuacionCarrera[2] == 0)
+            textoPuntoC3.text = "-";
+        else
+            textoPuntoC3.text = informacionJugador.listaPuntuacionCarrera[2].ToString();
+        
         textoPuntuacionTotal.text = informacionJugador.puntuacionTotal.ToString();
     }
 
