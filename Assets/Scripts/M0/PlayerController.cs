@@ -56,7 +56,8 @@ public class PlayerController : MonoBehaviour
 
                         spriteRenderer.flipX = true;
 
-                        SetWrenchRotationAndPosition(90f, new Vector2(-0.5f, -0.15f));
+                        //SetWrenchRotationAndPosition(90f, new Vector2(-0.5f, -0.15f));
+                        Debug.Log(wrenchTransform.localPosition);
                     }
                     else if (movement.x > 0)
                     {
@@ -66,7 +67,8 @@ public class PlayerController : MonoBehaviour
                         
                         spriteRenderer.flipX = false;
 
-                        SetWrenchRotationAndPosition(-90f, new Vector2(0.5f, -0.15f));
+                        //SetWrenchRotationAndPosition(-90f, new Vector2(0.5f, -0.15f));
+                        Debug.Log(wrenchTransform.localPosition);
                     }
                 }
                 else
@@ -79,7 +81,8 @@ public class PlayerController : MonoBehaviour
                         gameObject.GetComponent<Animator>().SetBool("Delante", true);
                         gameObject.GetComponent<Animator>().SetBool("Lado", false);
 
-                        SetWrenchRotationAndPosition(180f, new Vector2(-0.1f, -0.7f));
+                        //SetWrenchRotationAndPosition(180f, new Vector2(-0.1f, -0.7f));
+                        Debug.Log(wrenchTransform.localPosition);
                     }
                     else if (movement.y > 0)
                     {
@@ -87,7 +90,8 @@ public class PlayerController : MonoBehaviour
                         gameObject.GetComponent<Animator>().SetBool("Delante", false);
                         gameObject.GetComponent<Animator>().SetBool("Lado", false);
 
-                        SetWrenchRotationAndPosition(0f, new Vector2(0.1f, 0.7f));
+                        //SetWrenchRotationAndPosition(0f, new Vector2(0.1f, 0.7f));
+                        Debug.Log(wrenchTransform.localPosition);
                     }
                 }
 
@@ -124,7 +128,8 @@ public class PlayerController : MonoBehaviour
             }
         }
         
-        //gameObject.GetComponent<Animator>().SetTrigger("Attack");
+        gameObject.GetComponent<Animator>().SetTrigger("Attack");
+        //Attack2
     }
     
     private void SetWrenchRotationAndPosition(float angle, Vector2 position)
