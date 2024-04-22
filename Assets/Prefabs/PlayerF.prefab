@@ -876,11 +876,7 @@ MonoBehaviour:
   sonidoCocheArrancadoYa: {fileID: 8300000, guid: f19203f0923d08f4287c644a1b55d205, type: 3}
   sonidoCocheChocandoConOtro: {fileID: 8300000, guid: 38433446a21766243aa2d913d53a9f45, type: 3}
   SonidoCocheCorriendo: {fileID: 8300000, guid: 2dc7ef2a7be74894e9ef442ca1d3b2c8, type: 3}
-  claxonCoche: {fileID: 8300000, guid: 91cea1ef6b2a66e46b7e0c4083dbca4e, type: 3}
-  musicaCircuito1: {fileID: 8300000, guid: f7207569d9d4f364eb337181ccdd687d, type: 3}
-  musicaCircuito2: {fileID: 0}
-  musicaCircuito3: {fileID: 0}
-  sonidoMeta: {fileID: 0}
+  claxonCoche: {fileID: 8300000, guid: 5705738d4dd3e9042bec0ada2aa60cc6, type: 3}
   enableControls: 0
   carLights:
   - {fileID: 191710899464919233}
@@ -911,11 +907,13 @@ MonoBehaviour:
   siguienteWaypoint: 0
   distanciaSiguienteWaypoint: 0
   posicionAnterior: 0
+  _interfazController: {fileID: 0}
   _carController: {fileID: 0}
   listaPuntuacionCarrera: 
   puntuacionTotalCarrera: 0
   indiceCarrera: 0
   finCarrera: 1
+  playerNetworkId: 0
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0

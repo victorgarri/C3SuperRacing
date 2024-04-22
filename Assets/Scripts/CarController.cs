@@ -54,20 +54,14 @@ public class CarController : NetworkBehaviour
     private const float VELOCIDADMAXIMA = 80f;
 
     [Header("Sonido")]
-    private float volumen = 5.0f;
+    private SonidoFondo _sonidoFondo;
+    private AudioSource _audioSource;
+    private float volumen = 1.0f;
     [SerializeField] private AudioClip sonidoCocheArranque;
     [SerializeField] private AudioClip sonidoCocheArrancadoYa;
     [SerializeField] private AudioClip sonidoCocheChocandoConOtro;
     [SerializeField] private AudioClip SonidoCocheCorriendo;
     [SerializeField] private AudioClip claxonCoche;
-    [SerializeField] private AudioClip musicaCircuito1;
-    [SerializeField] private AudioClip musicaCircuito2;
-    [SerializeField] private AudioClip musicaCircuito3;
-    [SerializeField] private AudioSource sonidoMeta;
-    private bool musicaActivada = false;
-    private SonidoFondo _sonidoFondo;
-
-    private AudioSource _audioSource;
     
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
@@ -126,7 +120,8 @@ public class CarController : NetworkBehaviour
 
     private void GearSound()
     {
-        _audioSource.PlayOneShot(SonidoCocheCorriendo,  velocidad/VELOCIDADMAXIMA*0.5f);
+        if(enableControls)
+            _audioSource.PlayOneShot(SonidoCocheCorriendo,  velocidad/VELOCIDADMAXIMA*0.5f);
     }
 
     public void DesactivateCar()
@@ -156,6 +151,17 @@ public class CarController : NetworkBehaviour
 
             _cameraPivot.transform.position = this.transform.position;
             _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
+            
+            if(_playerInput != null && _playerInput.actions != null && _playerInput.actions["Claxon"] != null)
+            {
+                //Botón para tocar el claxon del coche.
+                //En Mando -> Botón L
+                //En PC -> Tecla C
+                if (_playerInput.actions["Claxon"].WasPressedThisFrame())
+                {
+                    EjecutarEfectoSonido(claxonCoche, 0.5f);
+                }
+            }
         }
         
     }
@@ -225,7 +231,7 @@ public class CarController : NetworkBehaviour
         RL.brakeTorque = breakForce;
         RR.brakeTorque = breakForce;
         
-        //GearSound();
+        GearSound();
 
     }
 
