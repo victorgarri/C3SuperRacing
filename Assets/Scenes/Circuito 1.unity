@@ -2693,6 +2693,14 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 1044138270246736324, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1044138270246736324, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
+      propertyPath: m_FlipY
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1044138270246736324, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: m_SortingOrder
       value: 4
       objectReference: {fileID: 0}

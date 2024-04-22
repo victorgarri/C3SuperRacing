@@ -173,3 +173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lives: 0
   explosionPrefab: {fileID: 0}
+  cajaReforzadaSprite: {fileID: 21300000, guid: 93e39cbcda56bbf4393c8e531af11630, type: 3}
+  cajaSprite: {fileID: 21300000, guid: f67fec62794184c48bf77b0b9dcb246a, type: 3}
+  cajaRotaSprite: {fileID: 21300000, guid: 295a0aae1153ae544b9b2c07e20f2205, type: 3}

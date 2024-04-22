@@ -117,7 +117,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: -0.14999998, y: 0}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -128,7 +128,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.7, y: 0.8}
+  m_Size: {x: 1.25, y: 1}
   m_EdgeRadius: 0
 --- !u!1 &7769506018195425069
 GameObject:
@@ -284,7 +284,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.75, y: 1}
   m_EdgeRadius: 0
 --- !u!50 &6930989414455120042
 Rigidbody2D:
@@ -325,14 +325,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bc78356368de14840a45287fa37e3c2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   speed: 5
   rb: {fileID: 6930989414455120042}
   controlMovimiento: 1
   _playerInput: {fileID: 2973267612773028229}
   wrench: {fileID: 6267319174613542304}
+  disableControls: 0
+  spriteRenderer: {fileID: 0}
+  direccion: detras
 --- !u!114 &2973267612773028229
 MonoBehaviour:
   m_ObjectHideFlags: 0
