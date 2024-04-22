@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class ReadyStartController : MonoBehaviour
 {
-    private bool isReady = false;
+    public bool isReady = false;
     public Button btnReady;
     
     private Image colorBtnReady;
@@ -32,6 +32,7 @@ public class ReadyStartController : MonoBehaviour
         //Ajustes cuando el jugador este listo
         if (!isReady)
         {
+            
             isReady = true;
             cambioColor = HexToColor(colorVerde);
             cambioTexto = "READY";
