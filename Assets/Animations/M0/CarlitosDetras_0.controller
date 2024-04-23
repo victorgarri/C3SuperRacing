@@ -119,7 +119,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LlaveDelante
-  m_Speed: 10
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 4215807557464224553}
@@ -176,7 +176,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LlaveLadoIzq
-  m_Speed: 10
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 3818766497390472074}
@@ -249,7 +249,7 @@ AnimatorStateMachine:
     m_Position: {x: 520, y: 330, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -2503082102355686118}
-    m_Position: {x: 180, y: 330, z: 0}
+    m_Position: {x: 70, y: 390, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -5411229373603600399}
     m_Position: {x: 340, y: 650, z: 0}
@@ -332,7 +332,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LlaveLado
-  m_Speed: 10
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: 2960380285168567521}
@@ -451,7 +451,7 @@ AnimatorController:
     m_Type: 4
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 0
+    m_DefaultBool: 1
     m_Controller: {fileID: 0}
   - m_Name: LadoIzq
     m_Type: 4
@@ -475,7 +475,7 @@ AnimatorController:
     m_Type: 9
     m_DefaultFloat: 0
     m_DefaultInt: 0
-    m_DefaultBool: 1
+    m_DefaultBool: 0
     m_Controller: {fileID: 0}
   - m_Name: AttackIzq
     m_Type: 9
@@ -763,7 +763,7 @@ AnimatorState:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: LlaveDetras
-  m_Speed: 10
+  m_Speed: 5
   m_CycleOffset: 0
   m_Transitions:
   - {fileID: -1641718748801762445}

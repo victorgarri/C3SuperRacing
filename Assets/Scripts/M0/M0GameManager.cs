@@ -9,46 +9,41 @@ using Random = UnityEngine.Random;
 
 public class M0GameManager : NetworkBehaviour
 {
-    
     private float startTime;
     public TextMeshProUGUI countdownText;
     public TextMeshProUGUI finalMessage;
     public GameObject messagePanel;
-
     private int lastPiecesCollected = 0;
     public int totalPieces = 4;
     public bool puzzleCompleted = false;
-
     private int piecesCollected = 0;
     private float tiempoRegistrado;
     private float lastCollectedTime; 
-    private bool end=false;
-
-    public int gamePoints=0;
-    
+    private bool end = false;
+    public int gamePoints = 0;
     public float maxTime = 60f;
-    
     public int probabilidadCajaReforzada;
     public int probabilidadTnt;
-    
     public GameObject cajaPrefab;
     public GameObject cajaReforzadaPrefab;
     public GameObject tntPrefab;
-    
     private PlayerController playerController;
-
     private GameManager _globalGameManager;
-
-
-    // Start is called before the first frame update
+    public AudioClip musicaFondo, finJuego;
+    private AudioSource audioSource;
+    
     void Start()
     {
         startTime = Time.time;
         playerController = FindObjectOfType<PlayerController>();
         _globalGameManager = GameObject.FindObjectOfType<GameManager>().GetComponent<GameManager>();
         GenerateRandomBoxes();
+        
+        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource.clip = musicaFondo;
+        audioSource.loop = true;
+        audioSource.Play();
     }
-    
     
     private void GenerateRandomBoxes()
     {
@@ -108,7 +103,6 @@ public class M0GameManager : NetworkBehaviour
         lastCollectedTime = Time.time-startTime; 
         Debug.Log("Pieza " + piecesCollected + " recogida");
 
-        // Marcar la pieza como recolectada para evitar duplicados
         piece.GetComponent<CheckpointController>().Collect();
 
         if (piecesCollected == totalPieces)
@@ -121,6 +115,9 @@ public class M0GameManager : NetworkBehaviour
 
     private void EndGame()
     {
+        audioSource.clip = finJuego;
+        audioSource.Play();
+        
         end = true;
         CalculatePoints();
         
@@ -129,7 +126,6 @@ public class M0GameManager : NetworkBehaviour
             messagePanel.SetActive(true);
             playerController.disableControls = true;
             finalMessage.text = "Minijuego completado en " + FormatTime(tiempoRegistrado) + " segundos\nHas conseguido "+gamePoints+" puntos!\n¡Bien hecho!";
-            
         }
         else
         {
@@ -157,17 +153,14 @@ public class M0GameManager : NetworkBehaviour
         return $"{seconds}.{milliseconds}";
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Verificar si ha pasado el tiempo límite de tiempo
         float elapsedTime = Time.time - startTime;
         float remainingTime = Mathf.Max(maxTime - elapsedTime, 0f);
 
-        // Actualizar el texto de la cuenta atrás
         if (countdownText != null && !end)
         {
-            countdownText.text = "Tiempo: " + Mathf.Ceil(remainingTime);
+            countdownText.text = "" + Mathf.Ceil(remainingTime);
         }
         if (elapsedTime >= maxTime)
         {

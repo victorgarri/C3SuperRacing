@@ -9,27 +9,16 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public bool controlMovimiento = true;
     public PlayerInput _playerInput;
-    
-    public GameObject wrench;
-    private Collider2D wrenchCollider;
-    private Transform wrenchTransform;
     private M0GameManager moGameManager;
-
     public bool disableControls = false;
-
-    public SpriteRenderer spriteRenderer;
-
     public string direccion = "detras";
+    public AudioClip golpeAire;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        wrenchCollider = wrench.GetComponent<Collider2D>();
-        wrenchTransform = wrench.transform;
         moGameManager = FindObjectOfType<M0GameManager>();
         _playerInput = GetComponent<PlayerInput>();
-        spriteRenderer = GetComponent<SpriteRenderer>();
-        // wrench.SetActive(false);
     }
 
     void Update()
@@ -121,40 +110,24 @@ public class PlayerController : MonoBehaviour
     
     private void TryBreakBox()
     {
-        // Collider2D[] colliders = Physics2D.OverlapBoxAll(wrenchCollider.bounds.center, wrenchCollider.bounds.size, 0f);
-        //
-        // foreach (Collider2D collider in colliders)
-        // {
-        //     BoxController boxController = collider.GetComponent<BoxController>();
-        //     if (boxController != null)
-        //     {
-        //         boxController.HitBox();
-        //     }
-        // }
+        AudioSource.PlayClipAtPoint(golpeAire, transform.position, 50);
         
         if (direccion == "detras")
         {
             gameObject.GetComponent<Animator>().SetTrigger("AttackDetras");
-            // wrench.SetActive(true);
         }
         else if (direccion == "delante")
         {
             gameObject.GetComponent<Animator>().SetTrigger("AttackDelante");
-            // wrench.SetActive(true);
         }
         else if (direccion == "izquierda")
         {
             gameObject.GetComponent<Animator>().SetTrigger("AttackIzq");
-            // wrench.SetActive(true);
         }
         else if (direccion == "derecha")
         {
-            Debug.Log("HOLA?!");
             gameObject.GetComponent<Animator>().SetTrigger("AttackDer");
-            // wrench.SetActive(true);
         }
-        
-        // StartCoroutine(DisableWrenchAfterDelay());
     }
 
     public IEnumerator Empujar( Vector2 normal)
@@ -165,11 +138,5 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSeconds(0.2f);
         
         controlMovimiento = true;
-    }
-    
-    IEnumerator DisableWrenchAfterDelay()
-    {
-        yield return new WaitForSeconds(0.2f);
-        wrench.SetActive(false);
     }
 }

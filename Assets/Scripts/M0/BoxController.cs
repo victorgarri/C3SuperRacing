@@ -7,18 +7,17 @@ public class BoxController : MonoBehaviour
 {
     public int lives;
     public GameObject explosionPrefab;
-    
     public Sprite cajaReforzadaSprite;
     public Sprite cajaSprite;
     public Sprite cajaRotaSprite;
     private SpriteRenderer spriteRenderer;
-    
     private Transform boxTransform;
     private Vector3 originalPosition;
     private bool isMoving = false;
     private float moveDistance = 0.05f;
     private float moveDuration = 0.1f;
     private float elapsedTime = 0f;
+    public AudioClip golpeCaja, golpeTnt;
     
     void Start()
     {
@@ -50,16 +49,22 @@ public class BoxController : MonoBehaviour
     {
         if (gameObject.CompareTag("Tnt"))
         {
+            AudioSource.PlayClipAtPoint(golpeTnt, transform.position, 50);
+            
             StartCoroutine(ExplosionTnt());
         }
         else
         {
+            AudioSource.PlayClipAtPoint(golpeCaja, transform.position, 50);
+            
             Destroy(gameObject);
         }
     }
     
     public void HitBox()
     {
+        AudioSource.PlayClipAtPoint(golpeCaja, transform.position, 50);
+        
         lives--;
 
         if (lives <= 0)
