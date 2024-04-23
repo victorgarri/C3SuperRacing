@@ -132,17 +132,11 @@ public class CarController : NetworkBehaviour
     public void DesactivateCar()
     {
         enableControls = false;
-        
-        FL.brakeTorque = MAXBREAKFORCE;
-        FR.brakeTorque = MAXBREAKFORCE;
-        RL.brakeTorque = MAXBREAKFORCE;
-        RR.brakeTorque = MAXBREAKFORCE;
-        
-        FL.steerAngle = 0;
-        FR.steerAngle = 0;
 
-        FL.motorTorque = 0;
-        FR.motorTorque = 0;
+        giro = 0;
+        pedal = 0;
+        cameraInput = 0;
+        isBreaking = true;
         
         _cameraPivot.SetActive(false);
         _interfazController.gameObject.SetActive(false);
@@ -168,10 +162,11 @@ public class CarController : NetworkBehaviour
     
     private void FixedUpdate()
     {
-        if (isLocalPlayer&&enableControls)
+        if (isLocalPlayer)
         {
-        
-            GetInput();                
+            if(enableControls)
+                GetInput();
+            
             HandleCamera();
             HandleMotor();
             HandleSteering();
@@ -303,6 +298,7 @@ public class CarController : NetworkBehaviour
         var spawnTrasnform = FindObjectOfType<GameManager>().spawnPoints[raceIndex][spawnIndex].transform;
         this.gameObject.transform.position = spawnTrasnform.position;
         this.gameObject.transform.rotation = spawnTrasnform.rotation;
+        Physics.SyncTransforms();
     }
 
     [ClientRpc]
