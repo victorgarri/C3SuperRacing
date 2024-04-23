@@ -1,13 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class MyNRM : NetworkRoomManager
 {
-    public override void OnClientConnect()
+    private Button btnStart;
+    public override void OnRoomServerPlayersReady()
     {
-        base.OnClientConnect();
+        if (!btnStart)
+            btnStart = GameObject.Find("BtnStart").GetComponent<Button>();
         
+        btnStart.interactable = true;
+    }
+
+    public override void OnRoomServerPlayersNotReady()
+    {
+        if (!btnStart)
+            btnStart = GameObject.Find("BtnStart").GetComponent<Button>();
+        
+        btnStart.interactable = false;
+    }
+
+    public void StartGame()
+    {
+        ServerChangeScene(GameplayScene);
     }
 }

@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Mirror;
 using TMPro;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -10,6 +9,8 @@ public class ReadyStartController : MonoBehaviour
 {
     public bool isReady = false;
     public Button btnReady;
+    public Button btnStart;
+    public TMP_InputField playerNameInput;
     
     private Image colorBtnReady;
     private string colorRojo = "#CC6666";

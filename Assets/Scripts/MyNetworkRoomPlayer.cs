@@ -1,56 +1,68 @@
+using System;
 using Mirror;
-using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class MyNetworkRoomPlayer : NetworkRoomPlayer
 {
     [SerializeField] private ReadyStartController readyStartController;
+    private MyNRM NRM;
+    [SerializeField] private GameObject roomPlayerPanelPrefab;
+    [SerializeField] private GameObject myPlayerPanel;
     
+    [SerializeField] [SyncVar] public string playerName;
     
-    public override void OnGUI()
+    public override void Start()
     {
-        OnGUIBase();
+        base.Start();
+        NRM = NetworkManager.singleton as MyNRM;
+        
+        readyStartController = GameObject.Find("BotoneraReadyStart").GetComponent<ReadyStartController>();
+
+        if (isLocalPlayer)
+        {
+            readyStartController.btnReady.onClick.AddListener(delegate { PlayerReadyToggle();});
+            readyStartController.playerNameInput.onValueChanged.AddListener(delegate(string newStringInput) { CmdPlayerSetName(newStringInput); });
+        }
+        
+        if (isServer){
+            readyStartController.btnStart.gameObject.SetActive(true);
+            readyStartController.btnStart.onClick.AddListener(delegate { NRM.StartGame(); });
+        }
+
+        if (isServer)
+            CmdCreatePlayerPanel();
     }
 
-    // public override void Start()
-    // {
-    //     base.Start();
-    //     readyStartController = GameObject.Find("BotoneraReadyStart").GetComponent<ReadyStartController>();
-    //     readyStartController.btnReady.onClick.AddListener(delegate { PlayerReadyToggle();});
-    //
-    // }
-
-    public void OnGUIBase()
+    [Command]
+    private void CmdPlayerSetName(string newName)
     {
-        NetworkRoomManager room = NetworkManager.singleton as NetworkRoomManager;
-        if (room)
+        if (!String.IsNullOrEmpty(newName))
         {
-            if (Utils.IsSceneActive(room.RoomScene))
-            {
-                readyStartController = GameObject.Find("BotoneraReadyStart").GetComponent<ReadyStartController>();
-                Debug.Log("AddListener");
-                readyStartController.btnReady.onClick.AddListener(delegate { PlayerReadyToggle();});
-                
-            }
+            playerName = newName;
+            myPlayerPanel.GetComponent<RoomPanelJugador>().playerName = playerName;            
         }
     }
+
+    [Command(requiresAuthority = false)]
+    private void CmdCreatePlayerPanel()
+    {
+        myPlayerPanel = Instantiate(roomPlayerPanelPrefab, GameObject.Find("ZonaConjuntoJugadores").transform);
+        NetworkServer.Spawn(myPlayerPanel);
+    }
+
 
     void PlayerReadyToggle()
     {
-        Debug.Log("PlayerReadyToggle");
-        if (readyToBegin)
-        {
-            CmdChangeReadyState(false);
-            readyStartController.isReady = false;
-
-        }
-        else
-        {
-            CmdChangeReadyState(true);
-            readyStartController.isReady = true;
-        }
+        CmdChangeReadyState(!readyToBegin);
     }
 
+    public override void ReadyStateChanged(bool oldReadyState, bool newReadyState)
+    {
+        if (isServer)
+            myPlayerPanel.GetComponent<RoomPanelJugador>().playerReady = newReadyState;
+    }
+    
     
 }

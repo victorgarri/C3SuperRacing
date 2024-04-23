@@ -93,7 +93,12 @@ MonoBehaviour:
   playerPrefab: {fileID: 4492824780523140061, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
   autoCreatePlayer: 1
   playerSpawnMethod: 1
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 6899355878734018381, guid: 49908e0ad5e92ed4fa7851be227d2678, type: 3}
+  - {fileID: 1694902517088324584, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
+  - {fileID: 6213244402551852156, guid: 9edb3b46767903c4fbcc69c68088a1c1, type: 3}
+  - {fileID: 2911309308990815156, guid: ae475592515f9d547a58adb487b04ae1, type: 3}
+  - {fileID: 2051852136925327542, guid: 6b1eace3a3ce4474a83f23ad8af53f1d, type: 3}
   exceptionsDisconnect: 1
   snapshotSettings:
     bufferTimeMultiplier: 2
@@ -109,9 +114,9 @@ MonoBehaviour:
   evaluationMethod: 0
   evaluationInterval: 3
   timeInterpolationGui: 0
-  showRoomGUI: 1
+  showRoomGUI: 0
   minPlayers: 1
-  roomPlayerPrefab: {fileID: 8982251709278577415, guid: 6b1eace3a3ce4474a83f23ad8af53f1d, type: 3}
+  roomPlayerPrefab: {fileID: 8329104607265275006, guid: 6b1eace3a3ce4474a83f23ad8af53f1d, type: 3}
   RoomScene: Assets/Scenes/RoomScene.unity
   GameplayScene: Assets/Scenes/Circuito 1.unity
   _allPlayersReady: 0
