@@ -39,7 +39,7 @@ public class M0GameManager : NetworkBehaviour
         _globalGameManager = GameObject.FindObjectOfType<GameManager>().GetComponent<GameManager>();
         GenerateRandomBoxes();
         
-        audioSource = gameObject.AddComponent<AudioSource>();
+        audioSource = gameObject.GetComponent<AudioSource>();
         audioSource.clip = musicaFondo;
         audioSource.loop = true;
         audioSource.Play();
