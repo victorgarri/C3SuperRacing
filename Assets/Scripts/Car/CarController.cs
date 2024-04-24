@@ -45,6 +45,7 @@ public class CarController : NetworkBehaviour
     [SerializeField] private Transform WFR;
     [SerializeField] private Transform WRL;
     [SerializeField] private Transform WRR;
+    
     [SerializeField] private bool _updateWheels;
 
     [Header("Velocímetro")] 
@@ -78,6 +79,7 @@ public class CarController : NetworkBehaviour
 
     private void Start()
     {
+        
         _rigidbody = GetComponent<Rigidbody>();
         _rigidbody.centerOfMass = new Vector3(0, -.23f, 0.1f);
         _playerInput = GetComponent<PlayerInput>();
