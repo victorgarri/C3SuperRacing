@@ -67,15 +67,17 @@ public class M0GameManager : NetworkBehaviour
                 boxType = "Caja";
             }
 
-            InstantiateBox(boxType, spawnpoint.transform.position);
+            InstantiateBox(boxType, spawnpoint);
         }
     }
     
-    private void InstantiateBox(string boxType, Vector3 position)
+    private void InstantiateBox(string boxType, GameObject spawnpoint)
     {
         GameObject boxPrefab = GetBoxPrefab(boxType);
-        BoxController boxController = Instantiate(boxPrefab, position, Quaternion.identity).GetComponent<BoxController>();
+        BoxController boxController = Instantiate(boxPrefab, spawnpoint.transform.position, Quaternion.identity).GetComponent<BoxController>();
         boxController.transform.parent = this.transform.parent;
+        boxController.spawnAudioSource = spawnpoint.GetComponent<AudioSource>();
+            
         if (boxController != null)
         {
             boxController.SetBoxType(boxType);

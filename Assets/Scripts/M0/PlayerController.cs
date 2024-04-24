@@ -13,12 +13,14 @@ public class PlayerController : MonoBehaviour
     public bool disableControls = false;
     public string direccion = "detras";
     public AudioClip golpeAire;
+    public AudioSource llaveAudioSource;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         moGameManager = FindObjectOfType<M0GameManager>();
         _playerInput = GetComponent<PlayerInput>();
+        llaveAudioSource.clip = golpeAire;
     }
 
     void Update()
@@ -110,7 +112,7 @@ public class PlayerController : MonoBehaviour
     
     private void TryBreakBox()
     {
-        AudioSource.PlayClipAtPoint(golpeAire, transform.position, 50);
+        llaveAudioSource.Play();
         
         if (direccion == "detras")
         {

@@ -4,6 +4,7 @@ public class CheckpointController : MonoBehaviour
 {
     private bool collected = false;
     public AudioClip checkpointRecogido;
+    public AudioSource checkpointAudioSource;
 
     public bool IsCollected()
     {
@@ -13,8 +14,9 @@ public class CheckpointController : MonoBehaviour
     public void Collect()
     {
         collected = true;
-        
-        AudioSource.PlayClipAtPoint(checkpointRecogido, transform.position, 50);
+
+        checkpointAudioSource.clip = checkpointRecogido;
+        checkpointAudioSource.Play();
         
         ChangeColor(Color.green);
     }

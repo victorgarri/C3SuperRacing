@@ -18,6 +18,7 @@ public class BoxController : MonoBehaviour
     private float moveDuration = 0.1f;
     private float elapsedTime = 0f;
     public AudioClip golpeCaja, golpeTnt;
+    public AudioSource spawnAudioSource;
     
     void Start()
     {
@@ -32,12 +33,15 @@ public class BoxController : MonoBehaviour
         {
             case "CajaReforzada":
                 lives = 3;
+                spawnAudioSource.clip = golpeCaja;
                 break;
             case "Caja":
                 lives = 2;
+                spawnAudioSource.clip = golpeCaja;
                 break;
             case "Tnt":
                 lives = 1;
+                spawnAudioSource.clip = golpeTnt;
                 break;
             default:
                 lives = 1;
@@ -49,13 +53,13 @@ public class BoxController : MonoBehaviour
     {
         if (gameObject.CompareTag("Tnt"))
         {
-            AudioSource.PlayClipAtPoint(golpeTnt, transform.position, 50);
+            spawnAudioSource.Play();
             
             StartCoroutine(ExplosionTnt());
         }
         else
         {
-            AudioSource.PlayClipAtPoint(golpeCaja, transform.position, 50);
+            spawnAudioSource.Play();
             
             Destroy(gameObject);
         }
@@ -63,7 +67,7 @@ public class BoxController : MonoBehaviour
     
     public void HitBox()
     {
-        AudioSource.PlayClipAtPoint(golpeCaja, transform.position, 50);
+        spawnAudioSource.Play();
         
         lives--;
 
