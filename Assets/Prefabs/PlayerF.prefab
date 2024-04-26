@@ -221,6 +221,7 @@ GameObject:
   m_Component:
   - component: {fileID: 930005621175001406}
   - component: {fileID: 7825955620085316563}
+  - component: {fileID: 3796507113035546024}
   m_Layer: 0
   m_Name: CRL
   m_TagString: Untagged
@@ -282,6 +283,19 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!114 &3796507113035546024
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262022333212547919}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wheelCollider: {fileID: 7825955620085316563}
 --- !u!1 &1789293965687836478
 GameObject:
   m_ObjectHideFlags: 0
@@ -292,6 +306,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2246418928900897729}
   - component: {fileID: 2303645404340872884}
+  - component: {fileID: 3555438929279907353}
   m_Layer: 0
   m_Name: CFL
   m_TagString: Untagged
@@ -353,6 +368,19 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!114 &3555438929279907353
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1789293965687836478}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wheelCollider: {fileID: 2303645404340872884}
 --- !u!1 &2098567021173114747
 GameObject:
   m_ObjectHideFlags: 0
@@ -414,6 +442,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8553230288415453829}
   - component: {fileID: 3395938406494273250}
+  - component: {fileID: 5007357667569862042}
   m_Layer: 0
   m_Name: CFR
   m_TagString: Untagged
@@ -475,6 +504,19 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!114 &5007357667569862042
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5113511256390581129}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wheelCollider: {fileID: 3395938406494273250}
 --- !u!1 &7555934480079084962
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,6 +624,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2620383793970751702}
   - component: {fileID: 444641713378825442}
+  - component: {fileID: 7765726444195923897}
   m_Layer: 0
   m_Name: CRR
   m_TagString: Untagged
@@ -643,6 +686,19 @@ WheelCollider:
   m_LayerOverridePriority: 0
   m_Enabled: 1
   m_ProvidesContacts: 0
+--- !u!114 &7765726444195923897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8635088141863676031}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _wheelCollider: {fileID: 444641713378825442}
 --- !u!1001 &3645894265859100300
 PrefabInstance:
   m_ObjectHideFlags: 0

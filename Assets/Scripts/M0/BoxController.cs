@@ -1,10 +1,31 @@
+using System;
 using UnityEngine;
 using System.Collections;
+using Random = UnityEngine.Random;
 
 public class BoxController : MonoBehaviour
 {
     public int lives;
     public GameObject explosionPrefab;
+    public Sprite cajaReforzadaSprite;
+    public Sprite cajaSprite;
+    public Sprite cajaRotaSprite;
+    private SpriteRenderer spriteRenderer;
+    private Transform boxTransform;
+    private Vector3 originalPosition;
+    private bool isMoving = false;
+    private float moveDistance = 0.05f;
+    private float moveDuration = 0.1f;
+    private float elapsedTime = 0f;
+    public AudioClip golpeCaja, golpeTnt;
+    public AudioSource spawnAudioSource;
+    
+    void Start()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        boxTransform = transform;
+        originalPosition = boxTransform.position;
+    }
     
     public void SetBoxType(string boxType)
     {
@@ -12,12 +33,15 @@ public class BoxController : MonoBehaviour
         {
             case "CajaReforzada":
                 lives = 3;
+                spawnAudioSource.clip = golpeCaja;
                 break;
             case "Caja":
                 lives = 2;
+                spawnAudioSource.clip = golpeCaja;
                 break;
             case "Tnt":
                 lives = 1;
+                spawnAudioSource.clip = golpeTnt;
                 break;
             default:
                 lives = 1;
@@ -29,22 +53,68 @@ public class BoxController : MonoBehaviour
     {
         if (gameObject.CompareTag("Tnt"))
         {
+            spawnAudioSource.Play();
+            
             StartCoroutine(ExplosionTnt());
         }
         else
         {
+            spawnAudioSource.Play();
+            
             Destroy(gameObject);
         }
     }
     
     public void HitBox()
     {
+        spawnAudioSource.Play();
+        
         lives--;
 
         if (lives <= 0)
         {
             BreakBox();
         }
+        else
+        {
+            UpdateBoxSprite();
+            if (!isMoving)
+            {
+                StartCoroutine(MoveBox());
+            }
+        }
+    }
+    
+    private void UpdateBoxSprite()
+    {
+        switch (lives)
+        {
+            case 3:
+                spriteRenderer.sprite = cajaReforzadaSprite;
+                break;
+            case 2:
+                spriteRenderer.sprite = cajaSprite;
+                break;
+            case 1:
+                spriteRenderer.sprite = cajaRotaSprite;
+                break;
+            default:
+                break;
+        }
+    }
+    
+    private IEnumerator MoveBox()
+    {
+        isMoving = true;
+        while (elapsedTime < moveDuration)
+        {
+            boxTransform.position = originalPosition + new Vector3(Random.Range(-1f, 1f) * moveDistance, Random.Range(-1f, 1f) * moveDistance, 0);
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        elapsedTime = 0f;
+        boxTransform.position = originalPosition;
+        isMoving = false;
     }
     
     IEnumerator ExplosionTnt()
@@ -68,7 +138,6 @@ public class BoxController : MonoBehaviour
             {
                 Vector2 normal = (playerController.transform.position - this.transform.position).normalized;
                 StartCoroutine(playerController.Empujar(normal*5));
-                Debug.Log(normal);
             }
         }
         
@@ -79,4 +148,5 @@ public class BoxController : MonoBehaviour
         Destroy(explosion);
         Destroy(gameObject);
     }
+
 }
