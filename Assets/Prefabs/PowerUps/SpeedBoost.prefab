@@ -45,6 +45,7 @@ GameObject:
   - component: {fileID: 5275065311571642981}
   - component: {fileID: 1419781410884967998}
   - component: {fileID: 5384563925828122104}
+  - component: {fileID: 3513832362099233074}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: WCModifier
@@ -95,7 +96,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 7482413dd42f4234f886997f8c9f4275, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -151,4 +152,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 911510eae08674e4eb6cfc0a2cf6e0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostStrength: 2500
+  boostStrength: 5000
+--- !u!95 &3513832362099233074
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3715412052432853165}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 685839684bc1d8545a6293a3957d08fe, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
