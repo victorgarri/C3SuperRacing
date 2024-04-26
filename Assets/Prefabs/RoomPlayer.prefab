@@ -71,3 +71,18 @@ MonoBehaviour:
   index: 0
   readyStartController: {fileID: 0}
   roomPlayerPanelPrefab: {fileID: 6213244402551852156, guid: 9edb3b46767903c4fbcc69c68088a1c1, type: 3}
+  myPlayerPanel: {fileID: 0}
+  playerName: 
+  colorByIndex:
+  - {r: 0.9294118, g: 0.21176472, b: 0.21176472, a: 0}
+  - {r: 0.30588236, g: 0.30588236, b: 0.91372555, a: 0}
+  - {r: 1, g: 0.8745099, b: 0.10196079, a: 0}
+  - {r: 0.30588236, g: 0.7254902, b: 0.30588236, a: 0}
+  - {r: 0.9803922, g: 0.5294118, b: 0.21568629, a: 0}
+  - {r: 0.18039216, g: 0.8235295, b: 0.9215687, a: 0}
+  - {r: 1, g: 0.6156863, b: 0.7137255, a: 0}
+  - {r: 0.5803922, g: 0.4431373, b: 1, a: 0}
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
+  playerPrefabs:
+  - {fileID: 7443674087415303527, guid: d507665facb66e54a9896c12cb00b024, type: 3}
+  - {fileID: 4534672073919021094, guid: 1fb5228768865544ea0bd77cac0e7ea0, type: 3}

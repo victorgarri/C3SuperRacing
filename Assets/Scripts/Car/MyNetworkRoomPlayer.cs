@@ -7,23 +7,39 @@ using UnityEngine.UI;
 public class MyNetworkRoomPlayer : NetworkRoomPlayer
 {
     [SerializeField] private ReadyStartController readyStartController;
+    [SerializeField] private CamaraSeleccionCoche camaraSeleccionCoche;
     private MyNRM NRM;
     [SerializeField] private GameObject roomPlayerPanelPrefab;
     [SerializeField] private GameObject myPlayerPanel;
     
     [SerializeField] [SyncVar] public string playerName;
     
+    [SerializeField] private Color[] colorByIndex;
+    [SerializeField] [SyncVar] public Color playerColor;
+
+
+    [SerializeField] public int selectedCar;
+    
     public override void Start()
     {
         base.Start();
         NRM = NetworkManager.singleton as MyNRM;
+
+        selectedCar = 0;
+        
+        playerColor = colorByIndex[index];
+        gameObject.name = "RoomPlayer-" + index+1;
         
         readyStartController = GameObject.Find("BotoneraReadyStart").GetComponent<ReadyStartController>();
+        camaraSeleccionCoche = GameObject.Find("CamaraVisualizacionCoches").GetComponent<CamaraSeleccionCoche>();
 
         if (isLocalPlayer)
         {
             readyStartController.btnReady.onClick.AddListener(delegate { PlayerReadyToggle();});
             readyStartController.playerNameInput.onValueChanged.AddListener(delegate(string newStringInput) { CmdPlayerSetName(newStringInput); });
+            camaraSeleccionCoche.btnIzquierda.onClick.AddListener(delegate { UpdateSelectedCar(-1); });
+            camaraSeleccionCoche.btnDerecha.onClick.AddListener(delegate { UpdateSelectedCar(+1); });
+            
         }
         
         if (isServer){
@@ -33,6 +49,18 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
 
         if (isServer)
             CmdCreatePlayerPanel();
+        
+        
+    }
+
+    private void UpdateSelectedCar(int change)
+    {
+        selectedCar += change;
+        if (selectedCar < 0)
+            selectedCar = NRM.playerPrefabs.Length - 1;
+
+        selectedCar %= NRM.playerPrefabs.Length;
+        
     }
 
     [Command]

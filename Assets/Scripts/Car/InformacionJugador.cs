@@ -15,6 +15,7 @@ public class InformacionJugador : NetworkBehaviour
     [Header("Nombre del jugador")] 
     [SerializeField] public string nombreJugador = "Carlitos";
     public TextMesh etiquetaNombre;
+    [SerializeField] public Color colorJugador;
     
     [Header("Gestión de las posiciones")]
     public PosicionCarreraController _posicionCarreraController;
