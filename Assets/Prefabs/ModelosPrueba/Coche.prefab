@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 590396514478461137, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3555438929279907353, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
+      propertyPath: _wheelCollider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3796507113035546024, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
+      propertyPath: _wheelCollider
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 3824234456065452391, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
       propertyPath: m_LocalScale.x
       value: 1
@@ -64,6 +76,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Coche
       objectReference: {fileID: 0}
+    - target: {fileID: 5007357667569862042, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
+      propertyPath: _wheelCollider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 7765726444195923897, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
+      propertyPath: _wheelCollider
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 8690892288489749157, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
       propertyPath: sceneId
       value: 4165433868
@@ -81,6 +101,7 @@ PrefabInstance:
     - {fileID: 444641713378825442, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
     - {fileID: 7825955620085316563, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
     - {fileID: 3395938406494273250, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
+    - {fileID: 590396514478461137, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
     m_RemovedGameObjects:
     - {fileID: 7555934480079084962, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
     - {fileID: 2098567021173114747, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
@@ -88,6 +109,7 @@ PrefabInstance:
     - {fileID: 1372787799648501128, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
     - {fileID: 8981504837042482750, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
     - {fileID: 1470708308868182988, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
+    - {fileID: 1136088109647966847, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}

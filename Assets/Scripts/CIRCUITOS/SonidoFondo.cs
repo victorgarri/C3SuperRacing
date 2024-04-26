@@ -7,11 +7,11 @@ public class SonidoFondo : MonoBehaviour
 {
     private AudioSource _audioSource;
 
-    [SerializeField] private AudioClip[] listaMusicaCircuito1;
-    [SerializeField] private AudioClip[] listaMusicaCircuito2;
-    [SerializeField] private AudioClip[] listaMusicaCircuito3;
+    [SerializeField] private AudioClip listaMusicaCircuito1;
+    [SerializeField] private AudioClip listaMusicaCircuito2;
+    [SerializeField] private AudioClip listaMusicaCircuito3;
     
-    public List<AudioClip[]> listaDeReproduccion;
+    public List<AudioClip> listaDeReproduccion;
     
     [SerializeField] private AudioClip musicaVictoria;
     [SerializeField] private AudioClip musicaDerrota;
@@ -28,7 +28,7 @@ public class SonidoFondo : MonoBehaviour
     {
         _audioSource = this.GetComponent<AudioSource>();
         
-        listaDeReproduccion = new List<AudioClip[]>();
+        listaDeReproduccion = new List<AudioClip>();
         listaDeReproduccion.Add(listaMusicaCircuito1);
         //listaDeReproduccion.Add(listaMusicaCircuito2);
         //listaDeReproduccion.Add(listaMusicaCircuito3);
@@ -38,7 +38,8 @@ public class SonidoFondo : MonoBehaviour
 
     public void ReproducirMusicaVelocidadNormal()
     {
-        _audioSource.PlayOneShot(listaDeReproduccion[indiceMusica][0], volumenMusica); 
+        _audioSource.pitch = 1f;
+        _audioSource.PlayOneShot(listaDeReproduccion[indiceMusica], volumenMusica); 
         reproduccionVelocidadNormal = true;
 
     }
@@ -47,9 +48,13 @@ public class SonidoFondo : MonoBehaviour
     {
         if (_audioSource.isPlaying && reproduccionVelocidadNormal)
         {
+            /*
             _audioSource.Stop();
             _audioSource.PlayOneShot(listaDeReproduccion[indiceMusica][1], volumenMusica);
+            */
+            _audioSource.pitch = 1.5f;
             reproduccionVelocidadNormal = false;
+        
         }
     }
 
