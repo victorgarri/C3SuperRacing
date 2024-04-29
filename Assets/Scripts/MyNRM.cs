@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class MyNRM : NetworkRoomManager
 {
     private Button btnStart;
+    [SerializeField] private GameObject spectatorPrefab;
     public override void OnRoomServerPlayersReady()
     {
         if (!btnStart)
@@ -24,5 +25,29 @@ public class MyNRM : NetworkRoomManager
     public void StartGame()
     {
         ServerChangeScene(GameplayScene);
+        
+    }
+
+    public override void OnClientSceneChanged()
+    {
+        base.OnClientSceneChanged();
+        if (!FindObjectOfType<LocalPlayerPointer>().roomPlayer.isSpectator)
+            NetworkClient.AddPlayer();
+            
+    }
+
+    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
+    {
+        base.OnServerAddPlayer(conn);
+        
+    }
+
+
+    public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
+    {
+        if (roomPlayer.GetComponent<MyNetworkRoomPlayer>().isSpectator)
+            return Instantiate(spectatorPrefab);
+        
+        return null;
     }
 }

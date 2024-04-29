@@ -79,6 +79,7 @@ public class InformacionJugador : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        FindObjectOfType<LocalPlayerPointer>().gamePlayerGameObject = gameObject;
         listaPuntuacionCarrera = new List<int>();
         listaPuntuacionCarrera.Add(0);
         listaPuntuacionCarrera.Add(0);

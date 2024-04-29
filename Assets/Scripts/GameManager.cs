@@ -60,46 +60,58 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private List<GameObject> roomLights;
 
+    [SerializeField] private SpectatorController spectator;
+
+    private LocalPlayerPointer localPlayerPointer;
+
     // [SerializeField]
     // private GameObject _minijuego0;
 
     private void Start()
     {
+        localPlayerPointer = FindObjectOfType<LocalPlayerPointer>();
+        
         raceIndex = -1;
         minigameIndex = 0;
-        
-        ordenMinijuegos[0].SetActive(true);
-        
         currentGameType = GameType.Minigame;
+
+        
         spawnPoints = new List<GameObject[]>();
         spawnPoints.Add(SPs1);
         spawnPoints.Add(SPs2);
         spawnPoints.Add(SPs3);
         
-        _resultadoCarreraController.gameObject.SetActive(false);
         DisableWaypoints();
-        playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
+        
+        _resultadoCarreraController.gameObject.SetActive(false);
+        if (!localPlayerPointer.roomPlayer.isSpectator)
+        {            
+            ordenMinijuegos[0].SetActive(true);
+            playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
+        }
     }
 
     [Command (requiresAuthority = false)]
     public void CheckAllPlayersWaiting()
     {
         Debug.Log("Comprobando si estamos ready");
+        var informacionJugadores = FindObjectsOfType<InformacionJugador>();
         if (currentGameType == GameType.Minigame)
         {
-            foreach (var playerConnection in NetworkServer.connections)
+            
+            foreach (var informacionJugador in informacionJugadores)
             {
-                if (playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().lastMinigameScore == null)
+                if (informacionJugador.lastMinigameScore == null)
                     return;
-            }
+            }   
 
-            foreach (var playerConnection in NetworkServer.connections)
+            foreach (var informacionJugador in informacionJugadores)
             {
-                var lastMinigameScore = playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().lastMinigameScore;
+                var lastMinigameScore = informacionJugador.lastMinigameScore;
+                
                 if (lastMinigameScore != null)
-                    lastMinigamePlayerPoints.Add(new PlayerMinigamePoints()
-                    {
-                        networkIdentity = playerConnection.Value.identity,
+                    lastMinigamePlayerPoints.Add(new PlayerMinigamePoints(){
+                        networkIdentity = informacionJugador.GetComponent<NetworkIdentity>(),
                         points = (int)lastMinigameScore
                     });
             }
@@ -108,12 +120,13 @@ public class GameManager : NetworkBehaviour
         }
         else
         {
-            foreach (var playerConnection in NetworkServer.connections)
+            foreach (var informacionJugador in informacionJugadores)
             {
-                if (playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().finCarrera==false)
+                if (informacionJugador.finCarrera==false)
                     return;
             }
         }
+        
         Debug.Log("Todo el mundo ready, iniciando cuenta atras de 5s");
 
         StartCoroutine(CambiaAlSiguienteJuego());
@@ -124,13 +137,13 @@ public class GameManager : NetworkBehaviour
     {
         yield return new WaitForSeconds(5);
         Debug.Log("Cambiando juego AHORA");
+        var playersCarController = FindObjectsOfType<CarController>();
         if (currentGameType == GameType.Race && minigameIndex + 1 < ordenMinijuegos.Count)
         {
             // Activar minijuego
         }
         else if(raceIndex+1 < tracksWaypoints.Count)
         {
-            
             raceIndex++;
             DisableMinigameClientRPC(0);
             
@@ -138,15 +151,14 @@ public class GameManager : NetworkBehaviour
             {
                 for (int i = 0; i < lastMinigamePlayerPoints.Count; i++)
                 {
-                   
                     lastMinigamePlayerPoints[i].networkIdentity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex,i);
                 }
             }
             else
             {
-                foreach (var playerConnection in NetworkServer.connections)
+                foreach (var playerCarController in playersCarController)
                 { 
-                    playerConnection.Value.identity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex, playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1);
+                    playerCarController.TargetMoveCar(raceIndex, playerCarController.GetComponent<InformacionJugador>().posicionActual-1);
                     //apagar luces habitacion si raceIndex==1
                     // if (raceIndex==1)
                     // {
@@ -178,11 +190,16 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void EnableCarClientRPC(int index)
     {
-        _resultadoCarreraController.gameObject.SetActive(false);
-        _countDownText.StartCountDown(3); 
-        NetworkClient.localPlayer.gameObject.GetComponent<CarController>().ActivateCar(3);
         
-        interfazUsuario.GetComponent<InterfazController>().cambiosMinimapa(index);
+        _resultadoCarreraController.gameObject.SetActive(false);
+        _countDownText.StartCountDown(3);
+
+        if (localPlayerPointer.roomPlayer.isSpectator)
+            spectator.MoveSpectatorToTrack(index);
+        else {
+            localPlayerPointer.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(3);
+            interfazUsuario.GetComponent<InterfazController>().cambiosMinimapa(index);            
+        }
         
         for (int i = 0; i < tracksWaypoints.Count; i++)
         {
@@ -192,13 +209,18 @@ public class GameManager : NetworkBehaviour
                 tracksWaypoints[i].SetActive(false);
         }
         
+        //Esto no me cuadra que este aqui, o el bucle de dentro
         ReseteoVariablesJugadores(index);
+        
     }
     
     [ClientRpc]
     private void DisableCarClientRPC()
     {
-        NetworkClient.localPlayer.gameObject.GetComponent<CarController>().DesactivateCar();
+        if (!localPlayerPointer.roomPlayer.isSpectator)
+        {
+            localPlayerPointer.gamePlayerGameObject.GetComponent<CarController>().DesactivateCar();            
+        }
     }
 
     [ClientRpc]
@@ -211,7 +233,6 @@ public class GameManager : NetworkBehaviour
     public void ActualizarPuntuacionJugadorCarrera(InformacionJugador jugador, int puntuacion)
     {
         var playerPoints = playerRacePointsList.FirstOrDefault(i => i.networkIdentity == jugador.netIdentity);
-        
         if (playerPoints.Equals(default(PlayerRacePoints)))
         {
             playerPoints.listaPuntuacionCarrera = new List<int>(new int[3]);
@@ -235,7 +256,7 @@ public class GameManager : NetworkBehaviour
     void OnPlayerRacePointsListUpdated(SyncList<PlayerRacePoints>.Operation op, int index, PlayerRacePoints oldItem, PlayerRacePoints newItem)
     {
         // Aqui vamos a incluir las funciones que actualizaran la pantalla de los clientes cuando se actualice la lista de datos
-        if (NetworkClient.localPlayer.gameObject.GetComponent<InformacionJugador>().finCarrera)
+        if (!localPlayerPointer.roomPlayer.isLocalPlayer && localPlayerPointer.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
         {
             _resultadoCarreraController.gameObject.SetActive(true);
             _resultadoCarreraController.actualizarTablaPuntuacion();
