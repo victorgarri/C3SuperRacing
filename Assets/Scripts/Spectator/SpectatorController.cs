@@ -13,7 +13,8 @@ public class SpectatorController : MonoBehaviour
 
     public void MoveSpectatorToTrack(int index)
     {
-        Transform nextTransform = GameObject.Find("SpectatorLocations/Starts/C" + index).transform;
+        Debug.Log("SpectatorLocations/Starts/C" + (index+1));
+        Transform nextTransform = GameObject.Find("SpectatorLocations/Starts/C" + (index + 1)).transform;
         transform.position = nextTransform.position;
         transform.rotation = nextTransform.rotation;
     }

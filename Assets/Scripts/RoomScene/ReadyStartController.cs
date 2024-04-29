@@ -5,7 +5,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class ReadyStartController : MonoBehaviour
+public class ReadyStartController : NetworkBehaviour
 {
     public bool isReady = false;
     public Button btnReady;
@@ -17,12 +17,22 @@ public class ReadyStartController : MonoBehaviour
     private string colorVerde = "#B8DABA";
 
     public TextMeshProUGUI txtReady;
-    
+
+    private MyNRM NRM;
     // Start is called before the first frame update
     void Start()
     {
+        NRM = MyNRM.singleton as MyNRM;
+        
         colorBtnReady = btnReady.GetComponent<Image>();
         btnReady.onClick.AddListener(gestionReady);
+        
+        if (isServer)
+        {
+            btnStart.gameObject.SetActive(true);
+            btnStart.onClick.AddListener(delegate { NRM.StartGame(); });
+        }
+        
     }
 
     private void gestionReady()

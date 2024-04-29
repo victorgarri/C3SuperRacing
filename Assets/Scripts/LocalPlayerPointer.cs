@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class LocalPlayerPointer : MonoBehaviour
 {
+    public static LocalPlayerPointer Instance { get; private set; }
+
     public MyNetworkRoomPlayer roomPlayer;
     public GameObject gamePlayerGameObject;
-
-    // Start is called before the first frame update
-    void Start()
+    
+    private void Awake()
     {
-        DontDestroyOnLoad(this.gameObject);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

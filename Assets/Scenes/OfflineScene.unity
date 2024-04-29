@@ -573,9 +573,13 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 4492824780523140061, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
+    - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: spectatorPrefab
       value: 
-      objectReference: {fileID: 5117402018654073783, guid: c48d322593ee8c14da9967c342fb1c1b, type: 3}
+      objectReference: {fileID: 835694864215529156, guid: a5ef03ce38929034b89c8a46dbb48f4f, type: 3}
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: autoCreatePlayer
       value: 1

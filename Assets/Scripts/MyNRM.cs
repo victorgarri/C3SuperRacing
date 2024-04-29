@@ -27,27 +27,11 @@ public class MyNRM : NetworkRoomManager
         ServerChangeScene(GameplayScene);
         
     }
-
-    public override void OnClientSceneChanged()
-    {
-        base.OnClientSceneChanged();
-        if (!FindObjectOfType<LocalPlayerPointer>().roomPlayer.isSpectator)
-            NetworkClient.AddPlayer();
-            
-    }
-
-    public override void OnServerAddPlayer(NetworkConnectionToClient conn)
-    {
-        base.OnServerAddPlayer(conn);
-        
-    }
-
-
+    
     public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
     {
         if (roomPlayer.GetComponent<MyNetworkRoomPlayer>().isSpectator)
             return Instantiate(spectatorPrefab);
-        
         return null;
     }
 }

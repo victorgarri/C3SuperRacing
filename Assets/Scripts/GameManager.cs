@@ -62,14 +62,14 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private SpectatorController spectator;
 
-    private LocalPlayerPointer localPlayerPointer;
-
     // [SerializeField]
     // private GameObject _minijuego0;
 
     private void Start()
     {
-        localPlayerPointer = FindObjectOfType<LocalPlayerPointer>();
+        
+        if(LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+            spectator.gameObject.SetActive(true);
         
         raceIndex = -1;
         minigameIndex = 0;
@@ -84,11 +84,10 @@ public class GameManager : NetworkBehaviour
         DisableWaypoints();
         
         _resultadoCarreraController.gameObject.SetActive(false);
-        if (!localPlayerPointer.roomPlayer.isSpectator)
-        {            
-            ordenMinijuegos[0].SetActive(true);
-            playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
-        }
+        playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
+        
+        if (LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+            ordenMinijuegos[0].SetActive(false);
     }
 
     [Command (requiresAuthority = false)]
@@ -194,10 +193,10 @@ public class GameManager : NetworkBehaviour
         _resultadoCarreraController.gameObject.SetActive(false);
         _countDownText.StartCountDown(3);
 
-        if (localPlayerPointer.roomPlayer.isSpectator)
+        if (LocalPlayerPointer.Instance.roomPlayer.isSpectator)
             spectator.MoveSpectatorToTrack(index);
         else {
-            localPlayerPointer.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(3);
+            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(3);
             interfazUsuario.GetComponent<InterfazController>().cambiosMinimapa(index);            
         }
         
@@ -217,10 +216,8 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void DisableCarClientRPC()
     {
-        if (!localPlayerPointer.roomPlayer.isSpectator)
-        {
-            localPlayerPointer.gamePlayerGameObject.GetComponent<CarController>().DesactivateCar();            
-        }
+        if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().DesactivateCar();  
     }
 
     [ClientRpc]
@@ -256,7 +253,7 @@ public class GameManager : NetworkBehaviour
     void OnPlayerRacePointsListUpdated(SyncList<PlayerRacePoints>.Operation op, int index, PlayerRacePoints oldItem, PlayerRacePoints newItem)
     {
         // Aqui vamos a incluir las funciones que actualizaran la pantalla de los clientes cuando se actualice la lista de datos
-        if (!localPlayerPointer.roomPlayer.isLocalPlayer && localPlayerPointer.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
+        if (!LocalPlayerPointer.Instance.roomPlayer.isLocalPlayer && LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
         {
             _resultadoCarreraController.gameObject.SetActive(true);
             _resultadoCarreraController.actualizarTablaPuntuacion();

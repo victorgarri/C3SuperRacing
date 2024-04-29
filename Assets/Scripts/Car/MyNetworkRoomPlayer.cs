@@ -24,17 +24,11 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
 
         if (isLocalPlayer)
         {
-            
-            FindObjectOfType<LocalPlayerPointer>().roomPlayer = this;
+            LocalPlayerPointer.Instance.roomPlayer = this;
             readyStartController.btnReady.onClick.AddListener(delegate { PlayerReadyToggle();});
             readyStartController.playerNameInput.onValueChanged.AddListener(delegate(string newStringInput) { CmdPlayerSetName(newStringInput); });
         }
         
-        if (isServer){
-            readyStartController.btnStart.gameObject.SetActive(true);
-            readyStartController.btnStart.onClick.AddListener(delegate { NRM.StartGame(); });
-        }
-
         if (isServer)
             CmdCreatePlayerPanel();
     }
@@ -45,7 +39,8 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
         if (!String.IsNullOrEmpty(newName))
         {
             playerName = newName;
-            myPlayerPanel.GetComponent<RoomPanelJugador>().playerName = playerName;            
+            myPlayerPanel.GetComponent<RoomPanelJugador>().playerName = playerName;
+            
         }
     }
     

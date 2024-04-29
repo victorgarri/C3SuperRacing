@@ -58,7 +58,7 @@ public class PosicionCarreraController : NetworkBehaviour
     
     void Update()
     {
-        if (_informacionJugadores != null&&NetworkClient.localPlayer.gameObject.GetComponent<CarController>().enableControls)  
+        if (_informacionJugadores != null && NetworkClient.localPlayer.gameObject.CompareTag("Player") && NetworkClient.localPlayer.gameObject.GetComponent<CarController>().enableControls)  
         {
             ActualizarPosiciones();   
         }
