@@ -8140,6 +8140,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -8935897555019490681, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8935897555019490681, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
       propertyPath: m_LocalScale.x
       value: 8
@@ -8214,8 +8222,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6444263678948303042, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
       propertyPath: m_Enabled
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6444263678948303042, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 7b9d711c2501d3a4c8882c572fa5e23a, type: 2}
     - target: {fileID: 6627583665962678084, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -9044,6 +9056,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e015efac4b66e3146867471eba6db2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
   interiorCoche: {fileID: 2039866735}
   coloresInteriorCoche:
   - {fileID: 21300000, guid: 996412d1acaea7b4fa373072389aa0db, type: 3}
