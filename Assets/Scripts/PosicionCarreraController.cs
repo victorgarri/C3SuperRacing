@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using Mirror;
 using UnityEngine;
 
@@ -29,6 +30,7 @@ public class PosicionCarreraController : NetworkBehaviour
     
     [SerializeField]
     private GameManager _gameManager;
+
     
     // Start is called before the first frame update
     void Start()
@@ -37,7 +39,7 @@ public class PosicionCarreraController : NetworkBehaviour
         for (int i = 0; i < transform.childCount; i++)
         {
             listaWaypoints.Add(transform.GetChild(i));
-        }        
+        }
     }
 
     
@@ -58,7 +60,7 @@ public class PosicionCarreraController : NetworkBehaviour
     
     void Update()
     {
-        if (_informacionJugadores != null && NetworkClient.localPlayer.gameObject.CompareTag("Player") && NetworkClient.localPlayer.gameObject.GetComponent<CarController>().enableControls)  
+        if (isServer)  
         {
             ActualizarPosiciones();   
         }
@@ -72,12 +74,13 @@ public class PosicionCarreraController : NetworkBehaviour
         {
             jugador.distanciaSiguienteWaypoint = CalculoDistanciaSiguienteWaypoint(jugador, jugador.siguienteWaypoint);
         }
-        
+
+        var previousFirst = _informacionJugadores[0];
         //Me ordeno mi lista de jugadores
         _informacionJugadores = _informacionJugadores.OrderByDescending(jugador => jugador.vueltaActual).
                                                       ThenByDescending(jugador => jugador.nWaypoints).
                                                       ThenBy(jugador => jugador.distanciaSiguienteWaypoint).ToArray();
-
+        
         PosicionarJugadores(_informacionJugadores);
     }
 

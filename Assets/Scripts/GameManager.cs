@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using Mirror;
 using UnityEngine;
 
@@ -60,15 +61,15 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private List<GameObject> roomLights;
 
-    [SerializeField] private SpectatorController spectator;
-
+    [SerializeField] private GameObject spectator;
+    
     // [SerializeField]
     // private GameObject _minijuego0;
 
     private void Start()
     {
-        
-        if(LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+
+        if (LocalPlayerPointer.Instance.roomPlayer.isSpectator)
             spectator.gameObject.SetActive(true);
         
         raceIndex = -1;
@@ -85,9 +86,15 @@ public class GameManager : NetworkBehaviour
         
         _resultadoCarreraController.gameObject.SetActive(false);
         playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
-        
+
         if (LocalPlayerPointer.Instance.roomPlayer.isSpectator)
-            ordenMinijuegos[0].SetActive(false);
+        {
+            GameObject.Find("Minijuego0Camera").SetActive(false);
+            GameObject.Find("M0GameManager").SetActive(false);
+            
+        }
+        SpectatorRaceStart(0);
+            
     }
 
     [Command (requiresAuthority = false)]
@@ -132,7 +139,7 @@ public class GameManager : NetworkBehaviour
         CambiaAlSiguienteJuego();
     }
 
-    private IEnumerator CambiaAlSiguienteJuego()
+    private IEnumerator CambiaAlSiguienteJuego() 
     {
         yield return new WaitForSeconds(5);
         Debug.Log("Cambiando juego AHORA");
@@ -144,6 +151,7 @@ public class GameManager : NetworkBehaviour
         else if(raceIndex+1 < tracksWaypoints.Count)
         {
             raceIndex++;
+            SpectatorRaceStart(raceIndex);
             DisableMinigameClientRPC(0);
             
             if (currentGameType == GameType.Minigame)
@@ -189,16 +197,18 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void EnableCarClientRPC(int index)
     {
-        
         _resultadoCarreraController.gameObject.SetActive(false);
+        
+        
+        
         _countDownText.StartCountDown(3);
 
-        if (LocalPlayerPointer.Instance.roomPlayer.isSpectator)
-            spectator.MoveSpectatorToTrack(index);
-        else {
+        if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+        {
             LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(3);
             interfazUsuario.GetComponent<InterfazController>().cambiosMinimapa(index);            
         }
+
         
         for (int i = 0; i < tracksWaypoints.Count; i++)
         {
@@ -296,5 +306,10 @@ public class GameManager : NetworkBehaviour
         {
             roomLight.SetActive(status);
         }
+    }
+
+    private void SpectatorRaceStart(int index)
+    {
+        GameObject.Find("SpectatorLocations/Starts/C" + (index + 1)).GetComponent<CinemachineVirtualCamera>().enabled = true;
     }
 }

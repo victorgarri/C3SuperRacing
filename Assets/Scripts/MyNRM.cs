@@ -32,6 +32,10 @@ public class MyNRM : NetworkRoomManager
     {
         if (roomPlayer.GetComponent<MyNetworkRoomPlayer>().isSpectator)
             return Instantiate(spectatorPrefab);
+        
+        // Dependiendo del coche seleccionado, crea un coche u otro
+        // roomPlayer.selectedCar
+        
         return null;
     }
 }
