@@ -2,7 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Mirror;
-using Unity.VisualScripting;
 using UnityEngine;
 
 public struct PlayerMinigamePoints
@@ -58,6 +57,8 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField]
     private ResultadosCarrerasController _resultadoCarreraController;
+
+    [SerializeField] private List<GameObject> roomLights;
 
     // [SerializeField]
     // private GameObject _minijuego0;
@@ -145,11 +146,28 @@ public class GameManager : NetworkBehaviour
             {
                 foreach (var playerConnection in NetworkServer.connections)
                 { 
-                    Debug.Log("Moviendo coche al circuito: "+raceIndex);
-                    Debug.Log("Moviendo el coche: "+  playerConnection.Value.identity.gameObject.Serialize());
-                    Debug.Log("Posicion: "+  (playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1));
                     playerConnection.Value.identity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex, playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1);
+                    //apagar luces habitacion si raceIndex==1
+                    // if (raceIndex==1)
+                    // {
+                    //     playerConnection.Value.identity.gameObject.GetComponent<CarController>().SetCarLights(true);
+                    // }
+                    // else
+                    // {
+                    //     playerConnection.Value.identity.gameObject.GetComponent<CarController>().SetCarLights(false);
+                    //     
+                    // }
+                    
                 }
+                // if (raceIndex==1)
+                // {
+                //     SetRoomLights(false);
+                //         
+                // }
+                // else
+                // {
+                //     SetRoomLights(true);
+                // }
             }
             EnableCarClientRPC(raceIndex);
             currentGameType = GameType.Race;
@@ -207,14 +225,9 @@ public class GameManager : NetworkBehaviour
             var playerPointsAux = playerPoints;
             playerPointsAux.listaPuntuacionCarrera[raceIndex]=puntuacion;
             playerPointsAux.puntuacionTotal += puntuacion;
-            Debug.Log(playerPointsAux.Serialize());
-            Debug.Log(playerPoints.Serialize());
-            Debug.Log(playerRacePointsList.Serialize());
 
             playerRacePointsList.Remove(playerPoints);
             playerRacePointsList.Add(playerPointsAux);
-            
-            Debug.Log(playerRacePointsList.Serialize());
         }
         CheckAllPlayersWaiting();
     }
@@ -255,6 +268,15 @@ public class GameManager : NetworkBehaviour
         foreach (var trackWaypoint in tracksWaypoints)
         {
             trackWaypoint.SetActive(false);
+        }
+    }
+
+    [ClientRpc]
+    private void SetRoomLights(bool status)
+    {
+        foreach (var roomLight in roomLights)
+        {
+            roomLight.SetActive(status);
         }
     }
 }
