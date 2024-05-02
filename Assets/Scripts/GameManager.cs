@@ -262,8 +262,10 @@ public class GameManager : NetworkBehaviour
     
     void OnPlayerRacePointsListUpdated(SyncList<PlayerRacePoints>.Operation op, int index, PlayerRacePoints oldItem, PlayerRacePoints newItem)
     {
+        if(LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
+        
         // Aqui vamos a incluir las funciones que actualizaran la pantalla de los clientes cuando se actualice la lista de datos
-        if (!LocalPlayerPointer.Instance.roomPlayer.isLocalPlayer && LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
+        if (!isLocalPlayer && LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
         {
             _resultadoCarreraController.gameObject.SetActive(true);
             _resultadoCarreraController.actualizarTablaPuntuacion();
@@ -280,11 +282,13 @@ public class GameManager : NetworkBehaviour
         {
             jugador._posicionCarreraController = posicionCarreraController;
             jugador.indiceCarrera++;
-            jugador.SetVueltaActual(1);
             jugador.nVueltasCircuito = posicionCarreraController.vueltasTotales;
+            jugador.finCarrera = false;
+
+            // if (!authority) continue;
+            jugador.SetVueltaActual(1);
             jugador.SetNWaypoints(0);
             jugador.SetSiguienteWaypoint(0);
-            jugador.finCarrera = false;
             jugador.CmdSetFinCarrera(false);
         }
         posicionCarreraController.puntuacionMaxima = 2 * posicionCarreraController._informacionJugadores.Length;
@@ -310,6 +314,7 @@ public class GameManager : NetworkBehaviour
 
     private void SpectatorRaceStart(int index)
     {
-        GameObject.Find("SpectatorLocations/Starts/C" + (index + 1)).GetComponent<CinemachineVirtualCamera>().enabled = true;
+        if(GameObject.Find("SpectatorLocations/Starts/C" + (index + 1)))
+            GameObject.Find("SpectatorLocations/Starts/C" + (index + 1)).GetComponent<CinemachineVirtualCamera>().enabled = true;
     }
 }

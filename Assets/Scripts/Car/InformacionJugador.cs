@@ -58,28 +58,14 @@ public class InformacionJugador : NetworkBehaviour
         */
     }
 
-    [Command]
-    public void SetNWaypoints(int n)
-    {
-        nWaypoints = n;
-    }
-    [Command]
-    public void SetSiguienteWaypoint(int i)
-    {
-        siguienteWaypoint = i;
-    }
 
-    [Command]
-    public void SetVueltaActual(int n)
-    {
-        vueltaActual = n;
-    }
     
 
     // Start is called before the first frame update
     void Start()
     {
-        LocalPlayerPointer.Instance.gamePlayerGameObject = gameObject;
+        if (isLocalPlayer)
+            LocalPlayerPointer.Instance.gamePlayerGameObject = gameObject;
         listaPuntuacionCarrera = new List<int>();
         listaPuntuacionCarrera.Add(0);
         listaPuntuacionCarrera.Add(0);
@@ -148,6 +134,9 @@ public class InformacionJugador : NetworkBehaviour
             
             SetNWaypoints(nWaypoints);
             SetSiguienteWaypoint(siguienteWaypoint);
+            
+            //InformacionJugador SetVuelta
+            Debug.Log("InformacionJugador SetVuelta");
             SetVueltaActual(vueltaActual);
         }
     }
@@ -158,19 +147,32 @@ public class InformacionJugador : NetworkBehaviour
         puntuacionTotalCarrera += listaPuntuacionCarrera[indiceCarrera - 1];
     }
 
-
-
     [Command]
     public void SetMinigameScore(Nullable<int> score)
     {
         this.lastMinigameScore = score;
     }
 
+    
+    [Command]
+    public void SetVueltaActual(int n)
+    {
+        vueltaActual = n;
+    }
+    [Command]
+    public void SetNWaypoints(int n)
+    {
+        nWaypoints = n;
+    }
+    [Command]
+    public void SetSiguienteWaypoint(int i)
+    {
+        siguienteWaypoint = i;
+    }
     [Command]
     public void CmdSetFinCarrera(bool finish)
     {
         this.finCarrera = finish;
     }
-
     
 }

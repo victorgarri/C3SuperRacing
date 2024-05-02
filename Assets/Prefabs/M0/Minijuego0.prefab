@@ -41,6 +41,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6602389178658661139}
   - component: {fileID: 1222406326007531122}
+  - component: {fileID: 1303819218190646883}
   m_Layer: 0
   m_Name: Minijuego0Camera
   m_TagString: MainCamera
@@ -114,6 +115,14 @@ Camera:
   m_OcclusionCulling: 0
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
+--- !u!81 &1303819218190646883
+AudioListener:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 495687928434505791}
+  m_Enabled: 1
 --- !u!1 &938261226764943985
 GameObject:
   m_ObjectHideFlags: 0
@@ -2853,7 +2862,7 @@ MonoBehaviour:
   totalPieces: 4
   puzzleCompleted: 0
   gamePoints: 0
-  maxTime: 60
+  maxTime: 3
   probabilidadCajaReforzada: 30
   probabilidadTnt: 10
   cajaPrefab: {fileID: 3846966106448461380, guid: 117d9b084b931a44ca214bd26f82321a, type: 3}
