@@ -11,6 +11,7 @@ public class ReadyStartController : NetworkBehaviour
     public Button btnReady;
     public Button btnStart;
     public TMP_InputField playerNameInput;
+    public Toggle spectatorMode;
     
     private Image colorBtnReady;
     private string colorRojo = "#CC6666";
@@ -69,5 +70,19 @@ public class ReadyStartController : NetworkBehaviour
         byte b = byte.Parse(hex.Substring(4, 2), System.Globalization.NumberStyles.HexNumber);
 
         return new Color32(r, g, b, 255);
+    }
+
+    private void gestionModoEspectador(bool isOn)
+    {
+        if (isOn)
+        {
+            Debug.Log("El Toggle está activado");
+            // Realiza acciones específicas cuando el Toggle está activado
+        }
+        else
+        {
+            Debug.Log("El Toggle está desactivado");
+            // Realiza acciones específicas cuando el Toggle está desactivado
+        }
     }
 }
