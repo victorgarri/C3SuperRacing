@@ -3627,22 +3627,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1222406326007531122, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: field of view
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222406326007531122, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: far clip plane
-      value: 1000
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222406326007531122, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: near clip plane
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 1222406326007531122, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: orthographic size
-      value: 40
-      objectReference: {fileID: 0}
     - target: {fileID: 1694902517088324584, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: m_Name
       value: Minijuego0
@@ -3695,41 +3679,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 6602389178658661139, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -589.914
-      objectReference: {fileID: 0}
-    - target: {fileID: 6602389178658661139, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -41.81587
-      objectReference: {fileID: 0}
-    - target: {fileID: 6602389178658661139, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -9.050285
-      objectReference: {fileID: 0}
-    - target: {fileID: 6602389178658661139, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 0.6366412
-      objectReference: {fileID: 0}
-    - target: {fileID: 6602389178658661139, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0.10796395
-      objectReference: {fileID: 0}
-    - target: {fileID: 6602389178658661139, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0.75281364
-      objectReference: {fileID: 0}
-    - target: {fileID: 6602389178658661139, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0.12768467
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 495687928434505791, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1767098434}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
 --- !u!1 &516615110 stripped
 GameObject:
@@ -11274,7 +11227,7 @@ Camera:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1476552865}
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_ClearFlags: 1
   m_BackGroundColor: {r: 0.19215687, g: 0.3019608, b: 0.4745098, a: 0}
@@ -13624,45 +13577,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1762662523}
   m_CullTransparentMesh: 1
---- !u!1 &1767098430 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 495687928434505791, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
-  m_PrefabInstance: {fileID: 516615109}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1767098434
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1767098430}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72ece51f2901e7445ab60da3685d6b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ShowDebugText: 0
-  m_ShowCameraFrustum: 1
-  m_IgnoreTimeScale: 0
-  m_WorldUpOverride: {fileID: 0}
-  m_UpdateMethod: 2
-  m_BlendUpdateMethod: 1
-  m_DefaultBlend:
-    m_Style: 1
-    m_Time: 2
-    m_CustomCurve:
-      serializedVersion: 2
-      m_Curve: []
-      m_PreInfinity: 2
-      m_PostInfinity: 2
-      m_RotationOrder: 4
-  m_CustomBlends: {fileID: 0}
-  m_CameraCutEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_CameraActivatedEvent:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1769540014
 GameObject:
   m_ObjectHideFlags: 0
