@@ -102,6 +102,7 @@ public class GameManager : NetworkBehaviour
     {
         Debug.Log("Comprobando si estamos ready");
         var informacionJugadores = FindObjectsOfType<InformacionJugador>();
+        
         if (currentGameType == GameType.Minigame)
         {
             

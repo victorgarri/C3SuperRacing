@@ -13,7 +13,7 @@ public class InformacionJugador : NetworkBehaviour
     public int vueltas;
     
     [Header("Nombre del jugador")] 
-    [SerializeField] public string nombreJugador = "Carlitos";
+    [SerializeField] [SyncVar] public string nombreJugador = "Carlitos";
     public TextMesh etiquetaNombre;
     
     [Header("Gestión de las posiciones")]
@@ -65,7 +65,11 @@ public class InformacionJugador : NetworkBehaviour
     void Start()
     {
         if (isLocalPlayer)
+        {
             LocalPlayerPointer.Instance.gamePlayerGameObject = gameObject;
+            SetNombreJugador(LocalPlayerPointer.Instance.roomPlayer.playerName);
+        }
+        
         listaPuntuacionCarrera = new List<int>();
         listaPuntuacionCarrera.Add(0);
         listaPuntuacionCarrera.Add(0);
@@ -76,6 +80,12 @@ public class InformacionJugador : NetworkBehaviour
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
         _carController = GetComponent<CarController>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
+    }
+    
+    [Command]
+    public void SetNombreJugador(string playerName)
+    {
+        this.nombreJugador = playerName;
     }
 
     void Update()
