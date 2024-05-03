@@ -7,6 +7,7 @@ using UnityEngine;
 public class SpectatorPovActivator : MonoBehaviour
 {
     [SerializeField] private CinemachineVirtualCamera povVirtualCamera;
+    [SerializeField] private CinemachineVirtualCamera startingCamera;
     [SerializeField] private PosicionCarreraController posicionCarreraController;
 
     private void Start()
@@ -24,6 +25,7 @@ public class SpectatorPovActivator : MonoBehaviour
                 if (informacionJugador.netId != other.transform.parent.GetComponent<InformacionJugador>().netId) return;
                     
                 povVirtualCamera.enabled = true;
+                startingCamera.enabled = false;
 
                 var siblingsPovs = povVirtualCamera.transform.parent.GetComponentsInChildren<CinemachineVirtualCamera>();                
                 foreach (var pov in siblingsPovs)
