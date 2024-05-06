@@ -4,10 +4,14 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 
-public class TablaPosicionModoEspectador : MonoBehaviour
+public class InterfazUsuarioModoEspectador : MonoBehaviour
 {
-    public GameObject cuadroNombreJugador;
+    [Header("Tabla de posicionamiento")]
     public Transform panelModoEspectador;
+    public GameObject cuadroNombreJugador;
+
+    [Header("Nombre jugador al que veo mientras obserbo la partida")]
+    public TextMeshProUGUI nombreJugadorObservado;
     
     public void actualizarTablaPosicion(InformacionJugador[] listaJugadores)
     {
@@ -82,5 +86,10 @@ public class TablaPosicionModoEspectador : MonoBehaviour
         Color color = new Color();
         ColorUtility.TryParseHtmlString(hex, out color);
         return color;
+    }
+
+    public void CambiarNombre(string nombreJugador)
+    {
+        nombreJugadorObservado.text = nombreJugador;
     }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using Cinemachine;
 using Mirror;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class PosicionCarreraController : NetworkBehaviour
 {
@@ -22,8 +23,9 @@ public class PosicionCarreraController : NetworkBehaviour
     private int sumaOrden = 0;
     public int puntuacionMaxima = 0;
 
+    [FormerlySerializedAs("_tablaPosicionModoEspectador")]
     [Header("Script de mostrar tabla de posición modo espectador")] 
-    [SerializeField] private TablaPosicionModoEspectador _tablaPosicionModoEspectador;
+    [SerializeField] private InterfazUsuarioModoEspectador interfazUsuarioModoEspectador;
     
     [SerializeField]
     private GameManager _gameManager;
@@ -79,7 +81,7 @@ public class PosicionCarreraController : NetworkBehaviour
                                                       ThenBy(jugador => jugador.distanciaSiguienteWaypoint).ToArray();
         
         PosicionarJugadores(_informacionJugadores);
-        _tablaPosicionModoEspectador.actualizarTablaPosicion(_informacionJugadores);
+        interfazUsuarioModoEspectador.actualizarTablaPosicion(_informacionJugadores);
     }
 
     private void PosicionarJugadores(InformacionJugador[] jugadores)
