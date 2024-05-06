@@ -17,7 +17,7 @@ public class TablaPosicionModoEspectador : MonoBehaviour
         foreach (var jugador in listaJugadores)
         {
             GameObject cuadro = Instantiate(cuadroNombreJugador, panelModoEspectador);
-            RellenaCuadro(cuadro, jugador.nombreJugador, orden);
+            RellenaCuadro(cuadro, jugador, orden);
             orden++;
         }
     }
@@ -32,16 +32,18 @@ public class TablaPosicionModoEspectador : MonoBehaviour
         }
     }
     
-    void RellenaCuadro(GameObject cuadro, string nombreJugador, int orden)
+    void RellenaCuadro(GameObject cuadro, InformacionJugador jugador, int orden)
     {
         Image colorFondo = cuadro.GetComponent<Image>();
         ColorearFondoCuadro(colorFondo, orden);
         
         TextMeshProUGUI textoPosicion = cuadro.transform.Find("TextoPosicionTablaPosicion").GetComponent<TextMeshProUGUI>();
         TextMeshProUGUI textoNombre = cuadro.transform.Find("TextoNombreTablaPosicion").GetComponent<TextMeshProUGUI>();
+        GameObject bandera = cuadro.transform.Find("ImagenCarreraAcabada").gameObject;
         
         textoPosicion.text = orden+" -";
-        textoNombre.text = nombreJugador;
+        textoNombre.text = jugador.nombreJugador;
+        bandera.SetActive(jugador.finCarrera);
     }
 
     void ColorearFondoCuadro(Image colorFondo, int orden)
