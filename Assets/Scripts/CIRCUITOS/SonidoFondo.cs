@@ -7,7 +7,7 @@ public class SonidoFondo : MonoBehaviour
 {
     private AudioSource _audioSource;
 
-    [SerializeField] private AudioClip listaMusicaCircuito1;
+    [SerializeField] AudioClip listaMusicaCircuito1;
     [SerializeField] private AudioClip listaMusicaCircuito2;
     [SerializeField] private AudioClip listaMusicaCircuito3;
     
@@ -15,8 +15,7 @@ public class SonidoFondo : MonoBehaviour
     
     [SerializeField] private AudioClip musicaVictoria;
     [SerializeField] private AudioClip musicaDerrota;
-
-    public int indiceMusica = 0;  //Esta variable la llamará desde el GameManager
+    
     private bool reproduccionVelocidadNormal = true;
 
     [SerializeField] private float volumenMusica = 0.5f;
@@ -30,30 +29,38 @@ public class SonidoFondo : MonoBehaviour
         
         listaDeReproduccion = new List<AudioClip>();
         listaDeReproduccion.Add(listaMusicaCircuito1);
-        //listaDeReproduccion.Add(listaMusicaCircuito2);
-        //listaDeReproduccion.Add(listaMusicaCircuito3);
-
-        _audioSource.loop = true;
+        listaDeReproduccion.Add(listaMusicaCircuito2);
+        listaDeReproduccion.Add(listaMusicaCircuito3);
     }
 
-    public void ReproducirMusicaVelocidadNormal()
+    public void ReproducirMusicaVelocidadNormal(int indice)
     {
         _audioSource.pitch = 1f;
-        _audioSource.PlayOneShot(listaDeReproduccion[indiceMusica], volumenMusica); 
-        reproduccionVelocidadNormal = true;
+
+        switch (indice)
+        {
+            case 1:
+                volumenMusica = 1;
+                break;
+            
+            case 2:
+                volumenMusica = 0.5f;
+                break;
+            
+            case 3:
+                volumenMusica = 0.5f;
+                break;
+        }
+        
+        _audioSource.PlayOneShot(listaDeReproduccion[indice-1], volumenMusica);
 
     }
 
     public void ReproducirMusicaVelocidadRapida()
     {
-        if (_audioSource.isPlaying && reproduccionVelocidadNormal)
+        if (_audioSource.isPlaying)
         {
-            /*
-            _audioSource.Stop();
-            _audioSource.PlayOneShot(listaDeReproduccion[indiceMusica][1], volumenMusica);
-            */
             _audioSource.pitch = 1.5f;
-            reproduccionVelocidadNormal = false;
         
         }
     }

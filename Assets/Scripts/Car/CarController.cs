@@ -73,6 +73,8 @@ public class CarController : NetworkBehaviour
     [SerializeField]
     private List<GameObject> carLights;
 
+    private InformacionJugador _informacionJugador;
+
     private void Start()
     {
         
@@ -89,6 +91,8 @@ public class CarController : NetworkBehaviour
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
+
+        _informacionJugador = GetComponent<InformacionJugador>();
         
         DesactivateCar();
     }
@@ -112,7 +116,7 @@ public class CarController : NetworkBehaviour
         EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
         
         yield return new WaitForSeconds(seconds - 1);
-        _sonidoFondo.ReproducirMusicaVelocidadNormal();
+        _sonidoFondo.ReproducirMusicaVelocidadNormal(_informacionJugador.indiceCarrera);
         motorCoche.gameObject.SetActive(true);
         enableControls = true;
     }
