@@ -61,7 +61,9 @@ public class GameManager : NetworkBehaviour
 
     [SerializeField] private List<GameObject> roomLights;
 
+    [Header("Modo espectador")]
     [SerializeField] private GameObject spectator;
+    [SerializeField] private GameObject interfazUsuarioModoEspectador;
     
     // [SerializeField]
     // private GameObject _minijuego0;
@@ -70,7 +72,10 @@ public class GameManager : NetworkBehaviour
     {
 
         if (LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+        {
             spectator.gameObject.SetActive(true);
+            interfazUsuarioModoEspectador.gameObject.SetActive(true);
+        }
         
         raceIndex = -1;
         minigameIndex = 0;

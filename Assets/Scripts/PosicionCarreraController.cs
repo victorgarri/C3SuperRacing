@@ -22,11 +22,8 @@ public class PosicionCarreraController : NetworkBehaviour
     private int sumaOrden = 0;
     public int puntuacionMaxima = 0;
 
-    [Header("Script de resultados de carrera")]
-    [SerializeField]
-    private GameObject interfazResultadoCarrera;
-    [SerializeField]
-    private ResultadosCarrerasController _resultadosCarrerasController;
+    [Header("Script de mostrar tabla de posición modo espectador")] 
+    [SerializeField] private TablaPosicionModoEspectador _tablaPosicionModoEspectador;
     
     [SerializeField]
     private GameManager _gameManager;
@@ -82,6 +79,7 @@ public class PosicionCarreraController : NetworkBehaviour
                                                       ThenBy(jugador => jugador.distanciaSiguienteWaypoint).ToArray();
         
         PosicionarJugadores(_informacionJugadores);
+        _tablaPosicionModoEspectador.actualizarTablaPosicion(_informacionJugadores);
     }
 
     private void PosicionarJugadores(InformacionJugador[] jugadores)
@@ -90,6 +88,7 @@ public class PosicionCarreraController : NetworkBehaviour
         foreach(InformacionJugador jugador in jugadores)
         {
             jugador.posicionActual = orden;
+            
             orden++;
         }
     }
@@ -113,10 +112,6 @@ public class PosicionCarreraController : NetworkBehaviour
                     jugador.finCarrera = true;
                     jugador.CmdSetFinCarrera(true);
                     _gameManager.ActualizarPuntuacionJugadorCarrera(jugador,puntuacionMaxima - 2 * (jugador.posicionActual-1));
-                    
-                    // jugador.
-                    // interfazResultadoCarrera.SetActive(true);
-                    // _resultadosCarrerasController.agregaTablaJugador(jugador, jugador.posicionActual);
                     
                     TargetFinishRace(jugador,jugador.posicionActual-1);
 

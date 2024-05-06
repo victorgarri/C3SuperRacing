@@ -18,6 +18,7 @@ TagManager:
   - CajaRota
   - WCModifier
   - Spectator
+  - CuadroPosicionamiento
   layers:
   - Default
   - TransparentFX
