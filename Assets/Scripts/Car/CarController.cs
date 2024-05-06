@@ -26,11 +26,11 @@ public class CarController : NetworkBehaviour
     [SerializeField] private float motorForce;
     [SerializeField] private float breakForce;
 
-    [Header("Configuración ruedas lógicas")]
-    [SerializeField] private WheelCollider FL;
-    [SerializeField] private WheelCollider FR;
-    [SerializeField] private WheelCollider RL;
-    [SerializeField] private WheelCollider RR;
+    [Header("Wheel Colliders")]
+    [SerializeField] private WheelCollider WCFL;
+    [SerializeField] private WheelCollider WCFR;
+    [SerializeField] private WheelCollider WCRL;
+    [SerializeField] private WheelCollider WCRR;
 
     private float currentSteerAngle;
     [Header("Configuración del giro")]
@@ -40,11 +40,11 @@ public class CarController : NetworkBehaviour
     [SerializeField] private float trackWidth;
     [SerializeField] private bool antiAckerman = false;
     
-    [Header("Configuración de ruedas físicas")]
-    [SerializeField] private Transform WFL;
-    [SerializeField] private Transform WFR;
-    [SerializeField] private Transform WRL;
-    [SerializeField] private Transform WRR;
+    [Header("Ruedas visuales")]
+    [SerializeField] private Transform FL;
+    [SerializeField] private Transform FR;
+    [SerializeField] private Transform RL;
+    [SerializeField] private Transform RR;
     
     [SerializeField] private bool _updateWheels;
 
@@ -91,8 +91,8 @@ public class CarController : NetworkBehaviour
         _audioSource = this.GetComponent<AudioSource>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
         
-        wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
-        trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
+        wheelBase = Mathf.Abs(WCFL.transform.position.z - WCRL.transform.position.z);
+        trackWidth = Mathf.Abs(WCFR.transform.position.x - WCFL.transform.position.x);
         
         DesactivateCar();
     }
@@ -210,21 +210,21 @@ public class CarController : NetworkBehaviour
         velocidad = _rigidbody.velocity.magnitude * 3600 / 1000;
         if (Math.Abs(velocidad) < VELOCIDADMAXIMA) 
         {
-            FL.motorTorque = motorForce/2*pedal;
-            FR.motorTorque = motorForce/2*pedal;
+            WCFL.motorTorque = motorForce/2*pedal;
+            WCFR.motorTorque = motorForce/2*pedal;
         }
         else
         {
-            FL.motorTorque = 0;
-            FR.motorTorque = 0;
+            WCFL.motorTorque = 0;
+            WCFR.motorTorque = 0;
         }
 
         breakForce = isBreaking ? MAXBREAKFORCE : 0f;
 
-        FL.brakeTorque = breakForce;
-        FR.brakeTorque = breakForce;
-        RL.brakeTorque = breakForce;
-        RR.brakeTorque = breakForce;
+        WCFL.brakeTorque = breakForce;
+        WCFR.brakeTorque = breakForce;
+        WCRL.brakeTorque = breakForce;
+        WCRR.brakeTorque = breakForce;
         
         //GearSound();
 
@@ -233,44 +233,44 @@ public class CarController : NetworkBehaviour
     private void HandleSteering()
     {
         // currentSteerAngle = maxSteerAngle * giro;
-        // FL.steerAngle = currentSteerAngle;
-        // FR.steerAngle = currentSteerAngle;
+        // WCFL.steerAngle = currentSteerAngle;
+        // WCFR.steerAngle = currentSteerAngle;
         if (giro > 0)
         {
             if (!antiAckerman)
             {
-                FL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
-                FR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;   
+                WCFL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
+                WCFR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;   
             }
             else
             {
-                FL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;
-                FR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
+                WCFL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;
+                WCFR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
             }
         } else if (giro < 0)
         {
             if (!antiAckerman)
             {
-                FL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;
-                FR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
+                WCFL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;
+                WCFR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
             }
             else
             {
-                FL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
-                FR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;
+                WCFL.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius + (trackWidth / 2))) * giro;
+                WCFR.steerAngle = Mathf.Rad2Deg * Mathf.Atan(wheelBase / (radius - (trackWidth / 2))) * giro;
             }
         } else {
-            FL.steerAngle = 0;
-            FR.steerAngle = 0;
+            WCFL.steerAngle = 0;
+            WCFR.steerAngle = 0;
         }
     }
 
     private void UpdateWheels()
     {
-        UpdateSingleWheel(FL,WFL);
-        UpdateSingleWheel(FR,WFR);
-        UpdateSingleWheel(RL,WRL);
-        UpdateSingleWheel(RR,WRR);
+        UpdateSingleWheel(WCFL,FL);
+        UpdateSingleWheel(WCFR,FR);
+        UpdateSingleWheel(WCRL,RL);
+        UpdateSingleWheel(WCRR,RR);
     }
 
     private void UpdateSingleWheel(WheelCollider wheelCollider, Transform wheelTransform)
