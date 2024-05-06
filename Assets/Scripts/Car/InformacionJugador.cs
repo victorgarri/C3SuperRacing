@@ -13,7 +13,7 @@ public class InformacionJugador : NetworkBehaviour
     public int vueltas;
     
     [Header("Nombre del jugador")] 
-    [SerializeField] public string nombreJugador = "Carlitos";
+    [SerializeField] [SyncVar] public string nombreJugador = "Carlitos";
     public TextMesh etiquetaNombre;
     [SerializeField] public Color colorJugador;
     
@@ -49,7 +49,11 @@ public class InformacionJugador : NetworkBehaviour
     public bool finCarrera=true;
 
     private SonidoFondo _sonidoFondo;
-    
+
+    [SyncVar]public int playerIndex;
+    public  Material[] colorMaterialByIndex;
+    public Material playerColorMaterial;
+
     private void Awake()
     {
         
@@ -59,27 +63,22 @@ public class InformacionJugador : NetworkBehaviour
         */
     }
 
-    [Command]
-    public void SetNWaypoints(int n)
-    {
-        nWaypoints = n;
-    }
-    [Command]
-    public void SetSiguienteWaypoint(int i)
-    {
-        siguienteWaypoint = i;
-    }
 
-    [Command]
-    public void SetVueltaActual(int n)
-    {
-        vueltaActual = n;
-    }
     
 
     // Start is called before the first frame update
     void Start()
     {
+        if (isLocalPlayer)
+        {
+            LocalPlayerPointer.Instance.gamePlayerGameObject = gameObject;
+            SetNombreJugador(LocalPlayerPointer.Instance.roomPlayer.playerName);
+        }
+
+        SetMaterialJugador();
+        
+        
+        
         listaPuntuacionCarrera = new List<int>();
         listaPuntuacionCarrera.Add(0);
         listaPuntuacionCarrera.Add(0);
@@ -90,6 +89,31 @@ public class InformacionJugador : NetworkBehaviour
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
         _carController = GetComponent<CarController>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
+        
+    }
+
+    
+
+    [Command]
+    public void SetNombreJugador(string playerName)
+    {
+        this.nombreJugador = playerName;
+    }
+
+    private void SetMaterialJugador()
+    {
+        playerColorMaterial = colorMaterialByIndex[playerIndex];
+        var renderers = GetComponentsInChildren<Renderer>();
+        foreach (var renderer in renderers)
+        {
+            var materials = renderer.materials;
+            
+            for (int i = 0; i < materials.Length; i++)
+                if (materials[i].name == "Color Base (Instance)")
+                    materials[i] = playerColorMaterial;
+            
+            renderer.SetMaterials(new List<Material>(materials));
+        }
     }
 
     void Update()
@@ -148,6 +172,9 @@ public class InformacionJugador : NetworkBehaviour
             
             SetNWaypoints(nWaypoints);
             SetSiguienteWaypoint(siguienteWaypoint);
+            
+            //InformacionJugador SetVuelta
+            Debug.Log("InformacionJugador SetVuelta");
             SetVueltaActual(vueltaActual);
         }
     }
@@ -158,19 +185,34 @@ public class InformacionJugador : NetworkBehaviour
         puntuacionTotalCarrera += listaPuntuacionCarrera[indiceCarrera - 1];
     }
 
-
-
     [Command]
     public void SetMinigameScore(Nullable<int> score)
     {
         this.lastMinigameScore = score;
     }
 
+    
+    [Command]
+    public void SetVueltaActual(int n)
+    {
+        vueltaActual = n;
+    }
+    [Command]
+    public void SetNWaypoints(int n)
+    {
+        nWaypoints = n;
+    }
+    [Command]
+    public void SetSiguienteWaypoint(int i)
+    {
+        siguienteWaypoint = i;
+    }
     [Command]
     public void CmdSetFinCarrera(bool finish)
     {
         this.finCarrera = finish;
     }
-
+    
+    
     
 }

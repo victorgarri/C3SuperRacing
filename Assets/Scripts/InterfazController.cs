@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using ColorUtility = UnityEngine.ColorUtility;
 
-public class InterfazController : NetworkBehaviour
+public class InterfazController : MonoBehaviour
 {
     [Header("InteriorCoche")]
     public GameObject interiorCoche;
@@ -42,7 +42,7 @@ public class InterfazController : NetworkBehaviour
     void Start()
     {
         interiorCoche.GetComponent<Image>().sprite = coloresInteriorCoche[0];
-        interiorCoche.GetComponent<Image>().color = NetworkClient.localPlayer.GetComponent<InformacionJugador>().colorJugador;
+        // interiorCoche.GetComponent<Image>().color = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().colorJugador;
         velocimetro.GetComponent<Image>().sprite = coloresVelocimetro[0];
         
         imagenProhibido.SetActive(false);
