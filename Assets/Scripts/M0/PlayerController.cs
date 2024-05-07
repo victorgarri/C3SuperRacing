@@ -9,26 +9,18 @@ public class PlayerController : MonoBehaviour
     public Rigidbody2D rb;
     public bool controlMovimiento = true;
     public PlayerInput _playerInput;
-    
-    public GameObject wrench;
-    private Collider2D wrenchCollider;
-    private Transform wrenchTransform;
     private M0GameManager moGameManager;
-
     public bool disableControls = false;
-
-    public SpriteRenderer spriteRenderer;
+    public string direccion = "detras";
+    public AudioClip golpeAire;
+    public AudioSource llaveAudioSource;
 
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
-        wrenchCollider = wrench.GetComponent<Collider2D>();
-        wrenchTransform = wrench.transform;
         moGameManager = FindObjectOfType<M0GameManager>();
-        
         _playerInput = GetComponent<PlayerInput>();
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
+        llaveAudioSource.clip = golpeAire;
     }
 
     void Update()
@@ -52,21 +44,19 @@ public class PlayerController : MonoBehaviour
                     {
                         gameObject.GetComponent<Animator>().SetBool("Detras", false);
                         gameObject.GetComponent<Animator>().SetBool("Delante", false);
-                        gameObject.GetComponent<Animator>().SetBool("Lado", true);
+                        gameObject.GetComponent<Animator>().SetBool("LadoDer", false);
+                        gameObject.GetComponent<Animator>().SetBool("LadoIzq", true);
 
-                        spriteRenderer.flipX = true;
-
-                        SetWrenchRotationAndPosition(90f, new Vector2(-0.5f, -0.15f));
+                        direccion = "izquierda";
                     }
                     else if (movement.x > 0)
                     {
                         gameObject.GetComponent<Animator>().SetBool("Detras", false);
                         gameObject.GetComponent<Animator>().SetBool("Delante", false);
-                        gameObject.GetComponent<Animator>().SetBool("Lado", true);
+                        gameObject.GetComponent<Animator>().SetBool("LadoDer", true);
+                        gameObject.GetComponent<Animator>().SetBool("LadoIzq", false);
                         
-                        spriteRenderer.flipX = false;
-
-                        SetWrenchRotationAndPosition(-90f, new Vector2(0.5f, -0.15f));
+                        direccion = "derecha";
                     }
                 }
                 else
@@ -77,17 +67,19 @@ public class PlayerController : MonoBehaviour
                     {
                         gameObject.GetComponent<Animator>().SetBool("Detras", false);
                         gameObject.GetComponent<Animator>().SetBool("Delante", true);
-                        gameObject.GetComponent<Animator>().SetBool("Lado", false);
+                        gameObject.GetComponent<Animator>().SetBool("LadoDer", false);
+                        gameObject.GetComponent<Animator>().SetBool("LadoIzq", false);
 
-                        SetWrenchRotationAndPosition(180f, new Vector2(-0.1f, -0.7f));
+                        direccion = "delante";
                     }
                     else if (movement.y > 0)
                     {
                         gameObject.GetComponent<Animator>().SetBool("Detras", true);
                         gameObject.GetComponent<Animator>().SetBool("Delante", false);
-                        gameObject.GetComponent<Animator>().SetBool("Lado", false);
+                        gameObject.GetComponent<Animator>().SetBool("LadoDer", false);
+                        gameObject.GetComponent<Animator>().SetBool("LadoIzq", false);
 
-                        SetWrenchRotationAndPosition(0f, new Vector2(0.1f, 0.7f));
+                        direccion = "detras";
                     }
                 }
 
@@ -105,32 +97,39 @@ public class PlayerController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
+        
         if (collision.CompareTag("Checkpoint") && !collision.GetComponent<CheckpointController>().IsCollected())
         {
             moGameManager.CollectPiece(collision.gameObject);
+        }
+        
+        BoxController boxController = collision.GetComponent<BoxController>();
+        if (boxController != null)
+        {
+            boxController.HitBox();
         }
     }
     
     private void TryBreakBox()
     {
-        Collider2D[] colliders = Physics2D.OverlapBoxAll(wrenchCollider.bounds.center, wrenchCollider.bounds.size, 0f);
-
-        foreach (Collider2D collider in colliders)
-        {
-            BoxController boxController = collider.GetComponent<BoxController>();
-            if (boxController != null)
-            {
-                boxController.HitBox();
-            }
-        }
+        llaveAudioSource.Play();
         
-        //gameObject.GetComponent<Animator>().SetTrigger("Attack");
-    }
-    
-    private void SetWrenchRotationAndPosition(float angle, Vector2 position)
-    {
-        wrenchTransform.rotation = Quaternion.Euler(0f, 0f, angle);
-        wrenchTransform.localPosition = position;
+        if (direccion == "detras")
+        {
+            gameObject.GetComponent<Animator>().SetTrigger("AttackDetras");
+        }
+        else if (direccion == "delante")
+        {
+            gameObject.GetComponent<Animator>().SetTrigger("AttackDelante");
+        }
+        else if (direccion == "izquierda")
+        {
+            gameObject.GetComponent<Animator>().SetTrigger("AttackIzq");
+        }
+        else if (direccion == "derecha")
+        {
+            gameObject.GetComponent<Animator>().SetTrigger("AttackDer");
+        }
     }
 
     public IEnumerator Empujar( Vector2 normal)

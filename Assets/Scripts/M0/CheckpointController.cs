@@ -3,13 +3,9 @@ using UnityEngine;
 public class CheckpointController : MonoBehaviour
 {
     private bool collected = false;
-    private Color originalColor;
+    public AudioClip checkpointRecogido;
+    public AudioSource checkpointAudioSource;
 
-    void Start()
-    {
-        originalColor = GetComponent<Renderer>().material.color;
-    }
-    
     public bool IsCollected()
     {
         return collected;
@@ -18,6 +14,9 @@ public class CheckpointController : MonoBehaviour
     public void Collect()
     {
         collected = true;
+
+        checkpointAudioSource.clip = checkpointRecogido;
+        checkpointAudioSource.Play();
         
         ChangeColor(Color.green);
     }

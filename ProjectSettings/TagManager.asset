@@ -15,6 +15,10 @@ TagManager:
   - Tnt
   - Explosion
   - CuadroInfo
+  - CajaRota
+  - WCModifier
+  - Enemy
+  - Friends
   layers:
   - Default
   - TransparentFX
@@ -27,7 +31,7 @@ TagManager:
   - CapaMinimapa
   - Casco
   - Waypoint
-  - 
+  - Enemy
   - 
   - 
   - 

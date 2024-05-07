@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 1704490176732423335}
   - component: {fileID: 7480315398255943463}
   - component: {fileID: 4856273627912258997}
+  - component: {fileID: 4005415879212288029}
   m_Layer: 0
   m_Name: CajaRota
   m_TagString: CajaRota
@@ -158,3 +159,22 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 7
+--- !u!114 &4005415879212288029
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 948565148083399417}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a419e024b4b841044a91187c44c5e49c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives: 0
+  explosionPrefab: {fileID: 0}
+  cajaReforzadaSprite: {fileID: 21300000, guid: 93e39cbcda56bbf4393c8e531af11630, type: 3}
+  cajaSprite: {fileID: 21300000, guid: f67fec62794184c48bf77b0b9dcb246a, type: 3}
+  cajaRotaSprite: {fileID: 21300000, guid: 295a0aae1153ae544b9b2c07e20f2205, type: 3}
+  golpeCaja: {fileID: 8300000, guid: db8f9396d56585248a2cf2d2443e4718, type: 3}
+  golpeTnt: {fileID: 8300000, guid: 3e5fdf3599cba2b4a9f36b6a83307aaf, type: 3}
