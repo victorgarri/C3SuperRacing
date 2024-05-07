@@ -322,5 +322,14 @@ public class GameManager : NetworkBehaviour
     {
         if(GameObject.Find("SpectatorLocations/Starts/C" + (index + 1)))
             GameObject.Find("SpectatorLocations/Starts/C" + (index + 1)).GetComponent<CinemachineVirtualCamera>().enabled = true;
+
+        if (GameObject.Find("SpectatorLocations/POVs/C" + index))
+        {
+            CinemachineVirtualCamera[] camarasQueHayQueDesactivar = GameObject.Find("SpectatorLocations/POVs/C" + index).GetComponentsInChildren<CinemachineVirtualCamera>();
+            foreach (var camara in camarasQueHayQueDesactivar)
+            {
+                camara.enabled = false;
+            }
+        }
     }
 }

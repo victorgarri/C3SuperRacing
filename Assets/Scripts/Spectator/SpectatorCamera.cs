@@ -23,11 +23,13 @@ public class SpectatorCamera : MonoBehaviour
             if (informacionJugador.finCarrera) continue;
             
             _cinemachineVirtualCamera.LookAt = informacionJugador.transform;
+            
             if (nombreAnterior != informacionJugador.nombreJugador)
             {
                 _interfazUsuarioModoEspectador.CambiarNombre(informacionJugador.nombreJugador);
             }
             nombreAnterior = informacionJugador.nombreJugador;
+            
             
             return;
         }
