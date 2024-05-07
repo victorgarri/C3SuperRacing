@@ -43,9 +43,9 @@ GameObject:
   - component: {fileID: 2986487290557316332}
   - component: {fileID: 5980146784342402898}
   - component: {fileID: 5275065311571642981}
-  - component: {fileID: 1419781410884967998}
   - component: {fileID: 5384563925828122104}
   - component: {fileID: 3513832362099233074}
+  - component: {fileID: 9155340264015053909}
   m_Layer: 0
   m_Name: Capsule
   m_TagString: WCModifier
@@ -118,28 +118,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &1419781410884967998
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3715412052432853165}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 10208, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!114 &5384563925828122104
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -152,7 +130,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 911510eae08674e4eb6cfc0a2cf6e0c6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boostStrength: 5000
+  boostStrength: 30000
 --- !u!95 &3513832362099233074
 Animator:
   serializedVersion: 5
@@ -174,3 +152,26 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!136 &9155340264015053909
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3715412052432853165}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.5000001
+  m_Height: 2.0000005
+  m_Direction: 1
+  m_Center: {x: 0, y: 0, z: 0}

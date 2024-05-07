@@ -5,21 +5,18 @@ using UnityEngine;
 
 public class WCModifierEffector : MonoBehaviour
 {
-    [SerializeField] private WheelCollider _wheelCollider;
+    private WCModifier wcModifier;
 
-    
-
-    // Update is called once per frame
-    void Update()
+    private void Start()
     {
-        if (_wheelCollider)
+        wcModifier = FindObjectOfType<WCModifier>();
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("WCModifier"))
         {
-            WheelHit hit;
-            _wheelCollider.GetGroundHit(out hit);
-            if (hit.collider && hit.collider.gameObject.CompareTag("WCModifier"))
-            {
-                hit.collider.gameObject.GetComponent<WCModifier>().ApplyEffect(gameObject);
-            }
+            wcModifier.ApplyEffect(gameObject);
         }
     }
 }

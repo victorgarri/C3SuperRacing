@@ -2668,6 +2668,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Minijuego0
       objectReference: {fileID: 0}
+    - target: {fileID: 3148921735882495149, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
+      propertyPath: maxTime
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3384128988052426874, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: sceneId
       value: 1587704710
@@ -2886,6 +2890,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1821714053}
     m_Modifications:
+    - target: {fileID: 1419781410884967998, guid: da1e802559deeb64eaffb5b517a523a0, type: 3}
+      propertyPath: m_Convex
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419781410884967998, guid: da1e802559deeb64eaffb5b517a523a0, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1419781410884967998, guid: da1e802559deeb64eaffb5b517a523a0, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1630355051953744338, guid: da1e802559deeb64eaffb5b517a523a0, type: 3}
       propertyPath: m_Name
       value: SpeedBoost (3)
