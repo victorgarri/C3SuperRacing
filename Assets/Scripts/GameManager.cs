@@ -13,8 +13,12 @@ public struct PlayerMinigamePoints
 public struct PlayerRacePoints
 {
     public NetworkIdentity networkIdentity;
+    
     public List<int> listaPuntuacionCarrera;
     public int puntuacionTotal;
+    
+    public List<int> listaTiempoCarrera;
+    public int tiempoTotal;
 }
 
 public class GameManager : NetworkBehaviour
@@ -208,7 +212,7 @@ public class GameManager : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void ActualizarPuntuacionJugadorCarrera(InformacionJugador jugador, int puntuacion)
+    public void ActualizarPuntuacionJugadorCarrera(InformacionJugador jugador, int puntuacion, int tiempo)
     {
         var playerPoints = playerRacePointsList.FirstOrDefault(i => i.networkIdentity == jugador.netIdentity);
         
@@ -217,14 +221,23 @@ public class GameManager : NetworkBehaviour
             playerPoints.listaPuntuacionCarrera = new List<int>(new int[3]);
             playerPoints.listaPuntuacionCarrera[raceIndex]=puntuacion;
             playerPoints.puntuacionTotal = puntuacion;
+            
+            playerPoints.listaTiempoCarrera = new List<int>(new int[3]);
+            playerPoints.listaTiempoCarrera[raceIndex]=tiempo;
+            playerPoints.tiempoTotal = tiempo;
+            
             playerPoints.networkIdentity = jugador.netIdentity;
             playerRacePointsList.Add(playerPoints);
         }
         else
         {
             var playerPointsAux = playerPoints;
+            
             playerPointsAux.listaPuntuacionCarrera[raceIndex]=puntuacion;
             playerPointsAux.puntuacionTotal += puntuacion;
+            
+            playerPointsAux.listaTiempoCarrera[raceIndex]=tiempo;
+            playerPointsAux.tiempoTotal += tiempo;
 
             playerRacePointsList.Remove(playerPoints);
             playerRacePointsList.Add(playerPointsAux);

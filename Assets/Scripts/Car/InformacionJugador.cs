@@ -32,10 +32,7 @@ public class InformacionJugador : NetworkBehaviour
     public CarController _carController;
 
     [SyncVar] public Nullable<int> lastMinigameScore = null;
-
-
-    public List<int> listaPuntuacionCarrera;
-    public int puntuacionTotalCarrera = 0;
+    
     public int indiceCarrera = 0;
 
     [SyncVar] public bool finCarrera = true;
@@ -75,11 +72,6 @@ public class InformacionJugador : NetworkBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        listaPuntuacionCarrera = new List<int>();
-        listaPuntuacionCarrera.Add(0);
-        listaPuntuacionCarrera.Add(0);
-        listaPuntuacionCarrera.Add(0);
-
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
 
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();

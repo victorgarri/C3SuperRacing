@@ -17,8 +17,7 @@ public class ResultadosCarrerasController : MonoBehaviour
         //Cambia el color solo al jugador local
         if (informacionJugador.networkIdentity.isLocalPlayer)
         {
-            colorFondo.color = new Color32(212, 175, 55, 255);
-            //colorFondo.color = Color.yellow;   
+            colorFondo.color = new Color32(212, 175, 55, 255);  
         }
         
         TextMeshProUGUI textoPosicion = cuadro.transform.Find("Posicion").GetComponent<TextMeshProUGUI>();
@@ -55,7 +54,8 @@ public class ResultadosCarrerasController : MonoBehaviour
     {
         borrarTabla();
         
-        var auxPlayerPoints = _gameManager.playerRacePointsList.OrderByDescending(jugador => jugador.puntuacionTotal);
+        var auxPlayerPoints = _gameManager.playerRacePointsList.OrderByDescending(jugador => jugador.puntuacionTotal).
+                                                                                                 OrderBy(jugador => jugador.tiempoTotal);
         
         int orden = 1;
         foreach (var informacion in auxPlayerPoints)

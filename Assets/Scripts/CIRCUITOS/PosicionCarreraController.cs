@@ -25,6 +25,8 @@ public class PosicionCarreraController : NetworkBehaviour
     [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
     private int sumaOrden = 0;
     public int puntuacionMaxima = 0;
+    public int contadorTiempo = 0;
+    private bool carreraFinalizada = false;
     
     [Header("Script del GameManager")]
     [SerializeField] private GameManager _gameManager;
@@ -37,7 +39,22 @@ public class PosicionCarreraController : NetworkBehaviour
         {
             listaWaypoints.Add(transform.GetChild(i));
         }
+
+        StartCoroutine(Contador());
+
+    }
+
+    IEnumerator Contador()
+    {
+        carreraFinalizada = false;
         
+        yield return new WaitForSeconds(3);
+        
+        while (!carreraFinalizada)
+        {
+            yield return new WaitForSeconds(1);
+            contadorTiempo++;
+        }
     }
 
     
@@ -170,14 +187,15 @@ public class PosicionCarreraController : NetworkBehaviour
         }
                 
         cuentaAtrasActivado = false;
-        
+        carreraFinalizada = true;
+
     }
 
     public void GestionCarreraTerminada(InformacionJugador jugador, int puntos)
     {
         jugador.finCarrera = true;
         jugador.CmdSetFinCarrera(true);
-        _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos);
+        _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos, contadorTiempo);
         TargetFinishRace(jugador,jugador.posicionActual-1);
     }
   
