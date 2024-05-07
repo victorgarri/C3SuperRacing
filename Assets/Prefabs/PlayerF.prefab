@@ -737,6 +737,11 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 3472778375830378061, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
   m_PrefabInstance: {fileID: 3645894265859100300}
   m_PrefabAsset: {fileID: 0}
+--- !u!4 &294051611568465948 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -5292714838932248944, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
+  m_PrefabInstance: {fileID: 3645894265859100300}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &773153340793870144 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4044825486139234764, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
@@ -914,6 +919,11 @@ MonoBehaviour:
   siguienteWaypoint: 0
   distanciaSiguienteWaypoint: 0
   posicionAnterior: 0
+  _powerUpImage: {fileID: 0}
+  _powerUpSprite: {fileID: 21300000, guid: 9b4d6abf182796841ba10552e2137750, type: 3}
+  projectilePrefab: {fileID: 4020488174241307072, guid: f4a3ebc0c99f79d47928e315f350126c, type: 3}
+  spawnPoint: {fileID: 294051611568465948}
+  velocidadProjectile: 10
   _carController: {fileID: 0}
   listaPuntuacionCarrera: 
   puntuacionTotalCarrera: 0

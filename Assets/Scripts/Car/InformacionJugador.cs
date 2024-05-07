@@ -7,6 +7,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Serialization;
 using ColorUtility = UnityEngine.ColorUtility;
+using Image = UnityEngine.UI.Image;
 
 public class InformacionJugador : NetworkBehaviour
 {
@@ -34,7 +35,7 @@ public class InformacionJugador : NetworkBehaviour
 
     [Header("Gestión de la interfaz")] 
     private InterfazController _interfazController;
-
+    
     public CarController _carController;
 
     [SyncVar] public Nullable<int> lastMinigameScore = null;
@@ -75,6 +76,14 @@ public class InformacionJugador : NetworkBehaviour
         vueltaActual = n;
     }
     
+    [Header("PowerUp")]
+    private bool isPowerUpCollected = false;
+    private Image _powerUpImage;
+    public Sprite _powerUpSprite;
+    public GameObject projectilePrefab;
+    public Transform spawnPoint;
+    public float velocidadProjectile = 10f;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -89,6 +98,12 @@ public class InformacionJugador : NetworkBehaviour
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
         _carController = GetComponent<CarController>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
+
+        //_powerUpImage = FindObjectOfType<Image>();
+        if (_powerUpImage != null)
+        {
+            _powerUpImage.gameObject.SetActive(false);
+        }
     }
 
     void Update()
@@ -119,7 +134,55 @@ public class InformacionJugador : NetworkBehaviour
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
         }
+        
+        if (Input.GetKeyDown(KeyCode.Space) && isPowerUpCollected)
+        {
+            UsePowerUp();
+            ThrowProjectile();
+        }
     }
+    
+    #region POWERUPS
+
+    private void CollectPowerUp()
+    {
+        isPowerUpCollected = true;
+    
+        if (_powerUpImage != null)
+        {
+            _powerUpImage.sprite = _powerUpSprite;
+            _powerUpImage.gameObject.SetActive(true);
+        }
+    }
+
+    private void UsePowerUp()
+    {
+        if (_powerUpImage != null)
+        {
+            _powerUpImage.gameObject.SetActive(false);
+        }
+    
+        isPowerUpCollected = false;
+    }
+    
+    private void ThrowProjectile()
+    {
+        if (projectilePrefab != null && spawnPoint != null)
+        {
+            GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
+            Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+        
+            Vector3 launchDirection = spawnPoint.forward;
+    
+            projectileRb.velocity = launchDirection * velocidadProjectile;
+
+            ThrowProjectile throwProjectileController = projectile.AddComponent<ThrowProjectile>();
+    
+            throwProjectileController.SetPlayer(gameObject);
+        }
+    }
+
+    #endregion
 
     private void OnTriggerEnter(Collider collision)
     {

@@ -19,6 +19,7 @@ TagManager:
   - WCModifier
   - Enemy
   - Friends
+  - PowerUp
   layers:
   - Default
   - TransparentFX
