@@ -6,7 +6,7 @@ public class PosicionCirculo : MonoBehaviour
 {
     private Transform playerTransform;
     
-    private float alturaCirculo = 200;
+    private float alturaCirculo = 210;
     
     // Start is called before the first frame update
     void Start()

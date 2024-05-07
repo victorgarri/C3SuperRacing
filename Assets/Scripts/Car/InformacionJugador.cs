@@ -76,7 +76,7 @@ public class InformacionJugador : NetworkBehaviour
         }
 
         SetMaterialJugador();
-        
+
         
         
         listaPuntuacionCarrera = new List<int>();
@@ -114,6 +114,7 @@ public class InformacionJugador : NetworkBehaviour
             
             renderer.SetMaterials(new List<Material>(materials));
         }
+        GetComponentInChildren<SpriteRenderer>().material = playerColorMaterial;
     }
 
     void Update()
@@ -190,7 +191,6 @@ public class InformacionJugador : NetworkBehaviour
     {
         this.lastMinigameScore = score;
     }
-
     
     [Command]
     public void SetVueltaActual(int n)
@@ -212,7 +212,4 @@ public class InformacionJugador : NetworkBehaviour
     {
         this.finCarrera = finish;
     }
-    
-    
-    
 }

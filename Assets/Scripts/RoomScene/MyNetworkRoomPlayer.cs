@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Events;
@@ -9,6 +11,9 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
 {
     [SerializeField] private ReadyStartController readyStartController;
     [SerializeField] private CamaraSeleccionCoche camaraSeleccionCoche;
+    [SerializeField] private GameObject panelSeleccionCoche;
+    [SerializeField] private GameObject inputNombreJugador;
+    
     private MyNRM NRM;
     [SerializeField] private GameObject roomPlayerPanelPrefab;
     [SerializeField] private GameObject myPlayerPanel;
@@ -17,7 +22,7 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
 
     [SerializeField] [SyncVar] public bool isSpectator = false;
 
-    [SyncVar] public int playerIndex;
+    [SyncVar(hook = nameof(HookPlayerIndex))] public int playerIndex;
     [SerializeField] private Color[] colorByIndex;
     [SerializeField] private Material[] colorMaterialByIndex;
     [SerializeField] [SyncVar] public Color playerColor;
@@ -31,13 +36,18 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
         base.Start();
         NRM = NetworkManager.singleton as MyNRM;
 
-        selectedCar = 0;
-
         UpdatePlayerIndex();
+
+        UpdateSelectedCar(0);
+        
+        
         
         readyStartController = GameObject.Find("BotoneraReadyStart").GetComponent<ReadyStartController>();
         camaraSeleccionCoche = GameObject.Find("CamaraVisualizacionCoches").GetComponent<CamaraSeleccionCoche>();
+        panelSeleccionCoche = GameObject.Find("SeleccionCochePanel");
+        inputNombreJugador = GameObject.Find("NombreJugador");
 
+        ChangeCarsBaseColor();
         if (isLocalPlayer)
         {
             LocalPlayerPointer.Instance.roomPlayer = this;
@@ -47,6 +57,7 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
             camaraSeleccionCoche.btnDerecha.onClick.AddListener(delegate { UpdateSelectedCar(+1); });
             
             readyStartController.spectatorMode.onValueChanged.AddListener(delegate(bool newSpectatorValue) { CmdSetSpectator(newSpectatorValue); });
+            
         }
         
         if (isServer)
@@ -60,7 +71,44 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
             selectedCar = NRM.playerPrefabs.Length - 1;
 
         selectedCar %= NRM.playerPrefabs.Length;
+    }
+    
+    void ChangeCarsBaseColor()
+    {
+        if (!isLocalPlayer)return;
+            
+        string[] materialsToChange =
+        {
+            "Color Base","Color Base (Instance)",
+            "Default-Material","Default-Material (Instance)",
+            "P1","P1 (Instance)",
+            "P2","P2 (Instance)",
+            "P3","P3 (Instance)",
+            "P4","P4 (Instance)",
+            "P5","P5 (Instance)",
+            "P6","P6 (Instance)",
+            "P7","P7 (Instance)",
+            "P8","P8 (Instance)"
+        };
+        var carModels = FindObjectsOfType<SlowRotationAnimation>();
         
+        foreach (var car in carModels){
+                
+            var carRenderers = car.GetComponentsInChildren<Renderer>();
+            foreach (var carRenderer in carRenderers)
+            {
+                var materials = carRenderer.materials;
+                
+                for (int i = 0; i < materials.Length; i++)
+                    if (materialsToChange.Contains(materials[i].name))
+                    {
+                        Debug.Log(selectedColorMaterial.name);
+                        materials[i] = selectedColorMaterial;
+                    }
+            
+                carRenderer.SetMaterials(new List<Material>(materials));
+            }
+        }        
     }
 
     [Command]
@@ -77,7 +125,10 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
     [Command]
     private void CmdSetSpectator(bool newSpectatorValue)
     {
-        isSpectator = newSpectatorValue;        
+        isSpectator = newSpectatorValue;
+        panelSeleccionCoche.SetActive(!newSpectatorValue);
+        inputNombreJugador.SetActive(!newSpectatorValue);
+        if(newSpectatorValue) CmdPlayerSetName("Espectador");
         UpdatePlayerIndex();
     }
 
@@ -102,7 +153,19 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
                 roomPlayer.selectedColorMaterial = colorMaterialByIndex[counter];
                 counter++;
             }
+            else
+            {
+                roomPlayer.playerIndex = 0;
+            }
         }
+    }
+
+    void HookPlayerIndex(int oldIndex, int newIndex)
+    {
+        playerIndex = newIndex;
+        Debug.Log("Hook");
+        if(!isSpectator) selectedColorMaterial = colorMaterialByIndex[newIndex];
+        ChangeCarsBaseColor();
     }
 
 

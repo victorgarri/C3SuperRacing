@@ -36,21 +36,22 @@ public class MyNRM : NetworkRoomManager
     
     public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
     {
-        if (roomPlayer.GetComponent<MyNetworkRoomPlayer>().isSpectator)
+        MyNetworkRoomPlayer roomPlayerComponent = roomPlayer.GetComponent<MyNetworkRoomPlayer>();
+        if (roomPlayerComponent.isSpectator)
             return Instantiate(spectatorPrefab);
 
         Transform startPos = GetStartPosition();
-        var playerCar = Instantiate(playerPrefab, startPos.position, startPos.rotation); 
         
-        return SetMaterialJugador(playerCar,roomPlayer);
+        var playerCar = Instantiate(playerPrefabs[roomPlayerComponent.selectedCar]);
+        
+        return SetMaterialJugador(playerCar,roomPlayerComponent);
     }
     
-    private GameObject SetMaterialJugador(GameObject car,GameObject roomPlayer)
+    private GameObject SetMaterialJugador(GameObject car,MyNetworkRoomPlayer roomPlayerComponent)
     {
-        MyNetworkRoomPlayer networkRoomPlayer = roomPlayer.GetComponent<MyNetworkRoomPlayer>();
-        car.GetComponent<InformacionJugador>().playerIndex = networkRoomPlayer.playerIndex;
-        car.GetComponent<InformacionJugador>().colorJugador = networkRoomPlayer.playerColor;
-        car.GetComponent<InformacionJugador>().playerColorMaterial = networkRoomPlayer.selectedColorMaterial;
+        car.GetComponent<InformacionJugador>().playerIndex = roomPlayerComponent.playerIndex;
+        car.GetComponent<InformacionJugador>().colorJugador = roomPlayerComponent.playerColor;
+        car.GetComponent<InformacionJugador>().playerColorMaterial = roomPlayerComponent.selectedColorMaterial;
         return car;
     }
 
