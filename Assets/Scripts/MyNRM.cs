@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Mirror;
 using UnityEngine;
 using UnityEngine.UI;
@@ -5,7 +6,12 @@ using UnityEngine.UI;
 public class MyNRM : NetworkRoomManager
 {
     private Button btnStart;
+    [SerializeField] public GameObject[] playerPrefabs;
     [SerializeField] private GameObject spectatorPrefab;
+    
+    
+    // public readonly SyncList<MyNetworkRoomPlayer> roomPlayersList = new SyncList<MyNetworkRoomPlayer>();
+    
     public override void OnRoomServerPlayersReady()
     {
         if (!btnStart)
@@ -30,12 +36,39 @@ public class MyNRM : NetworkRoomManager
     
     public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
     {
-        if (roomPlayer.GetComponent<MyNetworkRoomPlayer>().isSpectator)
+        MyNetworkRoomPlayer roomPlayerComponent = roomPlayer.GetComponent<MyNetworkRoomPlayer>();
+        if (roomPlayerComponent.isSpectator)
             return Instantiate(spectatorPrefab);
+
+        Transform startPos = GetStartPosition();
         
-        // Dependiendo del coche seleccionado, crea un coche u otro
-        // roomPlayer.selectedCar
+        var playerCar = Instantiate(playerPrefabs[roomPlayerComponent.selectedCar]);
         
-        return null;
+        return SetMaterialJugador(playerCar,roomPlayerComponent);
     }
+    
+    private GameObject SetMaterialJugador(GameObject car,MyNetworkRoomPlayer roomPlayerComponent)
+    {
+        car.GetComponent<InformacionJugador>().playerIndex = roomPlayerComponent.playerIndex;
+        car.GetComponent<InformacionJugador>().colorJugador = roomPlayerComponent.playerColor;
+        car.GetComponent<InformacionJugador>().playerColorMaterial = roomPlayerComponent.selectedColorMaterial;
+        return car;
+    }
+
+    //
+    // public override GameObject OnRoomServerCreateRoomPlayer(NetworkConnectionToClient conn)
+    // {
+    //     var roomPlayer = Instantiate(roomPlayerPrefab.gameObject, Vector3.zero, Quaternion.identity);
+    //
+    //     roomPlayersList.Add(roomPlayer.GetComponent<MyNetworkRoomPlayer>());
+    //     
+    //     return roomPlayer;
+    // }
+
+
+    // public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
+    // {
+    //     MyNetworkRoomPlayer roomPlayerComponent = roomPlayer.GetComponent<MyNetworkRoomPlayer>();
+    //     return Instantiate(playerPrefabs[roomPlayerComponent.selectedCar]);
+    // }
 }

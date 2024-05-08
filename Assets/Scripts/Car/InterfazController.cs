@@ -43,12 +43,9 @@ public class InterfazController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (coloresInteriorCoche.Count == coloresVelocimetro.Count)
-        {
-            int numeroRandom = Random.Range(0, coloresInteriorCoche.Count);
-            interiorCoche.GetComponent<Image>().sprite = coloresInteriorCoche[numeroRandom];
-            velocimetro.GetComponent<Image>().sprite = coloresVelocimetro[numeroRandom];
-        }
+        interiorCoche.GetComponent<Image>().sprite = coloresInteriorCoche[0];
+        // interiorCoche.GetComponent<Image>().color = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().colorJugador;
+        velocimetro.GetComponent<Image>().sprite = coloresVelocimetro[0];
         
         imagenProhibido.SetActive(false);
 

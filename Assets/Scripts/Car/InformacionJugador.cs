@@ -15,11 +15,15 @@ public class InformacionJugador : NetworkBehaviour
     [Header("Nombre del jugador")] 
     [SerializeField] [SyncVar] public string nombreJugador = "Carlitos";
     public TextMesh etiquetaNombre;
-
-    [Header("Gestión de las posiciones")] public PosicionCarreraController _posicionCarreraController;
-
-    [SyncVar] public int posicionActual = 0;
-    [SyncVar] public int vueltaActual = 0;
+    [SerializeField] public Color colorJugador;
+    
+    [Header("Gestión de las posiciones")]
+    public PosicionCarreraController _posicionCarreraController;
+    
+    [SyncVar]
+    public int posicionActual = 0;
+    [SyncVar]
+    public int vueltaActual = 0;
     public int nVueltasCircuito = 0;
     [SyncVar] public int nWaypoints = 0;
     [SyncVar] public int siguienteWaypoint = 0;
@@ -39,6 +43,9 @@ public class InformacionJugador : NetworkBehaviour
     private SonidoFondo _sonidoFondo;
 
     [SerializeField] private uint playerNetworkId;
+    [SyncVar]public int playerIndex;
+    public  Material[] colorMaterialByIndex;
+    public Material playerColorMaterial;
 
     private void Awake()
     {
@@ -76,6 +83,10 @@ public class InformacionJugador : NetworkBehaviour
             LocalPlayerPointer.Instance.gamePlayerGameObject = gameObject;
             SetNombreJugador(LocalPlayerPointer.Instance.roomPlayer.playerName);
         }
+
+        SetMaterialJugador();
+
+        
         
         listaPuntuacionCarrera = new List<int>();
         listaPuntuacionCarrera.Add(0);
@@ -94,12 +105,32 @@ public class InformacionJugador : NetworkBehaviour
     public void SetNombreJugador(string playerName)
     {
         this.nombreJugador = playerName;
+        
     }
+
     
+
     [Command]
     public void SetNombreJugador(string playerName)
     {
         this.nombreJugador = playerName;
+    }
+
+    private void SetMaterialJugador()
+    {
+        playerColorMaterial = colorMaterialByIndex[playerIndex];
+        var renderers = GetComponentsInChildren<Renderer>();
+        foreach (var renderer in renderers)
+        {
+            var materials = renderer.materials;
+            
+            for (int i = 0; i < materials.Length; i++)
+                if (materials[i].name == "Color Base (Instance)")
+                    materials[i] = playerColorMaterial;
+            
+            renderer.SetMaterials(new List<Material>(materials));
+        }
+        GetComponentInChildren<SpriteRenderer>().material = playerColorMaterial;
     }
 
     void Update()
@@ -177,7 +208,6 @@ public class InformacionJugador : NetworkBehaviour
     {
         this.lastMinigameScore = score;
     }
-
     
     [Command]
     public void SetVueltaActual(int n)
@@ -199,5 +229,4 @@ public class InformacionJugador : NetworkBehaviour
     {
         this.finCarrera = finish;
     }
-    
 }

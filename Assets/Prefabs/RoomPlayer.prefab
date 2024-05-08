@@ -70,4 +70,29 @@ MonoBehaviour:
   readyToBegin: 0
   index: 0
   readyStartController: {fileID: 0}
+  camaraSeleccionCoche: {fileID: 0}
   roomPlayerPanelPrefab: {fileID: 6213244402551852156, guid: 9edb3b46767903c4fbcc69c68088a1c1, type: 3}
+  myPlayerPanel: {fileID: 0}
+  playerName: 
+  isSpectator: 0
+  colorByIndex:
+  - {r: 0.9294118, g: 0.21176472, b: 0.21176472, a: 0}
+  - {r: 0.30588236, g: 0.30588236, b: 0.91372555, a: 0}
+  - {r: 1, g: 0.8745099, b: 0.10196079, a: 0}
+  - {r: 0.30588236, g: 0.7254902, b: 0.30588236, a: 0}
+  - {r: 0.9803922, g: 0.5294118, b: 0.21568629, a: 0}
+  - {r: 0.18039216, g: 0.8235295, b: 0.9215687, a: 0}
+  - {r: 1, g: 0.6156863, b: 0.7137255, a: 0}
+  - {r: 0.5803922, g: 0.4431373, b: 1, a: 0}
+  colorMaterialByIndex:
+  - {fileID: 2100000, guid: ab9a8e25057fe004d99c717f42806abe, type: 2}
+  - {fileID: 2100000, guid: bcafe2ffe4a399a40ac2f4f9a1124df5, type: 2}
+  - {fileID: 2100000, guid: b5bf78e2fc72b5d4abd2d5f357af4125, type: 2}
+  - {fileID: 2100000, guid: a175a4cb6eff2da4596b4794381522d3, type: 2}
+  - {fileID: 2100000, guid: c60ce48492ac413488629fe5cf04b9a4, type: 2}
+  - {fileID: 2100000, guid: af8be4118315b9a498bb68ea8f8d32d2, type: 2}
+  - {fileID: 2100000, guid: 98772fefcd7f1e944925a89a5d46c258, type: 2}
+  - {fileID: 2100000, guid: 3d7803fcbf174ee48a75abf066c55384, type: 2}
+  playerColor: {r: 0, g: 0, b: 0, a: 0}
+  selectedCar: 0
+  selectedColorMaterial: {fileID: 0}
