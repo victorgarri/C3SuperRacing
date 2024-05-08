@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.Serialization;
 using UnityEngine.Audio;
+using Random = UnityEngine.Random;
 
 
 public class CarController : NetworkBehaviour
@@ -54,20 +55,15 @@ public class CarController : NetworkBehaviour
     private const float VELOCIDADMAXIMA = 80f;
 
     [Header("Sonido")]
-    private float volumen = 5.0f;
+    private SonidoFondo _sonidoFondo;
+    private AudioSource _audioSource;
+    [SerializeField] private GameObject motorCoche;
+    [SerializeField] private AudioSource _sonidoMotor;
     [SerializeField] private AudioClip sonidoCocheArranque;
     [SerializeField] private AudioClip sonidoCocheArrancadoYa;
     [SerializeField] private AudioClip sonidoCocheChocandoConOtro;
-    [SerializeField] private AudioClip SonidoCocheCorriendo;
     [SerializeField] private AudioClip claxonCoche;
-    [SerializeField] private AudioClip musicaCircuito1;
-    [SerializeField] private AudioClip musicaCircuito2;
-    [SerializeField] private AudioClip musicaCircuito3;
-    [SerializeField] private AudioSource sonidoMeta;
-    private bool musicaActivada = false;
-    private SonidoFondo _sonidoFondo;
-
-    private AudioSource _audioSource;
+    [SerializeField] private AudioClip claxonCoche2;
     
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
@@ -76,6 +72,8 @@ public class CarController : NetworkBehaviour
 
     [SerializeField]
     private List<GameObject> carLights;
+
+    private InformacionJugador _informacionJugador;
 
     private void Start()
     {
@@ -93,6 +91,8 @@ public class CarController : NetworkBehaviour
         
         wheelBase = Mathf.Abs(FL.transform.position.z - RL.transform.position.z);
         trackWidth = Mathf.Abs(FR.transform.position.x - FL.transform.position.x);
+
+        _informacionJugador = GetComponent<InformacionJugador>();
         
         DesactivateCar();
     }
@@ -109,25 +109,21 @@ public class CarController : NetworkBehaviour
     private IEnumerator EnableControlsCoroutine(int seconds)
     {
         //Efecto de sonido de arrancar motor
-        EjecutarEfectoSonido(sonidoCocheArranque, 1);
+        EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
 
         //Efecto de sonido de motor arrancado
         yield return new WaitForSeconds(seconds - 2);
-        EjecutarEfectoSonido(sonidoCocheArrancadoYa, 2);
+        EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
         
         yield return new WaitForSeconds(seconds - 1);
-        _sonidoFondo.ReproducirMusicaVelocidadNormal();
+        _sonidoFondo.ReproducirMusicaVelocidadNormal(_informacionJugador.indiceCarrera);
+        motorCoche.gameObject.SetActive(true);
         enableControls = true;
     }
 
     private void EjecutarEfectoSonido(AudioClip clip, float volumen)
     {
         _audioSource.PlayOneShot(clip, volumen);
-    }
-
-    private void GearSound()
-    {
-        _audioSource.PlayOneShot(SonidoCocheCorriendo,  velocidad/VELOCIDADMAXIMA*0.5f);
     }
 
     public void DesactivateCar()
@@ -144,6 +140,10 @@ public class CarController : NetworkBehaviour
         
         //Para parar la música de fondo
         _sonidoFondo.PararMusicaFondo();
+        
+        //Paramos el motor del coche
+        _sonidoMotor.Stop();
+        motorCoche.gameObject.SetActive(false);
     }
 
     private void Update()
@@ -157,8 +157,37 @@ public class CarController : NetworkBehaviour
 
             _cameraPivot.transform.position = this.transform.position;
             _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
+            
+            if(_playerInput != null && _playerInput.actions != null && _playerInput.actions["Claxon"] != null)
+            {
+                //Botón para tocar el claxon del coche.
+                //En Mando -> Botón L
+                //En PC -> Tecla C
+                if (_playerInput.actions["Claxon"].WasPressedThisFrame())
+                {
+                    EjecutarSonidoClaxon();
+                }
+            }
         }
         
+    }
+
+    private void EjecutarSonidoClaxon()
+    {
+        if (!_audioSource.isPlaying)
+        {
+            int numeroRandom = Random.Range(0, 101);
+
+            if (numeroRandom < 90)
+            {
+                EjecutarEfectoSonido(claxonCoche, 0.5f);
+            }
+            else
+            {
+                EjecutarEfectoSonido(claxonCoche2, 0.5f);
+            }
+            
+        }
     }
     
     private void FixedUpdate()
@@ -171,8 +200,15 @@ public class CarController : NetworkBehaviour
             HandleCamera();
             HandleMotor();
             HandleSteering();
+            GearSound();
         }
         if(_updateWheels)UpdateWheels();
+    }
+    
+    private void GearSound()
+    {
+        //Sonido del motor coche arrancado
+        _sonidoMotor.pitch = velocidad / VELOCIDADMAXIMA + 1;
     }
 
     private void HandleCamera()
@@ -226,8 +262,6 @@ public class CarController : NetworkBehaviour
         RL.brakeTorque = breakForce;
         RR.brakeTorque = breakForce;
         
-        //GearSound();
-
     }
 
     private void HandleSteering()
@@ -289,7 +323,7 @@ public class CarController : NetworkBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             if(isLocalPlayer) 
-                EjecutarEfectoSonido(sonidoCocheChocandoConOtro, 1);
+                EjecutarEfectoSonido(sonidoCocheChocandoConOtro, 0.5f);
         }
     }
     

@@ -13,8 +13,12 @@ public struct PlayerMinigamePoints
 public struct PlayerRacePoints
 {
     public NetworkIdentity networkIdentity;
+    
     public List<int> listaPuntuacionCarrera;
     public int puntuacionTotal;
+    
+    public List<int> listaTiempoCarrera;
+    public int tiempoTotal;
 }
 
 public class GameManager : NetworkBehaviour
@@ -77,7 +81,7 @@ public class GameManager : NetworkBehaviour
         spawnPoints.Add(SPs3);
         
         _resultadoCarreraController.gameObject.SetActive(false);
-        DisableWaypoints();
+        // DisableWaypoints();
         playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
     }
 
@@ -138,7 +142,6 @@ public class GameManager : NetworkBehaviour
             {
                 for (int i = 0; i < lastMinigamePlayerPoints.Count; i++)
                 {
-                   
                     lastMinigamePlayerPoints[i].networkIdentity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex,i);
                 }
             }
@@ -147,31 +150,10 @@ public class GameManager : NetworkBehaviour
                 foreach (var playerConnection in NetworkServer.connections)
                 { 
                     playerConnection.Value.identity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex, playerConnection.Value.identity.gameObject.GetComponent<InformacionJugador>().posicionActual-1);
-                    //apagar luces habitacion si raceIndex==1
-                    // if (raceIndex==1)
-                    // {
-                    //     playerConnection.Value.identity.gameObject.GetComponent<CarController>().SetCarLights(true);
-                    // }
-                    // else
-                    // {
-                    //     playerConnection.Value.identity.gameObject.GetComponent<CarController>().SetCarLights(false);
-                    //     
-                    // }
-                    
                 }
-                // if (raceIndex==1)
-                // {
-                //     SetRoomLights(false);
-                //         
-                // }
-                // else
-                // {
-                //     SetRoomLights(true);
-                // }
             }
             EnableCarClientRPC(raceIndex);
             currentGameType = GameType.Race;
-           
         }
     }
     
@@ -208,7 +190,7 @@ public class GameManager : NetworkBehaviour
     }
 
     [Command(requiresAuthority = false)]
-    public void ActualizarPuntuacionJugadorCarrera(InformacionJugador jugador, int puntuacion)
+    public void ActualizarPuntuacionJugadorCarrera(InformacionJugador jugador, int puntuacion, int tiempo)
     {
         var playerPoints = playerRacePointsList.FirstOrDefault(i => i.networkIdentity == jugador.netIdentity);
         
@@ -217,18 +199,28 @@ public class GameManager : NetworkBehaviour
             playerPoints.listaPuntuacionCarrera = new List<int>(new int[3]);
             playerPoints.listaPuntuacionCarrera[raceIndex]=puntuacion;
             playerPoints.puntuacionTotal = puntuacion;
+            
+            playerPoints.listaTiempoCarrera = new List<int>(new int[3]);
+            playerPoints.listaTiempoCarrera[raceIndex]=tiempo;
+            playerPoints.tiempoTotal = tiempo;
+            
             playerPoints.networkIdentity = jugador.netIdentity;
             playerRacePointsList.Add(playerPoints);
         }
         else
         {
             var playerPointsAux = playerPoints;
+            
             playerPointsAux.listaPuntuacionCarrera[raceIndex]=puntuacion;
             playerPointsAux.puntuacionTotal += puntuacion;
+            
+            playerPointsAux.listaTiempoCarrera[raceIndex]=tiempo;
+            playerPointsAux.tiempoTotal += tiempo;
 
             playerRacePointsList.Remove(playerPoints);
             playerRacePointsList.Add(playerPointsAux);
         }
+        Debug.Log("CHECK PLAYERS WAITING");
         CheckAllPlayersWaiting();
     }
     
@@ -258,7 +250,9 @@ public class GameManager : NetworkBehaviour
             jugador.SetSiguienteWaypoint(0);
             jugador.finCarrera = false;
             jugador.CmdSetFinCarrera(false);
+            jugador._interfazController.CuentaAtras(false, 0);
         }
+        
         posicionCarreraController.puntuacionMaxima = 2 * posicionCarreraController._informacionJugadores.Length;
         
     }

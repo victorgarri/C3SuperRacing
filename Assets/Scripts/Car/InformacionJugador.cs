@@ -11,47 +11,39 @@ using ColorUtility = UnityEngine.ColorUtility;
 public class InformacionJugador : NetworkBehaviour
 {
     public int vueltas;
-    
-    [Header("Nombre del jugador")] 
-    [SerializeField] public string nombreJugador = "Carlitos";
+
+    [Header("Nombre del jugador")] [SerializeField]
+    public string nombreJugador = "Carlitos";
+
     public TextMesh etiquetaNombre;
-    
-    [Header("Gestión de las posiciones")]
-    public PosicionCarreraController _posicionCarreraController;
-    
-    [SyncVar]
-    public int posicionActual = 0;
-    [SyncVar]
-    public int vueltaActual = 0;
+
+    [Header("Gestión de las posiciones")] public PosicionCarreraController _posicionCarreraController;
+
+    [SyncVar] public int posicionActual = 0;
+    [SyncVar] public int vueltaActual = 0;
     public int nVueltasCircuito = 0;
-    [SyncVar]
-    public int nWaypoints = 0;
-    [SyncVar]
-    public int siguienteWaypoint = 0;
-    [SyncVar]
-    public float distanciaSiguienteWaypoint = 0;
+    [SyncVar] public int nWaypoints = 0;
+    [SyncVar] public int siguienteWaypoint = 0;
+    [SyncVar] public float distanciaSiguienteWaypoint = 0;
     public float posicionAnterior;
 
-    [Header("Gestión de la interfaz")] 
-    private InterfazController _interfazController;
+    [Header("Gestión de la interfaz")] public InterfazController _interfazController;
 
     public CarController _carController;
 
     [SyncVar] public Nullable<int> lastMinigameScore = null;
     
-    
-    public List<int> listaPuntuacionCarrera;
-    public int puntuacionTotalCarrera = 0;
     public int indiceCarrera = 0;
 
-    [SyncVar]
-    public bool finCarrera=true;
+    [SyncVar] public bool finCarrera = true;
 
     private SonidoFondo _sonidoFondo;
-    
+
+    [SerializeField] private uint playerNetworkId;
+
     private void Awake()
     {
-        
+
         /*
         etiquetaNombre = GameObject.Find("NombreJugador").GetComponent<TextMesh>();
         etiquetaNombre.text = nombreJugador;
@@ -63,6 +55,7 @@ public class InformacionJugador : NetworkBehaviour
     {
         nWaypoints = n;
     }
+
     [Command]
     public void SetSiguienteWaypoint(int i)
     {
@@ -74,48 +67,45 @@ public class InformacionJugador : NetworkBehaviour
     {
         vueltaActual = n;
     }
-    
+
 
     // Start is called before the first frame update
     void Start()
     {
-        listaPuntuacionCarrera = new List<int>();
-        listaPuntuacionCarrera.Add(0);
-        listaPuntuacionCarrera.Add(0);
-        listaPuntuacionCarrera.Add(0);
-        
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
-        
+
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
         _carController = GetComponent<CarController>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
+        this.playerNetworkId = netId;
     }
 
     void Update()
     {
         if (isLocalPlayer && _carController.enableControls)
         {
-            float distanciaSiguienteWaypointAproximado =  Mathf.Round(distanciaSiguienteWaypoint * 100f) / 100f;
+            float distanciaSiguienteWaypointAproximado = Mathf.Round(distanciaSiguienteWaypoint * 100f) / 100f;
             float posicionAnteriorAproximado = Mathf.Round(posicionAnterior * 100f) / 100f;
-            
+
             if (distanciaSiguienteWaypointAproximado < posicionAnteriorAproximado)
             {
-                _interfazController.desactivarProhibicion();                
+                _interfazController.desactivarProhibicion();
             }
-            else if(distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
+            else if (distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
             {
                 if (!_interfazController.corBool)
                 {
-                    _interfazController.stopCor=StartCoroutine(_interfazController.activarProhibicion());
+                    _interfazController.stopCor = StartCoroutine(_interfazController.activarProhibicion());
                 }
             }
+
             posicionAnterior = distanciaSiguienteWaypoint;
 
             if (vueltaActual == nVueltasCircuito)
             {
                 _sonidoFondo.ReproducirMusicaVelocidadRapida();
             }
-            
+
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
         }
@@ -123,40 +113,36 @@ public class InformacionJugador : NetworkBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Waypoint") && isLocalPlayer)
+        if (collision.gameObject.CompareTag("Waypoint"))
         {
-            // Debug.Log("SiguienteWaypoint: "+siguienteWaypoint);
-            if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
+            if (isLocalPlayer)
             {
-                _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint);
+                if (collision.gameObject.name ==
+                    _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
+                {
+                    _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint);
+                }
+                else
+                {
+                    _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint - 1);
+                }
+
+                collision.gameObject.SetActive(false);
+
+                int prevWaypoint = siguienteWaypoint - 2;
+                if (prevWaypoint < 0)
+                    prevWaypoint = _posicionCarreraController.listaWaypoints.Count + prevWaypoint;
+
+                _posicionCarreraController.listaWaypoints[prevWaypoint].gameObject.SetActive(true);
+
+                _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.SetActive(true);
+
+                SetNWaypoints(nWaypoints);
+                SetSiguienteWaypoint(siguienteWaypoint);
+                SetVueltaActual(vueltaActual);
             }
-            else
-            {
-                _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint - 1);   
-            }
-            
-            collision.gameObject.SetActive(false);
-            
-            int prevWaypoint = siguienteWaypoint-2;
-            if (prevWaypoint < 0)
-                prevWaypoint = _posicionCarreraController.listaWaypoints.Count+prevWaypoint;
-            
-            _posicionCarreraController.listaWaypoints[prevWaypoint].gameObject.SetActive(true);
-            
-            _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.SetActive(true);
-            
-            SetNWaypoints(nWaypoints);
-            SetSiguienteWaypoint(siguienteWaypoint);
-            SetVueltaActual(vueltaActual);
         }
     }
-
-    public void ActualizarPuntuacionJugadorCarrera(int puntosConseguidos)
-    {
-        listaPuntuacionCarrera[indiceCarrera - 1] = puntosConseguidos;
-        puntuacionTotalCarrera += listaPuntuacionCarrera[indiceCarrera - 1];
-    }
-
 
 
     [Command]
@@ -171,5 +157,4 @@ public class InformacionJugador : NetworkBehaviour
         this.finCarrera = finish;
     }
 
-    
 }
