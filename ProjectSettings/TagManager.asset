@@ -19,6 +19,8 @@ TagManager:
   - WCModifier
   - Enemy
   - Friends
+  - Spectator
+  - CuadroPosicionamiento
   layers:
   - Default
   - TransparentFX

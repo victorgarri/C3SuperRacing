@@ -5,6 +5,7 @@ using UnityEngine.UI;
 public class MyNRM : NetworkRoomManager
 {
     private Button btnStart;
+    [SerializeField] private GameObject spectatorPrefab;
     public override void OnRoomServerPlayersReady()
     {
         if (!btnStart)
@@ -24,5 +25,17 @@ public class MyNRM : NetworkRoomManager
     public void StartGame()
     {
         ServerChangeScene(GameplayScene);
+        
+    }
+    
+    public override GameObject OnRoomServerCreateGamePlayer(NetworkConnectionToClient conn, GameObject roomPlayer)
+    {
+        if (roomPlayer.GetComponent<MyNetworkRoomPlayer>().isSpectator)
+            return Instantiate(spectatorPrefab);
+        
+        // Dependiendo del coche seleccionado, crea un coche u otro
+        // roomPlayer.selectedCar
+        
+        return null;
     }
 }

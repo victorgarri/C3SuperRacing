@@ -573,8 +573,20 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
+      propertyPath: playerPrefab
+      value: 
+      objectReference: {fileID: 4492824780523140061, guid: 9ef531cd26df920429b338b1cb683e9b, type: 3}
+    - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
+      propertyPath: spectatorPrefab
+      value: 
+      objectReference: {fileID: 835694864215529156, guid: a5ef03ce38929034b89c8a46dbb48f4f, type: 3}
+    - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
+      propertyPath: autoCreatePlayer
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: spawnPrefabs.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: spawnPrefabs.Array.data[4]
@@ -583,7 +595,7 @@ PrefabInstance:
     - target: {fileID: 184960134148513871, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: spawnPrefabs.Array.data[5]
       value: 
-      objectReference: {fileID: 2051852136925327542, guid: 6b1eace3a3ce4474a83f23ad8af53f1d, type: 3}
+      objectReference: {fileID: 835694864215529156, guid: a5ef03ce38929034b89c8a46dbb48f4f, type: 3}
     - target: {fileID: 3657793218156309747, guid: 138ed86195764b44bbf91d90c545184d, type: 3}
       propertyPath: m_Name
       value: NRM

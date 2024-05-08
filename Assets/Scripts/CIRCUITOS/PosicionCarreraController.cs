@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Cinemachine;
 using Mirror;
 using UnityEngine;
 using UnityEngine.Serialization;
@@ -30,6 +31,11 @@ public class PosicionCarreraController : NetworkBehaviour
     
     [Header("Script del GameManager")]
     [SerializeField] private GameManager _gameManager;
+
+    [FormerlySerializedAs("_tablaPosicionModoEspectador")]
+    [Header("Script de mostrar tabla de posición modo espectador")] 
+    [SerializeField] private InterfazUsuarioModoEspectador interfazUsuarioModoEspectador;
+    
     
     // Start is called before the first frame update
     void Start()
@@ -89,13 +95,15 @@ public class PosicionCarreraController : NetworkBehaviour
         {
             jugador.distanciaSiguienteWaypoint = CalculoDistanciaSiguienteWaypoint(jugador, jugador.siguienteWaypoint);
         }
-        
+
+        var previousFirst = _informacionJugadores[0];
         //Me ordeno mi lista de jugadores
         _informacionJugadores = _informacionJugadores.OrderByDescending(jugador => jugador.vueltaActual).
                                                       ThenByDescending(jugador => jugador.nWaypoints).
                                                       ThenBy(jugador => jugador.distanciaSiguienteWaypoint).ToArray();
-
+        
         PosicionarJugadores(_informacionJugadores);
+        interfazUsuarioModoEspectador.actualizarTablaPosicion(_informacionJugadores);
     }
 
     private void PosicionarJugadores(InformacionJugador[] jugadores)
@@ -104,6 +112,7 @@ public class PosicionCarreraController : NetworkBehaviour
         foreach(InformacionJugador jugador in jugadores)
         {
             jugador.posicionActual = orden;
+            
             orden++;
         }
     }

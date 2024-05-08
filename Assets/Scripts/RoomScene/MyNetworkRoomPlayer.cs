@@ -12,6 +12,8 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
     [SerializeField] private GameObject myPlayerPanel;
     
     [SerializeField] [SyncVar] public string playerName;
+
+    [SerializeField] [SyncVar] public bool isSpectator = false;
     
     public override void Start()
     {
@@ -22,15 +24,12 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
 
         if (isLocalPlayer)
         {
+            LocalPlayerPointer.Instance.roomPlayer = this;
             readyStartController.btnReady.onClick.AddListener(delegate { PlayerReadyToggle();});
             readyStartController.playerNameInput.onValueChanged.AddListener(delegate(string newStringInput) { CmdPlayerSetName(newStringInput); });
+            readyStartController.spectatorMode.onValueChanged.AddListener(delegate(bool newSpectatorValue) { CmdSetSpectator(newSpectatorValue); });
         }
         
-        if (isServer){
-            readyStartController.btnStart.gameObject.SetActive(true);
-            readyStartController.btnStart.onClick.AddListener(delegate { NRM.StartGame(); });
-        }
-
         if (isServer)
             CmdCreatePlayerPanel();
     }
@@ -41,8 +40,15 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
         if (!String.IsNullOrEmpty(newName))
         {
             playerName = newName;
-            myPlayerPanel.GetComponent<RoomPanelJugador>().playerName = playerName;            
+            myPlayerPanel.GetComponent<RoomPanelJugador>().playerName = playerName;
+            
         }
+    }
+    
+    [Command]
+    private void CmdSetSpectator(bool newSpectatorValue)
+    {
+        isSpectator = newSpectatorValue;        
     }
 
     [Command(requiresAuthority = false)]
@@ -63,6 +69,4 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
         if (isServer)
             myPlayerPanel.GetComponent<RoomPanelJugador>().playerReady = newReadyState;
     }
-    
-    
 }
