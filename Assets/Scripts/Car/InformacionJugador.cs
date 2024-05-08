@@ -77,12 +77,11 @@ public class InformacionJugador : NetworkBehaviour
     }
     
     [Header("PowerUp")]
-    private bool isPowerUpCollected = false;
-    private Image _powerUpImage;
-    public Sprite _powerUpSprite;
-    public GameObject projectilePrefab;
+    public bool isPowerUpCollected = false;
+    public GameObject proyectilPrefab;
     public Transform spawnPoint;
-    public float velocidadProjectile = 10f;
+    public float velocidadProyectil = 20f;
+    public GameObject powerUpImageGO;
     
 
     // Start is called before the first frame update
@@ -99,10 +98,13 @@ public class InformacionJugador : NetworkBehaviour
         _carController = GetComponent<CarController>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
 
-        //_powerUpImage = FindObjectOfType<Image>();
-        if (_powerUpImage != null)
+        //FALTA ACTIVAR Y DESACTIVAR IMAGENPOWERUP
+        Debug.Log("ImagenPowerUp: " + powerUpImageGO);
+        powerUpImageGO = GameObject.FindGameObjectWithTag("ImagenPowerUp");
+        Debug.Log("ImagenPowerUp: " + powerUpImageGO);
+        if (powerUpImageGO != null)
         {
-            _powerUpImage.gameObject.SetActive(false);
+            powerUpImageGO.gameObject.SetActive(false);
         }
     }
 
@@ -135,50 +137,43 @@ public class InformacionJugador : NetworkBehaviour
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
         }
         
-        if (Input.GetKeyDown(KeyCode.Space) && isPowerUpCollected)
+        if (Input.GetKeyDown(KeyCode.Space) && isPowerUpCollected == true)
         {
             UsePowerUp();
-            ThrowProjectile();
+            LanzarProyectil();
         }
     }
     
     #region POWERUPS
 
-    private void CollectPowerUp()
+    public void CollectPowerUp()
     {
         isPowerUpCollected = true;
-    
-        if (_powerUpImage != null)
+        if (powerUpImageGO != null)
         {
-            _powerUpImage.sprite = _powerUpSprite;
-            _powerUpImage.gameObject.SetActive(true);
+            powerUpImageGO.gameObject.SetActive(true);
         }
     }
 
     private void UsePowerUp()
     {
-        if (_powerUpImage != null)
-        {
-            _powerUpImage.gameObject.SetActive(false);
-        }
-    
         isPowerUpCollected = false;
+        if (powerUpImageGO != null)
+        {
+            powerUpImageGO.gameObject.SetActive(false);
+        }
     }
     
-    private void ThrowProjectile()
+    private void LanzarProyectil()
     {
-        if (projectilePrefab != null && spawnPoint != null)
+        if (proyectilPrefab != null && spawnPoint != null)
         {
-            GameObject projectile = Instantiate(projectilePrefab, spawnPoint.position, spawnPoint.rotation);
-            Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
+            GameObject proyectil = Instantiate(proyectilPrefab, spawnPoint.position, spawnPoint.rotation);
+            Rigidbody proyectilRb = proyectil.GetComponent<Rigidbody>();
         
             Vector3 launchDirection = spawnPoint.forward;
     
-            projectileRb.velocity = launchDirection * velocidadProjectile;
-
-            ThrowProjectile throwProjectileController = projectile.AddComponent<ThrowProjectile>();
-    
-            throwProjectileController.SetPlayer(gameObject);
+            proyectilRb.velocity = launchDirection * velocidadProyectil;
         }
     }
 
@@ -211,6 +206,12 @@ public class InformacionJugador : NetworkBehaviour
             SetNWaypoints(nWaypoints);
             SetSiguienteWaypoint(siguienteWaypoint);
             SetVueltaActual(vueltaActual);
+        }
+        
+        if (collision.CompareTag("PowerUp"))
+        {
+            CollectPowerUp();
+            Destroy(collision.gameObject);
         }
     }
 

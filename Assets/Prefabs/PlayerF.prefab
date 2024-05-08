@@ -276,6 +276,37 @@ RotationConstraint:
   m_Active: 1
   m_IsLocked: 1
   m_Sources: []
+--- !u!1 &2227921068401736380
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2086654224884084607}
+  m_Layer: 0
+  m_Name: SpawnPointPowerUp
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2086654224884084607
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2227921068401736380}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.5, z: 1.5}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3824234456065452391}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &5113511256390581129
 GameObject:
   m_ObjectHideFlags: 0
@@ -615,6 +646,10 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 791867669811037286, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       propertyPath: m_Name
       value: PlayerF
@@ -700,6 +735,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 241188187257958149}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2086654224884084607}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
       insertIndex: -1
@@ -735,11 +773,6 @@ PrefabInstance:
 --- !u!1 &191710899464919233 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 3472778375830378061, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
-  m_PrefabInstance: {fileID: 3645894265859100300}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &294051611568465948 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: -5292714838932248944, guid: 74828e46af7da424c91ce9bd851f7d4c, type: 3}
   m_PrefabInstance: {fileID: 3645894265859100300}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &773153340793870144 stripped
@@ -919,16 +952,16 @@ MonoBehaviour:
   siguienteWaypoint: 0
   distanciaSiguienteWaypoint: 0
   posicionAnterior: 0
-  _powerUpImage: {fileID: 0}
-  _powerUpSprite: {fileID: 21300000, guid: 9b4d6abf182796841ba10552e2137750, type: 3}
-  projectilePrefab: {fileID: 4020488174241307072, guid: f4a3ebc0c99f79d47928e315f350126c, type: 3}
-  spawnPoint: {fileID: 294051611568465948}
-  velocidadProjectile: 10
   _carController: {fileID: 0}
   listaPuntuacionCarrera: 
   puntuacionTotalCarrera: 0
   indiceCarrera: 0
   finCarrera: 1
+  isPowerUpCollected: 0
+  proyectilPrefab: {fileID: 4020488174241307072, guid: f4a3ebc0c99f79d47928e315f350126c, type: 3}
+  spawnPoint: {fileID: 2086654224884084607}
+  velocidadProyectil: 20
+  powerUpImageGO: {fileID: 0}
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0

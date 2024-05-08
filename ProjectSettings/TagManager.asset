@@ -20,6 +20,7 @@ TagManager:
   - Enemy
   - Friends
   - PowerUp
+  - ImagenPowerUp
   layers:
   - Default
   - TransparentFX
