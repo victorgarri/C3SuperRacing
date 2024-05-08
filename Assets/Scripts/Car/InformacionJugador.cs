@@ -39,6 +39,7 @@ public class InformacionJugador : NetworkBehaviour
     public int indiceCarrera = 0;
 
     [SyncVar] public bool finCarrera = true;
+    [SyncVar] public bool finMinijuego = false;
 
     private SonidoFondo _sonidoFondo;
 
@@ -56,23 +57,7 @@ public class InformacionJugador : NetworkBehaviour
         */
     }
 
-    [Command]
-    public void SetNWaypoints(int n)
-    {
-        nWaypoints = n;
-    }
-
-    [Command]
-    public void SetSiguienteWaypoint(int i)
-    {
-        siguienteWaypoint = i;
-    }
-
-    [Command]
-    public void SetVueltaActual(int n)
-    {
-        vueltaActual = n;
-    }
+    
 
 
     // Start is called before the first frame update
@@ -85,13 +70,6 @@ public class InformacionJugador : NetworkBehaviour
         }
 
         SetMaterialJugador();
-
-        
-        
-        listaPuntuacionCarrera = new List<int>();
-        listaPuntuacionCarrera.Add(0);
-        listaPuntuacionCarrera.Add(0);
-        listaPuntuacionCarrera.Add(0);
         
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
 
@@ -99,21 +77,6 @@ public class InformacionJugador : NetworkBehaviour
         _carController = GetComponent<CarController>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
         this.playerNetworkId = netId;
-    }
-    
-    [Command]
-    public void SetNombreJugador(string playerName)
-    {
-        this.nombreJugador = playerName;
-        
-    }
-
-    
-
-    [Command]
-    public void SetNombreJugador(string playerName)
-    {
-        this.nombreJugador = playerName;
     }
 
     private void SetMaterialJugador()
@@ -197,11 +160,6 @@ public class InformacionJugador : NetworkBehaviour
         }
     }
 
-    public void ActualizarPuntuacionJugadorCarrera(int puntosConseguidos)
-    {
-        listaPuntuacionCarrera[indiceCarrera - 1] = puntosConseguidos;
-        puntuacionTotalCarrera += listaPuntuacionCarrera[indiceCarrera - 1];
-    }
 
     [Command]
     public void SetMinigameScore(Nullable<int> score)
@@ -228,5 +186,15 @@ public class InformacionJugador : NetworkBehaviour
     public void CmdSetFinCarrera(bool finish)
     {
         this.finCarrera = finish;
+    }
+    [Command]
+    public void CmdSetFinMinijuego(bool finish)
+    {
+        this.finMinijuego = finish;
+    }
+    [Command]
+    public void SetNombreJugador(string playerName)
+    {
+        this.nombreJugador = playerName;
     }
 }

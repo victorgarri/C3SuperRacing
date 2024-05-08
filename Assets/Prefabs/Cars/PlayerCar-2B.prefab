@@ -95,7 +95,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1448950304647355416}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a65d6df3e1dd7174791261c8f3989a51, type: 3}
+  m_Script: {fileID: 11500000, guid: 46fddf9a742951244b5494e6b02bd517, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2847565772297951261
@@ -233,7 +233,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheelCollider: {fileID: 3210008365664050839}
 --- !u!1 &3292840209164556070
 GameObject:
   m_ObjectHideFlags: 0
@@ -326,6 +325,134 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3292840209164556070}
   m_Enabled: 1
+--- !u!1 &6701593984535761013
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3859966002386241724}
+  - component: {fileID: 741910549787563826}
+  m_Layer: 0
+  m_Name: MotorCoche
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3859966002386241724
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6701593984535761013}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 3962559998733449924}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!82 &741910549787563826
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6701593984535761013}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 8300000, guid: d8825df4332e7c1419959eeced7ee393, type: 3}
+  m_PlayOnAwake: 1
+  m_Volume: 1
+  m_Pitch: 1
+  Loop: 1
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1 &7401343495747969172
 GameObject:
   m_ObjectHideFlags: 0
@@ -494,7 +621,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheelCollider: {fileID: 3190237219674599176}
 --- !u!1 &8505999275780904928
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,7 +705,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheelCollider: {fileID: 8630884382420668177}
 --- !u!1 &9005627973521856323
 GameObject:
   m_ObjectHideFlags: 0
@@ -664,7 +789,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _wheelCollider: {fileID: 7596908005831957685}
 --- !u!1001 &3564438775999274287
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -762,6 +886,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6c8e7fd9b10486749912d49ccc165dd1, type: 3}
       insertIndex: -1
       addedObject: {fileID: 5198433370536852120}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 6c8e7fd9b10486749912d49ccc165dd1, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 3859966002386241724}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 6c8e7fd9b10486749912d49ccc165dd1, type: 3}
       insertIndex: -1
@@ -869,7 +996,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4446750476542517374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 395e35d844fa1e6489743fe0bf20fd32, type: 3}
+  m_Script: {fileID: 11500000, guid: 6c9381db674aff043bdd64b6a219faa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
@@ -892,15 +1019,13 @@ MonoBehaviour:
   RL: {fileID: 7210312812980164539}
   RR: {fileID: 2887479257842100435}
   _updateWheels: 1
+  motorCoche: {fileID: 6701593984535761013}
+  _sonidoMotor: {fileID: 741910549787563826}
   sonidoCocheArranque: {fileID: 8300000, guid: 99077207653a74846877ef5dc69cc8f0, type: 3}
   sonidoCocheArrancadoYa: {fileID: 8300000, guid: f19203f0923d08f4287c644a1b55d205, type: 3}
   sonidoCocheChocandoConOtro: {fileID: 8300000, guid: 38433446a21766243aa2d913d53a9f45, type: 3}
-  SonidoCocheCorriendo: {fileID: 8300000, guid: 2dc7ef2a7be74894e9ef442ca1d3b2c8, type: 3}
-  claxonCoche: {fileID: 8300000, guid: 91cea1ef6b2a66e46b7e0c4083dbca4e, type: 3}
-  musicaCircuito1: {fileID: 8300000, guid: f7207569d9d4f364eb337181ccdd687d, type: 3}
-  musicaCircuito2: {fileID: 0}
-  musicaCircuito3: {fileID: 0}
-  sonidoMeta: {fileID: 0}
+  claxonCoche: {fileID: 8300000, guid: 5705738d4dd3e9042bec0ada2aa60cc6, type: 3}
+  claxonCoche2: {fileID: 8300000, guid: 32536f8bea17c9d4492d49d91e002292, type: 3}
   enableControls: 0
   carLights:
   - {fileID: 5931774000045048190}
@@ -914,7 +1039,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4446750476542517374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8c5db683b99584f42a7c7f4ccbc61fff, type: 3}
+  m_Script: {fileID: 11500000, guid: c353d23537f3e714aa40e5482bcdf4de, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   syncDirection: 0
@@ -932,11 +1057,11 @@ MonoBehaviour:
   siguienteWaypoint: 0
   distanciaSiguienteWaypoint: 0
   posicionAnterior: 0
-  _carController: {fileID: 2908707332012011684}
-  listaPuntuacionCarrera: 
-  puntuacionTotalCarrera: 0
+  _interfazController: {fileID: 0}
+  _carController: {fileID: 0}
   indiceCarrera: 0
   finCarrera: 1
+  playerNetworkId: 0
   playerIndex: 0
   colorMaterialByIndex:
   - {fileID: 2100000, guid: ab9a8e25057fe004d99c717f42806abe, type: 2}

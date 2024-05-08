@@ -72,7 +72,7 @@ public class JugadorController : MonoBehaviour
         StartCoroutine(_gameManager.CuentaAtras());
         
         //Cambio el límite del mínimo del eje X de la cámara
-        _camara.minimo = new Vector2(-25.5f, _camara.minimo.y);
+        _camara.minimo = new Vector2((-25.5f-1000), _camara.minimo.y);
     }
 
     // Update is called once per frame

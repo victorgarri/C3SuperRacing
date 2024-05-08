@@ -34,10 +34,14 @@ public class MJEGameManager : MonoBehaviour
     [Header("Música y efectos de sonido")] 
     [SerializeField] private AudioSource audioSourceSonidoFondo;
     
+    private GameManager _globalGameManager;
+    
     
     // Start is called before the first frame update
     void Start()
     {
+        _globalGameManager = GameObject.FindObjectOfType<GameManager>();
+        
         foreach (var cuadrado in limiteMapa)
         {
             cuadrado.SetActive(false);
@@ -122,6 +126,10 @@ public class MJEGameManager : MonoBehaviour
             if(audioSourceSonidoFondo.isPlaying) 
                 audioSourceSonidoFondo.Stop();
         }
+        
+        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(puntuacionFinal);
+        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(true);
+        _globalGameManager.CheckAllPlayersWaiting();
     }
 
     public void CalculoPuntosFinales()

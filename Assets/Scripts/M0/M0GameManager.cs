@@ -36,7 +36,7 @@ public class M0GameManager : NetworkBehaviour
     {
         startTime = Time.time;
         playerController = FindObjectOfType<PlayerController>();
-        _globalGameManager = GameObject.FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        _globalGameManager = GameObject.FindObjectOfType<GameManager>();
         GenerateRandomBoxes();
         
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -136,7 +136,8 @@ public class M0GameManager : NetworkBehaviour
             finalMessage.text = $"Tiempo límite alcanzado\nÚltima pieza recogida en {FormatTime(lastCollectedTime)} segundos\nTotal de piezas: {piecesCollected}\nHas conseguido "+gamePoints+" puntos!";
         }
         
-        NetworkClient.localPlayer.gameObject.GetComponent<InformacionJugador>().SetMinigameScore(gamePoints);
+        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(gamePoints);
+        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(true);
         _globalGameManager.CheckAllPlayersWaiting();
     }
 

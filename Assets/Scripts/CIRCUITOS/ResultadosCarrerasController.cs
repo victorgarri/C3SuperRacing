@@ -28,7 +28,7 @@ public class ResultadosCarrerasController : MonoBehaviour
         TextMeshProUGUI textoPuntuacionTotal = cuadro.transform.Find("Total").GetComponent<TextMeshProUGUI>();
     
         textoPosicion.text = orden+"º";
-        textoNombre.text = informacionJugador.networkIdentity.gameObject.GetComponent<InformacionJugador>().nombreJugador+" "+ informacionJugador.networkIdentity.netId;
+        textoNombre.text = informacionJugador.networkIdentity.gameObject.GetComponent<InformacionJugador>().nombreJugador;
 
         List<TextMeshProUGUI> textoListaPuntuacionPorCarrera = new List<TextMeshProUGUI>();
         textoListaPuntuacionPorCarrera.Add(textoPuntoC1);

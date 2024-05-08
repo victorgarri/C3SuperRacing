@@ -997,7 +997,7 @@ Transform:
   m_GameObject: {fileID: 1694902517088324584}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 307.32452, y: -49.579956, z: 474.44684}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
   m_Children:
@@ -2862,7 +2862,7 @@ MonoBehaviour:
   totalPieces: 4
   puzzleCompleted: 0
   gamePoints: 0
-  maxTime: 3
+  maxTime: 60
   probabilidadCajaReforzada: 30
   probabilidadTnt: 10
   cajaPrefab: {fileID: 3846966106448461380, guid: 117d9b084b931a44ca214bd26f82321a, type: 3}

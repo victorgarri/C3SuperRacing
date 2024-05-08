@@ -42,13 +42,14 @@ public class MyNRM : NetworkRoomManager
 
         Transform startPos = GetStartPosition();
         
-        var playerCar = Instantiate(playerPrefabs[roomPlayerComponent.selectedCar]);
+        var playerCar = Instantiate(playerPrefabs[roomPlayerComponent.selectedCar],startPos.position,startPos.rotation);
         
         return SetMaterialJugador(playerCar,roomPlayerComponent);
     }
     
     private GameObject SetMaterialJugador(GameObject car,MyNetworkRoomPlayer roomPlayerComponent)
     {
+        Debug.Log(car.GetComponent<InformacionJugador>());
         car.GetComponent<InformacionJugador>().playerIndex = roomPlayerComponent.playerIndex;
         car.GetComponent<InformacionJugador>().colorJugador = roomPlayerComponent.playerColor;
         car.GetComponent<InformacionJugador>().playerColorMaterial = roomPlayerComponent.selectedColorMaterial;

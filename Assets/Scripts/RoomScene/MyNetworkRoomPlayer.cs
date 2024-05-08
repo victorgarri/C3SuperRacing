@@ -38,7 +38,7 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
 
         UpdatePlayerIndex();
 
-        UpdateSelectedCar(0);
+        CmdUpdateSelectedCar(0);
         
         
         
@@ -53,8 +53,8 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
             LocalPlayerPointer.Instance.roomPlayer = this;
             readyStartController.btnReady.onClick.AddListener(delegate { PlayerReadyToggle();});
             readyStartController.playerNameInput.onValueChanged.AddListener(delegate(string newStringInput) { CmdPlayerSetName(newStringInput); });
-            camaraSeleccionCoche.btnIzquierda.onClick.AddListener(delegate { UpdateSelectedCar(-1); });
-            camaraSeleccionCoche.btnDerecha.onClick.AddListener(delegate { UpdateSelectedCar(+1); });
+            camaraSeleccionCoche.btnIzquierda.onClick.AddListener(delegate { CmdUpdateSelectedCar(-1); });
+            camaraSeleccionCoche.btnDerecha.onClick.AddListener(delegate { CmdUpdateSelectedCar(+1); });
             
             readyStartController.spectatorMode.onValueChanged.AddListener(delegate(bool newSpectatorValue) { CmdSetSpectator(newSpectatorValue); });
             
@@ -64,7 +64,8 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
             CmdCreatePlayerPanel();
     }
 
-    private void UpdateSelectedCar(int change)
+    [Command]
+    private void CmdUpdateSelectedCar(int change)
     {
         selectedCar += change;
         if (selectedCar < 0)

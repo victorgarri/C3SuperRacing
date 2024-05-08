@@ -81,7 +81,9 @@ public class PosicionCarreraController : NetworkBehaviour
     
     void FixedUpdate()
     {
-        if (_informacionJugadores != null&&NetworkClient.localPlayer.gameObject.GetComponent<CarController>().enableControls && isServer)  
+        if (_informacionJugadores != null 
+            //&& NetworkClient.localPlayer.gameObject.GetComponent<CarController>().enableControls 
+            && isServer)  
         {
             ActualizarPosiciones();
         }
@@ -95,8 +97,7 @@ public class PosicionCarreraController : NetworkBehaviour
         {
             jugador.distanciaSiguienteWaypoint = CalculoDistanciaSiguienteWaypoint(jugador, jugador.siguienteWaypoint);
         }
-
-        var previousFirst = _informacionJugadores[0];
+        
         //Me ordeno mi lista de jugadores
         _informacionJugadores = _informacionJugadores.OrderByDescending(jugador => jugador.vueltaActual).
                                                       ThenByDescending(jugador => jugador.nWaypoints).
