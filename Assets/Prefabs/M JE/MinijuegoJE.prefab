@@ -101479,7 +101479,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bba80abed976814bbc2aae54c621e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoRestante: 60
+  tiempoRestante: 90
   juegoCompletado: 0
   textoCuentaAtras: {fileID: 1436489347902354444}
   textoEnemigosRestantes: {fileID: 6824152077665042949}

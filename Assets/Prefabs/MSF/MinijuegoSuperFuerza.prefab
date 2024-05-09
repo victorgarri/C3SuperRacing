@@ -98219,7 +98219,7 @@ TilemapRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_ChunkSize: {x: 32, y: 32, z: 32}
   m_ChunkCullingBounds: {x: 0, y: 0, z: 0}
   m_MaxChunkCount: 16
@@ -98274,8 +98274,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyPrefab: {fileID: 8708975837842411951, guid: 4ca4621f33c850d479522e0dafa44ec4, type: 3}
   friendsController: {fileID: 8375946465795788853}
-  minX: -32
-  maxX: 24
+  minX: -1032
+  maxX: -976
   minY: -12
   maxY: 24
   minSpeed: 5
@@ -98594,6 +98594,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 7689371098185341082}
     m_Modifications:
+    - target: {fileID: 4541829976031909545, guid: 726c8d0fc690d0d49b4e1fd3bb1529dd, type: 3}
+      propertyPath: maxX
+      value: -976
+      objectReference: {fileID: 0}
+    - target: {fileID: 4541829976031909545, guid: 726c8d0fc690d0d49b4e1fd3bb1529dd, type: 3}
+      propertyPath: minX
+      value: -1032
+      objectReference: {fileID: 0}
     - target: {fileID: 4686887808917234044, guid: 726c8d0fc690d0d49b4e1fd3bb1529dd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -20
