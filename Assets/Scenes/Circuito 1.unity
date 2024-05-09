@@ -6119,7 +6119,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9b4d6abf182796841ba10552e2137750, type: 3}
+  m_Sprite: {fileID: 0}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9060,6 +9060,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e015efac4b66e3146867471eba6db2c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  imagenPowerUp: {fileID: 1053384871}
   interiorCoche: {fileID: 2039866735}
   coloresInteriorCoche:
   - {fileID: 21300000, guid: 996412d1acaea7b4fa373072389aa0db, type: 3}

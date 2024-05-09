@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 using TMPro;
+using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.Serialization;
 using ColorUtility = UnityEngine.ColorUtility;
@@ -81,7 +82,9 @@ public class InformacionJugador : NetworkBehaviour
     public GameObject proyectilPrefab;
     public Transform spawnPoint;
     public float velocidadProyectil = 20f;
-    public GameObject powerUpImageGO;
+    public Image powerUpImage;
+    public Sprite powerUpSprite;
+    public Sprite nonePowerUpSprite;
     
 
     // Start is called before the first frame update
@@ -98,14 +101,9 @@ public class InformacionJugador : NetworkBehaviour
         _carController = GetComponent<CarController>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
 
-        //FALTA ACTIVAR Y DESACTIVAR IMAGENPOWERUP
-        Debug.Log("ImagenPowerUp: " + powerUpImageGO);
-        powerUpImageGO = GameObject.FindGameObjectWithTag("ImagenPowerUp");
-        Debug.Log("ImagenPowerUp: " + powerUpImageGO);
-        if (powerUpImageGO != null)
-        {
-            powerUpImageGO.gameObject.SetActive(false);
-        }
+        _interfazController.imagenPowerUp.SetActive(true);
+        powerUpImage = _interfazController.imagenPowerUp.GetComponent<Image>();
+        powerUpImage.sprite = nonePowerUpSprite;
     }
 
     void Update()
@@ -149,18 +147,18 @@ public class InformacionJugador : NetworkBehaviour
     public void CollectPowerUp()
     {
         isPowerUpCollected = true;
-        if (powerUpImageGO != null)
+        if (_interfazController.imagenPowerUp != null)
         {
-            powerUpImageGO.gameObject.SetActive(true);
+            powerUpImage.sprite = powerUpSprite;
         }
     }
 
     private void UsePowerUp()
     {
         isPowerUpCollected = false;
-        if (powerUpImageGO != null)
+        if (_interfazController.imagenPowerUp != null)
         {
-            powerUpImageGO.gameObject.SetActive(false);
+            powerUpImage.sprite = nonePowerUpSprite;
         }
     }
     

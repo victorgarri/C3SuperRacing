@@ -961,7 +961,9 @@ MonoBehaviour:
   proyectilPrefab: {fileID: 4020488174241307072, guid: f4a3ebc0c99f79d47928e315f350126c, type: 3}
   spawnPoint: {fileID: 2086654224884084607}
   velocidadProyectil: 20
-  powerUpImageGO: {fileID: 0}
+  powerUpImage: {fileID: 0}
+  powerUpSprite: {fileID: 21300000, guid: 9b4d6abf182796841ba10552e2137750, type: 3}
+  nonePowerUpSprite: {fileID: 21300000, guid: 8843e24cf2c1ec0418abca236e73ab52, type: 3}
 --- !u!114 &8690892288489749157
 MonoBehaviour:
   m_ObjectHideFlags: 0

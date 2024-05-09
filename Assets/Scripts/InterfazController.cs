@@ -8,6 +8,9 @@ using ColorUtility = UnityEngine.ColorUtility;
 
 public class InterfazController : MonoBehaviour
 {
+    [Header("PowerUp")]
+    public GameObject imagenPowerUp;
+    
     [Header("InteriorCoche")]
     public GameObject interiorCoche;
     public List<Sprite> coloresInteriorCoche = new List<Sprite>();
