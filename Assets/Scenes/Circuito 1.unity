@@ -6668,7 +6668,7 @@ AudioSource:
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
@@ -6762,10 +6762,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f41ef650e70b74642b4eee5cd08a76a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listaMusicaCircuito1: {fileID: 8300000, guid: f7207569d9d4f364eb337181ccdd687d, type: 3}
-  listaMusicaCircuito2: {fileID: 8300000, guid: 8d20ead594607244c951e48ee26a8b45, type: 3}
-  listaMusicaCircuito3: {fileID: 8300000, guid: 025ffda9bd4c8584888655cf32d5d116, type: 3}
-  listaDeReproduccion: []
+  listaDeReproduccion:
+  - {fileID: 8300000, guid: f7207569d9d4f364eb337181ccdd687d, type: 3}
+  - {fileID: 8300000, guid: 8d20ead594607244c951e48ee26a8b45, type: 3}
+  - {fileID: 8300000, guid: 025ffda9bd4c8584888655cf32d5d116, type: 3}
   musicaVictoria: {fileID: 8300000, guid: 52bc787efbf800646b52858d49aba2ec, type: 3}
   musicaDerrota: {fileID: 8300000, guid: 97d6818011131e04b8e364c0c0f476fa, type: 3}
   volumenMusica: 1
