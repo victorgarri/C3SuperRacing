@@ -103,7 +103,7 @@ public class M0GameManager : NetworkBehaviour
     {
         piecesCollected++;
         lastCollectedTime = Time.time-startTime; 
-        Debug.Log("Pieza " + piecesCollected + " recogida");
+        // Debug.Log("Pieza " + piecesCollected + " recogida");
 
         piece.GetComponent<CheckpointController>().Collect();
 

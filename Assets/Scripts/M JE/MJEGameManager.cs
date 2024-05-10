@@ -71,7 +71,7 @@ public class MJEGameManager : MonoBehaviour
 
         if (enemigosDerrotados == numeroEnemigosTotales)
         {
-            Debug.Log("ActualizarPuntuacion");
+            // Debug.Log("ActualizarPuntuacion");
             FinJuego();
         }
     }
@@ -98,7 +98,7 @@ public class MJEGameManager : MonoBehaviour
         }
         
         textoCuentaAtras.text = tiempoRestante.ToString();
-        Debug.Log("CuentaAtras");
+        // Debug.Log("CuentaAtras");
         FinJuego();
     }
     

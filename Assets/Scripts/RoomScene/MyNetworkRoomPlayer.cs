@@ -103,7 +103,7 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
                 for (int i = 0; i < materials.Length; i++)
                     if (materialsToChange.Contains(materials[i].name))
                     {
-                        Debug.Log(selectedColorMaterial.name);
+                        // Debug.Log(selectedColorMaterial.name);
                         materials[i] = selectedColorMaterial;
                     }
             
@@ -164,7 +164,7 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
     void HookPlayerIndex(int oldIndex, int newIndex)
     {
         playerIndex = newIndex;
-        Debug.Log("Hook");
+        // Debug.Log("Hook");
         if(!isSpectator) selectedColorMaterial = colorMaterialByIndex[newIndex];
         ChangeCarsBaseColor();
     }

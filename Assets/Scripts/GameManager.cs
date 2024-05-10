@@ -107,7 +107,7 @@ public class GameManager : NetworkBehaviour
     [Command (requiresAuthority = false)]
     public void CheckAllPlayersWaiting()
     {
-        Debug.Log("Comprobando si estamos ready");
+        // Debug.Log("Comprobando si estamos ready");
         var informacionJugadores = FindObjectsOfType<InformacionJugador>();
         
         if (currentGameType == GameType.Minigame)
@@ -115,10 +115,10 @@ public class GameManager : NetworkBehaviour
             
             foreach (var informacionJugador in informacionJugadores)
             {
-                Debug.Log("jugador waiting: "+informacionJugador.finMinijuego);
+                // Debug.Log("jugador waiting: "+informacionJugador.finMinijuego);
                 if (!informacionJugador.finMinijuego)
                 {
-                    Debug.Log("TODAVIA HAY ALGUIEN QUE NO HA TERMINADO");
+                    // Debug.Log("TODAVIA HAY ALGUIEN QUE NO HA TERMINADO");
                     return;
                 }
             }   
@@ -145,7 +145,7 @@ public class GameManager : NetworkBehaviour
             }
         }
         
-        Debug.Log("Todo el mundo ready, iniciando cuenta atras de 5s");
+        // Debug.Log("Todo el mundo ready, iniciando cuenta atras de 5s");
 
         StartCoroutine(CambiaAlSiguienteJuego());
     }
@@ -153,7 +153,7 @@ public class GameManager : NetworkBehaviour
     private IEnumerator CambiaAlSiguienteJuego() 
     {
         yield return new WaitForSeconds(5);
-        Debug.Log("Cambiando juego AHORA");
+        // Debug.Log("Cambiando juego AHORA");
         var playersCarController = FindObjectsOfType<CarController>();
         if (currentGameType == GameType.Race && minigameIndex + 1 < ordenMinijuegos.Count)
         {
@@ -173,14 +173,14 @@ public class GameManager : NetworkBehaviour
             {
                 for (int i = 0; i < lastMinigamePlayerPoints.Count; i++)
                 {
-                    lastMinigamePlayerPoints[i].networkIdentity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex,i);
+                    lastMinigamePlayerPoints[i].networkIdentity.gameObject.GetComponent<CarController>().CmdMoveCar(raceIndex,i);
                 }
             }
             else
             {
                 foreach (var playerCarController in playersCarController)
                 { 
-                    playerCarController.TargetMoveCar(raceIndex, playerCarController.GetComponent<InformacionJugador>().posicionActual-1);
+                    playerCarController.CmdMoveCar(raceIndex, playerCarController.GetComponent<InformacionJugador>().posicionActual-1);
                 }
             }
             EnableCarClientRPC(raceIndex);
@@ -269,7 +269,7 @@ public class GameManager : NetworkBehaviour
             playerRacePointsList.Remove(playerPoints);
             playerRacePointsList.Add(playerPointsAux);
         }
-        Debug.Log("CHECK PLAYERS WAITING");
+        // Debug.Log("CHECK PLAYERS WAITING");
         CheckAllPlayersWaiting();
     }
     

@@ -173,7 +173,7 @@ public class PosicionCarreraController : NetworkBehaviour
     [ClientRpc]
     private void RpcInicioCuentaAtras()
     {
-        Debug.Log("CREANDO UNA CORRUTINA");
+        // Debug.Log("CREANDO UNA CORRUTINA");
         StartCoroutine(CuentaAtrasCarrera());
     }
     

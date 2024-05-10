@@ -155,7 +155,7 @@ public class InformacionJugador : NetworkBehaviour
             SetSiguienteWaypoint(siguienteWaypoint);
             
             //InformacionJugador SetVuelta
-            Debug.Log("InformacionJugador SetVuelta");
+            // Debug.Log("InformacionJugador SetVuelta");
             SetVueltaActual(vueltaActual);
         }
     }
