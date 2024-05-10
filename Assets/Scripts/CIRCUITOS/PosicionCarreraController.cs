@@ -138,7 +138,7 @@ public class PosicionCarreraController : NetworkBehaviour
                     }
                     
                     //Cuando un jugador acaba la carrera
-                    GestionCarreraTerminada(jugador, puntuacionMaxima - 2 * (jugador.posicionActual-1));
+                    GestionCarreraTerminada(jugador, puntuacionMaxima - 2 * (jugador.posicionActual-1), contadorTiempo);
 
                 }
                 else
@@ -194,7 +194,7 @@ public class PosicionCarreraController : NetworkBehaviour
         foreach (var jugador in _informacionJugadores)
         {
             if(!jugador.finCarrera) 
-                GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2);
+                GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2 , contadorTiempo);
         }
                 
         cuentaAtrasActivado = false;
@@ -202,11 +202,11 @@ public class PosicionCarreraController : NetworkBehaviour
 
     }
 
-    public void GestionCarreraTerminada(InformacionJugador jugador, int puntos)
+    public void GestionCarreraTerminada(InformacionJugador jugador, int puntos, int tiempoCarrera)
     {
         jugador.finCarrera = true;
         jugador.CmdSetFinCarrera(true);
-        _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos, contadorTiempo);
+        _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos, tiempoCarrera);
         TargetFinishRace(jugador,jugador.posicionActual-1);
     }
   

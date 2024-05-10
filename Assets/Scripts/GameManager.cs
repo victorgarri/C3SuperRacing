@@ -91,7 +91,7 @@ public class GameManager : NetworkBehaviour
         spawnPoints.Add(SPs3);
         
         _resultadoCarreraController.gameObject.SetActive(false);
-        // DisableWaypoints();
+        DisableWaypoints();
         playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
 
         if (LocalPlayerPointer.Instance.roomPlayer.isSpectator)
@@ -112,7 +112,6 @@ public class GameManager : NetworkBehaviour
         
         if (currentGameType == GameType.Minigame)
         {
-            
             foreach (var informacionJugador in informacionJugadores)
             {
                 Debug.Log("jugador waiting: "+informacionJugador.finMinijuego);
