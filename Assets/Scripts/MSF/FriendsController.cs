@@ -46,7 +46,7 @@ public class FriendsController : MonoBehaviour
 
     private Vector3 GetRandomPosition()
     {
-        float x = Random.Range(-13f, 9f);
+        float x = Random.Range(-13f-1000, 9f-1000);
         float y = Random.Range(-2f, 9f);
         return new Vector3(x, y, transform.position.z);
     }

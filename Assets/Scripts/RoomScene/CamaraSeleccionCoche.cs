@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class CamaraSeleccionCoche : MonoBehaviour
 {
     //Límite del desplazamiento de la cámara
-    private float limiteIzquierdo = -15.0f, limiteDerecho = -5.0f;
+    private float limiteIzquierdo = -35.0f, limiteDerecho = -5.0f;
     
     //Declaro los botones
     public Button btnIzquierda, btnDerecha;

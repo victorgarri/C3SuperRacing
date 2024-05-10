@@ -21,6 +21,8 @@ TagManager:
   - Friends
   - PowerUp
   - ImagenPowerUp
+  - Spectator
+  - CuadroPosicionamiento
   layers:
   - Default
   - TransparentFX

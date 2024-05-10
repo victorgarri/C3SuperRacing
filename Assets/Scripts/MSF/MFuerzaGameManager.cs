@@ -19,9 +19,12 @@ public class MFuerzaGameManager : MonoBehaviour
     private bool end = false;
     public AudioClip musicaFondo, finJuego;
     private AudioSource audioSource;
+    private GameManager _globalGameManager;
+
     
     void Start()
     {
+        _globalGameManager = GameObject.FindObjectOfType<GameManager>();
         startTime = Time.time;
         friendsController = FindObjectOfType<FriendsController>();
         enemySpawner = FindObjectOfType<EnemySpawner>();
@@ -71,6 +74,9 @@ public class MFuerzaGameManager : MonoBehaviour
         }
         
         finalMessage.text = $"¡Bien hecho!\nHas derrotado {enemiesDestroyed} enemigos\nLos ciudadanos están a salvo";
+        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(enemiesDestroyed);
+        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(true);
+        _globalGameManager.CheckAllPlayersWaiting();
     }
 
     private string FormatTime(float time)
