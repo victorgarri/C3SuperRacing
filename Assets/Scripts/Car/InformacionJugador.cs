@@ -15,7 +15,7 @@ public class InformacionJugador : NetworkBehaviour
     [Header("Nombre del jugador")] 
     [SerializeField] [SyncVar] public string nombreJugador = "Carlitos";
     public TextMesh etiquetaNombre;
-    [SerializeField] public Color colorJugador;
+    [SerializeField] [SyncVar] public Color colorJugador;
     
     [Header("Gestión de las posiciones")]
     public PosicionCarreraController _posicionCarreraController;
@@ -44,7 +44,7 @@ public class InformacionJugador : NetworkBehaviour
     private SonidoFondo _sonidoFondo;
 
     [SerializeField] private uint playerNetworkId;
-    [SyncVar]public int playerIndex;
+    [SyncVar] public int playerIndex;
     public  Material[] colorMaterialByIndex;
     public Material playerColorMaterial;
 

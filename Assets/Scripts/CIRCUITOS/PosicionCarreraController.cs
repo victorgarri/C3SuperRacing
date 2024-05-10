@@ -25,7 +25,7 @@ public class PosicionCarreraController : NetworkBehaviour
     [Header("Colocación coches final de cada carrera")]
     [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
     private int sumaOrden = 0;
-    public int puntuacionMaxima = 0;
+    private int puntuacionMaxima = 16;
     public int contadorTiempo = 0;
     private bool carreraFinalizada = false;
     
@@ -173,7 +173,6 @@ public class PosicionCarreraController : NetworkBehaviour
     [ClientRpc]
     private void RpcInicioCuentaAtras()
     {
-        Debug.Log("CREANDO UNA CORRUTINA");
         StartCoroutine(CuentaAtrasCarrera());
     }
     

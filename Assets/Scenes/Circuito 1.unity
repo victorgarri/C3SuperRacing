@@ -1806,26 +1806,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98875f939d1cc4042b580992eacc4b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  interiorCoche: {fileID: 1100159144}
-  coloresInteriorCoche:
-  - {fileID: 21300000, guid: 996412d1acaea7b4fa373072389aa0db, type: 3}
-  - {fileID: 21300000, guid: b210a829d78162b4bacdaaf15ee77485, type: 3}
-  - {fileID: 21300000, guid: d2edf8be33b086648be964e8f12c09a7, type: 3}
-  - {fileID: 21300000, guid: bb049ba1893229340bdff759113ed509, type: 3}
-  - {fileID: 21300000, guid: 6fda676d7d1f4cd4dbc4dc5b50db0138, type: 3}
-  - {fileID: 21300000, guid: 683781ec864e6db4b80dbb4d65e6f052, type: 3}
-  - {fileID: 21300000, guid: 29dc3b2f74ee06a49a4fdeb0399b625f, type: 3}
-  - {fileID: 21300000, guid: a560a141182bc5846892796176573825, type: 3}
+  interiorCocheGameObject: {fileID: 1100159144}
   velocimetro: {fileID: 2059445739}
   coloresVelocimetro:
-  - {fileID: 21300000, guid: 33c32528a9474d843978134a254d5777, type: 3}
-  - {fileID: 21300000, guid: 2840da4791e1b2146bb6c96e9394e791, type: 3}
-  - {fileID: 21300000, guid: 5b9fcdc11557e614694a27458d8951b1, type: 3}
-  - {fileID: 21300000, guid: 72bf3d9be481ed243aae88b6f05714da, type: 3}
   - {fileID: 21300000, guid: 50b34239d2f285442bfc53d22a7ebb6e, type: 3}
+  - {fileID: 21300000, guid: 2c89502f4802fca46b8a7ee9007f3455, type: 3}
+  - {fileID: 21300000, guid: 33c32528a9474d843978134a254d5777, type: 3}
   - {fileID: 21300000, guid: 1528ca0768f6fd24f8cfa19de2bfcd3a, type: 3}
-  - {fileID: 21300000, guid: 1528ca0768f6fd24f8cfa19de2bfcd3a, type: 3}
-  - {fileID: 21300000, guid: 1528ca0768f6fd24f8cfa19de2bfcd3a, type: 3}
+  - {fileID: 21300000, guid: 72bf3d9be481ed243aae88b6f05714da, type: 3}
+  - {fileID: 21300000, guid: 2840da4791e1b2146bb6c96e9394e791, type: 3}
+  - {fileID: 21300000, guid: a0675f8dbe19e444aa23816610f68a39, type: 3}
+  - {fileID: 21300000, guid: d9a2c1f9f553ea749939c27836f9050b, type: 3}
   agujaVelocimetro: {fileID: 884958915}
   velocidadNormal: 0
   textoPosicion: {fileID: 1756618388}
@@ -9882,7 +9873,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bb049ba1893229340bdff759113ed509, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 985de1ec343e56c4f98bf140c09f8acc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -11653,7 +11644,6 @@ MonoBehaviour:
   - {fileID: 1055920856}
   - {fileID: 1988347274}
   - {fileID: 163263816}
-  puntuacionMaxima: 0
   contadorTiempo: 0
   _gameManager: {fileID: 2004875632}
   interfazUsuarioModoEspectador: {fileID: 1207990988}
@@ -15799,7 +15789,6 @@ MonoBehaviour:
   - {fileID: 1055920856}
   - {fileID: 1988347274}
   - {fileID: 163263816}
-  puntuacionMaxima: 0
   contadorTiempo: 0
   _gameManager: {fileID: 2004875632}
   interfazUsuarioModoEspectador: {fileID: 1207990988}
@@ -20681,7 +20670,6 @@ MonoBehaviour:
   - {fileID: 1055920856}
   - {fileID: 1988347274}
   - {fileID: 163263816}
-  puntuacionMaxima: 0
   contadorTiempo: 0
   _gameManager: {fileID: 2004875632}
   interfazUsuarioModoEspectador: {fileID: 1207990988}

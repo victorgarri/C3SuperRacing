@@ -305,7 +305,7 @@ public class GameManager : NetworkBehaviour
             jugador._interfazController.CuentaAtras(false, 0);
         }
         
-        posicionCarreraController.puntuacionMaxima = 2 * posicionCarreraController._informacionJugadores.Length;
+        //posicionCarreraController.puntuacionMaxima = 2 * posicionCarreraController._informacionJugadores.Length;
         
     }
 
