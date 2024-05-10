@@ -13,8 +13,9 @@ public class InformacionJugador : NetworkBehaviour
     public int vueltas;
     
     [Header("Nombre del jugador")] 
-    [SerializeField] public string nombreJugador = "Carlitos";
+    [SerializeField] [SyncVar] public string nombreJugador = "Carlitos";
     public TextMesh etiquetaNombre;
+    [SerializeField] public Color colorJugador;
     
     [Header("Gestión de las posiciones")]
     public PosicionCarreraController _posicionCarreraController;
@@ -24,98 +25,103 @@ public class InformacionJugador : NetworkBehaviour
     [SyncVar]
     public int vueltaActual = 0;
     public int nVueltasCircuito = 0;
-    [SyncVar]
-    public int nWaypoints = 0;
-    [SyncVar]
-    public int siguienteWaypoint = 0;
-    [SyncVar]
-    public float distanciaSiguienteWaypoint = 0;
+    [SyncVar] public int nWaypoints = 0;
+    [SyncVar] public int siguienteWaypoint = 0;
+    [SyncVar] public float distanciaSiguienteWaypoint = 0;
     public float posicionAnterior;
 
-    [Header("Gestión de la interfaz")] 
-    private InterfazController _interfazController;
+    [Header("Gestión de la interfaz")] public InterfazController _interfazController;
 
     public CarController _carController;
 
     [SyncVar] public Nullable<int> lastMinigameScore = null;
     
-    
-    public List<int> listaPuntuacionCarrera;
-    public int puntuacionTotalCarrera = 0;
     public int indiceCarrera = 0;
 
-    [SyncVar]
-    public bool finCarrera=true;
+    [SyncVar] public bool finCarrera = true;
+    [SyncVar] public bool finMinijuego = false;
 
     private SonidoFondo _sonidoFondo;
-    
+
+    [SerializeField] private uint playerNetworkId;
+    [SyncVar]public int playerIndex;
+    public  Material[] colorMaterialByIndex;
+    public Material playerColorMaterial;
+
     private void Awake()
     {
-        
+
         /*
         etiquetaNombre = GameObject.Find("NombreJugador").GetComponent<TextMesh>();
         etiquetaNombre.text = nombreJugador;
         */
     }
 
-    [Command]
-    public void SetNWaypoints(int n)
-    {
-        nWaypoints = n;
-    }
-    [Command]
-    public void SetSiguienteWaypoint(int i)
-    {
-        siguienteWaypoint = i;
-    }
-
-    [Command]
-    public void SetVueltaActual(int n)
-    {
-        vueltaActual = n;
-    }
     
+
 
     // Start is called before the first frame update
     void Start()
     {
-        listaPuntuacionCarrera = new List<int>();
-        listaPuntuacionCarrera.Add(0);
-        listaPuntuacionCarrera.Add(0);
-        listaPuntuacionCarrera.Add(0);
+        if (isLocalPlayer)
+        {
+            LocalPlayerPointer.Instance.gamePlayerGameObject = gameObject;
+            SetNombreJugador(LocalPlayerPointer.Instance.roomPlayer.playerName);
+        }
+
+        SetMaterialJugador();
         
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
-        
+
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
         _carController = GetComponent<CarController>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
+        this.playerNetworkId = netId;
+    }
+
+    private void SetMaterialJugador()
+    {
+        playerColorMaterial = colorMaterialByIndex[playerIndex];
+        var renderers = GetComponentsInChildren<Renderer>();
+        foreach (var renderer in renderers)
+        {
+            var materials = renderer.materials;
+            
+            for (int i = 0; i < materials.Length; i++)
+                if (materials[i].name == "Color Base (Instance)")
+                    materials[i] = playerColorMaterial;
+            
+            renderer.SetMaterials(new List<Material>(materials));
+        }
+        GetComponentInChildren<SpriteRenderer>().material = playerColorMaterial;
     }
 
     void Update()
     {
         if (isLocalPlayer && _carController.enableControls)
         {
-            float distanciaSiguienteWaypointAproximado =  Mathf.Round(distanciaSiguienteWaypoint * 100f) / 100f;
+            float distanciaSiguienteWaypointAproximado = Mathf.Round(distanciaSiguienteWaypoint * 100f) / 100f;
             float posicionAnteriorAproximado = Mathf.Round(posicionAnterior * 100f) / 100f;
-            
+
             if (distanciaSiguienteWaypointAproximado < posicionAnteriorAproximado)
             {
-                _interfazController.desactivarProhibicion();                
+                _interfazController.desactivarProhibicion();
             }
-            else if(distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
+            else if (distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
             {
                 if (!_interfazController.corBool)
                 {
-                    _interfazController.stopCor=StartCoroutine(_interfazController.activarProhibicion());
+                    _interfazController.stopCor = StartCoroutine(_interfazController.activarProhibicion());
                 }
             }
+
             posicionAnterior = distanciaSiguienteWaypoint;
 
             if (vueltaActual == nVueltasCircuito)
             {
                 _sonidoFondo.ReproducirMusicaVelocidadRapida();
             }
-            
+
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
         }
@@ -147,16 +153,12 @@ public class InformacionJugador : NetworkBehaviour
             
             SetNWaypoints(nWaypoints);
             SetSiguienteWaypoint(siguienteWaypoint);
+            
+            //InformacionJugador SetVuelta
+            Debug.Log("InformacionJugador SetVuelta");
             SetVueltaActual(vueltaActual);
         }
     }
-
-    public void ActualizarPuntuacionJugadorCarrera(int puntosConseguidos)
-    {
-        listaPuntuacionCarrera[indiceCarrera - 1] = puntosConseguidos;
-        puntuacionTotalCarrera += listaPuntuacionCarrera[indiceCarrera - 1];
-    }
-
 
 
     [Command]
@@ -164,12 +166,35 @@ public class InformacionJugador : NetworkBehaviour
     {
         this.lastMinigameScore = score;
     }
-
+    
+    [Command]
+    public void SetVueltaActual(int n)
+    {
+        vueltaActual = n;
+    }
+    [Command]
+    public void SetNWaypoints(int n)
+    {
+        nWaypoints = n;
+    }
+    [Command]
+    public void SetSiguienteWaypoint(int i)
+    {
+        siguienteWaypoint = i;
+    }
     [Command]
     public void CmdSetFinCarrera(bool finish)
     {
         this.finCarrera = finish;
     }
-
-    
+    [Command]
+    public void CmdSetFinMinijuego(bool finish)
+    {
+        this.finMinijuego = finish;
+    }
+    [Command]
+    public void SetNombreJugador(string playerName)
+    {
+        this.nombreJugador = playerName;
+    }
 }

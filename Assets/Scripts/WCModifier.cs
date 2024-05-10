@@ -6,10 +6,11 @@ using UnityEngine;
 public class WCModifier : MonoBehaviour
 {
     [SerializeField] private float boostStrength;
-    public void ApplyEffect(GameObject wheel)
+    
+    public void ApplyEffect(GameObject car)
     {
-        Rigidbody carRigidBody = wheel.transform.parent.GetComponent<Rigidbody>();
+        Rigidbody carRigidBody = car.GetComponent<Rigidbody>();
         
-        carRigidBody.AddForce(carRigidBody.transform.forward * boostStrength,ForceMode.Force);
+        carRigidBody.AddForce(carRigidBody.transform.forward * boostStrength, ForceMode.Force);
     }
 }
