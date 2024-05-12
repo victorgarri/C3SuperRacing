@@ -133,10 +133,10 @@ public class CarController : NetworkBehaviour
     {
         enableControls = false;
 
-        giro = 0;
-        pedal = 0;
-        cameraTurn = 0;
-        isBreaking = true;
+        CmdSetGiro(0);
+        CmdSetPedal(0);
+        CmdSetCameraInput(0);
+        CmdSetIsBreaking(true);
         
         _camera.SetActive(false);
         _interfazController.gameObject.SetActive(false);
@@ -369,5 +369,12 @@ public class CarController : NetworkBehaviour
         {
             carLight.SetActive(carLightBool);
         }
+    }
+
+    [Command]
+    public void CmdSetPositionRotation(Vector3 transformPosition, Quaternion transformRotation)
+    {
+        this.transform.position = transformPosition;
+        this.transform.rotation = transformRotation;
     }
 }

@@ -207,14 +207,13 @@ public class PosicionCarreraController : NetworkBehaviour
         jugador.finCarrera = true;
         jugador.CmdSetFinCarrera(true);
         _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos, contadorTiempo);
-        TargetFinishRace(jugador,jugador.posicionActual-1);
+        FinishRacePosition(jugador,jugador.posicionActual-1);
     }
-  
-    public void TargetFinishRace(InformacionJugador target, int sumOrd)
+    
+    public void FinishRacePosition(InformacionJugador target, int sumOrd)
     {
-        target.transform.position = spawnsFinales[sumOrd].transform.position;
-        target.transform.rotation = spawnsFinales[sumOrd].transform.rotation;
-        target.gameObject.GetComponent<InformacionJugador>()._carController.DesactivateCar();
+        target.gameObject.GetComponent<CarController>().CmdSetPositionRotation(spawnsFinales[sumOrd].transform.position,spawnsFinales[sumOrd].transform.rotation);
+        target.gameObject.GetComponent<CarController>().DesactivateCar();
     }
     
 }

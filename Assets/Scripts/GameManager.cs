@@ -277,6 +277,8 @@ public class GameManager : NetworkBehaviour
     {
         if(LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
         
+        Debug.Log("HALOO??");
+        
         // Aqui vamos a incluir las funciones que actualizaran la pantalla de los clientes cuando se actualice la lista de datos
         if (!isLocalPlayer && LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
         {

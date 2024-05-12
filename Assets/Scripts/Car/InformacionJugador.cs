@@ -129,6 +129,7 @@ public class InformacionJugador : NetworkBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        
         if (collision.gameObject.CompareTag("Waypoint") && isLocalPlayer)
         {
             // Debug.Log("SiguienteWaypoint: "+siguienteWaypoint);
