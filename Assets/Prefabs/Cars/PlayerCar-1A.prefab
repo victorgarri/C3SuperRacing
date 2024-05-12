@@ -789,6 +789,68 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!1001 &5186061144588605183
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 6085045223851046005}
+    m_Modifications:
+    - target: {fileID: 7669203028636147146, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_Name
+      value: SpawnPointProyectil
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+--- !u!4 &4450450452364482844 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
+  m_PrefabInstance: {fileID: 5186061144588605183}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6050820404323898270
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -905,6 +967,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 98d18e167e967004ba445fd0d84f3d29, type: 3}
       insertIndex: -1
       addedObject: {fileID: 6514940836610605787}
+    - targetCorrespondingSourceObject: {fileID: -8679921383154817045, guid: 98d18e167e967004ba445fd0d84f3d29, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 4450450452364482844}
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 98d18e167e967004ba445fd0d84f3d29, type: 3}
       insertIndex: -1
@@ -1113,6 +1178,13 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 98772fefcd7f1e944925a89a5d46c258, type: 2}
   - {fileID: 2100000, guid: 3d7803fcbf174ee48a75abf066c55384, type: 2}
   playerColorMaterial: {fileID: 0}
+  isPowerUpCollected: 0
+  proyectilPrefab: {fileID: 4020488174241307072, guid: f4a3ebc0c99f79d47928e315f350126c, type: 3}
+  spawnPoint: {fileID: 4450450452364482844}
+  velocidadProyectil: 20
+  powerUpImage: {fileID: 0}
+  powerUpSprite: {fileID: 21300000, guid: 9b4d6abf182796841ba10552e2137750, type: 3}
+  nonePowerUpSprite: {fileID: 21300000, guid: 8843e24cf2c1ec0418abca236e73ab52, type: 3}
 --- !u!114 &3920998485038147668
 MonoBehaviour:
   m_ObjectHideFlags: 0
