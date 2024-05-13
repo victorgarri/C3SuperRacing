@@ -94,8 +94,8 @@ public class GameManager : NetworkBehaviour
         DisableWaypoints();
         playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
 
-        if(!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
-            EnableMinigame(0);
+        if(LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+            DisableMinigame(0);
         
         SpectatorRaceStart(0);
             
@@ -222,6 +222,11 @@ public class GameManager : NetworkBehaviour
 
     [ClientRpc]
     private void DisableMinigameClientRPC(int index)
+    {
+        DisableMinigame(index);
+    }
+
+    private void DisableMinigame(int index)
     {
         ordenMinijuegos[index].SetActive(false);
     }

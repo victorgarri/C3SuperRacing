@@ -601,6 +601,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4973802948507507171, guid: 0f6bec89ca6b479409c73488352d367f, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6943018457024195344, guid: 0f6bec89ca6b479409c73488352d367f, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -1870,18 +1874,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98875f939d1cc4042b580992eacc4b6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  imagenPowerUp: {fileID: 0}
-  interiorCocheGameObject: {fileID: 0}
+  imagenPowerUp: {fileID: 1151318601}
+  interiorCocheGameObject: {fileID: 1100159144}
   velocimetro: {fileID: 2059445739}
   coloresVelocimetro:
-  - {fileID: 21300000, guid: 33c32528a9474d843978134a254d5777, type: 3}
-  - {fileID: 21300000, guid: 2840da4791e1b2146bb6c96e9394e791, type: 3}
-  - {fileID: 21300000, guid: 5b9fcdc11557e614694a27458d8951b1, type: 3}
-  - {fileID: 21300000, guid: 72bf3d9be481ed243aae88b6f05714da, type: 3}
   - {fileID: 21300000, guid: 50b34239d2f285442bfc53d22a7ebb6e, type: 3}
+  - {fileID: 21300000, guid: 2c89502f4802fca46b8a7ee9007f3455, type: 3}
+  - {fileID: 21300000, guid: 33c32528a9474d843978134a254d5777, type: 3}
   - {fileID: 21300000, guid: 1528ca0768f6fd24f8cfa19de2bfcd3a, type: 3}
-  - {fileID: 21300000, guid: 1528ca0768f6fd24f8cfa19de2bfcd3a, type: 3}
-  - {fileID: 21300000, guid: 1528ca0768f6fd24f8cfa19de2bfcd3a, type: 3}
+  - {fileID: 21300000, guid: 72bf3d9be481ed243aae88b6f05714da, type: 3}
+  - {fileID: 21300000, guid: 2840da4791e1b2146bb6c96e9394e791, type: 3}
+  - {fileID: 21300000, guid: a0675f8dbe19e444aa23816610f68a39, type: 3}
+  - {fileID: 21300000, guid: d9a2c1f9f553ea749939c27836f9050b, type: 3}
   agujaVelocimetro: {fileID: 884958915}
   velocidadNormal: 0
   textoPosicion: {fileID: 1756618388}
@@ -4627,10 +4631,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2123806888}
     m_Modifications:
+    - target: {fileID: 1437218234142501070, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
+      propertyPath: m_RenderPostProcessing
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1694902517088324584, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: m_Name
       value: Minijuego0
       objectReference: {fileID: 0}
+    - target: {fileID: 1694902517088324584, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3148921735882495149, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
+      propertyPath: _globalGameManager
+      value: 
+      objectReference: {fileID: 2004875632}
     - target: {fileID: 6093880896388416780, guid: 5c6e5e5a4d6300d43872812741b8c4be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -6852,7 +6868,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f41ef650e70b74642b4eee5cd08a76a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  listaDeReproduccion: []
+  listaDeReproduccion:
+  - {fileID: 8300000, guid: f7207569d9d4f364eb337181ccdd687d, type: 3}
+  - {fileID: 8300000, guid: 8d20ead594607244c951e48ee26a8b45, type: 3}
+  - {fileID: 8300000, guid: 025ffda9bd4c8584888655cf32d5d116, type: 3}
   musicaVictoria: {fileID: 8300000, guid: 52bc787efbf800646b52858d49aba2ec, type: 3}
   musicaDerrota: {fileID: 8300000, guid: 97d6818011131e04b8e364c0c0f476fa, type: 3}
   volumenMusica: 1
@@ -9965,7 +9984,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: bb049ba1893229340bdff759113ed509, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 985de1ec343e56c4f98bf140c09f8acc, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -10741,7 +10760,7 @@ MonoBehaviour:
     m_Bits: 1
   m_VolumeTrigger: {fileID: 0}
   m_VolumeFrameworkUpdateModeOption: 2
-  m_RenderPostProcessing: 1
+  m_RenderPostProcessing: 0
   m_Antialiasing: 0
   m_AntialiasingQuality: 2
   m_StopNaN: 0
@@ -13596,6 +13615,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: -6286242109499482044, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2039830925}
+    - targetCorrespondingSourceObject: {fileID: 8655004502499540631, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1792782498}
     - targetCorrespondingSourceObject: {fileID: 5307527609666846500, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2039830924}
@@ -16969,6 +16991,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1 &1792782497 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8655004502499540631, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
+  m_PrefabInstance: {fileID: 1394401489}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1792782498
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1792782497}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 5201385301870824260, guid: da5e890dabd05df4b803edde34edbd4c, type: 3}
 --- !u!1 &1801460438
 GameObject:
   m_ObjectHideFlags: 0

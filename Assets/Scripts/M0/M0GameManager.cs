@@ -28,7 +28,7 @@ public class M0GameManager : MonoBehaviour
     public GameObject cajaReforzadaPrefab;
     public GameObject tntPrefab;
     private PlayerController playerController;
-    private GameManager _globalGameManager;
+    [SerializeField] private GameManager _globalGameManager;
     public AudioClip musicaFondo, finJuego;
     private AudioSource audioSource;
     
@@ -36,7 +36,7 @@ public class M0GameManager : MonoBehaviour
     {
         startTime = Time.time;
         playerController = FindObjectOfType<PlayerController>();
-        _globalGameManager = GameObject.FindObjectOfType<GameManager>();
+        // _globalGameManager = GameObject.FindObjectOfType<GameManager>();
         GenerateRandomBoxes();
         
         audioSource = gameObject.GetComponent<AudioSource>();
