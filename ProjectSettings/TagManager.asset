@@ -19,6 +19,8 @@ TagManager:
   - WCModifier
   - Enemy
   - Friends
+  - PowerUp
+  - ImagenPowerUp
   - Spectator
   - CuadroPosicionamiento
   layers:
