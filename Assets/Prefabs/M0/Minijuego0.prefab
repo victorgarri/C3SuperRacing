@@ -2853,16 +2853,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa2585d1083660d4499537945005fca7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 0
-  syncMode: 0
-  syncInterval: 0
   countdownText: {fileID: 966596866522371394}
   finalMessage: {fileID: 7522470866368851963}
   messagePanel: {fileID: 3649235698771745181}
   totalPieces: 4
   puzzleCompleted: 0
   gamePoints: 0
-  maxTime: 10
+  maxTime: 60
   probabilidadCajaReforzada: 30
   probabilidadTnt: 10
   cajaPrefab: {fileID: 3846966106448461380, guid: 117d9b084b931a44ca214bd26f82321a, type: 3}
