@@ -30,6 +30,9 @@ public class PosicionCarreraController : NetworkBehaviour
     [Header("Script del GameManager")]
     [SerializeField] private GameManager _gameManager;
 
+
+    [SerializeField] private InterfazController _interfazController;
+    
     [FormerlySerializedAs("_tablaPosicionModoEspectador")]
     [Header("Script de mostrar tabla de posición modo espectador")] 
     [SerializeField] private InterfazUsuarioModoEspectador interfazUsuarioModoEspectador;
@@ -83,6 +86,7 @@ public class PosicionCarreraController : NetworkBehaviour
         {
             ActualizarPosiciones();
         }
+        
     }
 
     [Server]
@@ -128,16 +132,14 @@ public class PosicionCarreraController : NetworkBehaviour
 
                 if (jugador.vueltaActual == vueltasTotales)
                 {
-                    // if (!cuentaAtrasActivado)
-                    // {
-                    //     cuentaAtrasActivado = true;
-                    //     Debug.Log("cuentaAtrasActivado "+cuentaAtrasActivado);
-                    //     CmdInicioCuentaAtras();
-                    // }
+                    if (!cuentaAtrasActivado)
+                    {
+                        cuentaAtrasActivado = true;
+                        CmdInicioCuentaAtras();
+                    }
                     
                     //Cuando un jugador acaba la carrera
                     GestionCarreraTerminada(jugador, puntuacionMaxima - 2 * (jugador.posicionActual-1), contadorTiempo);
-
                 }
                 else
                 {                    
@@ -177,12 +179,11 @@ public class PosicionCarreraController : NetworkBehaviour
     
     private IEnumerator CuentaAtrasCarrera()
     {
+        Debug.Log("HE INICIADO LA CORRUTINA");
         while (segundosRestantes > 0)
         {
-            foreach (var jugador in _informacionJugadores)
-            {
-                jugador._interfazController.CuentaAtras(cuentaAtrasActivado, segundosRestantes);
-            }
+            _interfazController.CuentaAtras(cuentaAtrasActivado, segundosRestantes);
+           
             yield return new WaitForSeconds(1);
             contadorTiempo++;
             segundosRestantes--;
