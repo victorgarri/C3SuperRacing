@@ -518,7 +518,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6497668200481653295}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.14521316, y: -0, z: -0, w: 0.9894004}
+  m_LocalRotation: {x: 0.14521316, y: -0, z: -0, w: 0.98940045}
   m_LocalPosition: {x: 0, y: 1.5, z: -3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 1
@@ -962,6 +962,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -9202618413819567624, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: edcbd0238ea75784f8c7f8e4a371f15e, type: 2}
     - target: {fileID: -8992967168163691766, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
       propertyPath: m_RenderMode
       value: 1
@@ -1022,10 +1026,30 @@ PrefabInstance:
       propertyPath: m_ConstrainProportionsScale
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: -7064738782772790619, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: edcbd0238ea75784f8c7f8e4a371f15e, type: 2}
+    - target: {fileID: -7064738782772790619, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_Materials.Array.data[5]
+      value: 
+      objectReference: {fileID: 2100000, guid: 2354117681468554d93a6f2d5b746a6d, type: 2}
+    - target: {fileID: -7064738782772790619, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_Materials.Array.data[6]
+      value: 
+      objectReference: {fileID: 2100000, guid: 178ed21d13e8bf446968adfb8555e1a1, type: 2}
+    - target: {fileID: -1195332222374989299, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: edcbd0238ea75784f8c7f8e4a371f15e, type: 2}
     - target: {fileID: 211810981009007446, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
       propertyPath: m_RenderMode
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 722817205948366401, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_Materials.Array.data[1]
+      value: 
+      objectReference: {fileID: 2100000, guid: 6d6f47eb9aa7a9448b9afee0818614e7, type: 2}
     - target: {fileID: 919132149155446097, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
       propertyPath: m_Name
       value: PlayerCar-2A
@@ -1038,10 +1062,22 @@ PrefabInstance:
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 2464425769351413994, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: edcbd0238ea75784f8c7f8e4a371f15e, type: 2}
+    - target: {fileID: 6954101427281989132, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_Materials.Array.data[2]
+      value: 
+      objectReference: {fileID: 2100000, guid: edcbd0238ea75784f8c7f8e4a371f15e, type: 2}
     - target: {fileID: 6990580004210396217, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
       propertyPath: m_TagString
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 7896359039916393171, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: edcbd0238ea75784f8c7f8e4a371f15e, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
