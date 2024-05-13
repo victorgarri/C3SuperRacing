@@ -9,6 +9,7 @@ using UnityEngine;
 using UnityEngine.Serialization;
 using ColorUtility = UnityEngine.ColorUtility;
 using Image = UnityEngine.UI.Image;
+using UnityEngine.InputSystem;
 
 public class InformacionJugador : NetworkBehaviour
 {
@@ -69,6 +70,7 @@ public class InformacionJugador : NetworkBehaviour
     public Image powerUpImage;
     public Sprite powerUpSprite;
     public Sprite nonePowerUpSprite;
+    private PlayerInput _playerInput;
     
 
 
@@ -88,7 +90,8 @@ public class InformacionJugador : NetworkBehaviour
         _posicionCarreraController = FindObjectOfType<PosicionCarreraController>();
         _carController = GetComponent<CarController>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
-
+        
+        _playerInput = GetComponent<PlayerInput>();
 
         _interfazController.imagenPowerUp.SetActive(true);
         powerUpImage = _interfazController.imagenPowerUp.GetComponent<Image>();
@@ -115,6 +118,13 @@ public class InformacionJugador : NetworkBehaviour
 
     void Update()
     {
+        //if (Input.GetKeyDown(KeyCode.Space) && isPowerUpCollected == true)
+        if(_playerInput.actions["Throw"].IsPressed() && isPowerUpCollected == true)
+        {
+            UsePowerUp();
+            LanzarProyectil();
+        }
+        
         if (isLocalPlayer && _carController.enableControls)
         {
             float distanciaSiguienteWaypointAproximado = Mathf.Round(distanciaSiguienteWaypoint * 100f) / 100f;
@@ -141,12 +151,6 @@ public class InformacionJugador : NetworkBehaviour
 
             _interfazController.ActualizaPosicion(posicionActual);
             _interfazController.ActualizaNumVueltas(vueltaActual, nVueltasCircuito);
-        }
-        
-        if (Input.GetKeyDown(KeyCode.Space) && isPowerUpCollected == true)
-        {
-            UsePowerUp();
-            LanzarProyectil();
         }
     }
     

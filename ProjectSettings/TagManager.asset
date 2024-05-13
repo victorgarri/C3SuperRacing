@@ -23,6 +23,11 @@ TagManager:
   - ImagenPowerUp
   - Spectator
   - CuadroPosicionamiento
+  - LimiteMapa
+  - Enemigo
+  - Obstaculo
+  - Bala
+  - Proyectil
   layers:
   - Default
   - TransparentFX
