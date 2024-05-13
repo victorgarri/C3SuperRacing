@@ -212,6 +212,7 @@ public class PosicionCarreraController : NetworkBehaviour
     
     public void FinishRacePosition(InformacionJugador target, int sumOrd)
     {
+        Debug.Log("FinishRacePosition");
         target.gameObject.GetComponent<CarController>().CmdSetPositionRotation(spawnsFinales[sumOrd].transform.position,spawnsFinales[sumOrd].transform.rotation);
         target.gameObject.GetComponent<CarController>().DesactivateCar();
     }

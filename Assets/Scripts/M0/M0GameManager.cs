@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 using Random = UnityEngine.Random;
 
-public class M0GameManager : NetworkBehaviour
+public class M0GameManager : MonoBehaviour
 {
     private float startTime;
     public TextMeshProUGUI countdownText;

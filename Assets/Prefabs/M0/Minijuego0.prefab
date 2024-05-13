@@ -2862,7 +2862,7 @@ MonoBehaviour:
   totalPieces: 4
   puzzleCompleted: 0
   gamePoints: 0
-  maxTime: 3
+  maxTime: 10
   probabilidadCajaReforzada: 30
   probabilidadTnt: 10
   cajaPrefab: {fileID: 3846966106448461380, guid: 117d9b084b931a44ca214bd26f82321a, type: 3}

@@ -46,7 +46,7 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
         camaraSeleccionCoche = GameObject.Find("CamaraVisualizacionCoches").GetComponent<CamaraSeleccionCoche>();
         panelSeleccionCoche = GameObject.Find("SeleccionCochePanel");
         inputNombreJugador = GameObject.Find("NombreJugador");
-
+    
         ChangeCarsBaseColor();
         if (isLocalPlayer)
         {

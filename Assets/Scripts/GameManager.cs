@@ -94,12 +94,9 @@ public class GameManager : NetworkBehaviour
         // DisableWaypoints();
         playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
 
-        if (LocalPlayerPointer.Instance.roomPlayer.isSpectator)
-        {
-            GameObject.Find("Minijuego0Camera").SetActive(false);
-            GameObject.Find("M0GameManager").SetActive(false);
-            
-        }
+        if(!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+            EnableMinigame(0);
+        
         SpectatorRaceStart(0);
             
     }
@@ -161,12 +158,12 @@ public class GameManager : NetworkBehaviour
             currentGameType = GameType.Minigame;
             lastMinigamePlayerPoints = new List<PlayerMinigamePoints>();
             EnableMinigameClientRPC(minigameIndex);
+            SpectatorRaceStart(raceIndex+1);
             
         }
         else if(raceIndex+1 < tracksWaypoints.Count)
         {
             raceIndex++;
-            SpectatorRaceStart(raceIndex);
             DisableMinigameClientRPC(minigameIndex);
             
             if (currentGameType == GameType.Minigame)
@@ -233,6 +230,12 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void EnableMinigameClientRPC(int index)
     {
+        EnableMinigame(index);
+    }
+
+    private void EnableMinigame(int index)
+    {
+        if (LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
         _resultadoCarreraController.gameObject.SetActive(false);
         LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(null);
         LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(false);
@@ -277,7 +280,6 @@ public class GameManager : NetworkBehaviour
     {
         if(LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
         
-        Debug.Log("HALOO??");
         
         // Aqui vamos a incluir las funciones que actualizaran la pantalla de los clientes cuando se actualice la lista de datos
         if (!isLocalPlayer && LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)

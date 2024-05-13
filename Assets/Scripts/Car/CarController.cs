@@ -376,5 +376,6 @@ public class CarController : NetworkBehaviour
     {
         this.transform.position = transformPosition;
         this.transform.rotation = transformRotation;
+        Physics.SyncTransforms();
     }
 }
