@@ -66,7 +66,7 @@ public class InformacionJugador : NetworkBehaviour
     public bool isPowerUpCollected = false;
     public GameObject proyectilPrefab;
     public Transform spawnPoint;
-    public float velocidadProyectil = 20f;
+    public float velocidadProyectil = 30f;
     public Image powerUpImage;
     public Sprite powerUpSprite;
     public Sprite nonePowerUpSprite;
@@ -118,7 +118,6 @@ public class InformacionJugador : NetworkBehaviour
 
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Space) && isPowerUpCollected == true)
         if(_playerInput.actions["Throw"].IsPressed() && isPowerUpCollected == true)
         {
             UsePowerUp();

@@ -84,6 +84,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  brakeStrength: 0
 --- !u!1 &1538454210401544280
 GameObject:
   m_ObjectHideFlags: 0
@@ -380,6 +384,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  brakeStrength: 0
 --- !u!1 &3252058403205630936
 GameObject:
   m_ObjectHideFlags: 0
@@ -705,6 +713,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  brakeStrength: 0
 --- !u!1 &9007873944359829695
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,6 +801,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  brakeStrength: 0
 --- !u!1001 &273461953261775258
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1196,10 +1212,10 @@ MonoBehaviour:
   isPowerUpCollected: 0
   proyectilPrefab: {fileID: 4020488174241307072, guid: f4a3ebc0c99f79d47928e315f350126c, type: 3}
   spawnPoint: {fileID: 8786577898422216313}
-  velocidadProyectil: 20
+  velocidadProyectil: 30
   powerUpImage: {fileID: 0}
-  powerUpSprite: {fileID: 21300000, guid: 9b4d6abf182796841ba10552e2137750, type: 3}
-  nonePowerUpSprite: {fileID: 21300000, guid: 8843e24cf2c1ec0418abca236e73ab52, type: 3}
+  powerUpSprite: {fileID: 21300000, guid: 29d95a5acdc4e8349b5cbc40a7e5805a, type: 3}
+  nonePowerUpSprite: {fileID: 21300000, guid: 1743c3515f342b449ade5cb0e469444d, type: 3}
 --- !u!114 &8756417068315567357
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1390,6 +1406,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2a316559d19c1ff47b8b0ddeb8eaa54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  syncDirection: 0
+  syncMode: 0
+  syncInterval: 0
+  brakeStrength: 0.5
 --- !u!4 &9022156535534056080 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ff1d391d64261a54b8869ea0b2f443ad, type: 3}

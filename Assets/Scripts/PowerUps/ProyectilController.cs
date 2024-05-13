@@ -9,7 +9,6 @@ public class ProyectilController : MonoBehaviour
         if (collision.gameObject.CompareTag("Player"))
         {
             Destroy(gameObject);
-            //FALTA IMPLEMENTAR QUÉ LE PASA AL PLAYER CUANDO LE DA UN PROYECTIL
         }
     }
 }
