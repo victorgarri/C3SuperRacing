@@ -76,12 +76,12 @@ public class ReadyStartController : NetworkBehaviour
     {
         if (isOn)
         {
-            Debug.Log("El Toggle está activado");
+            // Debug.Log("El Toggle está activado");
             // Realiza acciones específicas cuando el Toggle está activado
         }
         else
         {
-            Debug.Log("El Toggle está desactivado");
+            // Debug.Log("El Toggle está desactivado");
             // Realiza acciones específicas cuando el Toggle está desactivado
         }
     }

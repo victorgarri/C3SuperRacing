@@ -126,6 +126,7 @@ public class InformacionJugador : NetworkBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        
         if (collision.gameObject.CompareTag("Waypoint") && isLocalPlayer)
         {
             // Debug.Log("SiguienteWaypoint: "+siguienteWaypoint);
@@ -152,7 +153,7 @@ public class InformacionJugador : NetworkBehaviour
             SetSiguienteWaypoint(siguienteWaypoint);
             
             //InformacionJugador SetVuelta
-            Debug.Log("InformacionJugador SetVuelta");
+            // Debug.Log("InformacionJugador SetVuelta");
             SetVueltaActual(vueltaActual);
         }
     }

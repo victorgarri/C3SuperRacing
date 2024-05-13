@@ -170,6 +170,7 @@ public class PosicionCarreraController : NetworkBehaviour
     private void RpcInicioCuentaAtras()
     {
         StopCoroutine(Contador());
+        // Debug.Log("CREANDO UNA CORRUTINA");
         StartCoroutine(CuentaAtrasCarrera());
     }
     
@@ -203,14 +204,14 @@ public class PosicionCarreraController : NetworkBehaviour
         jugador.finCarrera = true;
         jugador.CmdSetFinCarrera(true);
         _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos, tiempoCarrera);
-        TargetFinishRace(jugador,jugador.posicionActual-1);
+        FinishRacePosition(jugador,jugador.posicionActual-1);
     }
-  
-    public void TargetFinishRace(InformacionJugador target, int sumOrd)
+    
+    public void FinishRacePosition(InformacionJugador target, int sumOrd)
     {
-        target.transform.position = spawnsFinales[sumOrd].transform.position;
-        target.transform.rotation = spawnsFinales[sumOrd].transform.rotation;
-        target.gameObject.GetComponent<InformacionJugador>()._carController.DesactivateCar();
+        Debug.Log("FinishRacePosition");
+        target.gameObject.GetComponent<CarController>().CmdSetPositionRotation(spawnsFinales[sumOrd].transform.position,spawnsFinales[sumOrd].transform.rotation);
+        target.gameObject.GetComponent<CarController>().DesactivateCar();
     }
     
 }
