@@ -5,15 +5,17 @@ using TMPro;
 
 public class MJEGameManager : MonoBehaviour
 {
-    [Header ("Gestión cuenta atrás")]
-    [SerializeField] private int tiempoRestante = 60;
-    [SerializeField] public bool juegoCompletado;
+    [Header("Gestión cuenta atrás")] 
+    [SerializeField] private float tiempoMaximo = 65f;
+    private float tiempoRestante;
     [SerializeField] private TextMeshProUGUI textoCuentaAtras;
-
+    [SerializeField] public bool juegoEmpezado;
+    [SerializeField] public bool juegoCompletado = false;
+    
     [Header("Gestión puntuación")] 
     [SerializeField] private TextMeshProUGUI textoEnemigosRestantes;
     [SerializeField] public int puntuacionFinal;
-    [SerializeField] public int ultimoRegistro;
+    [SerializeField] public float ultimoRegistro;
 
     [Header("Interfaz partida")] 
     [SerializeField] private Canvas CanvasInicio;
@@ -40,6 +42,9 @@ public class MJEGameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tiempoRestante = Time.time;
+        juegoEmpezado = false;
+        
         _globalGameManager = GameObject.FindObjectOfType<GameManager>();
         
         foreach (var cuadrado in limiteMapa)
@@ -57,7 +62,28 @@ public class MJEGameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        if (juegoEmpezado)
+        {
+            float elapsedTime = Time.time - tiempoRestante;
+            float remainingTime = Mathf.Max(tiempoMaximo - elapsedTime, 0f);
+
+            if (textoCuentaAtras != null && !juegoCompletado)
+            {
+                textoCuentaAtras.text = "" + Mathf.Ceil(remainingTime);
+            }
+            if (elapsedTime >= tiempoMaximo)
+            {
+                if(!juegoCompletado)
+                    FinJuego();
+            }   
+        }
+    }
+    
+    private string FormatTime(float time)
+    {
+        int seconds = Mathf.FloorToInt(time);
+        int milliseconds = Mathf.FloorToInt((time - seconds) * 1000f);
+        return $"{seconds}.{milliseconds}";
     }
 
     public void ActualizarPuntuacion(int sumaPuntos)
@@ -67,17 +93,18 @@ public class MJEGameManager : MonoBehaviour
         //Actualizamos el número de enemigos restantes
         textoEnemigosRestantes.text = (numeroEnemigosTotales - enemigosDerrotados).ToString();
 
-        ultimoRegistro = tiempoRestante;
+        ultimoRegistro = Time.time-tiempoRestante;
 
         if (enemigosDerrotados == numeroEnemigosTotales)
         {
-            Debug.Log("ActualizarPuntuacion");
             FinJuego();
         }
     }
     
-    public IEnumerator CuentaAtras()
+    public void ActivarJugabilidad()
     {
+        juegoEmpezado = true;
+        
         //Inicio música
         if (audioSourceSonidoFondo != null)
         {
@@ -88,22 +115,11 @@ public class MJEGameManager : MonoBehaviour
         CanvasJuego.gameObject.SetActive(true);
         
         textoEnemigosRestantes.text = numeroEnemigosTotales.ToString();
-        
-        while (tiempoRestante > 0)
-        {
-            if(!juegoCompletado) StopCoroutine(CuentaAtras());
-            textoCuentaAtras.text = tiempoRestante.ToString();
-            yield return new WaitForSeconds(1);
-            tiempoRestante--;
-        }
-        
-        textoCuentaAtras.text = tiempoRestante.ToString();
-        Debug.Log("CuentaAtras");
-        FinJuego();
     }
     
     public void FinJuego()
     {
+        juegoEmpezado = false;
         juegoCompletado = true;
         _jugadorController.controlBloqueado = true;
         
@@ -112,9 +128,9 @@ public class MJEGameManager : MonoBehaviour
         CanvasFinal.gameObject.SetActive(true);
         if (enemigosDerrotados == numeroEnemigosTotales)
         {
-            textoFinal.text = "Derrotastes a todos los enemigos. ¡ENHORABUENA! \n"+
+            textoFinal.text = "Derrotaste a todos los enemigos. ¡ENHORABUENA! \n"+
                 "Puntos conseguidos: "+puntuacionFinal.ToString()+" \n"+
-                "Completado en: "+ (60 - ultimoRegistro).ToString()+ " segundos";
+                "Completado en: "+ FormatTime(ultimoRegistro) + " segundos";
         }
         else
         {
@@ -137,10 +153,10 @@ public class MJEGameManager : MonoBehaviour
 
     public void CalculoPuntosFinales()
     {
-        int auxPuntos = 60 - ultimoRegistro;
+        float auxPuntos = 60 - ultimoRegistro;
         auxPuntos += enemigosDerrotados * 60;
         auxPuntos *= 1000;
-        puntuacionFinal = auxPuntos;
+        puntuacionFinal = (int)auxPuntos;
         
     }
 }

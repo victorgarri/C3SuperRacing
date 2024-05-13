@@ -9,8 +9,7 @@ using ColorUtility = UnityEngine.ColorUtility;
 public class InterfazController : MonoBehaviour
 {
     [Header("InteriorCoche")]
-    public GameObject interiorCoche;
-    public List<Sprite> coloresInteriorCoche = new List<Sprite>();
+    public GameObject interiorCocheGameObject;
 
     [Header("Velocímetro")] 
     public GameObject velocimetro;
@@ -43,9 +42,14 @@ public class InterfazController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        interiorCoche.GetComponent<Image>().sprite = coloresInteriorCoche[0];
-        // interiorCoche.GetComponent<Image>().color = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().colorJugador;
-        velocimetro.GetComponent<Image>().sprite = coloresVelocimetro[0];
+        //Me pone el color del coche en función del color que le haya tocado
+        Color colorActual = interiorCocheGameObject.GetComponent<Image>().color;
+        colorActual = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().colorJugador;
+        colorActual.a = 1f;
+        
+        interiorCocheGameObject.GetComponent<Image>().color = colorActual;
+        
+        velocimetro.GetComponent<Image>().sprite = coloresVelocimetro[LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().playerIndex];
         
         imagenProhibido.SetActive(false);
 

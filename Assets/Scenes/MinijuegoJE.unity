@@ -73769,9 +73769,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bba80abed976814bbc2aae54c621e58, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tiempoRestante: 60
-  juegoCompletado: 0
+  tiempoMaximo: 60
   textoCuentaAtras: {fileID: 1521927351}
+  juegoEmpezado: 0
+  juegoCompletado: 0
   textoEnemigosRestantes: {fileID: 303974898}
   puntuacionFinal: 0
   ultimoRegistro: 0
@@ -102472,6 +102473,10 @@ PrefabInstance:
     - target: {fileID: 8706539068267192788, guid: 0f6bec89ca6b479409c73488352d367f, type: 3}
       propertyPath: m_Name
       value: MinijuegoJE
+      objectReference: {fileID: 0}
+    - target: {fileID: 8706539068267192788, guid: 0f6bec89ca6b479409c73488352d367f, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

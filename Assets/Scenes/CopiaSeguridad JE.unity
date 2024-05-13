@@ -10603,26 +10603,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2123806888}
     m_Modifications:
-    - target: {fileID: 105250160841352628, guid: f3552cc0412d99146b646592fadd15f6, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4200309998654656648, guid: f3552cc0412d99146b646592fadd15f6, type: 3}
-      propertyPath: near clip plane
-      value: 0.3
-      objectReference: {fileID: 0}
-    - target: {fileID: 4200309998654656648, guid: f3552cc0412d99146b646592fadd15f6, type: 3}
-      propertyPath: orthographic size
-      value: 22
-      objectReference: {fileID: 0}
-    - target: {fileID: 6465438676618979076, guid: f3552cc0412d99146b646592fadd15f6, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6465438676618979076, guid: f3552cc0412d99146b646592fadd15f6, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 7689371098185341082, guid: f3552cc0412d99146b646592fadd15f6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
