@@ -235,7 +235,11 @@ public class GameManager : NetworkBehaviour
     private void EnableMinigame(int index)
     {
         if (LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
+        
         _resultadoCarreraController.gameObject.SetActive(false);
+        Debug.Log(NetworkClient.localPlayer.gameObject);
+        LocalPlayerPointer.Instance.gamePlayerGameObject = NetworkClient.localPlayer.gameObject;
+        Debug.Log(LocalPlayerPointer.Instance.gamePlayerGameObject);
         LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(null);
         LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(false);
         ordenMinijuegos[index].SetActive(true);

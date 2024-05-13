@@ -1068,6 +1068,9 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0
   isBreaking: 0
+  giro: 0
+  pedal: 0
+  cameraTurn: 0
   motorForce: 500
   breakForce: 0
   WCFL: {fileID: 971946512460173091}
@@ -1139,6 +1142,13 @@ MonoBehaviour:
   - {fileID: 2100000, guid: 98772fefcd7f1e944925a89a5d46c258, type: 2}
   - {fileID: 2100000, guid: 3d7803fcbf174ee48a75abf066c55384, type: 2}
   playerColorMaterial: {fileID: 0}
+  isPowerUpCollected: 0
+  proyectilPrefab: {fileID: 0}
+  spawnPoint: {fileID: 0}
+  velocidadProyectil: 20
+  powerUpImage: {fileID: 0}
+  powerUpSprite: {fileID: 0}
+  nonePowerUpSprite: {fileID: 0}
 --- !u!114 &-1649476244842833849
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1169,7 +1179,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8ff3ba0becae47b8b9381191598957c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  syncDirection: 1
+  syncDirection: 0
   syncMode: 0
   syncInterval: 0
   target: {fileID: 3867596070761400747}
