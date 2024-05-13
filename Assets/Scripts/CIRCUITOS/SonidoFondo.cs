@@ -7,16 +7,10 @@ public class SonidoFondo : MonoBehaviour
 {
     private AudioSource _audioSource;
 
-    [SerializeField] AudioClip listaMusicaCircuito1;
-    [SerializeField] private AudioClip listaMusicaCircuito2;
-    [SerializeField] private AudioClip listaMusicaCircuito3;
-    
-    public List<AudioClip> listaDeReproduccion;
+    [SerializeField] public List<AudioClip> listaDeReproduccion = new List<AudioClip>();
     
     [SerializeField] private AudioClip musicaVictoria;
     [SerializeField] private AudioClip musicaDerrota;
-    
-    private bool reproduccionVelocidadNormal = true;
 
     [SerializeField] private float volumenMusica = 0.5f;
 
@@ -26,11 +20,6 @@ public class SonidoFondo : MonoBehaviour
     void Start()
     {
         _audioSource = this.GetComponent<AudioSource>();
-        
-        listaDeReproduccion = new List<AudioClip>();
-        listaDeReproduccion.Add(listaMusicaCircuito1);
-        listaDeReproduccion.Add(listaMusicaCircuito2);
-        listaDeReproduccion.Add(listaMusicaCircuito3);
     }
 
     public void ReproducirMusicaVelocidadNormal(int indice)
@@ -60,7 +49,7 @@ public class SonidoFondo : MonoBehaviour
     {
         if (_audioSource.isPlaying)
         {
-            _audioSource.pitch = 1.5f;
+            _audioSource.pitch = 1.3f;
         
         }
     }

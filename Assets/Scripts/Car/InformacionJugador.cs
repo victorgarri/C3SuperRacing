@@ -18,7 +18,7 @@ public class InformacionJugador : NetworkBehaviour
     [Header("Nombre del jugador")] 
     [SerializeField] [SyncVar] public string nombreJugador = "Carlitos";
     public TextMesh etiquetaNombre;
-    [SerializeField] public Color colorJugador;
+    [SerializeField] [SyncVar] public Color colorJugador;
     
     [Header("Gestión de las posiciones")]
     public PosicionCarreraController _posicionCarreraController;
@@ -48,7 +48,7 @@ public class InformacionJugador : NetworkBehaviour
     private SonidoFondo _sonidoFondo;
 
     [SerializeField] private uint playerNetworkId;
-    [SyncVar]public int playerIndex;
+    [SyncVar] public int playerIndex;
     public  Material[] colorMaterialByIndex;
     public Material playerColorMaterial;
 
@@ -60,7 +60,6 @@ public class InformacionJugador : NetworkBehaviour
         etiquetaNombre.text = nombreJugador;
         */
     }
-
     
     [Header("PowerUp")]
     public bool isPowerUpCollected = false;
@@ -72,8 +71,6 @@ public class InformacionJugador : NetworkBehaviour
     public Sprite nonePowerUpSprite;
     private PlayerInput _playerInput;
     
-
-
     // Start is called before the first frame update
     void Start()
     {
@@ -128,18 +125,18 @@ public class InformacionJugador : NetworkBehaviour
         {
             float distanciaSiguienteWaypointAproximado = Mathf.Round(distanciaSiguienteWaypoint * 100f) / 100f;
             float posicionAnteriorAproximado = Mathf.Round(posicionAnterior * 100f) / 100f;
-
-            if (distanciaSiguienteWaypointAproximado < posicionAnteriorAproximado)
-            {
-                _interfazController.desactivarProhibicion();
-            }
-            else if (distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
-            {
-                if (!_interfazController.corBool)
-                {
-                    _interfazController.stopCor = StartCoroutine(_interfazController.activarProhibicion());
-                }
-            }
+            //
+            // if (distanciaSiguienteWaypointAproximado < posicionAnteriorAproximado)
+            // {
+            //     _interfazController.desactivarProhibicion();
+            // }
+            // else if (distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
+            // {
+            //     if (!_interfazController.corBool)
+            //     {
+            //         _interfazController.stopCor = StartCoroutine(_interfazController.activarProhibicion());
+            //     }
+            // }
 
             posicionAnterior = distanciaSiguienteWaypoint;
 
@@ -190,6 +187,7 @@ public class InformacionJugador : NetworkBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
+        
         if (collision.gameObject.CompareTag("Waypoint") && isLocalPlayer)
         {
             // Debug.Log("SiguienteWaypoint: "+siguienteWaypoint);
@@ -216,7 +214,7 @@ public class InformacionJugador : NetworkBehaviour
             SetSiguienteWaypoint(siguienteWaypoint);
             
             //InformacionJugador SetVuelta
-            Debug.Log("InformacionJugador SetVuelta");
+            // Debug.Log("InformacionJugador SetVuelta");
             SetVueltaActual(vueltaActual);
         }
         

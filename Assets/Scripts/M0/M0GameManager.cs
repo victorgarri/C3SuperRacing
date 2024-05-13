@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 using Random = UnityEngine.Random;
 
-public class M0GameManager : NetworkBehaviour
+public class M0GameManager : MonoBehaviour
 {
     private float startTime;
     public TextMeshProUGUI countdownText;
@@ -28,7 +28,7 @@ public class M0GameManager : NetworkBehaviour
     public GameObject cajaReforzadaPrefab;
     public GameObject tntPrefab;
     private PlayerController playerController;
-    private GameManager _globalGameManager;
+    [SerializeField] private GameManager _globalGameManager;
     public AudioClip musicaFondo, finJuego;
     private AudioSource audioSource;
     
@@ -36,7 +36,7 @@ public class M0GameManager : NetworkBehaviour
     {
         startTime = Time.time;
         playerController = FindObjectOfType<PlayerController>();
-        _globalGameManager = GameObject.FindObjectOfType<GameManager>();
+        // _globalGameManager = GameObject.FindObjectOfType<GameManager>();
         GenerateRandomBoxes();
         
         audioSource = gameObject.GetComponent<AudioSource>();
@@ -103,7 +103,7 @@ public class M0GameManager : NetworkBehaviour
     {
         piecesCollected++;
         lastCollectedTime = Time.time-startTime; 
-        Debug.Log("Pieza " + piecesCollected + " recogida");
+        // Debug.Log("Pieza " + piecesCollected + " recogida");
 
         piece.GetComponent<CheckpointController>().Collect();
 

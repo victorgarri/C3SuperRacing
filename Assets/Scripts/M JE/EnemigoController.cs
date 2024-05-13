@@ -12,26 +12,34 @@ public class EnemigoController : MonoBehaviour
     
     [Header("Puntuación Enemigo")] 
     [SerializeField] private int puntuacionEnemigo;
+
+    private bool esGolpeado;
     
     void Start()
     {
         _audioSource = this.GetComponent<AudioSource>();
+
+        esGolpeado = false;
     }
     
     private void OnCollisionEnter2D(Collision2D collision2D)
     {
         if (collision2D.gameObject.CompareTag("Bala"))
         {
-            _gameManager.ActualizarPuntuacion(puntuacionEnemigo);
-
-            StartCoroutine(AnimacionMuerteAlien(collision2D.gameObject));
+            if (!esGolpeado)
+            {
+                esGolpeado = true;
+                _gameManager.ActualizarPuntuacion(puntuacionEnemigo);
+                StartCoroutine(AnimacionMuerteAlien());
+            }
+            
+            Destroy(collision2D.gameObject);
         }
     }
-    public IEnumerator AnimacionMuerteAlien(GameObject bala)
+    public IEnumerator AnimacionMuerteAlien()
     {
         _audioSource.Play();
         
-        Destroy(bala);
         this.GetComponent<Animator>().SetBool("Dead", true);
 
         yield return new WaitForSeconds(0.5f);

@@ -69,7 +69,7 @@ public class JugadorController : MonoBehaviour
         }
         
         //Que empiece la cuenta atrás del juego
-        StartCoroutine(_gameManager.CuentaAtras());
+        _gameManager.ActivarJugabilidad();
         
         //Cambio el límite del mínimo del eje X de la cámara
         _camara.minimo = new Vector2((-25.5f-1000), _camara.minimo.y);

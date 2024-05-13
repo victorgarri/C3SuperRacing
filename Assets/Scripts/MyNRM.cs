@@ -49,7 +49,7 @@ public class MyNRM : NetworkRoomManager
     
     private GameObject SetMaterialJugador(GameObject car,MyNetworkRoomPlayer roomPlayerComponent)
     {
-        Debug.Log(car.GetComponent<InformacionJugador>());
+        // Debug.Log(car.GetComponent<InformacionJugador>());
         car.GetComponent<InformacionJugador>().playerIndex = roomPlayerComponent.playerIndex;
         car.GetComponent<InformacionJugador>().colorJugador = roomPlayerComponent.playerColor;
         car.GetComponent<InformacionJugador>().playerColorMaterial = roomPlayerComponent.selectedColorMaterial;

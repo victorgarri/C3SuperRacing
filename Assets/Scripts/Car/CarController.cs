@@ -11,17 +11,18 @@ using Random = UnityEngine.Random;
 
 public class CarController : NetworkBehaviour
 {
-    [SerializeField]
-    private bool isBreaking;
-    private float giro;
-    private float pedal;
-    private float cameraInput;
-    private float cameraSpeed=4.5f;
-    private float cameraOffset=0;
-    private float cameraTimestamp=0;
+    [Header("Inputs")]
+    [SerializeField] private bool isBreaking;
+    [SerializeField] private float giro;
+    [SerializeField] private float pedal;
+    [SerializeField] private float cameraTurn;
     
 
+    
     private const float MAXBREAKFORCE = 3000F;
+    private float cameraOffset=0;
+    private float cameraSpeed=4.5f;
+    private float cameraTimestamp=0;
 
     [Header("Configuración motor")]
     [SerializeField] private float motorForce;
@@ -68,6 +69,7 @@ public class CarController : NetworkBehaviour
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
     private GameObject _cameraPivot;
+    private GameObject _camera;
     public bool enableControls;
 
     [SerializeField]
@@ -84,8 +86,9 @@ public class CarController : NetworkBehaviour
 
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
             
-        _cameraPivot = transform.Find("CameraPivot").gameObject;
-
+        // _cameraPivot = transform.Find("CameraPivot").gameObject;
+        _camera = transform.Find("PlayerCamera").gameObject;
+        
         _audioSource = this.GetComponent<AudioSource>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
         
@@ -100,7 +103,7 @@ public class CarController : NetworkBehaviour
     public void ActivateCar(int seconds)
     {
         if (isLocalPlayer)
-            _cameraPivot.SetActive(true);
+            _camera.SetActive(true);
         _interfazController.gameObject.SetActive(true);
         StartCoroutine(EnableControlsCoroutine(seconds));
         
@@ -130,12 +133,12 @@ public class CarController : NetworkBehaviour
     {
         enableControls = false;
 
-        giro = 0;
-        pedal = 0;
-        cameraInput = 0;
-        isBreaking = true;
+        CmdSetGiro(0);
+        CmdSetPedal(0);
+        CmdSetCameraInput(0);
+        CmdSetIsBreaking(true);
         
-        _cameraPivot.SetActive(false);
+        _camera.SetActive(false);
         _interfazController.gameObject.SetActive(false);
         
         //Para parar la música de fondo
@@ -155,8 +158,8 @@ public class CarController : NetworkBehaviour
                 _interfazController.AgujaVelocimetro(velocidad, VELOCIDADMAXIMA);
             }
 
-            _cameraPivot.transform.position = this.transform.position;
-            _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
+            // _cameraPivot.transform.position = this.transform.position;
+            // _cameraPivot.transform.rotation = Quaternion.Euler(0,this.transform.eulerAngles.y + (cameraOffset),0);
             
             if(_playerInput != null && _playerInput.actions != null && _playerInput.actions["Claxon"] != null)
             {
@@ -192,16 +195,14 @@ public class CarController : NetworkBehaviour
     
     private void FixedUpdate()
     {
-        if (isLocalPlayer)
-        {
-            if(enableControls)
-                GetInput();
-            
-            HandleCamera();
-            HandleMotor();
-            HandleSteering();
-            GearSound();
-        }
+        if(enableControls)
+            GetInput();
+        
+        // HandleCamera();
+        HandleMotor();
+        HandleSteering();
+        GearSound();
+        
         if(_updateWheels)UpdateWheels();
     }
     
@@ -213,7 +214,7 @@ public class CarController : NetworkBehaviour
 
     private void HandleCamera()
     {
-        if (cameraInput == 0)
+        if (cameraTurn == 0)
         {
             if (cameraTimestamp == 0) cameraTimestamp = Time.time;
             else if(Time.time-cameraTimestamp>=2)cameraOffset *= .99f;
@@ -222,7 +223,7 @@ public class CarController : NetworkBehaviour
         {
             cameraTimestamp = 0;
         }
-        cameraOffset = cameraOffset + cameraInput * cameraSpeed;
+        cameraOffset = cameraOffset + cameraTurn * cameraSpeed;
         if (cameraOffset > 180) cameraOffset -= 360;
         else if (cameraOffset < -180) cameraOffset += 360;
     }
@@ -230,16 +231,41 @@ public class CarController : NetworkBehaviour
     private void GetInput()
     {
         // giro = Input.GetAxis("Horizontal");
-        giro = _playerInput.actions["Steer"].ReadValue<float>();
+        // giro = _playerInput.actions["Steer"].ReadValue<float>();
     
         // pedal = Input.GetAxis("Vertical");
-        pedal = _playerInput.actions["Throtle"].ReadValue<float>();
+        // pedal = _playerInput.actions["Throtle"].ReadValue<float>();
 
-        cameraInput = _playerInput.actions["Camera"].ReadValue<float>();
+        // cameraTurn = _playerInput.actions["Camera"].ReadValue<float>();
         
-        isBreaking = _playerInput.actions["Brake"].IsPressed(); 
-    }
+        // isBreaking = _playerInput.actions["Brake"].IsPressed();
 
+        CmdSetGiro(_playerInput.actions["Steer"].ReadValue<float>());
+        CmdSetPedal(_playerInput.actions["Throtle"].ReadValue<float>());
+        CmdSetCameraInput(_playerInput.actions["Camera"].ReadValue<float>());
+        CmdSetIsBreaking(_playerInput.actions["Brake"].IsPressed());
+    }
+    
+    [Command]
+    private void CmdSetGiro(float giroInput)
+    {
+        giro = giroInput;
+    }
+    [Command]
+    private void CmdSetPedal(float pedalInput)
+    {
+        pedal = pedalInput;
+    }
+    [Command]
+    private void CmdSetCameraInput(float cameraInput)
+    {
+        cameraTurn = cameraInput;
+    }
+    [Command]
+    private void CmdSetIsBreaking(bool breakingInput)
+    {
+        isBreaking = breakingInput;
+    }
     
     private void HandleMotor()
     {
@@ -327,8 +353,8 @@ public class CarController : NetworkBehaviour
         }
     }
     
-    [TargetRpc]
-    public void TargetMoveCar(int raceIndex,int spawnIndex)
+    [Command(requiresAuthority = false)]
+    public void CmdMoveCar(int raceIndex,int spawnIndex)
     {
         var spawnTrasnform = FindObjectOfType<GameManager>().spawnPoints[raceIndex][spawnIndex].transform;
         this.gameObject.transform.position = spawnTrasnform.position;
@@ -343,5 +369,13 @@ public class CarController : NetworkBehaviour
         {
             carLight.SetActive(carLightBool);
         }
+    }
+
+    [Command]
+    public void CmdSetPositionRotation(Vector3 transformPosition, Quaternion transformRotation)
+    {
+        this.transform.position = transformPosition;
+        this.transform.rotation = transformRotation;
+        Physics.SyncTransforms();
     }
 }

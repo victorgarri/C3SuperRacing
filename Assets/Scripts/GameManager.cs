@@ -91,15 +91,12 @@ public class GameManager : NetworkBehaviour
         spawnPoints.Add(SPs3);
         
         _resultadoCarreraController.gameObject.SetActive(false);
-        // DisableWaypoints();
+        DisableWaypoints();
         playerRacePointsList.Callback += OnPlayerRacePointsListUpdated;
 
-        if (LocalPlayerPointer.Instance.roomPlayer.isSpectator)
-        {
-            GameObject.Find("Minijuego0Camera").SetActive(false);
-            GameObject.Find("M0GameManager").SetActive(false);
-            
-        }
+        if(LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+            DisableMinigame(0);
+        
         SpectatorRaceStart(0);
             
     }
@@ -107,18 +104,17 @@ public class GameManager : NetworkBehaviour
     [Command (requiresAuthority = false)]
     public void CheckAllPlayersWaiting()
     {
-        Debug.Log("Comprobando si estamos ready");
+        // Debug.Log("Comprobando si estamos ready");
         var informacionJugadores = FindObjectsOfType<InformacionJugador>();
         
         if (currentGameType == GameType.Minigame)
         {
-            
             foreach (var informacionJugador in informacionJugadores)
             {
-                Debug.Log("jugador waiting: "+informacionJugador.finMinijuego);
+                // Debug.Log("jugador waiting: "+informacionJugador.finMinijuego);
                 if (!informacionJugador.finMinijuego)
                 {
-                    Debug.Log("TODAVIA HAY ALGUIEN QUE NO HA TERMINADO");
+                    // Debug.Log("TODAVIA HAY ALGUIEN QUE NO HA TERMINADO");
                     return;
                 }
             }   
@@ -145,7 +141,7 @@ public class GameManager : NetworkBehaviour
             }
         }
         
-        Debug.Log("Todo el mundo ready, iniciando cuenta atras de 5s");
+        // Debug.Log("Todo el mundo ready, iniciando cuenta atras de 5s");
 
         StartCoroutine(CambiaAlSiguienteJuego());
     }
@@ -153,7 +149,7 @@ public class GameManager : NetworkBehaviour
     private IEnumerator CambiaAlSiguienteJuego() 
     {
         yield return new WaitForSeconds(5);
-        Debug.Log("Cambiando juego AHORA");
+        // Debug.Log("Cambiando juego AHORA");
         var playersCarController = FindObjectsOfType<CarController>();
         if (currentGameType == GameType.Race && minigameIndex + 1 < ordenMinijuegos.Count)
         {
@@ -161,26 +157,26 @@ public class GameManager : NetworkBehaviour
             currentGameType = GameType.Minigame;
             lastMinigamePlayerPoints = new List<PlayerMinigamePoints>();
             EnableMinigameClientRPC(minigameIndex);
+            SpectatorRaceStart(raceIndex+1);
             
         }
         else if(raceIndex+1 < tracksWaypoints.Count)
         {
             raceIndex++;
-            SpectatorRaceStart(raceIndex);
             DisableMinigameClientRPC(minigameIndex);
             
             if (currentGameType == GameType.Minigame)
             {
                 for (int i = 0; i < lastMinigamePlayerPoints.Count; i++)
                 {
-                    lastMinigamePlayerPoints[i].networkIdentity.gameObject.GetComponent<CarController>().TargetMoveCar(raceIndex,i);
+                    lastMinigamePlayerPoints[i].networkIdentity.gameObject.GetComponent<CarController>().CmdMoveCar(raceIndex,i);
                 }
             }
             else
             {
                 foreach (var playerCarController in playersCarController)
                 { 
-                    playerCarController.TargetMoveCar(raceIndex, playerCarController.GetComponent<InformacionJugador>().posicionActual-1);
+                    playerCarController.CmdMoveCar(raceIndex, playerCarController.GetComponent<InformacionJugador>().posicionActual-1);
                 }
             }
             EnableCarClientRPC(raceIndex);
@@ -227,13 +223,28 @@ public class GameManager : NetworkBehaviour
     [ClientRpc]
     private void DisableMinigameClientRPC(int index)
     {
+        DisableMinigame(index);
+    }
+
+    private void DisableMinigame(int index)
+    {
         ordenMinijuegos[index].SetActive(false);
     }
     
     [ClientRpc]
     private void EnableMinigameClientRPC(int index)
     {
+        EnableMinigame(index);
+    }
+
+    private void EnableMinigame(int index)
+    {
+        if (LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
+        
         _resultadoCarreraController.gameObject.SetActive(false);
+        Debug.Log(NetworkClient.localPlayer.gameObject);
+        LocalPlayerPointer.Instance.gamePlayerGameObject = NetworkClient.localPlayer.gameObject;
+        Debug.Log(LocalPlayerPointer.Instance.gamePlayerGameObject);
         LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(null);
         LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(false);
         ordenMinijuegos[index].SetActive(true);
@@ -269,13 +280,14 @@ public class GameManager : NetworkBehaviour
             playerRacePointsList.Remove(playerPoints);
             playerRacePointsList.Add(playerPointsAux);
         }
-        Debug.Log("CHECK PLAYERS WAITING");
+        // Debug.Log("CHECK PLAYERS WAITING");
         CheckAllPlayersWaiting();
     }
     
     void OnPlayerRacePointsListUpdated(SyncList<PlayerRacePoints>.Operation op, int index, PlayerRacePoints oldItem, PlayerRacePoints newItem)
     {
         if(LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
+        
         
         // Aqui vamos a incluir las funciones que actualizaran la pantalla de los clientes cuando se actualice la lista de datos
         if (!isLocalPlayer && LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
@@ -306,7 +318,7 @@ public class GameManager : NetworkBehaviour
             jugador._interfazController.CuentaAtras(false, 0);
         }
         
-        posicionCarreraController.puntuacionMaxima = 2 * posicionCarreraController._informacionJugadores.Length;
+        //posicionCarreraController.puntuacionMaxima = 2 * posicionCarreraController._informacionJugadores.Length;
         
     }
 

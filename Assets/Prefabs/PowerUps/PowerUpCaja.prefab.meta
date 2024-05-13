@@ -1,6 +1,11 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Prefabs/PowerUps/PowerUpCaja.prefab.meta
 guid: 1f73c8172cb2987478cfc0d9480317c5
 PrefabImporter:
+========
+guid: 1482576330bbadf4db5f3fbf81a1797e
+DefaultImporter:
+>>>>>>>> origin/coches-serverdriven:Assets/Scenes/CopiasPP/RoomScene copy.unity.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

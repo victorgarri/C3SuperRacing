@@ -24,10 +24,8 @@ public class PosicionCarreraController : NetworkBehaviour
     
     [Header("Colocación coches final de cada carrera")]
     [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
-    private int sumaOrden = 0;
-    public int puntuacionMaxima = 0;
+    private int puntuacionMaxima = 16;
     public int contadorTiempo = 0;
-    private bool carreraFinalizada = false;
     
     [Header("Script del GameManager")]
     [SerializeField] private GameManager _gameManager;
@@ -52,11 +50,9 @@ public class PosicionCarreraController : NetworkBehaviour
 
     IEnumerator Contador()
     {
-        carreraFinalizada = false;
-        
         yield return new WaitForSeconds(3);
         
-        while (!carreraFinalizada)
+        while (true)
         {
             yield return new WaitForSeconds(1);
             contadorTiempo++;
@@ -132,13 +128,15 @@ public class PosicionCarreraController : NetworkBehaviour
 
                 if (jugador.vueltaActual == vueltasTotales)
                 {
-                    if (!cuentaAtrasActivado)
-                    {
-                        CmdInicioCuentaAtras();
-                    }
+                    // if (!cuentaAtrasActivado)
+                    // {
+                    //     cuentaAtrasActivado = true;
+                    //     Debug.Log("cuentaAtrasActivado "+cuentaAtrasActivado);
+                    //     CmdInicioCuentaAtras();
+                    // }
                     
                     //Cuando un jugador acaba la carrera
-                    GestionCarreraTerminada(jugador, puntuacionMaxima - 2 * (jugador.posicionActual-1));
+                    GestionCarreraTerminada(jugador, puntuacionMaxima - 2 * (jugador.posicionActual-1), contadorTiempo);
 
                 }
                 else
@@ -173,14 +171,12 @@ public class PosicionCarreraController : NetworkBehaviour
     [ClientRpc]
     private void RpcInicioCuentaAtras()
     {
-        Debug.Log("CREANDO UNA CORRUTINA");
+        StopCoroutine(Contador());
         StartCoroutine(CuentaAtrasCarrera());
     }
     
     private IEnumerator CuentaAtrasCarrera()
     {
-        cuentaAtrasActivado = true;
-        
         while (segundosRestantes > 0)
         {
             foreach (var jugador in _informacionJugadores)
@@ -188,33 +184,33 @@ public class PosicionCarreraController : NetworkBehaviour
                 jugador._interfazController.CuentaAtras(cuentaAtrasActivado, segundosRestantes);
             }
             yield return new WaitForSeconds(1);
+            contadorTiempo++;
             segundosRestantes--;
         }
         
         foreach (var jugador in _informacionJugadores)
         {
             if(!jugador.finCarrera) 
-                GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2);
+                GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2 , contadorTiempo);
         }
                 
         cuentaAtrasActivado = false;
-        carreraFinalizada = true;
 
     }
 
-    public void GestionCarreraTerminada(InformacionJugador jugador, int puntos)
+    public void GestionCarreraTerminada(InformacionJugador jugador, int puntos, int tiempoCarrera)
     {
         jugador.finCarrera = true;
         jugador.CmdSetFinCarrera(true);
-        _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos, contadorTiempo);
-        TargetFinishRace(jugador,jugador.posicionActual-1);
+        _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos, tiempoCarrera);
+        FinishRacePosition(jugador,jugador.posicionActual-1);
     }
-  
-    public void TargetFinishRace(InformacionJugador target, int sumOrd)
+    
+    public void FinishRacePosition(InformacionJugador target, int sumOrd)
     {
-        target.transform.position = spawnsFinales[sumOrd].transform.position;
-        target.transform.rotation = spawnsFinales[sumOrd].transform.rotation;
-        target.gameObject.GetComponent<InformacionJugador>()._carController.DesactivateCar();
+        Debug.Log("FinishRacePosition");
+        target.gameObject.GetComponent<CarController>().CmdSetPositionRotation(spawnsFinales[sumOrd].transform.position,spawnsFinales[sumOrd].transform.rotation);
+        target.gameObject.GetComponent<CarController>().DesactivateCar();
     }
     
 }

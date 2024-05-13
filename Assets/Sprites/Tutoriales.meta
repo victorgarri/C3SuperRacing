@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Sprites/Tutoriales.meta
 guid: a78e5ebcda65c6347b4d6472a214b083
 folderAsset: yes
+========
+guid: fe66af3cab69fd648b4a981c2e799805
+>>>>>>>> origin/coches-serverdriven:Assets/Scenes/CopiasPP/OfflineScene copy.unity.meta
 DefaultImporter:
   externalObjects: {}
   userData: 
