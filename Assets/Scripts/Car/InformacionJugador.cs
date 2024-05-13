@@ -116,18 +116,18 @@ public class InformacionJugador : NetworkBehaviour
         {
             float distanciaSiguienteWaypointAproximado = Mathf.Round(distanciaSiguienteWaypoint * 100f) / 100f;
             float posicionAnteriorAproximado = Mathf.Round(posicionAnterior * 100f) / 100f;
-
-            if (distanciaSiguienteWaypointAproximado < posicionAnteriorAproximado)
-            {
-                _interfazController.desactivarProhibicion();
-            }
-            else if (distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
-            {
-                if (!_interfazController.corBool)
-                {
-                    _interfazController.stopCor = StartCoroutine(_interfazController.activarProhibicion());
-                }
-            }
+            //
+            // if (distanciaSiguienteWaypointAproximado < posicionAnteriorAproximado)
+            // {
+            //     _interfazController.desactivarProhibicion();
+            // }
+            // else if (distanciaSiguienteWaypointAproximado > posicionAnteriorAproximado)
+            // {
+            //     if (!_interfazController.corBool)
+            //     {
+            //         _interfazController.stopCor = StartCoroutine(_interfazController.activarProhibicion());
+            //     }
+            // }
 
             posicionAnterior = distanciaSiguienteWaypoint;
 

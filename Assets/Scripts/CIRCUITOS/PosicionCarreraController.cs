@@ -128,10 +128,12 @@ public class PosicionCarreraController : NetworkBehaviour
 
                 if (jugador.vueltaActual == vueltasTotales)
                 {
-                    if (!cuentaAtrasActivado)
-                    {
-                        CmdInicioCuentaAtras();
-                    }
+                    // if (!cuentaAtrasActivado)
+                    // {
+                    //     cuentaAtrasActivado = true;
+                    //     Debug.Log("cuentaAtrasActivado "+cuentaAtrasActivado);
+                    //     CmdInicioCuentaAtras();
+                    // }
                     
                     //Cuando un jugador acaba la carrera
                     GestionCarreraTerminada(jugador, puntuacionMaxima - 2 * (jugador.posicionActual-1), contadorTiempo);
@@ -170,14 +172,11 @@ public class PosicionCarreraController : NetworkBehaviour
     private void RpcInicioCuentaAtras()
     {
         StopCoroutine(Contador());
-        // Debug.Log("CREANDO UNA CORRUTINA");
         StartCoroutine(CuentaAtrasCarrera());
     }
     
     private IEnumerator CuentaAtrasCarrera()
     {
-        cuentaAtrasActivado = true;
-        
         while (segundosRestantes > 0)
         {
             foreach (var jugador in _informacionJugadores)
