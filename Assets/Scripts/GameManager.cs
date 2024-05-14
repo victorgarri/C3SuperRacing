@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct PlayerMinigamePoints
 {
@@ -68,8 +70,11 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject spectator;
     [SerializeField] private GameObject interfazUsuarioModoEspectador;
     
+    [SerializeField] private Image panelInicio;
+    
     // [SerializeField]
     // private GameObject _minijuego0;
+
 
     private void Start()
     {
@@ -188,10 +193,15 @@ public class GameManager : NetworkBehaviour
     private void EnableCarClientRPC(int index)
     {
         _resultadoCarreraController.gameObject.SetActive(false);
-        
-        
-        
-        _countDownText.StartCountDown(3);
+
+
+
+        if (index == 0)
+        {
+            _countDownText.StartCountDown(8);
+            StartCoroutine(DesactivarPanelTutorial());
+        }
+        else _countDownText.StartCountDown(3);
 
         if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
         {
@@ -211,6 +221,13 @@ public class GameManager : NetworkBehaviour
         //Esto no me cuadra que este aqui, o el bucle de dentro
         ReseteoVariablesJugadores(index);
         
+    }
+
+    private IEnumerator DesactivarPanelTutorial()
+    {
+        panelInicio.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5);
+        panelInicio.gameObject.SetActive(false);
     }
     
     [ClientRpc]

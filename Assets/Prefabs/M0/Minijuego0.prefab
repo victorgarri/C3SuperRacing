@@ -1032,7 +1032,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &6093880896388416780
 Transform:
   m_ObjectHideFlags: 0
@@ -2927,7 +2927,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &9051755591634714987
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3043,8 +3043,10 @@ MonoBehaviour:
   cajaPrefab: {fileID: 3846966106448461380, guid: 117d9b084b931a44ca214bd26f82321a, type: 3}
   cajaReforzadaPrefab: {fileID: 3324336266328170989, guid: 1925afdfbbe1aac47a4d12cd0cead7bd, type: 3}
   tntPrefab: {fileID: 4173136958932996395, guid: d8f50bddaf56ef842a2b8d5833f0dd2b, type: 3}
+  _globalGameManager: {fileID: 0}
   musicaFondo: {fileID: 8300000, guid: d345175b2ee615148968b8e237902a05, type: 3}
   finJuego: {fileID: 8300000, guid: 850f2d0905dd1894b8103c294b991978, type: 3}
+  panelInicio: {fileID: 870779658219874764}
 --- !u!82 &5739262738420713938
 AudioSource:
   m_ObjectHideFlags: 0
