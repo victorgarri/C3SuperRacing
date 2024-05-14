@@ -29,6 +29,7 @@ public class InformacionJugador : NetworkBehaviour
     public int nVueltasCircuito = 0;
     [SyncVar] public int nWaypoints = 0;
     [SyncVar] public int siguienteWaypoint = 0;
+    [SerializeField] private int prevWaypoint;
     [SyncVar] public float distanciaSiguienteWaypoint = 0;
     public float posicionAnterior;
 
@@ -198,34 +199,30 @@ public class InformacionJugador : NetworkBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        if (collision.gameObject.CompareTag("Waypoint") && isLocalPlayer)
+        if (isServer && collision.gameObject.CompareTag("Waypoint"))
         {
             // Debug.Log("SiguienteWaypoint: "+siguienteWaypoint);
             if(collision.gameObject.name == _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.name)
             {
                 _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint);
             }
-            else
+            else if(collision.gameObject.name != _posicionCarreraController.listaWaypoints[prevWaypoint].gameObject.name)
             {
                 _posicionCarreraController.ActualizacionWaypoints(this, siguienteWaypoint - 1);   
             }
             
-            collision.gameObject.SetActive(false);
-            
-            int prevWaypoint = siguienteWaypoint-2;
+            prevWaypoint = siguienteWaypoint-1;
             if (prevWaypoint < 0)
                 prevWaypoint = _posicionCarreraController.listaWaypoints.Count+prevWaypoint;
             
-            _posicionCarreraController.listaWaypoints[prevWaypoint].gameObject.SetActive(true);
             
-            _posicionCarreraController.listaWaypoints[siguienteWaypoint].gameObject.SetActive(true);
             
-            SetNWaypoints(nWaypoints);
-            SetSiguienteWaypoint(siguienteWaypoint);
-            
-            //InformacionJugador SetVuelta
-            // Debug.Log("InformacionJugador SetVuelta");
-            SetVueltaActual(vueltaActual);
+            // SetNWaypoints(nWaypoints);
+            // SetSiguienteWaypoint(siguienteWaypoint);
+            //
+            // //InformacionJugador SetVuelta
+            // // Debug.Log("InformacionJugador SetVuelta");
+            // SetVueltaActual(vueltaActual);
         }
         if (collision.CompareTag("PowerUp"))
         {
@@ -243,22 +240,22 @@ public class InformacionJugador : NetworkBehaviour
         this.lastMinigameScore = score;
     }
     
-    [Command]
+    [Command(requiresAuthority = false)]
     public void SetVueltaActual(int n)
     {
         vueltaActual = n;
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void SetNWaypoints(int n)
     {
         nWaypoints = n;
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void SetSiguienteWaypoint(int i)
     {
         siguienteWaypoint = i;
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdSetFinCarrera(bool finish)
     {
         this.finCarrera = finish;

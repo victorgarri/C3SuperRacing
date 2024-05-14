@@ -237,7 +237,7 @@ public class GameManager : NetworkBehaviour
     private void DisableCarClientRPC()
     {
         if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
-            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().DesactivateCar();  
+            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().TargetDesactivateCar();  
     }
 
     [ClientRpc]

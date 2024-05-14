@@ -130,7 +130,7 @@ public class PosicionCarreraController : NetworkBehaviour
                 {
                     if (!cuentaAtrasActivado)
                     {
-                        CmdInicioCuentaAtras();
+                        InicioCuentaAtras();
                     }
                     
                     //Cuando un jugador acaba la carrera
@@ -159,8 +159,7 @@ public class PosicionCarreraController : NetworkBehaviour
         }
     }
 
-    [Command (requiresAuthority = false)]
-    private void CmdInicioCuentaAtras()
+   private void InicioCuentaAtras()
     {
         cuentaAtrasActivado = true;
         RpcInicioCuentaAtras();
@@ -188,15 +187,17 @@ public class PosicionCarreraController : NetworkBehaviour
             contadorTiempo++;
             segundosRestantes--;
         }
-        
-        foreach (var jugador in _informacionJugadores)
-        {
-            if(!jugador.finCarrera) 
-                GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2 , contadorTiempo);
-        }
-                
-        cuentaAtrasActivado = false;
 
+        if (isServer)
+        {
+            foreach (var jugador in _informacionJugadores)
+            {
+                if(!jugador.finCarrera) 
+                    GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2 , contadorTiempo);
+            }
+                    
+            cuentaAtrasActivado = false;            
+        }
     }
 
     public void GestionCarreraTerminada(InformacionJugador jugador, int puntos, int tiempoCarrera)
@@ -211,7 +212,7 @@ public class PosicionCarreraController : NetworkBehaviour
     {
         Debug.Log("FinishRacePosition");
         target.gameObject.GetComponent<CarController>().CmdSetPositionRotation(spawnsFinales[sumOrd].transform.position,spawnsFinales[sumOrd].transform.rotation);
-        target.gameObject.GetComponent<CarController>().DesactivateCar();
+        target.gameObject.GetComponent<CarController>().TargetDesactivateCar();
     }
     
 }

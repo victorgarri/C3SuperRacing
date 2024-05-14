@@ -68,8 +68,7 @@ public class CarController : NetworkBehaviour
     
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
-    private GameObject _cameraPivot;
-    private GameObject _camera;
+    [SerializeField]private GameObject _camera;
     public bool enableControls;
 
     [SerializeField]
@@ -87,7 +86,6 @@ public class CarController : NetworkBehaviour
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
             
         // _cameraPivot = transform.Find("CameraPivot").gameObject;
-        _camera = transform.Find("PlayerCamera").gameObject;
         
         _audioSource = this.GetComponent<AudioSource>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
@@ -129,13 +127,18 @@ public class CarController : NetworkBehaviour
         _audioSource.PlayOneShot(clip, volumen);
     }
 
+    [TargetRpc]
+    public void TargetDesactivateCar()
+    {
+       DesactivateCar();
+    }
+
     public void DesactivateCar()
     {
         enableControls = false;
 
         CmdSetGiro(0);
         CmdSetPedal(0);
-        CmdSetCameraInput(0);
         CmdSetIsBreaking(true);
         
         _camera.SetActive(false);
@@ -242,30 +245,26 @@ public class CarController : NetworkBehaviour
 
         CmdSetGiro(_playerInput.actions["Steer"].ReadValue<float>());
         CmdSetPedal(_playerInput.actions["Throtle"].ReadValue<float>());
-        CmdSetCameraInput(_playerInput.actions["Camera"].ReadValue<float>());
         CmdSetIsBreaking(_playerInput.actions["Brake"].IsPressed());
     }
     
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdSetGiro(float giroInput)
     {
         giro = giroInput;
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdSetPedal(float pedalInput)
     {
         pedal = pedalInput;
     }
-    [Command]
-    private void CmdSetCameraInput(float cameraInput)
-    {
-        cameraTurn = cameraInput;
-    }
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdSetIsBreaking(bool breakingInput)
     {
         isBreaking = breakingInput;
     }
+    
+    
     
     private void HandleMotor()
     {
@@ -371,7 +370,7 @@ public class CarController : NetworkBehaviour
         }
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdSetPositionRotation(Vector3 transformPosition, Quaternion transformRotation)
     {
         this.transform.position = transformPosition;

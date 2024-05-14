@@ -1312,6 +1312,7 @@ MonoBehaviour:
   sonidoCocheChocandoConOtro: {fileID: 8300000, guid: 38433446a21766243aa2d913d53a9f45, type: 3}
   claxonCoche: {fileID: 8300000, guid: 5705738d4dd3e9042bec0ada2aa60cc6, type: 3}
   claxonCoche2: {fileID: 8300000, guid: 32536f8bea17c9d4492d49d91e002292, type: 3}
+  _camera: {fileID: 6452117631074637903}
   enableControls: 0
   carLights:
   - {fileID: 7190309692867757523}
@@ -1341,6 +1342,7 @@ MonoBehaviour:
   nVueltasCircuito: 0
   nWaypoints: 0
   siguienteWaypoint: 0
+  prevWaypoint: 0
   distanciaSiguienteWaypoint: 0
   posicionAnterior: 0
   _interfazController: {fileID: 0}
