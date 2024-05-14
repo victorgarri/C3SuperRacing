@@ -17,7 +17,7 @@ public class SpectatorPovActivator : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {        
-        if (other.transform.parent.gameObject.CompareTag("Player"))
+        if (other.transform.parent && other.transform.parent.gameObject.CompareTag("Player"))
         {
             foreach (var informacionJugador in posicionCarreraController._informacionJugadores)
             {

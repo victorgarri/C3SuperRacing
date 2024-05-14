@@ -61,7 +61,7 @@ public class InformacionJugador : NetworkBehaviour
         */
     }
     
-    [Header("PowerUp")]
+    [Header("PowerUp")] 
     public bool isPowerUpCollected = false;
     public GameObject proyectilPrefab;
     public Transform spawnPoint;
@@ -118,7 +118,7 @@ public class InformacionJugador : NetworkBehaviour
         if(_playerInput.actions["Throw"].IsPressed() && isPowerUpCollected == true)
         {
             UsePowerUp();
-            LanzarProyectil();
+            CmdLanzarProyectil();
         }
         
         if (isLocalPlayer && _carController.enableControls)
@@ -152,7 +152,8 @@ public class InformacionJugador : NetworkBehaviour
     
     #region POWERUPS
 
-    public void CollectPowerUp()
+    [TargetRpc]
+    public void TargetCollectPowerUp()
     {
         isPowerUpCollected = true;
         if (_interfazController.imagenPowerUp != null)
@@ -170,7 +171,8 @@ public class InformacionJugador : NetworkBehaviour
         }
     }
     
-    private void LanzarProyectil()
+    [Command]
+    private void CmdLanzarProyectil()
     {
         if (proyectilPrefab != null && spawnPoint != null)
         {
@@ -180,6 +182,16 @@ public class InformacionJugador : NetworkBehaviour
             Vector3 launchDirection = spawnPoint.forward;
     
             proyectilRb.velocity = launchDirection * velocidadProyectil;
+
+            Rigidbody carRigidbody = GetComponent<Rigidbody>();
+
+            proyectilRb.velocity = new Vector3(
+                proyectilRb.velocity.x + carRigidbody.velocity.x,
+                proyectilRb.velocity.y + carRigidbody.velocity.y,
+                proyectilRb.velocity.z + carRigidbody.velocity.z
+            );  
+            
+            NetworkServer.Spawn(proyectil);
         }
     }
 
@@ -187,7 +199,6 @@ public class InformacionJugador : NetworkBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        
         if (collision.gameObject.CompareTag("Waypoint") && isLocalPlayer)
         {
             // Debug.Log("SiguienteWaypoint: "+siguienteWaypoint);
@@ -217,12 +228,13 @@ public class InformacionJugador : NetworkBehaviour
             // Debug.Log("InformacionJugador SetVuelta");
             SetVueltaActual(vueltaActual);
         }
-        
         if (collision.CompareTag("PowerUp"))
         {
-            CollectPowerUp();
-            Destroy(collision.gameObject);
+            if (!isServer) return;
+            collision.GetComponent<MovPowerUps>().RpcDeactivate();
+            TargetCollectPowerUp();
         }
+        
     }
 
 
