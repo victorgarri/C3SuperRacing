@@ -196,14 +196,19 @@ public class GameManager : NetworkBehaviour
 
 
         int countDownTime;
-        if (index == 0) countDownTime = 8;
+        
+        if (index == 0)
+            countDownTime = 8;
         else countDownTime = 3;
+        
         _countDownText.StartCountDown(countDownTime);
 
         if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
         {
             LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(countDownTime);
-            StartCoroutine(DesactivarPanelTutorial());
+            
+            if (index == 0)
+                StartCoroutine(DesactivarPanelTutorial());
             interfazUsuario.GetComponent<InterfazController>().cambiosMinimapa(index);            
         }
 

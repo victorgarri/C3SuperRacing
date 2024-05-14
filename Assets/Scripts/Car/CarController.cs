@@ -115,10 +115,10 @@ public class CarController : NetworkBehaviour
         EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
 
         //Efecto de sonido de motor arrancado
-        yield return new WaitForSeconds(seconds - 2);
+        yield return new WaitForSeconds(1);
         EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
         
-        yield return new WaitForSeconds(seconds - 1);
+        yield return new WaitForSeconds(seconds-1);
         _sonidoFondo.ReproducirMusicaVelocidadNormal(_informacionJugador.indiceCarrera);
         motorCoche.gameObject.SetActive(true);
         enableControls = true;
