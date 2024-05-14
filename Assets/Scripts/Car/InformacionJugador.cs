@@ -181,15 +181,13 @@ public class InformacionJugador : NetworkBehaviour
         
             Vector3 launchDirection = spawnPoint.forward;
     
-            proyectilRb.velocity = launchDirection * velocidadProyectil;
-
             Rigidbody carRigidbody = GetComponent<Rigidbody>();
 
-            proyectilRb.velocity = new Vector3(
-                proyectilRb.velocity.x + carRigidbody.velocity.x,
-                proyectilRb.velocity.y + carRigidbody.velocity.y,
-                proyectilRb.velocity.z + carRigidbody.velocity.z
-            );  
+            var vectorProyectil = carRigidbody.velocity;
+            vectorProyectil += launchDirection * velocidadProyectil;
+            proyectilRb.velocity = vectorProyectil;
+
+ 
             
             NetworkServer.Spawn(proyectil);
         }
