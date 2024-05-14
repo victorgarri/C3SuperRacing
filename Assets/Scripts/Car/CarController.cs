@@ -98,7 +98,7 @@ public class CarController : NetworkBehaviour
         DesactivateCar();
     }
     
-    public void ActivateCar(int seconds)
+    public void ActivateCar(float seconds)
     {
         if (isLocalPlayer)
             _camera.SetActive(true);
@@ -107,19 +107,21 @@ public class CarController : NetworkBehaviour
         
     }
     
-    private IEnumerator EnableControlsCoroutine(int seconds)
+    private IEnumerator EnableControlsCoroutine(float seconds)
     {
-        //Efecto de sonido de arrancar motor
-        EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
-
-        //Efecto de sonido de motor arrancado
-        yield return new WaitForSeconds(1);
-        EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
+        enableControls = true;
         
-        yield return new WaitForSeconds(seconds-1);
+            //Efecto de sonido de arrancar motor
+            //EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
+
+            //Efecto de sonido de motor arrancado
+            //yield return new WaitForSeconds(seconds - 0.2f);
+            //EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
+            
+            //yield return new WaitForSeconds(seconds-0.1f);
+        yield return new WaitForSeconds(seconds);
         _sonidoFondo.ReproducirMusicaVelocidadNormal(_informacionJugador.indiceCarrera);
         motorCoche.gameObject.SetActive(true);
-        enableControls = true;
     }
 
     private void EjecutarEfectoSonido(AudioClip clip, float volumen)
