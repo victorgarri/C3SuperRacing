@@ -262,11 +262,7 @@ public class GameManager : NetworkBehaviour
         if (LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
         
         _resultadoCarreraController.gameObject.SetActive(false);
-        Debug.Log(NetworkClient.localPlayer.gameObject);
-        LocalPlayerPointer.Instance.gamePlayerGameObject = NetworkClient.localPlayer.gameObject;
-        Debug.Log(LocalPlayerPointer.Instance.gamePlayerGameObject);
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(null);
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(false);
+        
         ordenMinijuegos[index].SetActive(true);
     }
 
@@ -337,8 +333,8 @@ public class GameManager : NetworkBehaviour
             jugador.CmdSetFinCarrera(false);
             jugador._interfazController.CuentaAtras(false, 0);
         }
-        
-        posicionCarreraController.stopCuentaPogresiva = StartCoroutine(posicionCarreraController.CuentaPogresiva());
+        if(isServer)
+            posicionCarreraController.stopCuentaPogresiva = StartCoroutine(posicionCarreraController.CuentaPogresiva());
 
     }
 

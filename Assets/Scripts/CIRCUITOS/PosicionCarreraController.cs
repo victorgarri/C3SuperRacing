@@ -180,7 +180,7 @@ public class PosicionCarreraController : NetworkBehaviour
     {
         while (segundosRestantes > 0)
         {
-            if(!LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
+            if(LocalPlayerPointer.Instance.gamePlayerGameObject && !LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
                     _interfazController.CuentaAtras(cuentaAtrasActivado, segundosRestantes);
            
             yield return new WaitForSeconds(1);
