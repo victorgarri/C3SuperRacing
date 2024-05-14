@@ -109,8 +109,6 @@ public class CarController : NetworkBehaviour
     
     private IEnumerator EnableControlsCoroutine(float seconds)
     {
-        enableControls = true;
-        
             //Efecto de sonido de arrancar motor
             //EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
 
@@ -120,6 +118,7 @@ public class CarController : NetworkBehaviour
             
             //yield return new WaitForSeconds(seconds-0.1f);
         yield return new WaitForSeconds(seconds);
+        enableControls = true;
         _sonidoFondo.ReproducirMusicaVelocidadNormal(_informacionJugador.indiceCarrera);
         motorCoche.gameObject.SetActive(true);
     }
