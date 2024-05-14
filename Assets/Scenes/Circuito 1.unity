@@ -959,7 +959,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 60
+  m_text: 'Tiempo restante
+
+    60'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -986,8 +988,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 50
-  m_fontSizeBase: 50
+  m_fontSize: 40
+  m_fontSizeBase: 40
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -1052,8 +1054,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 0, y: -50}
+  m_SizeDelta: {x: 500, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!1 &106018151
 GameObject:
@@ -13226,6 +13228,7 @@ MonoBehaviour:
   syncInterval: 0
   listaWaypoints: []
   vueltasTotales: 3
+  contadorTiempo: 0
   cuentaAtrasActivado: 0
   segundosRestantes: 60
   _informacionJugadores: []
@@ -13238,7 +13241,6 @@ MonoBehaviour:
   - {fileID: 1055920856}
   - {fileID: 1988347274}
   - {fileID: 163263816}
-  contadorTiempo: 0
   _gameManager: {fileID: 2004875632}
   _interfazController: {fileID: 164834773}
   interfazUsuarioModoEspectador: {fileID: 1207990988}
@@ -18670,6 +18672,7 @@ MonoBehaviour:
   syncInterval: 0
   listaWaypoints: []
   vueltasTotales: 3
+  contadorTiempo: 0
   cuentaAtrasActivado: 0
   segundosRestantes: 60
   _informacionJugadores: []
@@ -18682,7 +18685,6 @@ MonoBehaviour:
   - {fileID: 1055920856}
   - {fileID: 1988347274}
   - {fileID: 163263816}
-  contadorTiempo: 0
   _gameManager: {fileID: 2004875632}
   _interfazController: {fileID: 164834773}
   interfazUsuarioModoEspectador: {fileID: 1207990988}
@@ -23817,6 +23819,7 @@ MonoBehaviour:
   syncInterval: 0
   listaWaypoints: []
   vueltasTotales: 3
+  contadorTiempo: 0
   cuentaAtrasActivado: 0
   segundosRestantes: 60
   _informacionJugadores: []
@@ -23829,7 +23832,6 @@ MonoBehaviour:
   - {fileID: 1055920856}
   - {fileID: 1988347274}
   - {fileID: 163263816}
-  contadorTiempo: 0
   _gameManager: {fileID: 2004875632}
   _interfazController: {fileID: 164834773}
   interfazUsuarioModoEspectador: {fileID: 1207990988}

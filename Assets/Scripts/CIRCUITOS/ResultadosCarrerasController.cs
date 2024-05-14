@@ -90,8 +90,8 @@ public class ResultadosCarrerasController : MonoBehaviour
     {
         borrarTabla();
         
-        var auxPlayerPoints = _gameManager.playerRacePointsList.OrderByDescending(jugador => jugador.puntuacionTotal).
-                                                                                                 OrderBy(jugador => jugador.tiempoTotal);
+        var auxPlayerPoints = _gameManager.playerRacePointsList.OrderBy(jugador => jugador.tiempoTotal)
+            .OrderByDescending(jugador => jugador.puntuacionTotal);
         
         int orden = 1;
         foreach (var informacion in auxPlayerPoints)
