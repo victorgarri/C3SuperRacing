@@ -195,17 +195,15 @@ public class GameManager : NetworkBehaviour
         _resultadoCarreraController.gameObject.SetActive(false);
 
 
-
-        if (index == 0)
-        {
-            _countDownText.StartCountDown(8);
-            StartCoroutine(DesactivarPanelTutorial());
-        }
-        else _countDownText.StartCountDown(3);
+        int countDownTime;
+        if (index == 0) countDownTime = 8;
+        else countDownTime = 3;
+        _countDownText.StartCountDown(countDownTime);
 
         if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
         {
-            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(3);
+            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(countDownTime);
+            StartCoroutine(DesactivarPanelTutorial());
             interfazUsuario.GetComponent<InterfazController>().cambiosMinimapa(index);            
         }
 

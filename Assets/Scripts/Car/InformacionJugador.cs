@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Mirror;
 using TMPro;
-using UnityEditor.TextCore.Text;
 using UnityEngine;
 using UnityEngine.Serialization;
 using ColorUtility = UnityEngine.ColorUtility;
