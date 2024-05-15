@@ -332,6 +332,8 @@ public class GameManager : NetworkBehaviour
             jugador.SetSiguienteWaypoint(0);
             jugador.CmdSetFinCarrera(false);
             jugador._interfazController.CuentaAtras(false, 0);
+            jugador.CmdSetFinMinijuego(false);
+            jugador.finMinijuego=false;
         }
         if(isServer)
             posicionCarreraController.stopCuentaPogresiva = StartCoroutine(posicionCarreraController.CuentaPogresiva());
