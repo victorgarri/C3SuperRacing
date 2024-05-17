@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 2086785753}
-  m_IndirectSpecularColor: {r: 0.635793, g: 0.65954244, b: 0.72377026, a: 1}
+  m_IndirectSpecularColor: {r: 0.63579303, g: 0.6595425, b: 0.72377044, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -135,7 +135,7 @@ GameObject:
   - component: {fileID: 1914495}
   - component: {fileID: 1914494}
   m_Layer: 10
-  m_Name: PDC 26
+  m_Name: PDC 27
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -150,8 +150,8 @@ Transform:
   m_GameObject: {fileID: 1914492}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 46.120003, y: 42.74, z: 22.570002}
-  m_LocalScale: {x: 9, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: 46.120003, y: 50, z: 22.570002}
+  m_LocalScale: {x: 9, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -464,7 +464,7 @@ GameObject:
   - component: {fileID: 71442864}
   - component: {fileID: 71442863}
   m_Layer: 10
-  m_Name: PDC 7
+  m_Name: PDC 6
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -479,8 +479,8 @@ Transform:
   m_GameObject: {fileID: 71442861}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.16783957, z: -0, w: 0.98581433}
-  m_LocalPosition: {x: -13.49, y: 31.8, z: -52.060005}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: -13.49, y: 39, z: -52.060005}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -1215,7 +1215,7 @@ GameObject:
   - component: {fileID: 113172309}
   - component: {fileID: 113172308}
   m_Layer: 10
-  m_Name: PDC 11
+  m_Name: PDC 10
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1230,8 +1230,8 @@ Transform:
   m_GameObject: {fileID: 113172306}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.16914059, z: -0, w: 0.98559195}
-  m_LocalPosition: {x: 15.82, y: 32.26, z: -61.390003}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000376}
+  m_LocalPosition: {x: 15.82, y: 39, z: -61.390003}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000376}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -1570,7 +1570,7 @@ GameObject:
   - component: {fileID: 136280455}
   - component: {fileID: 136280454}
   m_Layer: 10
-  m_Name: 'PDC 1 (META) '
+  m_Name: PDC 32
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1584,13 +1584,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 136280452}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: 0.073867835, z: -0, w: 0.9972681}
-  m_LocalPosition: {x: 22.35, y: 34.22, z: -2.28}
-  m_LocalScale: {x: 11, y: 8, z: 0.10000376}
+  m_LocalRotation: {x: -0, y: 0.037300482, z: -0, w: 0.9993042}
+  m_LocalPosition: {x: 22.35, y: 39, z: -2.28}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000376}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
-  m_LocalEulerAnglesHint: {x: 0, y: 8.472, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 4.275, z: 0}
 --- !u!114 &136280454
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1708,7 +1708,7 @@ GameObject:
   - component: {fileID: 141642351}
   - component: {fileID: 141642350}
   m_Layer: 10
-  m_Name: PDC 18
+  m_Name: PDC 19
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -1723,8 +1723,8 @@ Transform:
   m_GameObject: {fileID: 141642348}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 37.47, y: 31.8, z: -58.120003}
-  m_LocalScale: {x: 9, y: 4, z: 0.10000376}
+  m_LocalPosition: {x: 37.47, y: 39, z: -58.120003}
+  m_LocalScale: {x: 9, y: 20, z: 0.10000376}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -2624,7 +2624,7 @@ GameObject:
   - component: {fileID: 211015825}
   - component: {fileID: 211015824}
   m_Layer: 10
-  m_Name: PDC 30
+  m_Name: PDC 31
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2639,8 +2639,8 @@ Transform:
   m_GameObject: {fileID: 211015822}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.10930557, z: -0, w: 0.99400824}
-  m_LocalPosition: {x: 28.990002, y: 41.96, z: 30.09}
-  m_LocalScale: {x: 11, y: 8, z: 0.10000374}
+  m_LocalPosition: {x: 28.990002, y: 47, z: 30.09}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000374}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -2885,7 +2885,7 @@ GameObject:
   - component: {fileID: 214134190}
   - component: {fileID: 214134189}
   m_Layer: 10
-  m_Name: PDC 29
+  m_Name: PDC 30
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -2900,8 +2900,8 @@ Transform:
   m_GameObject: {fileID: 214134187}
   serializedVersion: 2
   m_LocalRotation: {x: 0.0031531353, y: 0.059493214, z: 0.009087334, w: 0.9981824}
-  m_LocalPosition: {x: 31.180002, y: 43.8, z: 39.78}
-  m_LocalScale: {x: 11, y: 8, z: 0.10000409}
+  m_LocalPosition: {x: 31.180002, y: 49, z: 39.78}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000409}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -3150,7 +3150,7 @@ GameObject:
   - component: {fileID: 246502906}
   - component: {fileID: 246502905}
   m_Layer: 10
-  m_Name: PDC 17
+  m_Name: PDC 18
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -3165,8 +3165,8 @@ Transform:
   m_GameObject: {fileID: 246502903}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 29.580002, y: 31.8, z: -48.36}
-  m_LocalScale: {x: 9, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: 29.580002, y: 39, z: -48.36}
+  m_LocalScale: {x: 9, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -4147,7 +4147,7 @@ GameObject:
   - component: {fileID: 316197636}
   - component: {fileID: 316197635}
   m_Layer: 10
-  m_Name: PDC 27
+  m_Name: PDC 28
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4162,8 +4162,8 @@ Transform:
   m_GameObject: {fileID: 316197633}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 45.500004, y: 42.65, z: 36.15}
-  m_LocalScale: {x: 9, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: 45.500004, y: 50, z: 36.15}
+  m_LocalScale: {x: 9, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -4645,7 +4645,7 @@ GameObject:
   - component: {fileID: 388283876}
   - component: {fileID: 388283875}
   m_Layer: 10
-  m_Name: PDC 25
+  m_Name: PDC 26
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -4660,8 +4660,8 @@ Transform:
   m_GameObject: {fileID: 388283873}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 59.720005, y: 42.806, z: 8.23}
-  m_LocalScale: {x: 9, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: 59.720005, y: 50, z: 8.23}
+  m_LocalScale: {x: 9, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -5070,7 +5070,7 @@ GameObject:
   - component: {fileID: 447283279}
   - component: {fileID: 447283278}
   m_Layer: 10
-  m_Name: PDC 5
+  m_Name: PDC 4
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -5085,8 +5085,8 @@ Transform:
   m_GameObject: {fileID: 447283276}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7362372, z: -0, w: 0.6767236}
-  m_LocalPosition: {x: -4.87, y: 31.8, z: -26.950003}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000373}
+  m_LocalPosition: {x: -4.87, y: 39, z: -26.950003}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000373}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -5842,7 +5842,7 @@ GameObject:
   - component: {fileID: 518217610}
   - component: {fileID: 518217609}
   m_Layer: 10
-  m_Name: PDC 6
+  m_Name: PDC 5
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -5857,8 +5857,8 @@ Transform:
   m_GameObject: {fileID: 518217607}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -15.300001, y: 31.8, z: -40.77}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: -15.300001, y: 39, z: -40.77}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -6388,7 +6388,7 @@ GameObject:
   - component: {fileID: 591704144}
   - component: {fileID: 591704143}
   m_Layer: 10
-  m_Name: PDC 23
+  m_Name: PDC 22
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -6403,8 +6403,8 @@ Transform:
   m_GameObject: {fileID: 591704141}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 48.590004, y: 43.9, z: -9.250001}
-  m_LocalScale: {x: 9, y: 8, z: 0.10000375}
+  m_LocalPosition: {x: 48.590004, y: 50, z: -9.250001}
+  m_LocalScale: {x: 9, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -10657,7 +10657,7 @@ GameObject:
   - component: {fileID: 970227178}
   - component: {fileID: 970227177}
   m_Layer: 10
-  m_Name: PDC 10
+  m_Name: PDC 9
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -10672,8 +10672,8 @@ Transform:
   m_GameObject: {fileID: 970227175}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7660445, z: -0, w: 0.64278764}
-  m_LocalPosition: {x: 6.33, y: 31.8, z: -52.540005}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000376}
+  m_LocalPosition: {x: 6.33, y: 39, z: -52.540005}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000376}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -11007,7 +11007,7 @@ GameObject:
   - component: {fileID: 994267604}
   - component: {fileID: 994267603}
   m_Layer: 10
-  m_Name: PDC 12
+  m_Name: PDC 11
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -11022,8 +11022,8 @@ Transform:
   m_GameObject: {fileID: 994267601}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.82254, z: -0, w: 0.5687073}
-  m_LocalPosition: {x: 26, y: 31.8, z: -71.11001}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000376}
+  m_LocalPosition: {x: 26, y: 39, z: -71.11001}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000376}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -12247,7 +12247,7 @@ GameObject:
   - component: {fileID: 1127599226}
   - component: {fileID: 1127599225}
   m_Layer: 10
-  m_Name: PDC 31
+  m_Name: PDC 32
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -12262,8 +12262,8 @@ Transform:
   m_GameObject: {fileID: 1127599223}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 25.8, y: 36.97, z: 13.340002}
-  m_LocalScale: {x: 11, y: 8, z: 0.10000375}
+  m_LocalPosition: {x: 25.8, y: 42, z: 13.340002}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -13643,7 +13643,7 @@ GameObject:
   - component: {fileID: 1250151570}
   - component: {fileID: 1250151569}
   m_Layer: 10
-  m_Name: PDC 20
+  m_Name: PDC 21
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -13658,8 +13658,8 @@ Transform:
   m_GameObject: {fileID: 1250151567}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 49.760002, y: 42.38, z: -16.060001}
-  m_LocalScale: {x: 9, y: 6, z: 0.10000375}
+  m_LocalPosition: {x: 49.04, y: 49, z: -16.060001}
+  m_LocalScale: {x: 9, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -13712,7 +13712,7 @@ GameObject:
   - component: {fileID: 1256267107}
   - component: {fileID: 1256267106}
   m_Layer: 10
-  m_Name: PDC 3
+  m_Name: PDC 2
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -13727,8 +13727,8 @@ Transform:
   m_GameObject: {fileID: 1256267104}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.29194102, z: -0, w: 0.95643634}
-  m_LocalPosition: {x: 16.190002, y: 31.3, z: -22.200003}
-  m_LocalScale: {x: 11, y: 4, z: 0.100003764}
+  m_LocalPosition: {x: 16.190002, y: 39, z: -22.200003}
+  m_LocalScale: {x: 11, y: 20, z: 0.100003764}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -14818,7 +14818,7 @@ GameObject:
   - component: {fileID: 1378579754}
   - component: {fileID: 1378579755}
   m_Layer: 10
-  m_Name: PDC 2
+  m_Name: PDC 1 (META)
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -14833,8 +14833,8 @@ Transform:
   m_GameObject: {fileID: 1378579753}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.0298419, z: -0, w: 0.99955463}
-  m_LocalPosition: {x: 21.68, y: 33.76, z: -14.25}
-  m_LocalScale: {x: 11, y: 8, z: 0.1}
+  m_LocalPosition: {x: 21.68, y: 39, z: -14.25}
+  m_LocalScale: {x: 11, y: 20, z: 0.1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -16701,7 +16701,7 @@ GameObject:
   - component: {fileID: 1436166808}
   - component: {fileID: 1436166807}
   m_Layer: 10
-  m_Name: PDC 9
+  m_Name: PDC 8
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -16716,8 +16716,8 @@ Transform:
   m_GameObject: {fileID: 1436166805}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.9719825, z: -0, w: 0.23505339}
-  m_LocalPosition: {x: 2.1000001, y: 31.8, z: -60.240005}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: 2.97, y: 39, z: -60.5}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -17385,7 +17385,7 @@ GameObject:
   - component: {fileID: 1510082333}
   - component: {fileID: 1510082332}
   m_Layer: 10
-  m_Name: PDC 16
+  m_Name: PDC 17
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -17400,8 +17400,8 @@ Transform:
   m_GameObject: {fileID: 1510082330}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 41.390003, y: 31.8, z: -38.830006}
-  m_LocalScale: {x: 8, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: 41.390003, y: 39, z: -38.830006}
+  m_LocalScale: {x: 8, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -18370,7 +18370,7 @@ GameObject:
   - component: {fileID: 1606094966}
   - component: {fileID: 1606094965}
   m_Layer: 10
-  m_Name: PDC 4
+  m_Name: PDC 3
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -18385,8 +18385,8 @@ Transform:
   m_GameObject: {fileID: 1606094963}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 6.9800005, y: 31.8, z: -28.71}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000376}
+  m_LocalPosition: {x: 6.9800005, y: 39, z: -28.71}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000376}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -21707,7 +21707,7 @@ GameObject:
   - component: {fileID: 1899209277}
   - component: {fileID: 1899209276}
   m_Layer: 10
-  m_Name: PDC 13
+  m_Name: PDC 12
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -21722,8 +21722,8 @@ Transform:
   m_GameObject: {fileID: 1899209274}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.36751014, z: -0, w: 0.9300195}
-  m_LocalPosition: {x: 24.410002, y: 32.12, z: -58.200005}
-  m_LocalScale: {x: 7, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: 24.410002, y: 39, z: -58.200005}
+  m_LocalScale: {x: 7, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -22186,7 +22186,7 @@ GameObject:
   - component: {fileID: 1962292273}
   - component: {fileID: 1962292272}
   m_Layer: 10
-  m_Name: PDC 8
+  m_Name: PDC 7
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -22201,8 +22201,8 @@ Transform:
   m_GameObject: {fileID: 1962292270}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.7660445, z: -0, w: 0.64278764}
-  m_LocalPosition: {x: -2.23, y: 31.8, z: -64.69}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000376}
+  m_LocalPosition: {x: -2.23, y: 39, z: -64.69}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000376}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -22357,7 +22357,7 @@ GameObject:
   - component: {fileID: 1974034328}
   - component: {fileID: 1974034327}
   m_Layer: 10
-  m_Name: PDC 14
+  m_Name: PDC 13
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -22372,8 +22372,8 @@ Transform:
   m_GameObject: {fileID: 1974034325}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 17.66, y: 31.8, z: -46.17}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000375}
+  m_LocalPosition: {x: 17.66, y: 39, z: -46.17}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -22810,7 +22810,7 @@ GameObject:
   - component: {fileID: 1997097269}
   - component: {fileID: 1997097268}
   m_Layer: 10
-  m_Name: PDC 15
+  m_Name: PDC 14
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -22825,8 +22825,8 @@ Transform:
   m_GameObject: {fileID: 1997097266}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: 0.7071068}
-  m_LocalPosition: {x: 28.860003, y: 31.8, z: -27.990002}
-  m_LocalScale: {x: 11, y: 4, z: 0.10000376}
+  m_LocalPosition: {x: 28.860003, y: 39, z: -27.990002}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000376}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -22879,7 +22879,7 @@ GameObject:
   - component: {fileID: 1997598064}
   - component: {fileID: 1997598063}
   m_Layer: 10
-  m_Name: PDC 24
+  m_Name: PDC 25
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -22894,8 +22894,8 @@ Transform:
   m_GameObject: {fileID: 1997598061}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.55446887, z: -0, w: 0.8322045}
-  m_LocalPosition: {x: 51.790005, y: 45.6, z: -0.07000001}
-  m_LocalScale: {x: 9, y: 10, z: 0.10000375}
+  m_LocalPosition: {x: 53, y: 50, z: 0.23}
+  m_LocalScale: {x: 9, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -23838,7 +23838,7 @@ GameObject:
   - component: {fileID: 2021309326}
   - component: {fileID: 2021309325}
   m_Layer: 10
-  m_Name: PDC 19
+  m_Name: PDC 20
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -23853,8 +23853,8 @@ Transform:
   m_GameObject: {fileID: 2021309323}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.10452846, z: -0, w: 0.9945219}
-  m_LocalPosition: {x: 48.070004, y: 31.8, z: -46.770004}
-  m_LocalScale: {x: 9, y: 4, z: 0.100003734}
+  m_LocalPosition: {x: 48.070004, y: 39, z: -46.770004}
+  m_LocalScale: {x: 9, y: 20, z: 0.100003734}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
@@ -25154,7 +25154,7 @@ GameObject:
   - component: {fileID: 2137257713}
   - component: {fileID: 2137257712}
   m_Layer: 10
-  m_Name: PDC 28
+  m_Name: PDC 29
   m_TagString: Waypoint
   m_Icon: {fileID: 419385456094870383, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -25169,8 +25169,8 @@ Transform:
   m_GameObject: {fileID: 2137257710}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0.5735764, z: -0, w: 0.8191521}
-  m_LocalPosition: {x: 40.79, y: 43.73, z: 50.29}
-  m_LocalScale: {x: 11, y: 6, z: 0.10000375}
+  m_LocalPosition: {x: 40.79, y: 50, z: 50.29}
+  m_LocalScale: {x: 11, y: 20, z: 0.10000375}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1245864431}
