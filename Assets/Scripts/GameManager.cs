@@ -1,9 +1,11 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Cinemachine;
 using Mirror;
 using UnityEngine;
+using UnityEngine.UI;
 
 public struct PlayerMinigamePoints
 {
@@ -68,8 +70,11 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject spectator;
     [SerializeField] private GameObject interfazUsuarioModoEspectador;
     
+    [SerializeField] private Image panelInicio;
+    
     // [SerializeField]
     // private GameObject _minijuego0;
+
 
     private void Start()
     {
@@ -188,14 +193,22 @@ public class GameManager : NetworkBehaviour
     private void EnableCarClientRPC(int index)
     {
         _resultadoCarreraController.gameObject.SetActive(false);
+
+
+        int countDownTime;
         
+        if (index == 0)
+            countDownTime = 8;
+        else countDownTime = 3;
         
-        
-        _countDownText.StartCountDown(3);
+        _countDownText.StartCountDown(countDownTime);
 
         if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
         {
-            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(3);
+            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(countDownTime);
+            
+            if (index == 0)
+                StartCoroutine(DesactivarPanelTutorial());
             interfazUsuario.GetComponent<InterfazController>().cambiosMinimapa(index);            
         }
 
@@ -212,12 +225,19 @@ public class GameManager : NetworkBehaviour
         ReseteoVariablesJugadores(index);
         
     }
+
+    private IEnumerator DesactivarPanelTutorial()
+    {
+        panelInicio.gameObject.SetActive(true);
+        yield return new WaitForSeconds(5);
+        panelInicio.gameObject.SetActive(false);
+    }
     
     [ClientRpc]
     private void DisableCarClientRPC()
     {
         if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
-            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().DesactivateCar();  
+            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().TargetDesactivateCar();  
     }
 
     [ClientRpc]
@@ -242,11 +262,7 @@ public class GameManager : NetworkBehaviour
         if (LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
         
         _resultadoCarreraController.gameObject.SetActive(false);
-        Debug.Log(NetworkClient.localPlayer.gameObject);
-        LocalPlayerPointer.Instance.gamePlayerGameObject = NetworkClient.localPlayer.gameObject;
-        Debug.Log(LocalPlayerPointer.Instance.gamePlayerGameObject);
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(null);
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(false);
+        
         ordenMinijuegos[index].SetActive(true);
     }
 
@@ -316,10 +332,12 @@ public class GameManager : NetworkBehaviour
             jugador.SetSiguienteWaypoint(0);
             jugador.CmdSetFinCarrera(false);
             jugador._interfazController.CuentaAtras(false, 0);
+            jugador.CmdSetFinMinijuego(false);
+            jugador.finMinijuego=false;
         }
-        
-        //posicionCarreraController.puntuacionMaxima = 2 * posicionCarreraController._informacionJugadores.Length;
-        
+        if(isServer)
+            posicionCarreraController.stopCuentaPogresiva = StartCoroutine(posicionCarreraController.CuentaPogresiva());
+
     }
 
     private void DisableWaypoints()

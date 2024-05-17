@@ -29,19 +29,20 @@ public class SonidoFondo : MonoBehaviour
         switch (indice)
         {
             case 1:
-                volumenMusica = 1;
+                volumenMusica = 0.5f;
                 break;
             
             case 2:
-                volumenMusica = 0.5f;
+                volumenMusica = 0.3f;
                 break;
             
             case 3:
-                volumenMusica = 0.5f;
+                volumenMusica = 0.3f;
                 break;
         }
         
-        _audioSource.PlayOneShot(listaDeReproduccion[indice-1], volumenMusica);
+        if(!_audioSource.isPlaying)
+            _audioSource.PlayOneShot(listaDeReproduccion[indice-1], volumenMusica);
 
     }
 

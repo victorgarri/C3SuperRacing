@@ -15,6 +15,10 @@ public class PosicionCarreraController : NetworkBehaviour
     [Header("Número de vueltas totales")]
     [SerializeField] public int vueltasTotales = 2;
     
+    [Header("Cuenta progesiva")]
+    public Coroutine stopCuentaPogresiva;
+    [SerializeField] private int contadorTiempo = 0;
+    
     [Header("Cuenta atrás")] 
     [SerializeField] [SyncVar] public bool cuentaAtrasActivado = false;
     [SerializeField] [SyncVar] public int segundosRestantes = 60;
@@ -25,19 +29,14 @@ public class PosicionCarreraController : NetworkBehaviour
     [Header("Colocación coches final de cada carrera")]
     [SerializeField] private List<Transform> spawnsFinales = new List<Transform>();
     private int puntuacionMaxima = 16;
-    public int contadorTiempo = 0;
     
     [Header("Script del GameManager")]
     [SerializeField] private GameManager _gameManager;
 
-
     [SerializeField] private InterfazController _interfazController;
     
-    [FormerlySerializedAs("_tablaPosicionModoEspectador")]
-    [Header("Script de mostrar tabla de posición modo espectador")] 
+    [Header("Script del modo espectador")]
     [SerializeField] private InterfazUsuarioModoEspectador interfazUsuarioModoEspectador;
-    
-    
     // Start is called before the first frame update
     void Start()
     {
@@ -46,12 +45,9 @@ public class PosicionCarreraController : NetworkBehaviour
         {
             listaWaypoints.Add(transform.GetChild(i));
         }
-
-        StartCoroutine(Contador());
-
     }
 
-    IEnumerator Contador()
+    public IEnumerator CuentaPogresiva()
     {
         yield return new WaitForSeconds(3);
         
@@ -134,8 +130,7 @@ public class PosicionCarreraController : NetworkBehaviour
                 {
                     if (!cuentaAtrasActivado)
                     {
-                        cuentaAtrasActivado = true;
-                        CmdInicioCuentaAtras();
+                        InicioCuentaAtras();
                     }
                     
                     //Cuando un jugador acaba la carrera
@@ -164,39 +159,45 @@ public class PosicionCarreraController : NetworkBehaviour
         }
     }
 
-    [Command (requiresAuthority = false)]
-    private void CmdInicioCuentaAtras()
+   private void InicioCuentaAtras()
     {
+        cuentaAtrasActivado = true;
         RpcInicioCuentaAtras();
     }
     
     [ClientRpc]
     private void RpcInicioCuentaAtras()
     {
-        StopCoroutine(Contador());
+        if (stopCuentaPogresiva != null)
+        {
+            StopCoroutine(stopCuentaPogresiva);
+        }
+        
         StartCoroutine(CuentaAtrasCarrera());
     }
     
     private IEnumerator CuentaAtrasCarrera()
     {
-        Debug.Log("HE INICIADO LA CORRUTINA");
         while (segundosRestantes > 0)
         {
-            _interfazController.CuentaAtras(cuentaAtrasActivado, segundosRestantes);
+            if(LocalPlayerPointer.Instance.gamePlayerGameObject && !LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
+                    _interfazController.CuentaAtras(cuentaAtrasActivado, segundosRestantes);
            
             yield return new WaitForSeconds(1);
             contadorTiempo++;
             segundosRestantes--;
         }
-        
-        foreach (var jugador in _informacionJugadores)
-        {
-            if(!jugador.finCarrera) 
-                GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2 , contadorTiempo);
-        }
-                
-        cuentaAtrasActivado = false;
 
+        if (isServer)
+        {
+            foreach (var jugador in _informacionJugadores)
+            {
+                if(!jugador.finCarrera) 
+                    GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2 , contadorTiempo);
+            }
+                    
+            cuentaAtrasActivado = false;            
+        }
     }
 
     public void GestionCarreraTerminada(InformacionJugador jugador, int puntos, int tiempoCarrera)
@@ -211,7 +212,7 @@ public class PosicionCarreraController : NetworkBehaviour
     {
         Debug.Log("FinishRacePosition");
         target.gameObject.GetComponent<CarController>().CmdSetPositionRotation(spawnsFinales[sumOrd].transform.position,spawnsFinales[sumOrd].transform.rotation);
-        target.gameObject.GetComponent<CarController>().DesactivateCar();
+        target.gameObject.GetComponent<CarController>().TargetDesactivateCar();
     }
     
 }

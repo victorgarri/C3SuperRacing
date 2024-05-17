@@ -20,7 +20,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/TerrainTest.unity
     guid: c7d4e561825012a4eb17955dd40c8ca2
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/M0/Minijuego0.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   m_configObjects: {}

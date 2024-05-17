@@ -68,8 +68,7 @@ public class CarController : NetworkBehaviour
     
     private Rigidbody _rigidbody;
     private PlayerInput _playerInput;
-    private GameObject _cameraPivot;
-    private GameObject _camera;
+    [SerializeField]private GameObject _camera;
     public bool enableControls;
 
     [SerializeField]
@@ -87,7 +86,6 @@ public class CarController : NetworkBehaviour
         _interfazController = FindObjectOfType<GameManager>().interfazUsuario.GetComponent<InterfazController>();
             
         // _cameraPivot = transform.Find("CameraPivot").gameObject;
-        _camera = transform.Find("PlayerCamera").gameObject;
         
         _audioSource = this.GetComponent<AudioSource>();
         _sonidoFondo = FindObjectOfType<SonidoFondo>().gameObject.GetComponent<SonidoFondo>();
@@ -100,7 +98,7 @@ public class CarController : NetworkBehaviour
         DesactivateCar();
     }
     
-    public void ActivateCar(int seconds)
+    public void ActivateCar(float seconds)
     {
         if (isLocalPlayer)
             _camera.SetActive(true);
@@ -109,24 +107,31 @@ public class CarController : NetworkBehaviour
         
     }
     
-    private IEnumerator EnableControlsCoroutine(int seconds)
+    private IEnumerator EnableControlsCoroutine(float seconds)
     {
-        //Efecto de sonido de arrancar motor
-        EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
+            //Efecto de sonido de arrancar motor
+            //EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
 
-        //Efecto de sonido de motor arrancado
-        yield return new WaitForSeconds(seconds - 2);
-        EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
-        
-        yield return new WaitForSeconds(seconds - 1);
+            //Efecto de sonido de motor arrancado
+            //yield return new WaitForSeconds(seconds - 0.2f);
+            //EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
+            
+            //yield return new WaitForSeconds(seconds-0.1f);
+        yield return new WaitForSeconds(seconds);
+        enableControls = true;
         _sonidoFondo.ReproducirMusicaVelocidadNormal(_informacionJugador.indiceCarrera);
         motorCoche.gameObject.SetActive(true);
-        enableControls = true;
     }
 
     private void EjecutarEfectoSonido(AudioClip clip, float volumen)
     {
         _audioSource.PlayOneShot(clip, volumen);
+    }
+
+    [TargetRpc]
+    public void TargetDesactivateCar()
+    {
+       DesactivateCar();
     }
 
     public void DesactivateCar()
@@ -135,7 +140,6 @@ public class CarController : NetworkBehaviour
 
         CmdSetGiro(0);
         CmdSetPedal(0);
-        CmdSetCameraInput(0);
         CmdSetIsBreaking(true);
         
         _camera.SetActive(false);
@@ -242,30 +246,26 @@ public class CarController : NetworkBehaviour
 
         CmdSetGiro(_playerInput.actions["Steer"].ReadValue<float>());
         CmdSetPedal(_playerInput.actions["Throtle"].ReadValue<float>());
-        CmdSetCameraInput(_playerInput.actions["Camera"].ReadValue<float>());
         CmdSetIsBreaking(_playerInput.actions["Brake"].IsPressed());
     }
     
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdSetGiro(float giroInput)
     {
         giro = giroInput;
     }
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdSetPedal(float pedalInput)
     {
         pedal = pedalInput;
     }
-    [Command]
-    private void CmdSetCameraInput(float cameraInput)
-    {
-        cameraTurn = cameraInput;
-    }
-    [Command]
+    [Command(requiresAuthority = false)]
     private void CmdSetIsBreaking(bool breakingInput)
     {
         isBreaking = breakingInput;
     }
+    
+    
     
     private void HandleMotor()
     {
@@ -371,7 +371,7 @@ public class CarController : NetworkBehaviour
         }
     }
 
-    [Command]
+    [Command(requiresAuthority = false)]
     public void CmdSetPositionRotation(Vector3 transformPosition, Quaternion transformRotation)
     {
         this.transform.position = transformPosition;

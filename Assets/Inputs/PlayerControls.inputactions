@@ -250,17 +250,6 @@
                 },
                 {
                     "name": "",
-                    "id": "777c97d2-3422-402a-830b-d4df9c247cd3",
-                    "path": "<Gamepad>/buttonEast",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Throw",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "8c82cf6b-fd42-4577-9607-f68ea9b5ad36",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",

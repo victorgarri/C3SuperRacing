@@ -31,6 +31,7 @@ public class ReadyStartController : NetworkBehaviour
         if (isServer)
         {
             btnStart.gameObject.SetActive(true);
+            spectatorMode.transform.parent.gameObject.SetActive(true);
             btnStart.onClick.AddListener(delegate { NRM.StartGame(); });
         }
         

@@ -42,5 +42,7 @@ public class CountDownText : MonoBehaviour
         _countDownText.text = "GO!";
         _countDownAnimator.SetTrigger(GO);
         _countDownAnimator.enabled = true;
+        if(!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(0);
     }
 }

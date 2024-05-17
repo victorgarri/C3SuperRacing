@@ -2,6 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine;
+using UnityEngine.Rendering;
+using UnityEngine.UI;
 
 public class MFuerzaGameManager : MonoBehaviour
 {
@@ -11,7 +14,7 @@ public class MFuerzaGameManager : MonoBehaviour
     public int enemiesDestroyed;
     private float lastDestroyedTime;
     public float startTime;
-    public float maxTime = 45f;
+    public float maxTime = 50f;
     private FriendsController friendsController;
     private PlayerControllerSF playerController;
     private EnemySpawner enemySpawner;
@@ -20,6 +23,7 @@ public class MFuerzaGameManager : MonoBehaviour
     public AudioClip musicaFondo, finJuego;
     private AudioSource audioSource;
     private GameManager _globalGameManager;
+    [SerializeField] private Image panelInicio;
 
     
     void Start()
@@ -34,6 +38,7 @@ public class MFuerzaGameManager : MonoBehaviour
         audioSource.loop = true;
         audioSource.pitch = 0.95f;
         audioSource.Play();
+        StartCoroutine(TutorialPanel());
     }
 
     void Update()
@@ -50,6 +55,11 @@ public class MFuerzaGameManager : MonoBehaviour
         {
             if(!end)
                 EndGame();
+        }
+
+        if (elapsedTime >= 5)
+        {
+            panelInicio.gameObject.SetActive(false);
         }
     }
     
@@ -103,5 +113,13 @@ public class MFuerzaGameManager : MonoBehaviour
         int enemyBonus = enemiesDestroyed * 1000;
 
         score = Mathf.Max(baseScore - damagePenalty + enemyBonus, 0);
+    }
+    
+    private IEnumerator TutorialPanel()
+    {        
+        playerController.disableControls = true;
+        yield return new WaitForSeconds(5);
+        panelInicio.gameObject.SetActive(false);
+        playerController.disableControls = false;
     }
 }

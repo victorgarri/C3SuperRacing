@@ -156,7 +156,7 @@ public class InterfazController : MonoBehaviour
         if (muestroCuentaAtras)
         {
             textoCuentaAtras.gameObject.SetActive(true);
-            textoCuentaAtras.text = "Tiempo restante: "+numero.ToString();
+            textoCuentaAtras.text = "Tiempo restante \n" +numero.ToString();
         }
         else
         {

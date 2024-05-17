@@ -1000,11 +1000,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1132,6 +1132,14 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[7]
       value: 
       objectReference: {fileID: 2100000, guid: 8acf79d4d2fac7a4fab56ed7a289ce99, type: 2}
+    - target: {fileID: -7046228403425358025, guid: ff1d391d64261a54b8869ea0b2f443ad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -4671925420836088789, guid: ff1d391d64261a54b8869ea0b2f443ad, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: -4450536759890801738, guid: ff1d391d64261a54b8869ea0b2f443ad, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -1405,6 +1413,7 @@ MonoBehaviour:
   sonidoCocheChocandoConOtro: {fileID: 8300000, guid: 38433446a21766243aa2d913d53a9f45, type: 3}
   claxonCoche: {fileID: 8300000, guid: 5705738d4dd3e9042bec0ada2aa60cc6, type: 3}
   claxonCoche2: {fileID: 8300000, guid: 32536f8bea17c9d4492d49d91e002292, type: 3}
+  _camera: {fileID: 1069329600131005344}
   enableControls: 0
   carLights:
   - {fileID: 5014307905121681744}
@@ -1434,6 +1443,7 @@ MonoBehaviour:
   nVueltasCircuito: 0
   nWaypoints: 0
   siguienteWaypoint: 0
+  prevWaypoint: 0
   distanciaSiguienteWaypoint: 0
   posicionAnterior: 0
   _interfazController: {fileID: 0}

@@ -14,7 +14,7 @@ public class EnemySpawner : MonoBehaviour
     public float maxSpeed = 10f;
     public int enemiesSpawned = 0;
     private float startTime;
-    private const int totalEnemiesToSpawn = 21;
+    private const int totalEnemiesToSpawn = 25;
 
     void Start()
     {

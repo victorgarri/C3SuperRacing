@@ -56,12 +56,15 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
             camaraSeleccionCoche.btnIzquierda.onClick.AddListener(delegate { CmdUpdateSelectedCar(-1); });
             camaraSeleccionCoche.btnDerecha.onClick.AddListener(delegate { CmdUpdateSelectedCar(+1); });
             
-            readyStartController.spectatorMode.onValueChanged.AddListener(delegate(bool newSpectatorValue) { CmdSetSpectator(newSpectatorValue); });
+            
             
         }
-        
+
         if (isServer)
-            CmdCreatePlayerPanel();
+        {
+            readyStartController.spectatorMode.onValueChanged.AddListener(delegate(bool newSpectatorValue) { CmdSetSpectator(newSpectatorValue); });
+            CmdCreatePlayerPanel();            
+        }
     }
 
     [Command]

@@ -6,6 +6,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using TMPro;
 using Random = UnityEngine.Random;
+using UnityEngine.UI;
 
 public class M0GameManager : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class M0GameManager : MonoBehaviour
     private float lastCollectedTime; 
     private bool end = false;
     public int gamePoints = 0;
-    public float maxTime = 60f;
+    public float maxTime = 65f;
     public int probabilidadCajaReforzada;
     public int probabilidadTnt;
     public GameObject cajaPrefab;
@@ -31,6 +32,7 @@ public class M0GameManager : MonoBehaviour
     [SerializeField] private GameManager _globalGameManager;
     public AudioClip musicaFondo, finJuego;
     private AudioSource audioSource;
+    [SerializeField] private Image panelInicio;
     
     void Start()
     {
@@ -43,6 +45,7 @@ public class M0GameManager : MonoBehaviour
         audioSource.clip = musicaFondo;
         audioSource.loop = true;
         audioSource.Play();
+        StartCoroutine(TutorialPanel());
     }
     
     private void GenerateRandomBoxes()
@@ -170,5 +173,14 @@ public class M0GameManager : MonoBehaviour
             if(!end)
                 EndGame();
         }
+        
+    }
+
+    private IEnumerator TutorialPanel()
+    {        
+        playerController.disableControls = true;
+        yield return new WaitForSeconds(5);
+        panelInicio.gameObject.SetActive(false);
+        playerController.disableControls = false;
     }
 }

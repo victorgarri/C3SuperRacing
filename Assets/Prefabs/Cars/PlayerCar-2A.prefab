@@ -1000,11 +1000,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.25
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 8807838250447245283, guid: 1d8dc879a2092314292010ce5b1c68a5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1176,6 +1176,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[2]
       value: 
       objectReference: {fileID: 2100000, guid: edcbd0238ea75784f8c7f8e4a371f15e, type: 2}
+    - target: {fileID: 3249110328877840610, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6313664794309705147, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1192,6 +1196,10 @@ PrefabInstance:
       propertyPath: m_Materials.Array.data[0]
       value: 
       objectReference: {fileID: 2100000, guid: edcbd0238ea75784f8c7f8e4a371f15e, type: 2}
+    - target: {fileID: 8827900706884529555, guid: b0aa0338877f05e47a510196e5c91c77, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects:
@@ -1367,6 +1375,7 @@ MonoBehaviour:
   sonidoCocheChocandoConOtro: {fileID: 8300000, guid: 38433446a21766243aa2d913d53a9f45, type: 3}
   claxonCoche: {fileID: 8300000, guid: 5705738d4dd3e9042bec0ada2aa60cc6, type: 3}
   claxonCoche2: {fileID: 8300000, guid: 32536f8bea17c9d4492d49d91e002292, type: 3}
+  _camera: {fileID: 6497668200481653295}
   enableControls: 0
   carLights:
   - {fileID: 2247832770867074722}
@@ -1396,6 +1405,7 @@ MonoBehaviour:
   nVueltasCircuito: 0
   nWaypoints: 0
   siguienteWaypoint: 0
+  prevWaypoint: 0
   distanciaSiguienteWaypoint: 0
   posicionAnterior: 0
   _interfazController: {fileID: 0}
