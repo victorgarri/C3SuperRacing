@@ -109,18 +109,35 @@ public class CarController : NetworkBehaviour
     
     private IEnumerator EnableControlsCoroutine(float seconds)
     {
+        if (seconds == 3)
+        {
             //Efecto de sonido de arrancar motor
-            //EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
-
+            EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
+        
             //Efecto de sonido de motor arrancado
-            //yield return new WaitForSeconds(seconds - 0.2f);
-            //EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
+            yield return new WaitForSeconds(1);
+            EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
+        
+            yield return new WaitForSeconds(2);
+            enableControls = true;
+            _sonidoFondo.ReproducirMusicaVelocidadNormal(_informacionJugador.indiceCarrera);
+            motorCoche.gameObject.SetActive(true);
             
-            //yield return new WaitForSeconds(seconds-0.1f);
-        yield return new WaitForSeconds(seconds);
-        enableControls = true;
-        _sonidoFondo.ReproducirMusicaVelocidadNormal(_informacionJugador.indiceCarrera);
-        motorCoche.gameObject.SetActive(true);
+        } else if (seconds == 8)
+        {
+            //Efecto de sonido de arrancar motor
+            yield return new WaitForSeconds(5);
+            EjecutarEfectoSonido(sonidoCocheArranque, 0.5f);
+        
+            //Efecto de sonido de motor arrancado
+            yield return new WaitForSeconds(1);
+            EjecutarEfectoSonido(sonidoCocheArrancadoYa, 0.5f);
+        
+            yield return new WaitForSeconds(2);
+            enableControls = true;
+            _sonidoFondo.ReproducirMusicaVelocidadNormal(_informacionJugador.indiceCarrera);
+            motorCoche.gameObject.SetActive(true);
+        }
     }
 
     private void EjecutarEfectoSonido(AudioClip clip, float volumen)
