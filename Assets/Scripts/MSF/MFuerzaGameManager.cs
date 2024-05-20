@@ -84,9 +84,10 @@ public class MFuerzaGameManager : MonoBehaviour
         }
         
         finalMessage.text = $"¡Bien hecho!\nHas derrotado {enemiesDestroyed} enemigos\nLos ciudadanos están a salvo";
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(enemiesDestroyed);
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(true);
-        _globalGameManager.CheckAllPlayersWaiting();
+        var infomacionJugador = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>();
+        infomacionJugador.SetMinigameScore(enemiesDestroyed);
+        infomacionJugador.CmdSetFinMinijuego(true);
+        _globalGameManager.CheckAllPlayersWaiting(infomacionJugador);
     }
 
     private string FormatTime(float time)

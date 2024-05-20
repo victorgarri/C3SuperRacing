@@ -107,11 +107,13 @@ public class GameManager : NetworkBehaviour
     }
 
     [Command (requiresAuthority = false)]
-    public void CheckAllPlayersWaiting()
+    public void CheckAllPlayersWaiting(InformacionJugador jugador)
     {
+        if(currentGameType==GameType.Race) jugador.finCarrera = true;
         // Debug.Log("Comprobando si estamos ready");
         var informacionJugadores = FindObjectsOfType<InformacionJugador>();
         
+        Debug.Log("CheckPlayersWaiting, GameType: "+currentGameType);
         if (currentGameType == GameType.Minigame)
         {
             foreach (var informacionJugador in informacionJugadores)
@@ -146,7 +148,7 @@ public class GameManager : NetworkBehaviour
             }
         }
         
-        // Debug.Log("Todo el mundo ready, iniciando cuenta atras de 5s");
+        Debug.Log("Todo el mundo ready, iniciando cuenta atras de 5s");
 
         StartCoroutine(CambiaAlSiguienteJuego());
     }
@@ -270,6 +272,7 @@ public class GameManager : NetworkBehaviour
     public void ActualizarPuntuacionJugadorCarrera(InformacionJugador jugador, int puntuacion, int tiempo)
     {
         var playerPoints = playerRacePointsList.FirstOrDefault(i => i.networkIdentity == jugador.netIdentity);
+        
         if (playerPoints.Equals(default(PlayerRacePoints)))
         {
             playerPoints.listaPuntuacionCarrera = new List<int>(new int[3]);
@@ -296,8 +299,8 @@ public class GameManager : NetworkBehaviour
             playerRacePointsList.Remove(playerPoints);
             playerRacePointsList.Add(playerPointsAux);
         }
-        // Debug.Log("CHECK PLAYERS WAITING");
-        CheckAllPlayersWaiting();
+        Debug.Log("CHECK PLAYERS WAITING");
+        CheckAllPlayersWaiting(jugador);
     }
     
     void OnPlayerRacePointsListUpdated(SyncList<PlayerRacePoints>.Operation op, int index, PlayerRacePoints oldItem, PlayerRacePoints newItem)

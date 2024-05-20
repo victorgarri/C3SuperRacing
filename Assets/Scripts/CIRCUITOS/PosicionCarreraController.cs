@@ -188,12 +188,16 @@ public class PosicionCarreraController : NetworkBehaviour
             segundosRestantes--;
         }
 
+        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera = true;
         if (isServer)
         {
             foreach (var jugador in _informacionJugadores)
             {
-                if(!jugador.finCarrera) 
-                    GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2 , contadorTiempo);
+                if (!jugador.finCarrera)
+                {
+                    Debug.Log(jugador.netId);
+                    GestionCarreraTerminada(jugador, (puntuacionMaxima - 2 * (jugador.posicionActual-1))/2 , contadorTiempo);                    
+                } 
             }
                     
             cuentaAtrasActivado = false;            
@@ -202,15 +206,14 @@ public class PosicionCarreraController : NetworkBehaviour
 
     public void GestionCarreraTerminada(InformacionJugador jugador, int puntos, int tiempoCarrera)
     {
-        jugador.finCarrera = true;
-        jugador.CmdSetFinCarrera(true);
+        
+        if(!isServer) jugador.finCarrera = true;
         _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos, tiempoCarrera);
         FinishRacePosition(jugador,jugador.posicionActual-1);
     }
     
     public void FinishRacePosition(InformacionJugador target, int sumOrd)
     {
-        Debug.Log("FinishRacePosition");
         target.gameObject.GetComponent<CarController>().CmdSetPositionRotation(spawnsFinales[sumOrd].transform.position,spawnsFinales[sumOrd].transform.rotation);
         target.gameObject.GetComponent<CarController>().TargetDesactivateCar();
     }

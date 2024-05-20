@@ -146,9 +146,10 @@ public class MJEGameManager : MonoBehaviour
                 audioSourceSonidoFondo.Stop();
         }
         
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(puntuacionFinal);
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(true);
-        _globalGameManager.CheckAllPlayersWaiting();
+        var infomacionJugador = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>();
+        infomacionJugador.SetMinigameScore(puntuacionFinal);
+        infomacionJugador.CmdSetFinMinijuego(true);
+        _globalGameManager.CheckAllPlayersWaiting(infomacionJugador);
     }
 
     public void CalculoPuntosFinales()

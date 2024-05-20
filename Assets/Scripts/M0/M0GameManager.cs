@@ -139,9 +139,10 @@ public class M0GameManager : MonoBehaviour
             finalMessage.text = $"Tiempo límite alcanzado\nÚltima pieza recogida en {FormatTime(lastCollectedTime)} segundos\nTotal de piezas: {piecesCollected}\nHas conseguido "+gamePoints+" puntos!";
         }
         
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().SetMinigameScore(gamePoints);
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().CmdSetFinMinijuego(true);
-        _globalGameManager.CheckAllPlayersWaiting();
+        var infomacionJugador = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>();
+        infomacionJugador.SetMinigameScore(gamePoints);
+        infomacionJugador.CmdSetFinMinijuego(true);
+        _globalGameManager.CheckAllPlayersWaiting(infomacionJugador);
     }
 
     private void CalculatePoints()
