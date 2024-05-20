@@ -41,7 +41,6 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
         CmdUpdateSelectedCar(0);
         
         
-        
         readyStartController = GameObject.Find("BotoneraReadyStart").GetComponent<ReadyStartController>();
         camaraSeleccionCoche = GameObject.Find("CamaraVisualizacionCoches").GetComponent<CamaraSeleccionCoche>();
         panelSeleccionCoche = GameObject.Find("SeleccionCochePanel");
@@ -52,12 +51,10 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
         {
             LocalPlayerPointer.Instance.roomPlayer = this;
             readyStartController.btnReady.onClick.AddListener(delegate { PlayerReadyToggle();});
+            playerName = "Carlitos " + LocalPlayerPointer.Instance.roomPlayer.playerIndex;
             readyStartController.playerNameInput.onValueChanged.AddListener(delegate(string newStringInput) { CmdPlayerSetName(newStringInput); });
             camaraSeleccionCoche.btnIzquierda.onClick.AddListener(delegate { CmdUpdateSelectedCar(-1); });
             camaraSeleccionCoche.btnDerecha.onClick.AddListener(delegate { CmdUpdateSelectedCar(+1); });
-            
-            
-            
         }
 
         if (isServer)
