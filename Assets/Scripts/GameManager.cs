@@ -323,9 +323,9 @@ public class GameManager : NetworkBehaviour
             jugador.indiceCarrera++;
             jugador.nVueltasCircuito = posicionCarreraController.vueltasTotales;
             jugador.finCarrera = false;
-            jugador.isPowerUpCollected = false;
 
             // if (!authority) continue;
+            jugador.SetPowerUpFalse(false);
             jugador.SetVueltaActual(1);
             jugador.SetNWaypoints(0);
             jugador.SetSiguienteWaypoint(0);
