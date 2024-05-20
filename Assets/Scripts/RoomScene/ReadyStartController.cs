@@ -16,8 +16,11 @@ public class ReadyStartController : NetworkBehaviour
     private Image colorBtnReady;
     private string colorRojo = "#CC6666";
     private string colorVerde = "#B8DABA";
-
     public TextMeshProUGUI txtReady;
+
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip audioConfirmacionBotonReady;
+    [SerializeField] private AudioClip audioCancelacionBotonReady;
 
     private MyNRM NRM;
     // Start is called before the first frame update
@@ -47,16 +50,18 @@ public class ReadyStartController : NetworkBehaviour
         {
             
             isReady = true;
-            cambioColor = HexToColor(colorVerde);
-            cambioTexto = "READY";
+            cambioColor = HexToColor(colorRojo);
+            cambioTexto = "NOT READY";
+            EjecutaEfectoSonido(audioConfirmacionBotonReady, 0.5f);
             
         }
         //Ajustes cuando el jugador no este listo
         else
         {
             isReady = false;
-            cambioColor = HexToColor(colorRojo);
-            cambioTexto = "NOT READY";
+            cambioColor = HexToColor(colorVerde);
+            cambioTexto = "READY";
+            EjecutaEfectoSonido(audioCancelacionBotonReady, 0.5f);
         }
         
         colorBtnReady.color = cambioColor;
@@ -73,17 +78,8 @@ public class ReadyStartController : NetworkBehaviour
         return new Color32(r, g, b, 255);
     }
 
-    private void gestionModoEspectador(bool isOn)
+    private void EjecutaEfectoSonido(AudioClip efecto, float volumen)
     {
-        if (isOn)
-        {
-            // Debug.Log("El Toggle está activado");
-            // Realiza acciones específicas cuando el Toggle está activado
-        }
-        else
-        {
-            // Debug.Log("El Toggle está desactivado");
-            // Realiza acciones específicas cuando el Toggle está desactivado
-        }
+        _audioSource.PlayOneShot(efecto, volumen);
     }
 }

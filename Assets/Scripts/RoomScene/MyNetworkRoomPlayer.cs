@@ -121,9 +121,13 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
         if (!String.IsNullOrEmpty(newName))
         {
             playerName = newName;
-            myPlayerPanel.GetComponent<RoomPanelJugador>().playerName = playerName;
             
         }
+        else
+        {
+            playerName = "Carlitos " + LocalPlayerPointer.Instance.roomPlayer.playerIndex;
+        }
+        myPlayerPanel.GetComponent<RoomPanelJugador>().playerName = playerName;
     }
     
     [Command]
