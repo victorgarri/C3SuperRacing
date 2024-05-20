@@ -207,8 +207,6 @@ public class GameManager : NetworkBehaviour
 
         if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
         {
-            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(countDownTime);
-            
             if (index == 0)
                 StartCoroutine(DesactivarPanelTutorial());
             interfazUsuario.GetComponent<InterfazController>().cambiosMinimapa(index);            
@@ -330,6 +328,7 @@ public class GameManager : NetworkBehaviour
             jugador.finCarrera = false;
 
             // if (!authority) continue;
+            jugador.SetPowerUpFalse(false);
             jugador.SetVueltaActual(1);
             jugador.SetNWaypoints(0);
             jugador.SetSiguienteWaypoint(0);

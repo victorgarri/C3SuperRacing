@@ -231,6 +231,12 @@ public class InformacionJugador : NetworkBehaviour
         
     }
 
+    [Command(requiresAuthority = false)]
+    public void SetPowerUpFalse(bool isPowerUp)
+    {
+        this.isPowerUpCollected = isPowerUp;
+        this.powerUpImage.sprite = nonePowerUpSprite;
+    }
 
     [Command]
     public void SetMinigameScore(Nullable<int> score)

@@ -30,9 +30,14 @@ public class CountDownText : MonoBehaviour
 
     private IEnumerator CountDownCoroutine()
     {
-        _countDownAnimator.enabled = true;   
+        _countDownAnimator.enabled = true;
+        
+        if (!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
+            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(countDown);
+        
         while (countDown>0)
         {
+            
             _countDownText.text = countDown.ToString();
             _countDownAnimator.SetTrigger(Countdown);
             yield return new WaitForSeconds(1);
@@ -42,7 +47,5 @@ public class CountDownText : MonoBehaviour
         _countDownText.text = "GO!";
         _countDownAnimator.SetTrigger(GO);
         _countDownAnimator.enabled = true;
-        if(!LocalPlayerPointer.Instance.roomPlayer.isSpectator)
-            LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<CarController>().ActivateCar(0);
     }
 }

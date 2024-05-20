@@ -11,6 +11,9 @@ public class CamaraSeleccionCoche : MonoBehaviour
     //Declaro los botones
     public Button btnIzquierda, btnDerecha;
 
+    [SerializeField] private AudioSource _audioSource;
+    [SerializeField] private AudioClip sonidoBoton;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +32,8 @@ public class CamaraSeleccionCoche : MonoBehaviour
         }
 
         this.transform.position = new Vector3(nuevaPosicion,this.transform.position.y, this.transform.position.z);
+        
+        _audioSource.PlayOneShot(sonidoBoton, 0.7f);
     }
 
     // Método para mover la cámara hacia la derecha
@@ -42,5 +47,7 @@ public class CamaraSeleccionCoche : MonoBehaviour
         }
 
         this.transform.position = new Vector3(nuevaPosicion,this.transform.position.y, this.transform.position.z);
+        
+        _audioSource.PlayOneShot(sonidoBoton, 0.7f);
     }
 }

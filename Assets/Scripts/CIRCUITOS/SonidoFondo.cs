@@ -50,7 +50,7 @@ public class SonidoFondo : MonoBehaviour
     {
         if (_audioSource.isPlaying)
         {
-            _audioSource.pitch = 1.3f;
+            _audioSource.pitch = 1.2f;
         
         }
     }
