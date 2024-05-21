@@ -71,7 +71,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private GameObject interfazUsuarioModoEspectador;
     
     [SerializeField] private Image panelInicio;
-    
+    private bool changingScene;
+
     // [SerializeField]
     // private GameObject _minijuego0;
 
@@ -107,13 +108,16 @@ public class GameManager : NetworkBehaviour
     }
 
     [Command (requiresAuthority = false)]
-    public void CheckAllPlayersWaiting(InformacionJugador jugador)
+    public void CheckAllPlayersWaiting()
     {
-        if(currentGameType==GameType.Race) jugador.finCarrera = true;
+        
         // Debug.Log("Comprobando si estamos ready");
         var informacionJugadores = FindObjectsOfType<InformacionJugador>();
         
         Debug.Log("CheckPlayersWaiting, GameType: "+currentGameType);
+
+        if (changingScene) return;
+        
         if (currentGameType == GameType.Minigame)
         {
             foreach (var informacionJugador in informacionJugadores)
@@ -147,6 +151,8 @@ public class GameManager : NetworkBehaviour
                     return;
             }
         }
+
+        changingScene = true;
         
         Debug.Log("Todo el mundo ready, iniciando cuenta atras de 5s");
 
@@ -156,6 +162,8 @@ public class GameManager : NetworkBehaviour
     private IEnumerator CambiaAlSiguienteJuego() 
     {
         yield return new WaitForSeconds(5);
+
+        changingScene = false;
         // Debug.Log("Cambiando juego AHORA");
         var playersCarController = FindObjectsOfType<CarController>();
         if (currentGameType == GameType.Race && minigameIndex + 1 < ordenMinijuegos.Count)
@@ -266,7 +274,7 @@ public class GameManager : NetworkBehaviour
         ordenMinijuegos[index].SetActive(true);
     }
 
-    [Command(requiresAuthority = false)]
+    // [Command(requiresAuthority = false)]
     public void ActualizarPuntuacionJugadorCarrera(InformacionJugador jugador, int puntuacion, int tiempo)
     {
         var playerPoints = playerRacePointsList.FirstOrDefault(i => i.networkIdentity == jugador.netIdentity);
@@ -297,8 +305,9 @@ public class GameManager : NetworkBehaviour
             playerRacePointsList.Remove(playerPoints);
             playerRacePointsList.Add(playerPointsAux);
         }
+        
         Debug.Log("CHECK PLAYERS WAITING");
-        CheckAllPlayersWaiting(jugador);
+        CheckAllPlayersWaiting();
     }
     
     void OnPlayerRacePointsListUpdated(SyncList<PlayerRacePoints>.Operation op, int index, PlayerRacePoints oldItem, PlayerRacePoints newItem)

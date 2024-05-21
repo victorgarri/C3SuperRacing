@@ -149,7 +149,7 @@ public class MJEGameManager : MonoBehaviour
         var infomacionJugador = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>();
         infomacionJugador.SetMinigameScore(puntuacionFinal);
         infomacionJugador.CmdSetFinMinijuego(true);
-        _globalGameManager.CheckAllPlayersWaiting(infomacionJugador);
+        _globalGameManager.CheckAllPlayersWaiting();
     }
 
     public void CalculoPuntosFinales()

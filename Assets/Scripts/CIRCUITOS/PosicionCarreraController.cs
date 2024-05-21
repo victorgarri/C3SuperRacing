@@ -206,8 +206,7 @@ public class PosicionCarreraController : NetworkBehaviour
 
     public void GestionCarreraTerminada(InformacionJugador jugador, int puntos, int tiempoCarrera)
     {
-        
-        if(!isServer) jugador.finCarrera = true;
+        jugador.finCarrera = true;
         _gameManager.ActualizarPuntuacionJugadorCarrera(jugador, puntos, tiempoCarrera);
         FinishRacePosition(jugador,jugador.posicionActual-1);
     }

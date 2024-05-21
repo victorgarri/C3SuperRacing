@@ -87,7 +87,8 @@ public class MFuerzaGameManager : MonoBehaviour
         var infomacionJugador = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>();
         infomacionJugador.SetMinigameScore(enemiesDestroyed);
         infomacionJugador.CmdSetFinMinijuego(true);
-        _globalGameManager.CheckAllPlayersWaiting(infomacionJugador);
+        _globalGameManager.CheckAllPlayersWaiting();
+        
     }
 
     private string FormatTime(float time)

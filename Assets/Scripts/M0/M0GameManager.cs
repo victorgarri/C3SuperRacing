@@ -142,7 +142,7 @@ public class M0GameManager : MonoBehaviour
         var infomacionJugador = LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>();
         infomacionJugador.SetMinigameScore(gamePoints);
         infomacionJugador.CmdSetFinMinijuego(true);
-        _globalGameManager.CheckAllPlayersWaiting(infomacionJugador);
+        _globalGameManager.CheckAllPlayersWaiting();
     }
 
     private void CalculatePoints()
