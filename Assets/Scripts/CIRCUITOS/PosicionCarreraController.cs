@@ -188,7 +188,7 @@ public class PosicionCarreraController : NetworkBehaviour
             segundosRestantes--;
         }
 
-        LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera = true;
+        
         if (isServer)
         {
             foreach (var jugador in _informacionJugadores)

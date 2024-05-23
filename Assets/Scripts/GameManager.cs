@@ -277,6 +277,7 @@ public class GameManager : NetworkBehaviour
     // [Command(requiresAuthority = false)]
     public void ActualizarPuntuacionJugadorCarrera(InformacionJugador jugador, int puntuacion, int tiempo)
     {
+        jugador.finCarrera = true;
         var playerPoints = playerRacePointsList.FirstOrDefault(i => i.networkIdentity == jugador.netIdentity);
         
         if (playerPoints.Equals(default(PlayerRacePoints)))
@@ -312,15 +313,22 @@ public class GameManager : NetworkBehaviour
     
     void OnPlayerRacePointsListUpdated(SyncList<PlayerRacePoints>.Operation op, int index, PlayerRacePoints oldItem, PlayerRacePoints newItem)
     {
-        if(LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
         
-        
-        // Aqui vamos a incluir las funciones que actualizaran la pantalla de los clientes cuando se actualice la lista de datos
-        if (!isLocalPlayer && LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<InformacionJugador>().finCarrera)
+        if( LocalPlayerPointer.Instance.roomPlayer.isSpectator) return;
+
+        if (newItem.networkIdentity)
         {
-            _resultadoCarreraController.gameObject.SetActive(true);
-            _resultadoCarreraController.actualizarTablaPuntuacion();
+            newItem.networkIdentity.gameObject.GetComponent<InformacionJugador>().finCarrera = true;
+            if(newItem.networkIdentity.netId == LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<NetworkIdentity>().netId) _resultadoCarreraController.gameObject.SetActive(true);
         }
+
+        if (oldItem.networkIdentity)
+        {
+            oldItem.networkIdentity.gameObject.GetComponent<InformacionJugador>().finCarrera = true;
+            if(oldItem.networkIdentity.netId == LocalPlayerPointer.Instance.gamePlayerGameObject.GetComponent<NetworkIdentity>().netId) _resultadoCarreraController.gameObject.SetActive(true);
+        }
+        
+        _resultadoCarreraController.actualizarTablaPuntuacion();
     }
     
     private void ReseteoVariablesJugadores(int posicionCarreraControllerIndex)
