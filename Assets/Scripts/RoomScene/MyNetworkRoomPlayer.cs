@@ -51,7 +51,6 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
         {
             LocalPlayerPointer.Instance.roomPlayer = this;
             readyStartController.btnReady.onClick.AddListener(delegate { PlayerReadyToggle();});
-            playerName = "Carlitos " + LocalPlayerPointer.Instance.roomPlayer.playerIndex;
             readyStartController.playerNameInput.onValueChanged.AddListener(delegate(string newStringInput) { CmdPlayerSetName(newStringInput); });
             camaraSeleccionCoche.btnIzquierda.onClick.AddListener(delegate { CmdUpdateSelectedCar(-1); });
             camaraSeleccionCoche.btnDerecha.onClick.AddListener(delegate { CmdUpdateSelectedCar(+1); });
@@ -117,14 +116,10 @@ public class MyNetworkRoomPlayer : NetworkRoomPlayer
     {
         if (!String.IsNullOrEmpty(newName))
         {
-            playerName = newName;
-            
+            playerName = newName; 
+            myPlayerPanel.GetComponent<RoomPanelJugador>().playerName = playerName;    
         }
-        else
-        {
-            playerName = "Carlitos " + LocalPlayerPointer.Instance.roomPlayer.playerIndex;
-        }
-        myPlayerPanel.GetComponent<RoomPanelJugador>().playerName = playerName;
+        
     }
     
     [Command]

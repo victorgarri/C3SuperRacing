@@ -102,7 +102,15 @@ public class CarController : NetworkBehaviour
     {
         if (isLocalPlayer)
             _camera.SetActive(true);
+        
         _interfazController.gameObject.SetActive(true);
+        
+        var listaBillboard = GameObject.FindObjectsOfType<Billboard>();
+        foreach (var billboard in listaBillboard)
+        {
+            billboard.BuscaCamara();
+        }
+        
         StartCoroutine(EnableControlsCoroutine(seconds));
         
     }

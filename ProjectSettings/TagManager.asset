@@ -28,6 +28,7 @@ TagManager:
   - Obstaculo
   - Bala
   - Proyectil
+  - CamaraJugador
   layers:
   - Default
   - TransparentFX
