@@ -62,9 +62,13 @@ public class InformacionJugador : NetworkBehaviour
     public Sprite powerUpSprite;
     public Sprite nonePowerUpSprite;
     private PlayerInput _playerInput;
+    private AudioSource _audioSource;
+    [SerializeField] private AudioClip sonidoPillaPowerUp;
 
     void Start()
     {
+        _audioSource = this.GetComponent<AudioSource>();
+        
         cuadroEtiqueta = GetComponentInChildren<Image>().gameObject;
         
         etiquetaNombre = GetComponentInChildren<TMP_Text>();
@@ -203,6 +207,10 @@ public class InformacionJugador : NetworkBehaviour
         if (collision.CompareTag("PowerUp"))
         {
             if (!isServer) return;
+            
+            if(isLocalPlayer)
+                _audioSource.PlayOneShot(sonidoPillaPowerUp, 0.5f);
+            
             collision.GetComponent<MovPowerUps>().RpcDeactivate();
             TargetCollectPowerUp();
         }
