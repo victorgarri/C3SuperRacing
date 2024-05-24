@@ -208,8 +208,7 @@ public class InformacionJugador : NetworkBehaviour
         {
             if (!isServer) return;
             
-            if(isLocalPlayer)
-                _audioSource.PlayOneShot(sonidoPillaPowerUp, 0.5f);
+            _audioSource.PlayOneShot(sonidoPillaPowerUp, 0.5f);
             
             collision.GetComponent<MovPowerUps>().RpcDeactivate();
             TargetCollectPowerUp();

@@ -73,6 +73,8 @@ public class GameManager : NetworkBehaviour
     [SerializeField] private Image panelInicio;
     private bool changingScene;
 
+    [SerializeField] private SonidoFondo _sonidoFondo;
+
     // [SerializeField]
     // private GameObject _minijuego0;
 
@@ -194,6 +196,7 @@ public class GameManager : NetworkBehaviour
                     playerCarController.CmdMoveCar(raceIndex, playerCarController.GetComponent<InformacionJugador>().posicionActual-1);
                 }
             }
+            _sonidoFondo.ReproducirMusicaVelocidadNormal(raceIndex+1);
             EnableCarClientRPC(raceIndex);
             currentGameType = GameType.Race;
         }
